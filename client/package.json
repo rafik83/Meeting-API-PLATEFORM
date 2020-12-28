@@ -1,5 +1,5 @@
 {
-  "name": "TODO",
+  "name": "vimeet365",
   "description": "TODO",
   "version": "0.0.1",
   "scripts": {
@@ -9,12 +9,13 @@
     "start": "node __sapper__/build",
     "validate": "svelte-check --ignore src/node_modules/@sapper",
     "lint": "eslint 'src/**/*.{ts,svelte}'",
-    "prettify" :"prettier 'src/**/*.{ts,svelte}' -w"
+    "prettify": "prettier 'src/**/*.{ts,svelte}' -w"
   },
   "dependencies": {
     "compression": "^1.7.1",
     "polka": "next",
-    "sirv": "^1.0.0"
+    "sirv": "^1.0.0",
+    "svelte-i18n": "^3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -24,6 +25,7 @@
     "@babel/runtime": "^7.0.0",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-replace": "^2.2.0",
     "@rollup/plugin-typescript": "^6.0.0",
