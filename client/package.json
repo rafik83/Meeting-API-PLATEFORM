@@ -1,5 +1,5 @@
 {
-  "name": "TODO",
+  "name": "vimeet365",
   "description": "TODO",
   "version": "0.0.1",
   "scripts": {
@@ -9,7 +9,7 @@
     "start": "node __sapper__/build",
     "validate": "svelte-check --ignore src/node_modules/@sapper",
     "lint": "eslint 'src/**/*.{ts,svelte}'",
-    "prettify" :"prettier 'src/**/*.{ts,svelte}' -w"
+    "prettify": "prettier 'src/**/*.{ts,svelte}' -w"
   },
   "dependencies": {
     "compression": "^1.7.1",

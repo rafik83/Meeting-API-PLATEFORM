@@ -39,14 +39,14 @@
 </script>
 
 <svelte:head>
-  <title>Sapper project template</title>
+  <title>Vimeet 365</title>
 </svelte:head>
 
 <h1>Great success!</h1>
 
 <figure>
   <img alt="Success Kid" src={successkid} />
-  <figcaption>Have fun with Sapper!</figcaption>
+  <figcaption>Have fun with Vimeet 365!</figcaption>
 </figure>
 
 <p>
