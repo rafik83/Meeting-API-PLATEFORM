@@ -27,7 +27,7 @@
 
 <script context="module">
   import { isLoading, waitLocale } from 'svelte-i18n';
-  export async function preload(page) {
+  export async function preload() {
     return waitLocale();
   }
 </script>

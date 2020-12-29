@@ -1,5 +1,6 @@
 {
     "eslint.workingDirectories": [
+
         {
             "directory": "./client",
             "changeProcessCWD": true
@@ -13,5 +14,5 @@
     },
     "[svelte]": {
         "editor.defaultFormatter": "svelte.svelte-vscode"
-    },
+    }
 }
