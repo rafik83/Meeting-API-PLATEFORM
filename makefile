@@ -6,4 +6,8 @@ install: ## Install API and client
 lint : ## lint the project using eslint
 	cd client && npm run lint
 start-client:
-	cd client && npm run dev	
+	cd client && npm run dev
+test-client:
+	cd client && npm run test
+test :
+	make test-client
