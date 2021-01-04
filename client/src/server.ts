@@ -23,7 +23,6 @@ function detectLocale(req, res, next) {
 
 polka() // You can also use Express
   .use(
-    detectLocale,
     compression({ threshold: 0 }),
     sirv('static', { dev }),
     i18nMiddleware(),

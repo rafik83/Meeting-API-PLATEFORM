@@ -23,7 +23,7 @@ if (in_array($uriPrefix, ['/en', '/fr'])) {
 
     $client = HttpClient::create();
     $response = $client->request($_SERVER['REQUEST_METHOD'], 'http://localhost:3000'.$path, [
-        'headers' => ['X-Force-Locale' => substr($uriPrefix, 1, 2)],
+        'headers' => ['Accept-Language' => substr($uriPrefix, 1, 2)],
     ]);
 
     print($response->getContent(false));

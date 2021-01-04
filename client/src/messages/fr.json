@@ -4,14 +4,14 @@
     },
     "nav": {
         "home": "Home",
-        "about": "About",
+        "about": "A propos",
         "blog": "Blog"
     },
     "messages": {
-        "error": "Error: {status}",
-        "success": "Great success!",
+        "error": "Erreur: {status}",
+        "success": "Bravo !",
         "high_five": "High five",
-        "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading."
+        "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading."
     },
     "languages": {
         "en": "English",

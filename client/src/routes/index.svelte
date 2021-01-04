@@ -36,20 +36,18 @@
 
 <script>
   import successkid from 'images/successkid.jpg';
+  import { _ } from 'svelte-i18n';
 </script>
 
 <svelte:head>
   <title>Vimeet 365</title>
 </svelte:head>
 
-<h1>Great success!</h1>
+<h1>{$_('messages.success')}</h1>
 
 <figure>
   <img alt="Success Kid" src={successkid} />
   <figcaption>Have fun with Vimeet 365!</figcaption>
 </figure>
 
-<p>
-  <strong>Try editing this file (src/routes/index.svelte) to test live
-    reloading.</strong>
-</p>
+<p><strong>{$_('messages.try_editing')}</strong></p>

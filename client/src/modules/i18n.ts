@@ -11,9 +11,10 @@ register('en', () => import('../messages/en.json'));
 register('pt-BR', () => import('../messages/pt-BR.json'));
 register('es-ES', () => import('../messages/es-ES.json'));
 register('ar', () => import('../messages/ar.json'));
+register('fr', () => import('../messages/fr.json'));
 
 const INIT_OPTIONS = {
-  fallbackLocale: 'en',
+  fallbackLocale: 'fr',
   initialLocale: null,
   loadingDelay: 200,
   formats: {},
@@ -60,6 +61,7 @@ export function i18nMiddleware() {
 
     // no cookie, let's get the first accepted language
     if (locale == null) {
+      console.log('LOCALE', locale);
       if (req.headers['accept-language']) {
         const headerLang = req.headers['accept-language'].split(',')[0].trim();
         if (headerLang.length > 1) {
