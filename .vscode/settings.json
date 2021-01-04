@@ -4,5 +4,18 @@
             "directory" : "./client", 
             "changeProcessCWD": true
         }
-    ]
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 15432,
+            "driver": "PostgreSQL",
+            "name": "docker",
+            "database": "vimeet365",
+            "username": "docker",
+            "password": "docker"
+        }
+    ],
+    "phpcs.composerJsonPath": "api/composer.json"
 }
