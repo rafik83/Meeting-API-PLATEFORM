@@ -35,7 +35,7 @@ $locale.subscribe((value) => {
 });
 
 // initialize the i18n library in client
-export function startClient() {
+export function initClienti18n() {
   init({
     ...INIT_OPTIONS,
     initialLocale: getCookie('locale') || getLocaleFromNavigator(),
