@@ -1,3 +1,7 @@
 #Node specific
 
 */**/node_modules
+
+## Ignore package-lock file at root level
+
+package-lock.json
