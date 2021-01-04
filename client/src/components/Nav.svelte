@@ -48,6 +48,7 @@
 
 <script>
   import { _, locale, locales } from 'svelte-i18n';
+  import goTo from '../modules/navigation';
   export let segment;
 </script>
 
@@ -67,7 +68,7 @@
           class="a"
           class:selected={$locale.includes(item)}
           href={`#!${item}`}
-          on:click={() => ($locale = item)}
+          on:click={() => goTo(item, item)}
         >
           {$_('languages.' + item.replace('-', '_'))}
         </span>
