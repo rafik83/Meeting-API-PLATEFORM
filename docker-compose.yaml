@@ -1,0 +1,16 @@
+version: "3"
+
+volumes:
+  database: {}
+
+services:
+  database:
+    image: postgres:13.1-alpine
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: vimeet365
+    volumes:
+      - 'database:/var/lib/postgresql/data'
+    ports:
+      - 15432:5432
