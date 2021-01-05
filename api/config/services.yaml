@@ -13,18 +13,21 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\:
+    Proximum\Vimeet365\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Vimeet/Entity/'
+            - '../src/Application/Adapter/'
+            - '../src/Application/Query/'
+            - '../src/Application/Command/'
             - '../src/Kernel.php'
             - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Controller\:
+    Proximum\Vimeet365\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 

@@ -1,0 +1,7 @@
+Proximum\Vimeet365\Domain\View\CommunityView:
+    itemOperations:
+        get:
+            path: "/communities/{id}"
+            requirements: { id: '\d+' }
+    properties:
+        id: { identifier: true }
