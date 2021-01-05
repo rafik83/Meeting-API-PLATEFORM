@@ -1,6 +1,6 @@
 <?php
 
-namespace Proximum\Vimeet365\Application\Query;
+namespace Proximum\Vimeet365\Application\Command;
 
 interface Command
 {
