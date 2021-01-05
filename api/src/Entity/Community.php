@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace Proximum\Vimeet365\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CommunityRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
- * @ORM\Entity(repositoryClass=CommunityRepository::class)
+ * @ORM\Entity()
  */
 class Community
 {

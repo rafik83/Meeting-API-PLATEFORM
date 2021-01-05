@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace Proximum\Vimeet365\Repository;
 
-use App\Entity\Account;
+use Proximum\Vimeet365\Entity\Account;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

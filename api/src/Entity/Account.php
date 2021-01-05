@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace Proximum\Vimeet365\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\AccountRepository;
+use Proximum\Vimeet365\Repository\AccountRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
