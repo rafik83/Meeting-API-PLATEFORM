@@ -1,5 +1,5 @@
 <?php
-namespace Proximum\Vimeet365\Tests;
+namespace Proximum\Vimeet365\Tests\Functional;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
