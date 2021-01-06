@@ -56,7 +56,7 @@
 <nav class={$_('direction')}>
   <ul class={$_('direction')}>
     <li>
-      <a class:selected={segment === undefined} href=".">{$_('nav.home')}</a>
+      <Link to={'.'}>{$_('nav.home')}</Link>
     </li>
     <li>
       <Link to={'about'}>{$_('nav.about')}</Link>
