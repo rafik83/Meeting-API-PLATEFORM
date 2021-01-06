@@ -13,7 +13,7 @@ register('es-ES', () => import('../messages/es-ES.json'));
 register('ar', () => import('../messages/ar.json'));
 register('fr', () => import('../messages/fr.json'));
 
-const INIT_OPTIONS = {
+export const INIT_OPTIONS = {
   fallbackLocale: 'fr',
   initialLocale: null,
   loadingDelay: 200,
@@ -62,7 +62,7 @@ export function i18nMiddleware() {
     if (req.headers['accept-language']) {
       const headerLang = req.headers['accept-language'].split(',')[0].trim();
       if (headerLang.length > 1) {
-        locale = headerLang;
+        locale = headerLang.split('-')[0];
       }
     } else {
       locale = INIT_OPTIONS.initialLocale || INIT_OPTIONS.fallbackLocale;
@@ -70,8 +70,8 @@ export function i18nMiddleware() {
 
     if (locale != null && locale !== currentLocale) {
       $locale.set(locale);
+      req.locale = locale;
     }
-
     next();
   };
 }
