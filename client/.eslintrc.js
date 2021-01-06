@@ -7,7 +7,8 @@ module.exports = {
   env: {
     es6: true,
     node: true, // for config files
-    commonjs: true
+    commonjs: true,
+    jest : true
   },
   extends: ['eslint:recommended', 'prettier'],
   overrides: [

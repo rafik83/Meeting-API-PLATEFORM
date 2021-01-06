@@ -4,9 +4,9 @@
 	"lib": ["DOM", "ES2017", "WebWorker"],
 	"esModuleInterop": true,
 	"resolveJsonModule": true,
-	"module": "esnext",
+  "module": "esnext",
+  "types": ["jest"]
   },
-  "include": ["src/**/*", "src/node_modules/**/*"],
+  "include": ["src/**/*", "src/node_modules/**/*", "./jest.setup.ts"],
   "exclude": ["node_modules/*", "__sapper__/*", "static/*"],
-
 }

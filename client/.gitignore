@@ -1,5 +1,13 @@
+# Mac OS
 .DS_Store
+
+#Node
 /node_modules/
-/src/node_modules/@sapper/
 yarn-error.log
+
+#Sapper specific
+/src/node_modules/@sapper/
 /__sapper__/
+
+#coverage
+coverage
