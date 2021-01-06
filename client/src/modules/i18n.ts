@@ -18,8 +18,6 @@ const INIT_OPTIONS = {
 let currentLocale = null;
 
 register('en', () => import('../messages/en.json'));
-register('pt-BR', () => import('../messages/pt-BR.json'));
-register('es-ES', () => import('../messages/es-ES.json'));
 register('ar', () => import('../messages/ar.json'));
 register('fr', () => import('../messages/fr.json'));
 
