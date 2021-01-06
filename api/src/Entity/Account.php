@@ -7,7 +7,7 @@ use Proximum\Vimeet365\Repository\AccountRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(attributes={"pagination_items_per_page"=10})
  * @ORM\Entity(repositoryClass=AccountRepository::class)
  */
 class Account
