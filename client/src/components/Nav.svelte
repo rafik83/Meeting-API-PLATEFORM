@@ -33,7 +33,6 @@
     display: block;
     bottom: -1px;
   }
-  a,
   .a {
     cursor: pointer;
     text-decoration: none;
@@ -50,7 +49,6 @@
   import { _, locales } from 'svelte-i18n';
   import Link from './Link.svelte';
   import LanguageSwitcher from './LanguageSwitcher.svelte';
-  export let segment;
 </script>
 
 <nav class={$_('direction')}>
