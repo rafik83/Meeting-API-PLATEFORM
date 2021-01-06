@@ -1,7 +1,22 @@
-#Node specific
+# OS files
+
+.DS_Store
+
+# IDE
+
+/.idea
+/.vscode
+
+# Cache
+
+/.cache
+/.eslintcache
+/.stylelintcache
+
+# Node specific
 
 */**/node_modules
 
-## Ignore package-lock file at root level
+# Ignore package-lock file at root level
 
 package-lock.json
