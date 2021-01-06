@@ -7,13 +7,7 @@ import {
 
 import { setCookie, getCookie } from './cookie';
 
-register('en', () => import('../messages/en.json'));
-register('pt-BR', () => import('../messages/pt-BR.json'));
-register('es-ES', () => import('../messages/es-ES.json'));
-register('ar', () => import('../messages/ar.json'));
-register('fr', () => import('../messages/fr.json'));
-
-export const INIT_OPTIONS = {
+const INIT_OPTIONS = {
   fallbackLocale: 'fr',
   initialLocale: null,
   loadingDelay: 200,
@@ -23,12 +17,18 @@ export const INIT_OPTIONS = {
 
 let currentLocale = null;
 
-$locale.subscribe((value) => {
-  if (value == null) return;
+register('en', () => import('../messages/en.json'));
+register('pt-BR', () => import('../messages/pt-BR.json'));
+register('es-ES', () => import('../messages/es-ES.json'));
+register('ar', () => import('../messages/ar.json'));
+register('fr', () => import('../messages/fr.json'));
 
+$locale.subscribe((value : string | null) => {
+  if (value == null) return;
   currentLocale = value;
 
   // if running in the client, save the language preference in a cookie
+  // we do not want to loose the user local on refresh
   if (typeof window !== 'undefined') {
     setCookie('locale', value);
   }
@@ -57,21 +57,26 @@ export function i18nMiddleware() {
       return;
     }
 
-    let locale;
+    let locale = getCookie('locale', req.headers.cookie);
+
     // no cookie, let's get the first accepted language
-    if (req.headers['accept-language']) {
-      const headerLang = req.headers['accept-language'].split(',')[0].trim();
-      if (headerLang.length > 1) {
-        locale = headerLang.split('-')[0];
+    if (locale == null) {
+      if (req.headers['accept-language']) {
+        const headerLang = req.headers['accept-language'].split(',')[0].trim();
+        if (headerLang.length > 1) {
+          locale = headerLang;
+        }
+      } else {
+        locale = INIT_OPTIONS.initialLocale || INIT_OPTIONS.fallbackLocale;
       }
-    } else {
-      locale = INIT_OPTIONS.initialLocale || INIT_OPTIONS.fallbackLocale;
     }
 
     if (locale != null && locale !== currentLocale) {
       $locale.set(locale);
-      req.locale = locale;
     }
+
+    req.locale = locale;
+
     next();
   };
 }

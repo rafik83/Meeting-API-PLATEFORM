@@ -48,11 +48,8 @@
 
 <script>
   import { _, locales } from 'svelte-i18n';
-  import { stores } from '@sapper/app';
   import Link from './Link.svelte';
   import LanguageSwitcher from './LanguageSwitcher.svelte';
-  const { session } = stores();
-  $session.locale = 'en';
   export let segment;
 </script>
 
@@ -62,11 +59,7 @@
       <a class:selected={segment === undefined} href=".">{$_('nav.home')}</a>
     </li>
     <li>
-      <!-- <Link to={'about'}>{$_('nav.about')}</Link> -->
-      <a
-        class:selected={segment === 'about'}
-        href={`${$session.locale}/about`}
-      >{$_('nav.about')}</a>
+      <Link to={'about'}>{$_('nav.about')}</Link>
     </li>
   </ul>
   <ul class="lang">
