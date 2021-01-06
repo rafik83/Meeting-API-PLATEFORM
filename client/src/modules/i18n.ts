@@ -57,18 +57,15 @@ export function i18nMiddleware() {
       return;
     }
 
-    let locale = getCookie('locale', req.headers.cookie);
-
+    let locale;
     // no cookie, let's get the first accepted language
-    if (locale == null) {
-      if (req.headers['accept-language']) {
-        const headerLang = req.headers['accept-language'].split(',')[0].trim();
-        if (headerLang.length > 1) {
-          locale = headerLang;
-        }
-      } else {
-        locale = INIT_OPTIONS.initialLocale || INIT_OPTIONS.fallbackLocale;
+    if (req.headers['accept-language']) {
+      const headerLang = req.headers['accept-language'].split(',')[0].trim();
+      if (headerLang.length > 1) {
+        locale = headerLang;
       }
+    } else {
+      locale = INIT_OPTIONS.initialLocale || INIT_OPTIONS.fallbackLocale;
     }
 
     if (locale != null && locale !== currentLocale) {

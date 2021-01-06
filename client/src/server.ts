@@ -18,7 +18,8 @@ polka() // You can also use Express
     sirv('static', { dev }),
     i18nMiddleware(),
     sapper.middleware({
-      session: (req, res) => {locale: req.locale}
+      session: (req, res) => {
+        return {locale: "fr"}}
     })
   )
   .listen(PORT, (err: Error) => {

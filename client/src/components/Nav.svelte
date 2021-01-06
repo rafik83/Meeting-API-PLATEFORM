@@ -47,8 +47,13 @@
 </style>
 
 <script>
-  import { _, locale, locales } from 'svelte-i18n';
-  import goTo from '../modules/navigation';
+  import { _, locales } from 'svelte-i18n';
+  import { stores } from '@sapper/app';
+  import Link from './Link.svelte';
+
+
+  const { session } = stores();
+  $session.locale = 'en';
   export let segment;
 </script>
 
@@ -58,20 +63,17 @@
       <a class:selected={segment === undefined} href=".">{$_('nav.home')}</a>
     </li>
     <li>
-      <a class:selected={segment === 'about'} href="about">{$_('nav.about')}</a>
+      <!-- <Link href={'about'}>{$_('nav.about')}</Link> -->
+      <a
+        class:selected={segment === 'about'}
+        href={`${$session.locale}/about`}
+      >{$_('nav.about')}</a>
     </li>
   </ul>
   <ul class="lang">
     {#each $locales as item}
       <li>
-        <span
-          class="a"
-          class:selected={$locale.includes(item)}
-          href={`#!${item}`}
-          on:click={() => goTo(item, item)}
-        >
-          {$_('languages.' + item.replace('-', '_'))}
-        </span>
+        <Link locale={item}>{$_('languages.' + item.replace('-', '_'))}</Link>
       </li>
     {/each}
   </ul>
