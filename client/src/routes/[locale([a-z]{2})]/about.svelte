@@ -1,5 +1,6 @@
 <script>
-  import { _ } from 'svelte-i18n';
+  import { getTranslator } from '../../modules/i18n';
+  const _ = getTranslator();
 </script>
 
 <svelte:head>

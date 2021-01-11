@@ -1,4 +1,5 @@
-import { register, init, locale as $locale } from 'svelte-i18n';
+import { register, init, locale as $locale, format, locale } from 'svelte-i18n';
+import { stores } from '@sapper/app';
 
 const INIT_OPTIONS = {
   fallbackLocale: 'fr',
@@ -50,3 +51,11 @@ export function i18nMiddleware() {
     next();
   };
 }
+
+export const getTranslator = (): typeof format => {
+  const { session } = stores();
+  session.subscribe(({ locale: _locale }) => {
+    locale.set(_locale);
+  });
+  return format;
+};

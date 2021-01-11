@@ -36,10 +36,8 @@
 
 <script>
   import successkid from 'images/successkid.jpg';
-  import { _, locale } from 'svelte-i18n';
-  import { stores } from '@sapper/app';
-  const { session } = stores();
-  locale.set($session.locale);
+  import { getTranslator } from '../../modules/i18n';
+  const _ = getTranslator();
 </script>
 
 <svelte:head>
