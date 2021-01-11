@@ -15,7 +15,7 @@
   export let locale;
 
   const handleClick = () => {
-    $localeStore = locale;
+    localeStore.set(locale);
     $session.locale = locale;
   };
 </script>

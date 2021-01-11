@@ -16,4 +16,4 @@ export const redirectToLocalePage = () => {
 
     next();
   };
-}
+};
