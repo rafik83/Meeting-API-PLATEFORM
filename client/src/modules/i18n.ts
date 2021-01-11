@@ -9,7 +9,6 @@ const INIT_OPTIONS = {
 };
 
 register('en', () => import('../messages/en.json'));
-register('ar', () => import('../messages/ar.json'));
 register('fr', () => import('../messages/fr.json'));
 
 const getLocaleFromUrl = (url: string) => url.split('/')[1];
