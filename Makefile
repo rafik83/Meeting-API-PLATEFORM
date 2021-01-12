@@ -10,8 +10,6 @@ start-server :
 	cd api && symfony server:start -d	
 start:
 	make start-client		
-start-client: ## start the client in developement mode (with hot reloading)
-	cd client && npm run dev
 test-client: ## lint and test client code
 	cd client && npm run test
 test: ## test both client side and server side
