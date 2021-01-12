@@ -13,11 +13,11 @@
         "high_five": "High five",
         "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading."
     },
+    "admin": {
+        "title": "Administration Page"
+    },
     "languages": {
         "en": "English",
-        "pt_BR": "Português",
-        "es_ES": "Espanol",
-        "ar": "عربى",
         "fr": "Français"
     },
     "direction": "ltr"
