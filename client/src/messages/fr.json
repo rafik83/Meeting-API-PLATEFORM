@@ -1,0 +1,27 @@
+{
+    "title": {
+        "index": "Sapper project template!"
+    },
+    "nav": {
+        "home": "Home",
+        "about": "A propos",
+        "blog": "Blog"
+    },
+    "messages": {
+        "error": "Erreur: {status}",
+        "success": "Bravo !",
+        "high_five": "High five",
+        "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading."
+    },
+    "admin": {
+        "title": "Page d'administration"
+    },
+    "languages": {
+        "en": "English",
+        "pt_BR": "Português",
+        "es_ES": "Espanol",
+        "ar": "عربى",
+        "fr": "Français"
+    },
+    "direction": "ltr"
+}

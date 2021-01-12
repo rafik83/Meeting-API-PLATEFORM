@@ -1,9 +1,12 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM", "ES2017", "WebWorker"],
-    "types": ["jest"]
+	"lib": ["DOM", "ES2017", "WebWorker"],
+	"esModuleInterop": true,
+	"resolveJsonModule": true,
+  "module": "esnext",
+  "types": ["jest"]
   },
   "include": ["src/**/*", "src/node_modules/**/*", "./jest.setup.ts"],
-  "exclude": ["node_modules/*", "__sapper__/*", "static/*"]
+  "exclude": ["node_modules/*", "__sapper__/*", "static/*"],
 }

@@ -1,55 +1,12 @@
-<style>
-  h1,
-  figure,
-  p {
-    text-align: center;
-    margin: 0 auto;
-  }
+<script context="module">
+  /*  
+      This is the page linked to '/' route
+      The purpose of this component is only to redirect to the folder containing the localized pages.
+      For example, by going to the route `/` the user will be redirected to the route '/fr'.
 
-  h1 {
-    font-size: 2.8em;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin: 0 0 0.5em 0;
+      You'll find all the localized page in the follder named [locale([a-z]{2})]
+   */
+  export async function preload(page, session) {
+    return this.redirect(302, session.locale);
   }
-
-  figure {
-    margin: 0 0 1em 0;
-  }
-
-  img {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 0 1em 0;
-  }
-
-  p {
-    margin: 1em auto;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      font-size: 4em;
-    }
-  }
-</style>
-
-<script>
-  import successkid from 'images/successkid.jpg';
 </script>
-
-<svelte:head>
-  <title>Vimeet 365</title>
-</svelte:head>
-
-<h1>Great success!</h1>
-
-<figure>
-  <img alt="Success Kid" src={successkid} />
-  <figcaption>Have fun with Vimeet 365!</figcaption>
-</figure>
-
-<p>
-  <strong>Try editing this file (src/routes/index.svelte) to test live
-    reloading.</strong>
-</p>

@@ -1,10 +1,20 @@
 {
     "eslint.workingDirectories": [
-        { 
-            "directory" : "./client", 
+
+        {
+            "directory": "./client",
             "changeProcessCWD": true
         }
     ],
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[svelte]": {
+        "editor.defaultFormatter": "svelte.svelte-vscode"
+    },
     "sqltools.connections": [
         {
             "previewLimit": 50,
