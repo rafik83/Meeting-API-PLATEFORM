@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Proximum\Vimeet365\Repository;
 
-use Proximum\Vimeet365\Entity\Account;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Proximum\Vimeet365\Entity\Account;
 
 /**
  * @method Account|null find($id, $lockMode = null, $lockVersion = null)

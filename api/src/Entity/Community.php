@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Proximum\Vimeet365\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,12 +16,12 @@ class Community
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name = null;
 
     public function getId(): ?int
     {

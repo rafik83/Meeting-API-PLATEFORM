@@ -1,0 +1,16 @@
+includes:
+    - 'vendor/phpstan/phpstan-strict-rules/rules.neon'
+    - 'vendor/phpstan/phpstan-symfony/extension.neon'
+    - 'vendor/phpstan/phpstan-symfony/rules.neon'
+
+parameters:
+    level: 'max'
+
+    paths:
+        - 'src'
+
+    checkMissingIterableValueType: false
+
+    symfony:
+        # for Symfony 5.0+
+        # container_xml_path: '%rootDir%/../../../var/cache/test/App_KernelTestDebugContainer.xml'

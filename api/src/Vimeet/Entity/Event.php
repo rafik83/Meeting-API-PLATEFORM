@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Proximum\Vimeet365\Vimeet\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

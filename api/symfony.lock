@@ -19,6 +19,12 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
+    "composer/semver": {
+        "version": "3.2.4"
+    },
+    "composer/xdebug-handler": {
+        "version": "1.4.5"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -116,6 +122,18 @@
     "fig/link-util": {
         "version": "1.1.1"
     },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.16",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.16",
+            "ref": "c1947bad147704aeaf0285745f0baae927a58959"
+        },
+        "files": [
+            ".php_cs.dist"
+        ]
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.1"
     },
@@ -179,6 +197,9 @@
     "php": {
         "version": "7.4"
     },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.1"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -187,6 +208,15 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.66"
+    },
+    "phpstan/phpstan-strict-rules": {
+        "version": "0.12.8"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.14"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -349,16 +379,19 @@
             "config/packages/messenger.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v5.2.1"
+    },
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
     "symfony/phpunit-bridge": {
-        "version": "4.3",
+        "version": "5.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.3",
-            "ref": "6d0e35f749d5f4bfe1f011762875275cd3f9874f"
+            "version": "5.1",
+            "ref": "cb82a2355ec62fef0e7028ac969fe86fa722feb8"
         },
         "files": [
             ".env.test",
@@ -376,11 +409,17 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.20.0"
     },
+    "symfony/polyfill-php70": {
+        "version": "v1.20.0"
+    },
     "symfony/polyfill-php73": {
         "version": "v1.20.0"
     },
     "symfony/polyfill-php80": {
         "version": "v1.20.0"
+    },
+    "symfony/process": {
+        "version": "v5.2.1"
     },
     "symfony/property-access": {
         "version": "v5.2.1"
