@@ -3,11 +3,11 @@ help:
 
 install: ## Install API and client
 	cd client && npm i
-lint : ## lint the project using eslint
+lint: ## lint the project using eslint
 	cd client && npm run lint
 start-client: ## start the client in developement mode (with hot reloading)
 	cd client && npm run dev
 test-client: ## lint and test client code
 	cd client && npm run test
-test : ## test both client side and server side
+test: ## test both client side and server side
 	make test-client
