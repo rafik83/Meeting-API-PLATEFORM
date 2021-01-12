@@ -8,14 +8,11 @@
 </style>
 
 <script>
-  import { locale as localeStore } from 'svelte-i18n';
   import { stores } from '@sapper/app';
   const { session } = stores();
   import { _ } from 'svelte-i18n';
   export let locale;
-
   const handleClick = () => {
-    localeStore.set(locale);
     $session.locale = locale;
   };
 </script>
