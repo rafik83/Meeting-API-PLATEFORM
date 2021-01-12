@@ -1,4 +1,4 @@
-import { register, init, locale as $locale, format, locale } from 'svelte-i18n';
+import { register, init, locale as $locale, format } from 'svelte-i18n';
 import { stores } from '@sapper/app';
 
 const INIT_OPTIONS = {
@@ -39,7 +39,7 @@ export function i18nMiddleware() {
       next();
       return;
     }
-    let locale;
+    let locale: string;
 
     const localeFromUrl = getLocaleFromUrl(req.url);
     if (!localeFromUrl) {
@@ -54,8 +54,8 @@ export function i18nMiddleware() {
 
 export const getTranslator = (): typeof format => {
   const { session } = stores();
-  session.subscribe(({ locale: _locale }) => {
-    locale.set(_locale);
+  session.subscribe(({ locale }) => {
+    $locale.set(locale);
   });
   return format;
 };
