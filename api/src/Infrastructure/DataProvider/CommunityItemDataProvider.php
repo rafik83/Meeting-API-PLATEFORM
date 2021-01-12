@@ -4,13 +4,14 @@ namespace Proximum\Vimeet365\Infrastructure\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
+use Proximum\Vimeet365\Application\Adapter\QueryBusInterface;
 use Proximum\Vimeet365\Application\Query\Community\CommunityViewQuery;
 use Proximum\Vimeet365\Domain\View\CommunityView;
-use Proximum\Vimeet365\Infrastructure\Adapter\QueryBusAdapter;
 
 final class CommunityItemDataProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
-    public function __construct(QueryBusAdapter $queryBus) {
+    public function __construct(QueryBusInterface $queryBus)
+    {
         $this->queryBus = $queryBus;
     }
 

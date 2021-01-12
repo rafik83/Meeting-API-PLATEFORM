@@ -20,8 +20,6 @@ services:
             - '../src/Entity/'
             - '../src/Vimeet/Entity/'
             - '../src/Application/Adapter/'
-            - '../src/Application/Query/'
-            - '../src/Application/Command/'
             - '../src/Kernel.php'
             - '../src/Tests/'
 
@@ -33,3 +31,28 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    query_handlers:
+        namespace: Proximum\Vimeet365\Application\Query\
+        resource: '../src/Application/Query/**/*QueryHandler.php'
+        public: true
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.queries' }
+
+    command_handlers:
+        namespace: Proximum\Vimeet365\Application\Command\
+        resource: '../src/Application/Command/**/*CommandHandler.php'
+        public: true
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+
+    query_bus:
+        class: Proximum\Vimeet365\Infrastructure\Adapter\BusAdapter
+        arguments: ['@messenger.bus.queries']
+
+    command_bus:
+        class: Proximum\Vimeet365\Infrastructure\Adapter\BusAdapter
+        arguments: ['@messenger.bus.com']
+
+    Proximum\Vimeet365\Application\Adapter\CommandBusInterface: '@command_bus'
+    Proximum\Vimeet365\Application\Adapter\QueryBusInterface: '@query_bus'

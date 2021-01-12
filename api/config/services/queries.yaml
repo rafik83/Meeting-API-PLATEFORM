@@ -1,6 +1,0 @@
-services:
-    Proximum\Vimeet365\Application\Query\Community\CommunityViewHandler:
-        arguments:
-            - '@Proximum\Vimeet365\Application\Repository\CommunityRepositoryInterface'
-        tags:
-            - { name: 'tactician.handler', typehints: true }

@@ -5,7 +5,7 @@ namespace Proximum\Vimeet365\Application\Query\Community;
 use Proximum\Vimeet365\Domain\View\CommunityView;
 use Proximum\Vimeet365\Application\Repository\CommunityRepositoryInterface;
 
-class CommunityViewHandler
+class CommunityViewQueryHandler
 {
     private CommunityRepositoryInterface $communityRepository;
 
@@ -13,7 +13,7 @@ class CommunityViewHandler
         $this->communityRepository = $communityRepository;
     }
 
-    public function handle(CommunityViewQuery $query): ?CommunityView
+    public function __invoke(CommunityViewQuery $query): ?CommunityView
     {
         $community = $this->communityRepository->findById($query->id);
         if (null === $community) {

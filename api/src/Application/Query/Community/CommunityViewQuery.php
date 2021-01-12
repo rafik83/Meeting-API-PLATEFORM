@@ -2,9 +2,7 @@
 
 namespace Proximum\Vimeet365\Application\Query\Community;
 
-use Proximum\Vimeet365\Application\Query\Query;
-
-class CommunityViewQuery implements Query
+class CommunityViewQuery
 {
     public int $id;
 
