@@ -1,0 +1,34 @@
+version: 2.1
+
+jobs:
+  install:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - npm-deps-{{ checksum "client/package-lock.json" }}
+          - npm-deps-
+      - run: make install
+      - save_cache:
+          key: npm-deps-{{ checksum "client/package-lock.json" }}
+          paths:
+            - client/node_modules/
+  lint:
+    machine: true
+    steps:
+      - checkout
+      - run: make lint
+
+  test:
+    machine: true
+    steps:
+      - checkout
+      - run: make test-client
+
+workflows:
+  js_integration:
+    jobs:
+      - install
+      - lint
+      - test
