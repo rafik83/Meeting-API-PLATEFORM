@@ -10,5 +10,7 @@ start-server :
 	cd api && symfony server:start -d	
 start:
 	make start-client		
+test-client: ## lint and test client code
+	cd client && npm run test
 test: ## test both client side and server side
 	make test-client
