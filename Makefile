@@ -7,10 +7,12 @@ lint: ## lint the project using eslint
 start-client:
 	cd client && npm run dev
 start-server :
-	cd api && symfony server:start -d	
+	cd api && symfony server:start -d
 start:
-	make start-client		
+	make start-client
+start-client: ## start the client in developement mode (with hot reloading)
+	cd client && npm run dev
 test-client: ## lint and test client code
 	cd client && npm run test
-test: ## test both client side and server side
-	make test-client
+test: test-client ## test both client side and server side
+	$(MAKE) -C api test

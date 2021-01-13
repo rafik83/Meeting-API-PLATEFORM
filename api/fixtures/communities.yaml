@@ -1,0 +1,5 @@
+Proximum\Vimeet365\Entity\Community:
+    community_1:
+        name: Space industry
+    community_2:
+        name: Green tech

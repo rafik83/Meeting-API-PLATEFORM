@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
-      POSTGRES_DB: vimeet365
+      POSTGRES_DB: proximum_vimeet365
     volumes:
       - 'database:/var/lib/postgresql/data'
     ports:

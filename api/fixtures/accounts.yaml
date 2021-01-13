@@ -1,0 +1,3 @@
+Proximum\Vimeet365\Entity\Account:
+    account_{1..30}:
+        vimeetId: <randomNumber()>
