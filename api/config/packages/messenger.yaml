@@ -1,0 +1,11 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.commands
+        buses:
+            messenger.bus.commands:
+                middleware:
+                    - validation
+                    - doctrine_transaction
+            messenger.bus.queries:
+                middleware:
+                    - validation

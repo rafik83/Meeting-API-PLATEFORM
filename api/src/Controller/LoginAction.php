@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace Proximum\Vimeet365\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;

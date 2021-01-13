@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Proximum\Vimeet365;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -15,6 +15,7 @@ class Kernel extends BaseKernel
     {
         $container->import('../config/{packages}/*.yaml');
         $container->import('../config/{packages}/'.$this->environment.'/*.yaml');
+        $container->import('../config/{services}/*.yaml');
 
         if (is_file(\dirname(__DIR__).'/config/services.yaml')) {
             $container->import('../config/services.yaml');
