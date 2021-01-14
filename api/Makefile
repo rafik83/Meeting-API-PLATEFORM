@@ -3,8 +3,10 @@ help:
 
 install:
 	composer install
+
 start:
 	symfony server:start -d
+
 test-func: ## api functionnal tests
 	APP_ENV=TEST php bin/console doctrine:database:create --if-not-exists
 	APP_ENV=TEST php bin/console doctrine:schema:drop --force
@@ -21,6 +23,8 @@ install@integration:
 	composer install --ansi --verbose --no-interaction --no-progress --prefer-dist --optimize-autoloader --no-scripts --ignore-platform-reqs
 	bin/phpunit install
 	bin/console doctrine:migration:migrate --allow-no-migration -n
+
+lint: lint.php-cs-fixer lint.phpstan ## api linting	
 
 lint.php-cs-fixer:
 	vendor/bin/php-cs-fixer fix

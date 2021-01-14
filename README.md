@@ -4,7 +4,7 @@
 
 Vimeet 365 is a client/server application using REST API to communicate with each other
 
-The client is build ussing Svelte and Sapper and the server is build with Symfony
+The client is build using Svelte and Sapper and the server is build with Symfony
 
 ## Installation
 
@@ -22,10 +22,6 @@ sudo apt install mysql-client
 
 First you will need to install PHP 7.x on your local machine
 
-```bash
-sudo apt update
-sudo apt install php
-```
 
 #### Install Docker and docker-compose
 
@@ -72,6 +68,12 @@ Run this make command
 
 ```
 make install
+```
+
+#### Start the docker sever
+
+```
+docker-compose up -d
 ```
 
 #### Start the application
