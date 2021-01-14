@@ -1,6 +1,10 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+install:
+	composer install
+start:
+	symfony server:start -d
 test-func: ## api functionnal tests
 	APP_ENV=TEST php bin/console doctrine:database:create --if-not-exists
 	APP_ENV=TEST php bin/console doctrine:schema:drop --force
