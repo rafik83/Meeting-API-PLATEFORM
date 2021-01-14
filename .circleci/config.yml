@@ -8,16 +8,16 @@ jobs:
             -   image: circleci/node:14.15.4
         steps:
             - checkout
-            - restore_cache:
-                keys:
-                    - npm-deps-{{ checksum "client/package-lock.json" }}
-                    - npm-deps-
-            - run: make -C client install
-            - run: make -C client test
-            - save_cache:
-                key: npm-deps-{{ checksum "client/package-lock.json" }}
-                paths:
-                    - client/node_modules/
+            -   restore_cache: &restore-npm-cache
+                    keys:
+                        - npm-deps-{{ checksum "client/package-lock.json" }}
+                        - npm-deps-
+            -   run: make -C client install
+            -   run: make -C client test
+            -   save_cache: &save-npm-cache
+                    key: npm-deps-{{ checksum "client/package-lock.json" }}
+                    paths:
+                        - client/node_modules/
     api:
         docker:
             -   image: circleci/php:7.4-node-browsers
