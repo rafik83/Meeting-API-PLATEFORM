@@ -10,18 +10,19 @@ install:
 start: # start the server
 	docker-compose up -d
 	symfony server:start -d
-	
-
-test-func: ## api functionnal tests
-	APP_ENV=TEST php bin/console doctrine:database:create --if-not-exists
-	APP_ENV=TEST php bin/console doctrine:schema:drop --force
-	APP_ENV=TEST php bin/console doctrine:schema:create
-	php vendor/bin/simple-phpunit --testsuite Functional
 
 test-unit: ## api unit tests
-	php vendor/bin/simple-phpunit --testsuite Unit
+	bin/phpunit --testsuite Unit
+
+test-func: APP_ENV=test ## api functionnal tests
+test-func:
+	bin/console doctrine:database:create --if-not-exists
+	bin/console doctrine:schema:drop --force
+	bin/console doctrine:schema:create
+	bin/phpunit --testsuite Functional
 
 test: test-unit test-func ## api tests
+lint: lint.php-cs-fixer lint.phpstan ## api linting
 
 install@integration: APP_ENV=test
 install@integration:
@@ -29,7 +30,8 @@ install@integration:
 	bin/phpunit install
 	bin/console doctrine:migration:migrate --allow-no-migration -n
 
-lint: lint.php-cs-fixer lint.phpstan ## api linting	
+lint.php-cs-fixer:  ## api lint php-cs-fixer
+lint: lint.php-cs-fixer lint.phpstan ## api linting
 
 lint.php-cs-fixer:
 	vendor/bin/php-cs-fixer fix
@@ -37,7 +39,7 @@ lint.php-cs-fixer:
 lint.php-cs-fixer@integration:
 	vendor/bin/php-cs-fixer fix --dry-run --diff
 
-lint.phpstan:
+lint.phpstan: ## api lint phpstan
 	vendor/bin/phpstan analyse
 
 lint.phpstan@integration:
@@ -48,6 +50,6 @@ test@integration:
 
 create-database :
 	php bin/console doctrine:database:create
-	
+
 migrate-database :
 	php bin/console doctrine:migration:migrate
