@@ -45,10 +45,10 @@ symfony server:ca:install
 symfony proxy:domain:attach "*.vimeet.proximum"
 ```
 
-#### Install required dependencies for php
+#### Install required dependencies for php 7.4
 
 ```
-sudo apt install php-intl php-gd php-xml php-curl php-mysql php-mbstring php-apcu
+sudo apt install php7.4-intl php7.4-gd php7.4-xml php7.4-curl php7.4-mysql php7.4-mbstring php7.4-apcu
 ```
 
 ### Frontend
