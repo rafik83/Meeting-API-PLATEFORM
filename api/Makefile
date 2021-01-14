@@ -14,7 +14,8 @@ test: test-unit test-func ## api tests
 
 install@integration: APP_ENV=test
 install@integration:
-	composer install -n --prefer-dist
+	composer install --ansi --verbose --no-interaction --no-progress --prefer-dist --optimize-autoloader --no-scripts --ignore-platform-reqs
+	bin/phpunit install
 	bin/console doctrine:migration:migrate --allow-no-migration -n
 
 lint.php-cs-fixer:
@@ -30,4 +31,4 @@ lint.phpstan@integration:
 	vendor/bin/phpstan analyse
 
 test@integration:
-	vendor/bin/simple-phpunit
+	bin/phpunit

@@ -1,0 +1,18 @@
+default:
+    suites:
+        default:
+            contexts:
+                - Proximum\Vimeet365\Tests\Behat\DemoContext
+                - Behat\MinkExtension\Context\MinkContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: 'tests/bootstrap.php'
+            kernel:
+                class: 'Proximum\Vimeet365\Kernel'
+        Behat\MinkExtension\ServiceContainer\MinkExtension:
+            base_url:  'http://localhost:3000'
+            browser_name: 'chrome'
+            sessions:
+                javascripts:
+                    selenium2: ~

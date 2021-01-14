@@ -1,69 +1,133 @@
 version: 2.1
 
+orbs:
+    browser-tools: circleci/browser-tools@1.1.1
 jobs:
     client:
         docker:
-            - image: circleci/node:14.15.4
+            -   image: circleci/node:14.15.4
         steps:
             - checkout
-            - restore_cache:
-                keys:
-                    - npm-deps-{{ checksum "client/package-lock.json" }}
-                    - npm-deps-
-            - run: make install
-            - run: make lint
-            - run: make test-client
-            - save_cache:
-                key: npm-deps-{{ checksum "client/package-lock.json" }}
-                paths:
-                    - client/node_modules/
+            -   restore_cache: &restore-npm-cache
+                    keys:
+                        - npm-deps-{{ checksum "client/package-lock.json" }}
+                        - npm-deps-
+            -   run: make install
+            -   run: make lint
+            -   run: make test-client
+            -   save_cache: &save-npm-cache
+                    key: npm-deps-{{ checksum "client/package-lock.json" }}
+                    paths:
+                        - client/node_modules/
     api:
         docker:
-            - image: circleci/php:7.4-node-browsers
-              environment:
-                  DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
-            - image: circleci/postgres:12.1-alpine
-              environment:
-                  POSTGRES_USER: docker
-                  POSTGRES_PASSWORD: docker
-                  POSTGRES_DB: proximum_vimeet365_test
+            -   image: circleci/php:7.4-node-browsers
+                environment:
+                    DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
+            -   image: circleci/postgres:12.1-alpine
+                environment:
+                    POSTGRES_USER: docker
+                    POSTGRES_PASSWORD: docker
+                    POSTGRES_DB: proximum_vimeet365_test
         steps:
             - checkout
 
-            - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-            - run: sudo apt install libpq-dev
-            - run: sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
+            -   run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+            -   run: sudo apt install libpq-dev
+            -   run: sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
 
             # Download and cache dependencies
-            - restore_cache:
-                keys:
-                    # "composer.lock" can be used if it is committed to the repo
-                    - v1-dependencies-{{ checksum "api/composer.json" }}
-                    # fallback to using the latest cache if no exact match is found
-                    - v1-dependencies-
+            -   restore_cache: &restore-composer-cache
+                    keys:
+                        - api-composer-deps-{{ checksum "api/composer.lock" }}
+                        - api-composer-deps-
 
-            - run:
-                name: "Install Dependencies"
-                command: make -C api install@integration
+            -   run:
+                    name: "Install Dependencies"
+                    command: make -C api install@integration
 
-            - save_cache:
-                key: v1-dependencies-{{ checksum "api/composer.json" }}
-                paths:
-                    - ./api/vendor
+            -   save_cache: &save-composer-cache
+                    key: api-composer-deps-{{ checksum "api/composer.lock" }}
+                    paths:
+                        - ~/.composer/cache
+                        - api/vendor
+                        - api/bin/.phpunit
 
             # run tests with phpunit
-            - run:
-                name: "Lint (php-cs-fixer)"
-                command: make -C api lint.php-cs-fixer@integration
-            - run:
-                name: "Lint (PHPStan)"
-                command: make -C api lint.phpstan@integration
+            -   run:
+                    name: "Lint (php-cs-fixer)"
+                    command: make -C api lint.php-cs-fixer@integration
+            -   run:
+                    name: "Lint (PHPStan)"
+                    command: make -C api lint.phpstan@integration
 
-            - run:
-                name: "Tests (Unit)"
-                command: make -C api test@integration
+            -   run:
+                    name: "Tests (Unit)"
+                    command: make -C api test@integration
+    e2e:
+        docker:
+            -   image: circleci/php:7.4-node-browsers
+                environment:
+                    DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
+            -   image: circleci/postgres:12.1-alpine
+                environment:
+                    POSTGRES_USER: docker
+                    POSTGRES_PASSWORD: docker
+                    POSTGRES_DB: proximum_vimeet365_test
+        steps:
+            - checkout
+            -   run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+            -   run: sudo apt install libpq-dev
+            -   run: sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
+            -   run:
+                    name: install symfony cli
+                    command: 'wget https://get.symfony.com/cli/installer -O - | bash'
+
+            -   run:
+                    name: Download Selenium
+                    command: curl -O http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
+
+            -   restore_cache: *restore-npm-cache
+            -   restore_cache: *restore-composer-cache
+
+            -   run:
+                    name: "Install Dependencies"
+                    command: |
+                        make install
+                        make -C api install@integration
+
+            -   save_cache: *save-npm-cache
+            -   save_cache: *save-composer-cache
+
+            -   run:
+                    name: build client app
+                    command: cd client && npm run build
+
+            -   run:
+                    name: start client server
+                    command: cd client && npm run start
+                    background: true
+
+            -   run:
+                    name: start api server
+                    command: cd api && APP_ENV=test /home/circleci/.symfony/bin/symfony server:start
+                    background: true
+
+            -   run:
+                    name: Start Selenium
+                    command: java -jar selenium-server-standalone-3.141.59.jar
+                    background: true
+
+            -   run:
+                    name: run behat tests
+                    command: cd api && vendor/bin/behat
+
 workflows:
     integration:
         jobs:
             - client
             - api
+            -   e2e:
+                    requires:
+                        - client
+                        - api
