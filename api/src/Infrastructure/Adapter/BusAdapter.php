@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Proximum\Vimeet365\Infrastructure\Adapter;
 
 use Proximum\Vimeet365\Application\Adapter\CommandBusInterface;
@@ -22,12 +24,21 @@ class BusAdapter implements QueryBusInterface, CommandBusInterface
         $this->messageBus = $commandMessageBus;
     }
 
-    public function handle($message)
+    /**
+     * @return mixed|object|void
+     */
+    public function handle(object $message)
     {
         try {
             return $this->doHandle($message);
         } catch (HandlerFailedException $exception) {
-            throw $exception->getPrevious();
+            $previous = $exception->getPrevious();
+
+            if ($previous === null) {
+                throw $exception;
+            }
+
+            throw $previous;
         }
     }
 }

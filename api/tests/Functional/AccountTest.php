@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Proximum\Vimeet365\Tests\Functional;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Proximum\Vimeet365\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Proximum\Vimeet365\Repository\AccountRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Proximum\Vimeet365\Repository\AccountRepository;
 
 /**
  * @ApiResource(attributes={"pagination_items_per_page"=10})
@@ -17,12 +19,12 @@ class Account
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $vimeetId;
+    private ?int $vimeetId = null;
 
     public function getId(): ?int
     {

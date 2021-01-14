@@ -11,3 +11,23 @@ test-unit: ## api unit tests
 	php vendor/bin/simple-phpunit --testsuite Unit
 
 test: test-unit test-func ## api tests
+
+install@integration: APP_ENV=test
+install@integration:
+	composer install -n --prefer-dist
+	bin/console doctrine:migration:migrate --allow-no-migration -n
+
+lint.php-cs-fixer:
+	vendor/bin/php-cs-fixer fix
+
+lint.php-cs-fixer@integration:
+	vendor/bin/php-cs-fixer fix --dry-run --diff
+
+lint.phpstan:
+	vendor/bin/phpstan analyse
+
+lint.phpstan@integration:
+	vendor/bin/phpstan analyse
+
+test@integration:
+	vendor/bin/simple-phpunit

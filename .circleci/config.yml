@@ -1,34 +1,69 @@
 version: 2.1
 
 jobs:
-  install:
-    machine: true
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - npm-deps-{{ checksum "client/package-lock.json" }}
-          - npm-deps-
-      - run: make install
-      - save_cache:
-          key: npm-deps-{{ checksum "client/package-lock.json" }}
-          paths:
-            - client/node_modules/
-  lint:
-    machine: true
-    steps:
-      - checkout
-      - run: make lint
+    client:
+        docker:
+            - image: circleci/node:14.15.4
+        steps:
+            - checkout
+            - restore_cache:
+                keys:
+                    - npm-deps-{{ checksum "client/package-lock.json" }}
+                    - npm-deps-
+            - run: make install
+            - run: make lint
+            - run: make test-client
+            - save_cache:
+                key: npm-deps-{{ checksum "client/package-lock.json" }}
+                paths:
+                    - client/node_modules/
+    api:
+        docker:
+            - image: circleci/php:7.4-node-browsers
+              environment:
+                  DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
+            - image: circleci/postgres:12.1-alpine
+              environment:
+                  POSTGRES_USER: docker
+                  POSTGRES_PASSWORD: docker
+                  POSTGRES_DB: proximum_vimeet365_test
+        steps:
+            - checkout
 
-  test:
-    machine: true
-    steps:
-      - checkout
-      - run: make test-client
+            - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+            - run: sudo apt install libpq-dev
+            - run: sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
 
+            # Download and cache dependencies
+            - restore_cache:
+                keys:
+                    # "composer.lock" can be used if it is committed to the repo
+                    - v1-dependencies-{{ checksum "api/composer.json" }}
+                    # fallback to using the latest cache if no exact match is found
+                    - v1-dependencies-
+
+            - run:
+                name: "Install Dependencies"
+                command: make -C api install@integration
+
+            - save_cache:
+                key: v1-dependencies-{{ checksum "api/composer.json" }}
+                paths:
+                    - ./api/vendor
+
+            # run tests with phpunit
+            - run:
+                name: "Lint (php-cs-fixer)"
+                command: make -C api lint.php-cs-fixer@integration
+            - run:
+                name: "Lint (PHPStan)"
+                command: make -C api lint.phpstan@integration
+
+            - run:
+                name: "Tests (Unit)"
+                command: make -C api test@integration
 workflows:
-  js_integration:
-    jobs:
-      - install
-      - lint
-      - test
+    integration:
+        jobs:
+            - client
+            - api
