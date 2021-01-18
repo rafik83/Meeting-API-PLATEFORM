@@ -12,12 +12,6 @@ The client is build using Svelte and Sapper and the server is build with Symfony
 
 ### Backend
 
-#### Install MySQL client
-
-```
-sudo apt install mysql-client
-```
-
 #### Install PHP
 
 First you will need to install PHP 7.x on your local machine
@@ -25,31 +19,28 @@ First you will need to install PHP 7.x on your local machine
 
 #### Install Docker and docker-compose
 
+The PostGres ad Redis dependencies are running inside a docker container. 
+
+To run them docker and dokcer-compose are mandatory.
+
 Please see the official documentation [here](https://docs.docker.com/engine/install/ubuntu/) and consider following the [optional post installation steps](https://docs.docker.com/engine/install/linux-postinstall/) which are recommended in order to execute docker command as non root user.
 
 After this step you may need to restart your machine.
 
-#### Symfony server
-
-Symfony Server is a local server used to run symfony php files
-
-```bash
-wget https://get.symfony.com/cli/installer -O - | bash
-export PATH="$HOME/.symfony/bin:$PATH"
-sudo apt install libnss3-tools
-symfony server:ca:install
-symfony proxy:domain:attach "*.vimeet.proximum"
-```
 
 #### Install required dependencies for php 7.4
 
+These dependencies are required to run the app
+
 ```
-sudo apt install php7.4-intl php7.4-gd php7.4-xml php7.4-curl php7.4-mysql php7.4-mbstring php7.4-apcu
+php7.4-intl php7.4-gd php7.4-xml php7.4-curl php7.4-mysql php7.4-mbstring php7.4-apcu
 ```
 
 ### Frontend
 
-First install [NodeJs](https://nodejs.org/en/) on your local machine. We encourage you to use [NVM](https://github.com/nvm-sh/nvm) to manage several node versions on your locale machine.
+First install [NodeJs](https://nodejs.org/en/) on your local machine. 
+
+We encourage you to use [NVM](https://github.com/nvm-sh/nvm) to manage several node versions on your locale machine.
 
 Once you've install nvm, you can install node by running
 
@@ -81,6 +72,7 @@ docker-compose up -d
 ```
 make start
 ```
+
 
 ### Useful Command Summary
 
