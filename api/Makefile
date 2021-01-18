@@ -1,6 +1,17 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+install:
+	composer install
+	docker-compose up -d
+	make setup-database
+	make migrate-database
+
+start: # start the server
+	docker-compose up -d
+	symfony server:start -d
+	
+
 test-func: ## api functionnal tests
 	APP_ENV=TEST php bin/console doctrine:database:create --if-not-exists
 	APP_ENV=TEST php bin/console doctrine:schema:drop --force
@@ -18,6 +29,8 @@ install@integration:
 	bin/phpunit install
 	bin/console doctrine:migration:migrate --allow-no-migration -n
 
+lint: lint.php-cs-fixer lint.phpstan ## api linting	
+
 lint.php-cs-fixer:
 	vendor/bin/php-cs-fixer fix
 
@@ -32,3 +45,9 @@ lint.phpstan@integration:
 
 test@integration:
 	bin/phpunit
+
+create-database :
+	php bin/console doctrine:database:create
+	
+migrate-database :
+	php bin/console doctrine:migration:migrate
