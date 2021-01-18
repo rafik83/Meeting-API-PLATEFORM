@@ -31,7 +31,7 @@ After this step you may need to restart your machine.
 These dependencies are required to run the app
 
 ```
-php7.4-intl php7.4-gd php7.4-xml php7.4-curl php7.4-pgslql php7.4-mbstring php7.4-apcu
+php7.4-intl php7.4-gd php7.4-xml php7.4-curl php7.4-pgsql php7.4-mbstring php7.4-apcu
 ```
 
 ### Frontend

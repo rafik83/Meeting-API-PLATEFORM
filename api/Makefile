@@ -3,9 +3,14 @@ help:
 
 install:
 	composer install
+	docker-compose up -d
+	make setup-database
+	make migrate-database
 
-start:
+start: # start the server
+	docker-compose up -d
 	symfony server:start -d
+	
 
 test-func: ## api functionnal tests
 	APP_ENV=TEST php bin/console doctrine:database:create --if-not-exists
@@ -40,3 +45,9 @@ lint.phpstan@integration:
 
 test@integration:
 	bin/phpunit
+
+create-database :
+	php bin/console doctrine:database:create
+	
+migrate-database :
+	php bin/console doctrine:migration:migrate
