@@ -1,7 +1,5 @@
 version: 2.1
 
-orbs:
-    browser-tools: circleci/browser-tools@1.1.1
 jobs:
     client:
         docker:
@@ -21,19 +19,22 @@ jobs:
     api:
         docker:
             -   image: circleci/php:7.4-node-browsers
-                environment:
+                environment: &api-env
                     DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
             -   image: circleci/postgres:12.1-alpine
-                environment:
+                environment: &postgresql-env
                     POSTGRES_USER: docker
                     POSTGRES_PASSWORD: docker
                     POSTGRES_DB: proximum_vimeet365_test
         steps:
             - checkout
 
-            -   run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-            -   run: sudo apt install libpq-dev
-            -   run: sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
+            -   run: &api-server-dependencies
+                    name: Install server dependencies
+                    command: |
+                        sudo apt update
+                        sudo apt install libpq-dev
+                        sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
 
             # Download and cache dependencies
             -   restore_cache: &restore-composer-cache
@@ -52,7 +53,6 @@ jobs:
                         - api/vendor
                         - api/bin/.phpunit
 
-            # run tests with phpunit
             -   run:
                     name: "Lint (php-cs-fixer)"
                     command: make -C api lint.php-cs-fixer@integration
@@ -66,18 +66,13 @@ jobs:
     e2e:
         docker:
             -   image: circleci/php:7.4-node-browsers
-                environment:
-                    DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
+                environment: *api-env
             -   image: circleci/postgres:12.1-alpine
-                environment:
-                    POSTGRES_USER: docker
-                    POSTGRES_PASSWORD: docker
-                    POSTGRES_DB: proximum_vimeet365_test
+                environment: *postgresql-env
         steps:
             - checkout
-            -   run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-            -   run: sudo apt install libpq-dev
-            -   run: sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
+            -   run: *api-server-dependencies
+
             -   run:
                     name: install symfony cli
                     command: 'wget https://get.symfony.com/cli/installer -O - | bash'
