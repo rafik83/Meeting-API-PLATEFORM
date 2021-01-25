@@ -10,10 +10,11 @@
 <script>
   import { stores } from '@sapper/app';
   const { session } = stores();
-  import { _ } from 'svelte-i18n';
+  import { _, locale as localeStore } from 'svelte-i18n';
   export let locale;
   const handleClick = () => {
     $session.locale = locale;
+    localeStore.set(locale);
   };
 </script>
 

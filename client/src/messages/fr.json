@@ -10,7 +10,7 @@
     "messages": {
         "error": "Erreur: {status}",
         "success": "Bravo !",
-        "high_five": "High five",
+        "high_five": "Hellooo",
         "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading."
     },
     "admin": {

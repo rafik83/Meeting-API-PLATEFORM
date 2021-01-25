@@ -1,61 +1,87 @@
-import { register, init, locale as $locale, format } from 'svelte-i18n';
-import { stores } from '@sapper/app';
+import {
+  register,
+  init,
+  locale as localeStore,
+  getLocaleFromPathname,
+  locales,
+} from 'svelte-i18n';
+
+register('en', () => import('../messages/en.json'));
+register('fr', () => import('../messages/fr.json'));
+
+const getSupportedLocales = () => {
+  let supportedLocales;
+  locales.subscribe((value) => {
+    supportedLocales = value;
+  });
+
+  return supportedLocales;
+};
+
+const DOCUMENT_REGEX = /(^([^.?#@]+)?([?#](.+)?)?|service-worker.*?\.html)$/;
+
+const getLocaleFromRequestURL = (route) => {
+  const localeString = getSupportedLocales().join('|');
+  const localeRegex = new RegExp(`/${localeString}(/|$)`, 'gm');
+  const localesFromURL = route.match(localeRegex);
+
+  if (!route.match(DOCUMENT_REGEX) || !localesFromURL) {
+    return null;
+  }
+  return localesFromURL[0].replace(/\//g, '');
+};
+
+const fallbackLocale = 'fr';
+
+export const addLocaleToRequest = () => {
+  let previousURLLocale = null;
+  return (req, res, next) => {
+    const localeFromRoute = getLocaleFromRequestURL(req.url);
+    if (localeFromRoute) {
+      previousURLLocale = localeFromRoute;
+    }
+    const locale = localeFromRoute || previousURLLocale || fallbackLocale;
+
+    req.locale = locale;
+
+    next();
+  };
+};
 
 const INIT_OPTIONS = {
-  fallbackLocale: 'fr',
-  initialLocale: 'fr',
+  fallbackLocale,
+  initialLocale: null,
   loadingDelay: 200,
   formats: {},
   warnOnMissingMessages: true,
 };
 
-register('en', () => import('../messages/en.json'));
-register('fr', () => import('../messages/fr.json'));
+export const initClienti18n = () => {
+  init({
+    ...INIT_OPTIONS,
+    initialLocale: getLocaleFromPathname(/^\/([a-z]{2})\/?/),
+  });
+};
 
-const getLocaleFromUrl = (url: string) => url.split('/')[1];
-
-// initialize the i18n library in client
-export function initClienti18n() {
+export const i18nMiddleware = () => {
+  let previousLocale;
   init({
     ...INIT_OPTIONS,
   });
-}
-
-$locale.subscribe((value) => {
-  if (value === null) return;
-});
-
-// init only for routes (urls with no extensions such as .js, .css, etc) and for service worker
-const DOCUMENT_REGEX = /(^([^.?#@]+)?([?#](.+)?)?|service-worker.*?\.html)$/;
-// initialize the i18n library in the server and returns its middleware
-export function i18nMiddleware() {
-  // initialLocale will be set by the middleware
-  init(INIT_OPTIONS);
-
   return (req, res, next) => {
     const isDocument = DOCUMENT_REGEX.test(req.originalUrl);
     // get the initial locale only for a document request
-    if (!isDocument || req.url.startsWith('/service-worker')) {
+    if (!isDocument) {
       next();
       return;
     }
-    let locale: string;
+    const requestLocale = req.locale;
 
-    const localeFromUrl = getLocaleFromUrl(req.url);
-    if (!localeFromUrl) {
-      locale = INIT_OPTIONS.initialLocale || INIT_OPTIONS.fallbackLocale;
-    } else {
-      locale = localeFromUrl;
+    if (requestLocale && requestLocale !== previousLocale) {
+      localeStore.set(requestLocale);
+      previousLocale = requestLocale;
     }
-    req.locale = locale;
+
     next();
   };
-}
-
-export const getTranslator = (): typeof format => {
-  const { session } = stores();
-  session.subscribe(({ locale }) => {
-    $locale.set(locale);
-  });
-  return format;
 };
