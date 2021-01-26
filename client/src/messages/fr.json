@@ -14,6 +14,24 @@
         "high_five": "Hellooo",
         "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading."
     },
+    "registration": {
+        "title": "C'est parti !",
+        "subtitle": "Créer un compte",
+        "lastname": "Nom",
+        "firstname": "Prénom",
+        "email": "Adresse email",
+        "password": "Mot de passe",
+        "button": "S'inscrire",
+        "buttonSSO": "S'inscrire avec",
+        "or": "Ou",
+        "conditions": "J'accepte les {link} ainsi que la {link2}",
+        "termsConditions": "termes et conditions",
+        "termsConditionsUrl": "http://example.com",
+        "policyConditions": "politique de confidentialité",
+        "policyConditionsUrl": "http://example.com",
+        "eventVimeet": "Vous avez déjà un compte ?",
+        "log": "Se connecter"
+    },
     "admin": {
         "title": "Page d'administration"
     },

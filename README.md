@@ -69,17 +69,19 @@ docker-compose up -d
 
 ```
 make start
+make watch-css
 ```
 
 ### Useful Command Summary
 
-| Command        | What it does ?                                                |
-| -------------- | ------------------------------------------------------------- |
-| `make install` | Install the dependencies for both api and client              |
-| `make start`   | Start the symfony and sapper server                           |
-| `make test`    | Run unit test fort both api and client                        |
-| `make lint`    | Lint the entire project against linters (php stan and eslint) |
-| `make help`    | List all available commands                                   |
+| Command          | What it does ?                                                |
+| ---------------- | ------------------------------------------------------------- |
+| `make install`   | Install the dependencies for both api and client              |
+| `make start`     | Start the symfony and sapper server                           |
+| `make test`      | Run unit test fort both api and client                        |
+| `make lint`      | Lint the entire project against linters (php stan and eslint) |
+| `make help`      | List all available commands                                   |
+| `make watch-css` | Watch css changes                                             |
 
 ### Routes to know
 
@@ -87,7 +89,6 @@ make start
 | -------------------- | --------------------------------------- |
 | `localhost:3000`     | The port where is running sapper server |
 | `localhost:8000/api` | This is the api main route              |
-
 
 Note that the server's port may change if not available on server start.
 

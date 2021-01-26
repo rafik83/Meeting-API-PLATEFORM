@@ -16,7 +16,6 @@ polka()
     i18nMiddleware(),
     sapper.middleware({
       session: (req) => {
-        console.log('REQLOCALE', req.locale);
         return { locale: req.locale };
       },
     })

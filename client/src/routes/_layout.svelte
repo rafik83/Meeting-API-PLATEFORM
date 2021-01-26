@@ -1,8 +1,8 @@
 <style>
   main {
     position: relative;
-    max-width: 56em;
-    background-color: white;
+    max-width: 100%;
+    background-color: #2a2e43;
     padding: 2em;
     margin: 0 auto;
     box-sizing: border-box;

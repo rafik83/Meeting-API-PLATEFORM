@@ -10,4 +10,4 @@ Feature:
     @javascript
     Scenario: It receives a response from svelte ap
         Given I am on the homepage
-        Then I should see "Have fun with Vimeet 365! FR"
+        Then I should see "C'est parti !"

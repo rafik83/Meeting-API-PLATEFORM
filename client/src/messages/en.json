@@ -14,6 +14,24 @@
         "high_five": "High five",
         "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading."
     },
+    "registration": {
+        "title": "Lets Start!",
+        "subtitle": "Create account",
+        "lastname": "Lastname",
+        "firstname": "Firstname",
+        "email": "Email address",
+        "password": "Password",
+        "button": "Signup",
+        "buttonSSO": "Signup with",
+        "or": "Or",
+        "conditions": "I accept the {link} and the {link2}",
+        "termsConditions": "Terms & Conditions",
+        "termsConditionsUrl": "http://example.com",
+        "policyConditions": "Privacy Policy",
+        "policyConditionsUrl": "http://example.com",
+        "eventVimeet": "Already have an Account ?",
+        "log": "Signin"
+    },
     "admin": {
         "title": "Administration Page"
     },

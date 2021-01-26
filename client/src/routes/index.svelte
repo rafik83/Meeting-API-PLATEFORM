@@ -7,7 +7,6 @@
       You'll find all the localized page in the follder named [locale([a-z]{2})]
    */
   export async function preload(page, session) {
-    console.log(session.locale);
     return this.redirect(302, session.locale);
   }
 </script>

@@ -16,3 +16,6 @@ lint:
 test: 
 	$(MAKE) -C api	test-unit
 	$(MAKE) -C client test
+
+watch-css:
+	$(MAKE) -C client watch-css

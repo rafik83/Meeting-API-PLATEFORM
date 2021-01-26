@@ -3,6 +3,7 @@ help:
 install: ## Install dependencies
 	cp ./src/config.dist.ts ./src/config.ts
 	npm install
+	npm run build:tailwind
 start:
 	npm run dev
 
@@ -11,3 +12,6 @@ lint: ## lint the project using eslint
 
 test :
 	npm run test
+
+watch-css : ## watch css changes
+	npm run watch:tailwind
