@@ -9,4 +9,9 @@ use Proximum\Vimeet365\Entity\Community;
 interface CommunityRepositoryInterface
 {
     public function findById(int $id): ?Community;
+
+    /**
+     * @return Community[]
+     */
+    public function findAll();
 }

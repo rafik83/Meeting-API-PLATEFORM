@@ -5,7 +5,8 @@
     "nav": {
         "home": "Home",
         "about": "A propos",
-        "blog": "Blog"
+        "blog": "Blog",
+        "communities": "Communautés"
     },
     "messages": {
         "error": "Erreur: {status}",
@@ -23,5 +24,8 @@
         "ar": "عربى",
         "fr": "Français"
     },
-    "direction": "ltr"
+    "direction": "ltr",
+    "comunities": {
+        "title": "Titre de la communauté"
+    }
 }

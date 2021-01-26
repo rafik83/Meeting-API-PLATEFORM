@@ -20,3 +20,5 @@
 # Ignore package-lock file at root level
 
 package-lock.json
+
+**/config.ts

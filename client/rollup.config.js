@@ -50,7 +50,7 @@ export default {
       commonjs(),
       typescript({ sourceMap: dev }),
       json({
-        compact: true
+        compact: true,
       }),
       legacy &&
         babel({
@@ -93,6 +93,7 @@ export default {
       replace({
         'process.browser': false,
         'process.env.NODE_ENV': JSON.stringify(mode),
+        'process.API_URL': process.env.API_URL,
       }),
       svelte({
         preprocess: sveltePreprocess(),
@@ -114,7 +115,7 @@ export default {
       commonjs(),
       typescript({ sourceMap: dev }),
       json({
-        compact: true
+        compact: true,
       }),
     ],
     external: Object.keys(pkg.dependencies).concat(

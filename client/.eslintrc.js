@@ -6,9 +6,8 @@ module.exports = {
   },
   env: {
     es6: true,
-    node: true, // for config files
-    commonjs: true,
-    jest : true
+    jest: true,
+    node: true,
   },
   extends: ['eslint:recommended', 'prettier'],
   overrides: [
@@ -29,6 +28,6 @@ module.exports = {
       rules: {
         'prettier/prettier': 'error',
       },
-    }
+    },
   ],
 };

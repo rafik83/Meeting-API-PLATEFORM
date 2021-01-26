@@ -1,4 +1,7 @@
 Proximum\Vimeet365\Domain\View\CommunityView:
+    collectionOperations:
+        get:
+            path: "/communities"
     itemOperations:
         get:
             path: "/communities/{id}"

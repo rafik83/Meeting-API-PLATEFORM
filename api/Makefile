@@ -9,7 +9,8 @@ install:
 
 start: # start the server
 	docker-compose up -d
-	symfony server:start -d
+	symfony server:start --allow-http -d
+	
 
 test-unit: ## api unit tests
 	bin/phpunit --testsuite Unit

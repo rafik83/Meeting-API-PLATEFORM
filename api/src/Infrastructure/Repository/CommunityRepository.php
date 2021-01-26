@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Infrastructure\Repository;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Application\Repository\CommunityRepositoryInterface;
 use Proximum\Vimeet365\Entity\Community;
 
-class CommunityRepository implements CommunityRepositoryInterface
+class CommunityRepository extends ServiceEntityRepository implements CommunityRepositoryInterface
 {
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($managerRegistry, Community::class);
     }
 
     public function findById(int $id): ?Community
     {
-        return $this->entityManager->find(Community::class, $id);
+        return $this->find($id);
     }
 }

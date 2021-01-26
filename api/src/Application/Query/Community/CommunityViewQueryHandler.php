@@ -23,6 +23,6 @@ class CommunityViewQueryHandler
             return null;
         }
 
-        return new CommunityView((int) $community->getId(), (string) $community->getName());
+        return new CommunityView($community->getId(), $community->getName());
     }
 }

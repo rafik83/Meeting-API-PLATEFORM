@@ -59,6 +59,9 @@
     <li>
       <Link to={'about'}>{$_('nav.about')}</Link>
     </li>
+    <li>
+      <Link to={'communities'}>{$_('nav.communities')}</Link>
+    </li>
   </ul>
   <ul class="lang">
     {#each $locales as item}
