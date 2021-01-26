@@ -42,7 +42,7 @@ class Account
     private string $lastName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private ?int $vimeetId = null;
 
@@ -68,6 +68,11 @@ class Account
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 
     public function getFirstName(): string

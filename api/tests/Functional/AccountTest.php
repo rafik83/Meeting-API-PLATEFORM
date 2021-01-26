@@ -26,12 +26,12 @@ class AccountTest extends ApiTestCase
             '@context' => '/api/contexts/Account',
             '@id' => '/api/accounts',
             '@type' => 'hydra:Collection',
-            'hydra:totalItems' => 30,
+            'hydra:totalItems' => 31,
             'hydra:view' => [
                 '@id' => '/api/accounts?page=1',
                 '@type' => 'hydra:PartialCollectionView',
                 'hydra:first' => '/api/accounts?page=1',
-                'hydra:last' => '/api/accounts?page=3',
+                'hydra:last' => '/api/accounts?page=4',
                 'hydra:next' => '/api/accounts?page=2',
             ],
         ]);
