@@ -1,0 +1,24 @@
+Proximum\Vimeet365\Domain\Entity\Tag:
+    tag_ground:
+        __construct:
+            name: Ground
+    tag_optics:
+        __construct:
+            name: Optics
+    tag_space_debris:
+        __construct:
+            name: Space Debris
+    tag_launcher:
+        __construct:
+            name: Launcher
+
+Proximum\Vimeet365\Domain\Entity\Nomenclature:
+    nomenclature_activity_fields:
+        __construct:
+            community: '@community_1'
+            name: Activity Fields
+        __calls:
+            - 'addTag': ['@tag_ground']
+            - 'addTag': ['@tag_optics', '@tag_ground']
+            - 'addTag': ['@tag_space_debris', '@tag_ground']
+            - 'addTag': ['@tag_launcher']

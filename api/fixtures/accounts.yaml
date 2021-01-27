@@ -1,3 +1,9 @@
-Proximum\Vimeet365\Entity\Account:
+Proximum\Vimeet365\Domain\Entity\Account:
     account_{1..30}:
-        vimeetId: <randomNumber()>
+        __construct:
+            email: <safeEmail()>
+            # TODO: Use plain password in test or set the same password for everybody in dev
+            password: <password()>
+            firstName: <firstName()>
+            lastName: <lastName()>
+            vimeetId: <randomNumber()>

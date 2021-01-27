@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Application\Query\Community;
 
-use Proximum\Vimeet365\Application\Repository\CommunityRepositoryInterface;
+use Proximum\Vimeet365\Domain\Repository\CommunityRepositoryInterface;
 use Proximum\Vimeet365\Domain\View\CommunityView;
 
 class CommunityViewQueryHandler

@@ -1,5 +1,7 @@
-Proximum\Vimeet365\Entity\Community:
+Proximum\Vimeet365\Domain\Entity\Community:
     community_1:
-        name: Space industry
+        __construct:
+            name: Space industry
     community_2:
-        name: Green tech
+        __construct:
+            name: Green tech

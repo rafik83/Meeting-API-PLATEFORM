@@ -22,8 +22,8 @@ doctrine:
                     Vimeet365:
                         is_bundle: false
                         type: annotation
-                        dir: '%kernel.project_dir%/src/Entity'
-                        prefix: 'Proximum\Vimeet365\Entity'
+                        dir: '%kernel.project_dir%/src/Domain/Entity'
+                        prefix: 'Proximum\Vimeet365\Domain\Entity'
                         alias: vimeet365
             vimeet:
                 connection: vimeet

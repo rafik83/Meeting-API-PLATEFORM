@@ -15,8 +15,8 @@ start: # start the server
 test-unit: ## api unit tests
 	bin/phpunit --testsuite Unit
 
-test-func: APP_ENV=test ## api functionnal tests
-test-func:
+test-func: export APP_ENV=test
+test-func: ## api functionnal tests
 	bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:schema:drop --force
 	bin/console doctrine:schema:create
@@ -25,7 +25,7 @@ test-func:
 test: test-unit test-func ## api tests
 lint: lint.php-cs-fixer lint.phpstan ## api linting
 
-install@integration: APP_ENV=test
+install@integration: export APP_ENV=test
 install@integration:
 	composer install --ansi --verbose --no-interaction --no-progress --prefer-dist --optimize-autoloader --no-scripts --ignore-platform-reqs
 	bin/phpunit install

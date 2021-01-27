@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Tests\Functional;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
-use Proximum\Vimeet365\Entity\Account;
+use Proximum\Vimeet365\Domain\Entity\Account;
 
 class AccountTest extends ApiTestCase
 {
@@ -17,12 +17,12 @@ class AccountTest extends ApiTestCase
     {
         $response = static::createClient()->request('GET', '/api/accounts');
 
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
         // Asserts that the returned content type is JSON-LD (the default)
-        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
 
         // Asserts that the returned JSON is a superset of this one
-        $this->assertJsonContains([
+        self::assertJsonContains([
             '@context' => '/api/contexts/Account',
             '@id' => '/api/accounts',
             '@type' => 'hydra:Collection',
@@ -36,9 +36,9 @@ class AccountTest extends ApiTestCase
             ],
         ]);
 
-        $this->assertCount(10, $response->toArray()['hydra:member']);
+        self::assertCount(10, $response->toArray()['hydra:member']);
 
         // Asserts that the returned JSON is validated by the JSON Schema generated for this resource by API Platform
-        $this->assertMatchesResourceCollectionJsonSchema(Account::class);
+        self::assertMatchesResourceCollectionJsonSchema(Account::class);
     }
 }

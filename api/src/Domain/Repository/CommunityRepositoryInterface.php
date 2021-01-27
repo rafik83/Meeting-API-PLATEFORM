@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Proximum\Vimeet365\Application\Repository;
+namespace Proximum\Vimeet365\Domain\Repository;
 
-use Proximum\Vimeet365\Entity\Community;
+use Proximum\Vimeet365\Domain\Entity\Community;
 
 interface CommunityRepositoryInterface
 {

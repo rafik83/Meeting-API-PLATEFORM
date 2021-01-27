@@ -6,8 +6,8 @@ namespace Proximum\Vimeet365\Infrastructure\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Proximum\Vimeet365\Application\Repository\CommunityRepositoryInterface;
-use Proximum\Vimeet365\Entity\Community;
+use Proximum\Vimeet365\Domain\Entity\Community;
+use Proximum\Vimeet365\Domain\Repository\CommunityRepositoryInterface;
 
 class CommunityRepository extends ServiceEntityRepository implements CommunityRepositoryInterface
 {
