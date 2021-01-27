@@ -10,4 +10,6 @@ Feature:
     @javascript
     Scenario: It receives a response from svelte ap
         Given I am on the homepage
+        When I go to "/fr"
         Then I should see "C'est parti !"
+        And I should see "Créer un compte"

@@ -115,7 +115,7 @@ jobs:
             -   run:
                     name: run behat tests
                     command: cd api && vendor/bin/behat
-
+                    
 workflows:
     integration:
         jobs:
