@@ -49,4 +49,9 @@ class AccountRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function upgradePassword(Account $account, string $newEncodedPassword): void
+    {
+        $account->setPassword($newEncodedPassword);
+        $this->getEntityManager()->flush($account);
+    }
 }

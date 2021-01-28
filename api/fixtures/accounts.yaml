@@ -1,9 +1,11 @@
+parameters:
+    password: '$argon2id$v=19$m=65536,t=4,p=1$17DQD9GEwGVNdKesMPJq2w$Ib4pKVBEKPZ+ivBkvJdrLuCMHnSxndbQNenIpQLDB2k' # password
+
 Proximum\Vimeet365\Domain\Entity\Account:
     account_{1..30}:
         __construct:
             email: <safeEmail()>
-            # TODO: Use plain password in test or set the same password for everybody in dev
-            password: <password()>
+            password: <{password}>
             firstName: <firstName()>
             lastName: <lastName()>
             vimeetId: <randomNumber()>

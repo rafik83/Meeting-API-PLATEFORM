@@ -1,0 +1,8 @@
+Proximum\Vimeet365\Domain\Entity\Account:
+    user_1:
+        __construct:
+            email: 'user@example.com'
+            password: 'password'
+            firstName: 'John'
+            lastName: 'Doe'
+            vimeetId: null
