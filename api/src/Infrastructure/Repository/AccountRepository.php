@@ -7,6 +7,7 @@ namespace Proximum\Vimeet365\Infrastructure\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Domain\Entity\Account;
+use Proximum\Vimeet365\Domain\Repository\AccountRepositoryInterface;
 
 /**
  * @method Account|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,7 +15,7 @@ use Proximum\Vimeet365\Domain\Entity\Account;
  * @method Account[]    findAll()
  * @method Account[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AccountRepository extends ServiceEntityRepository
+class AccountRepository extends ServiceEntityRepository implements AccountRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -49,9 +50,15 @@ class AccountRepository extends ServiceEntityRepository
         ;
     }
     */
+
     public function upgradePassword(Account $account, string $newEncodedPassword): void
     {
         $account->setPassword($newEncodedPassword);
         $this->getEntityManager()->flush($account);
+    }
+
+    public function add(Account $account): void
+    {
+        $this->getEntityManager()->persist($account);
     }
 }

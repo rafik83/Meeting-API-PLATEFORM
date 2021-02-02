@@ -14,3 +14,6 @@ parameters:
     symfony:
         # for Symfony 5.0+
         # container_xml_path: '%rootDir%/../../../var/cache/test/App_KernelTestDebugContainer.xml'
+
+    ignoreErrors:
+        - '#Variable method call on Doctrine\\Persistence\\ObjectRepository<T>.#'

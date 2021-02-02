@@ -19,7 +19,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Domain/Entity/'
             - '../src/Vimeet/Entity/'
-            - '../src/Application/Adapter/'
             - '../src/Kernel.php'
             - '../src/Tests/'
 

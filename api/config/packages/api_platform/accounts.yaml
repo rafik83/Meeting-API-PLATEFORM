@@ -1,0 +1,8 @@
+Proximum\Vimeet365\Domain\Entity\Account:
+    attributes:
+        pagination_items_per_page: 10
+    collectionOperations:
+        get: ~
+        post:
+            input: 'Proximum\Vimeet365\Application\Command\AccountRegistrationCommand'
+            messenger: 'input'
