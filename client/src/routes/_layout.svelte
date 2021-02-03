@@ -2,7 +2,6 @@
   main {
     position: relative;
     max-width: 100%;
-    background-color: #2a2e43;
     padding: 2em;
     margin: 0 auto;
     box-sizing: border-box;
@@ -32,18 +31,10 @@
   }
 </script>
 
-<script>
-  import Nav from '../components/Nav.svelte';
-
-  export let segment;
-</script>
-
 {#if $isLoading}
   <div class="loading">Loading...</div>
 {:else}
-  <Nav {segment} />
-
-  <main>
+  <main class="bg-gray-50">
     <slot />
   </main>
 {/if}

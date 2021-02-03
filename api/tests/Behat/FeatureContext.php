@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Behat;
 
 use Behat\Behat\Context\Context;
+use Behat\MinkExtension\Context\MinkContext;
 
 /**
  * This context class contains the definitions of the steps used by the demo
@@ -12,6 +13,13 @@ use Behat\Behat\Context\Context;
  *
  * @see http://behat.org/en/latest/quick_start.html
  */
-final class DemoContext implements Context
+class FeatureContext extends MinkContext implements Context
 {
+    /**
+     * @Then I wait :arg1
+     */
+    public function iWait($arg1)
+    {
+        $this->getSession()->wait($arg1);
+    }
 }

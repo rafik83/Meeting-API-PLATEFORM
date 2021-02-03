@@ -34,6 +34,18 @@ These dependencies are required to run the app
 php7.4-intl php7.4-gd php7.4-xml php7.4-curl php7.4-pgsql php7.4-mbstring php7.4-apcu
 ```
 
+#### Create your local env
+
+During the dev process, you may want to use a different environment configuration than the production one.
+
+You can override the production configuriation by creating a `.env.local` file and overriding the existing variables.
+
+
+Exemple :
+
+You can override the current `CORS_ALLOW_ORIGIN` variable by replacing it with `CORS_ALLOW_ORIGIN='*'`
+
+
 ### Frontend
 
 First install [NodeJs](https://nodejs.org/en/) on your local machine.
@@ -71,6 +83,15 @@ docker-compose up -d
 make start
 make watch-css
 ```
+
+### Login and default user
+
+Once you started the application you can log in with a previously stored user.
+
+Here are his credentials 
+
+User name : john@doe.com
+Pasword : password
 
 ### Useful Command Summary
 

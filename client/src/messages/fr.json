@@ -1,20 +1,22 @@
 {
-    "title": {
-        "index": "Sapper project template!"
-    },
-    "nav": {
-        "home": "Home",
-        "about": "A propos",
-        "blog": "Blog",
-        "communities": "Communautés"
-    },
     "messages": {
         "error": "Erreur: {status}",
         "success": "Bravo !",
         "high_five": "Hellooo",
-        "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading."
+        "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading.",
+        "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer"
+    },
+    "validation": {
+        "field_required": "Ce champs est requis",
+        "invalid_email": "Cet email est invalide",
+        "invalid_password": "Le mot de passe doit avoir une longueur de 8 caractères minimum",
+        "terms_and_conditions_not_selected": "Veuillez accepter les Conditions Génerales d'utilisation"
     },
     "registration": {
+        "welcome": "Bienvenue !",
+        "please_sign_in": "Veuillez vous enregistrer",
+        "create_account": "Create account",
+        "no_account": "Vous n'avez pas encore de compte ?",
         "title": "C'est parti !",
         "subtitle": "Créer un compte",
         "lastname": "Nom",
@@ -29,18 +31,17 @@
         "termsConditionsUrl": "http://example.com",
         "policyConditions": "politique de confidentialité",
         "policyConditionsUrl": "http://example.com",
-        "eventVimeet": "Vous avez déjà un compte ?",
-        "log": "Se connecter"
+        "already_have_account": "Vous avez déjà un compte ?",
+        "log": "Se connecter",
+        "register": "Créer un compte",
+        "loginOrEmail": "Login ou email",
+        "remember_me": "Se souvenir de moi",
+        "wrong_username_or_password": "Nom d'utilisateur ou mot de passe incorrect",
+        "step-1-title": "Work in progress",
+        "step-1-subtitle": "Work in progress ..."
     },
     "admin": {
         "title": "Page d'administration"
-    },
-    "languages": {
-        "en": "English",
-        "pt_BR": "Português",
-        "es_ES": "Espanol",
-        "ar": "عربى",
-        "fr": "Français"
     },
     "direction": "ltr",
     "comunities": {

@@ -2,8 +2,7 @@ default:
     suites:
         default:
             contexts:
-                - Proximum\Vimeet365\Tests\Behat\DemoContext
-                - Behat\MinkExtension\Context\MinkContext
+                - Proximum\Vimeet365\Tests\Behat\FeatureContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:

@@ -9,6 +9,8 @@
 </style>
 
 <script>
+  import IconEye from './IconEye.svelte';
+
   export let displayLabel = false;
 
   const handleFocusInput = () => {
@@ -22,55 +24,59 @@
   };
 
   export let name;
-  export let type = '';
-  export let value = '';
-  export let label = '';
-  export const required = 'required';
+  export let type;
+  export let label;
+  export let value;
+  export let errorMessage = null;
+  let displayPassword = false;
 
-  const className =
-    'py-2.5 px-5 w-full text-grey border-2 rounded-3xl border-none';
+  const toggle = (event) => {
+    const input = event.currentTarget.previousElementSibling;
+    if (!input) {
+      return;
+    }
+
+    input.type = input.type === 'password' ? 'text' : 'password';
+    displayPassword = !displayPassword;
+  };
+
+  const handleInput = (event) => {
+    value = event.target.value;
+  };
 </script>
 
-<div class="border border-gray-200 my-5 rounded-3xl">
-  {#if displayLabel}
-    <div>
-      <label
-        for={label}
-        class="block mt-2 text-grey italic absolute bg-gray-50 mf-2.5 -mt-3.5 ml-3 px-2 text-sm"
-        >{name}</label
-      >
-    </div>
-  {/if}
+<div class="my-5">
+  <div
+    class="border flex rounded-3xl  {errorMessage
+      ? 'border-error'
+      : 'border-gray-200'}"
+  >
+    <label
+      class:invisible={!displayLabel}
+      for={name}
+      class="block mt-2  italic absolute bg-gray-50 mf-2.5 -mt-3.5 ml-3 px-2 text-sm {errorMessage
+        ? 'border-error text-error'
+        : 'border-gray-200'}">{label}</label
+    >
 
-  {#if type === 'email'}
     <input
-      type="email"
-      {required}
+      {type}
+      id={name}
+      {value}
       placeholder={label}
-      bind:value
       on:focusout={handleMouseOut}
       on:focus={handleFocusInput}
-      class={className}
+      on:input={handleInput}
+      class={'text-grey  w-full rounded-3xl px-2 py-2 border-none'}
     />
-  {:else if type === 'password'}
-    <input
-      type="password"
-      {required}
-      placeholder={label}
-      bind:value
-      on:focusout={handleMouseOut}
-      on:focus={handleFocusInput}
-      class={className}
-    />
-  {:else}
-    <input
-      type="text"
-      {required}
-      placeholder={label}
-      bind:value
-      on:focusout={handleMouseOut}
-      on:focus={handleFocusInput}
-      class={className}
-    />
+
+    {#if type === 'password'}
+      <button on:click|preventDefault={toggle} class="w-5 h-auto mx-2">
+        <IconEye color="#cccc" />
+      </button>
+    {/if}
+  </div>
+  {#if errorMessage}
+    <span class="text-error mx-2 my-5">{errorMessage}</span>
   {/if}
 </div>

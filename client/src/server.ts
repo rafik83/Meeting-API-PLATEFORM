@@ -1,6 +1,7 @@
 /* eslint-disable */
 import sirv from 'sirv';
 import polka from 'polka';
+
 import compression from 'compression';
 import * as sapper from '@sapper/server';
 import { i18nMiddleware, addLocaleToRequest } from './modules/i18n';

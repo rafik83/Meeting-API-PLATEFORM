@@ -3,6 +3,13 @@ Proximum\Vimeet365\Domain\Entity\Account:
         __construct:
             email: 'user@example.com'
             password: 'password'
+            firstName: 'Macha'
+            lastName: 'LaMatcha'
+            vimeetId: null
+    user_2:
+        __construct:
+            email: 'john@doe.com'
+            password: 'password'
             firstName: 'John'
             lastName: 'Doe'
             vimeetId: null

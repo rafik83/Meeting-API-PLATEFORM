@@ -1,21 +1,23 @@
 {
-    "title": {
-        "index": "Sapper project template!"
-    },
-    "nav": {
-        "home": "Home",
-        "about": "About",
-        "blog": "Blog",
-        "communities": "Communities"
-    },
     "messages": {
         "error": "Error: {status}",
         "success": "Great success!",
         "high_five": "High five",
-        "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading."
+        "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading.",
+        "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer"
+    },
+    "validation": {
+        "field_required": "Field Required",
+        "invalid_email": "Invalid Email",
+        "invalid_password": "the password must be at least {number} characters long",
+        "terms_and_conditions_not_selected": "Please accept the terms and conditions"
     },
     "registration": {
+        "welcome": "Welcome !",
+        "please_sign_in": "Please sign in",
+        "no_account": "Still don't have an account ?",
         "title": "Lets Start!",
+        "create_account": "Create account",
         "subtitle": "Create account",
         "lastname": "Lastname",
         "firstname": "Firstname",
@@ -29,11 +31,14 @@
         "termsConditionsUrl": "http://example.com",
         "policyConditions": "Privacy Policy",
         "policyConditionsUrl": "http://example.com",
-        "eventVimeet": "Already have an Account ?",
-        "log": "Signin"
-    },
-    "admin": {
-        "title": "Administration Page"
+        "already_have_account": "Already have an Account ?",
+        "login": "Signin",
+        "loginOrEmail": "Login or email",
+        "remember_me": "Remember me",
+        "register": "Register",
+        "wrong_username_or_password": "Incorrect username or login",
+        "step-1-title": "Work in progress",
+        "step-1-subtitle": "Work in progress ..."
     },
     "languages": {
         "en": "English",

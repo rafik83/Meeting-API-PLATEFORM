@@ -19,3 +19,6 @@ test:
 
 watch-css:
 	$(MAKE) -C client watch-css
+
+load-fixtures :
+	$(MAKE) -C api load-fixtures

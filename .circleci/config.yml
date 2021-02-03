@@ -104,7 +104,7 @@ jobs:
 
             -   run:
                     name: start api server
-                    command: cd api && APP_ENV=test /home/circleci/.symfony/bin/symfony server:start
+                    command: cd api && APP_ENV=test /home/circleci/.symfony/bin/symfony server:start --allow-http
                     background: true
 
             -   run:

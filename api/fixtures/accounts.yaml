@@ -2,7 +2,14 @@ parameters:
     password: '$argon2id$v=19$m=65536,t=4,p=1$17DQD9GEwGVNdKesMPJq2w$Ib4pKVBEKPZ+ivBkvJdrLuCMHnSxndbQNenIpQLDB2k' # password
 
 Proximum\Vimeet365\Domain\Entity\Account:
-    account_{1..30}:
+    account_1:
+        __construct:
+            email: john@doe.com
+            password: <{password}>
+            firstName: <firstName()>
+            lastName: <lastName()>
+            vimeetId: <randomNumber()>
+    account_{2..30}:
         __construct:
             email: <safeEmail()>
             password: <{password}>
