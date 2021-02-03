@@ -4,12 +4,13 @@
         "success": "Bravo !",
         "high_five": "Hellooo",
         "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading.",
-        "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer"
+        "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer",
+        "page_not_found": "Cette page n'existe pas ou à été deplacée"
     },
     "validation": {
         "field_required": "Ce champs est requis",
         "invalid_email": "Cet email est invalide",
-        "invalid_password": "Le mot de passe doit avoir une longueur de 8 caractères minimum",
+        "invalid_password": "Le mot de passe doit avoir une longueur de {minPassword} caractères minimum",
         "terms_and_conditions_not_selected": "Veuillez accepter les Conditions Génerales d'utilisation"
     },
     "registration": {
@@ -23,8 +24,8 @@
         "firstname": "Prénom",
         "email": "Adresse email",
         "password": "Mot de passe",
-        "button": "S'inscrire",
-        "buttonSSO": "S'inscrire avec",
+        "sign_up": "S'inscrire",
+        "sign_up_SSO": "S'inscrire avec",
         "or": "Ou",
         "conditions": "J'accepte les {link} ainsi que la {link2}",
         "termsConditions": "termes et conditions",
@@ -32,7 +33,7 @@
         "policyConditions": "politique de confidentialité",
         "policyConditionsUrl": "http://example.com",
         "already_have_account": "Vous avez déjà un compte ?",
-        "log": "Se connecter",
+        "sign_in": "Se connecter",
         "register": "Créer un compte",
         "loginOrEmail": "Login ou email",
         "remember_me": "Se souvenir de moi",

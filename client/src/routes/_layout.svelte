@@ -34,7 +34,7 @@
 {#if $isLoading}
   <div class="loading">Loading...</div>
 {:else}
-  <main class="bg-gray-50">
+  <main class="bg-gray-50 flex flex-col items-center">
     <slot />
   </main>
 {/if}

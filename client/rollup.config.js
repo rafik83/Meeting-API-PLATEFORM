@@ -45,7 +45,7 @@ export default {
       }),
       resolve({
         browser: true,
-        dedupe: ['svelte'],
+        dedupe: ['svelte', 'svelte/transition', 'svelte/internal'],
       }),
       commonjs(),
       typescript({ sourceMap: dev }),
@@ -110,7 +110,7 @@ export default {
         emitFiles: false, // already emitted by client build
       }),
       resolve({
-        dedupe: ['svelte'],
+        dedupe: ['svelte', 'svelte/transition', 'svelte/internal'],
       }),
       commonjs(),
       typescript({ sourceMap: dev }),

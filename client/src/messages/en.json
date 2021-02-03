@@ -4,12 +4,13 @@
         "success": "Great success!",
         "high_five": "High five",
         "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading.",
-        "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer"
+        "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer",
+        "page_not_found": "This page does not exists or has been moved"
     },
     "validation": {
         "field_required": "Field Required",
         "invalid_email": "Invalid Email",
-        "invalid_password": "the password must be at least {number} characters long",
+        "invalid_password": "the password must be at least {minPassword} characters long",
         "terms_and_conditions_not_selected": "Please accept the terms and conditions"
     },
     "registration": {
@@ -23,8 +24,8 @@
         "firstname": "Firstname",
         "email": "Email address",
         "password": "Password",
-        "button": "Signup",
-        "buttonSSO": "Signup with",
+        "sign_up": "Signup",
+        "sign_up_SSO": "Signup with",
         "or": "Or",
         "conditions": "I accept the {link} and the {link2}",
         "termsConditions": "Terms & Conditions",
@@ -32,7 +33,7 @@
         "policyConditions": "Privacy Policy",
         "policyConditionsUrl": "http://example.com",
         "already_have_account": "Already have an Account ?",
-        "login": "Signin",
+        "sign_in": "Signin",
         "loginOrEmail": "Login or email",
         "remember_me": "Remember me",
         "register": "Register",

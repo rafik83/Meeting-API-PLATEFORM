@@ -2,7 +2,7 @@
   import { _ } from 'svelte-i18n';
 
   export let name;
-  export let isChecked = false;
+  export let checked = false;
   export let errorMessage;
 </script>
 
@@ -12,7 +12,7 @@
       on:change
       type="checkbox"
       class="form-checkbox h-6 w-10 mr-2"
-      bind:checked={isChecked}
+      bind:checked
     />
 
     <label for={name} class="block text-gray-400">
