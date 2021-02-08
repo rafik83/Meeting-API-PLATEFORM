@@ -39,7 +39,8 @@
         "register": "Register",
         "wrong_username_or_password": "Incorrect username or login",
         "step-1-title": "Work in progress",
-        "step-1-subtitle": "Work in progress ..."
+        "step-1-subtitle": "Work in progress ...",
+        "user_already_exists": "A user is already registred with this email"
     },
     "languages": {
         "en": "English",

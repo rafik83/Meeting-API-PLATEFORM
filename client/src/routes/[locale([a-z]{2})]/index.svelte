@@ -3,11 +3,11 @@
   import registrationSteps from '../../constants';
 
   export async function preload({ query }, session) {
-    const currentStep = session.user ? registrationSteps.SIGN_IN : query.step;
+    const currentStep = query.step;
     if (currentStep && !isValidRegistrationStep(currentStep)) {
       this.error(404, '');
     }
-    return { user: session.user, step: currentStep };
+    return { user: session.user, step: currentStep, errorMessage: '' };
   }
 </script>
 
@@ -23,7 +23,7 @@
 
   export let step;
   export let user;
-  let errorMessage;
+  export let errorMessage;
 
   const handleNavigateToRegistrationStep = async () => {
     await goto(toRegistrationStep(registrationSteps.SIGN_IN));
@@ -42,8 +42,13 @@
   const handleSignUp = async (values) => {
     try {
       $session.user = await register(values);
+      await goto(toRegistrationStep(registrationSteps.SIGN_IN));
     } catch (e) {
-      errorMessage = $_('messages.error_has_occured');
+      if (e.response.status === 422) {
+        errorMessage = $_('registration.user_already_exists');
+      } else {
+        errorMessage = $_('messages.error_has_occured');
+      }
     }
   };
 </script>

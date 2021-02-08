@@ -17,7 +17,6 @@
       color: '#2A2E43',
       boxShadow: 'none',
     },
-    styleWindow: {},
   };
 
   const handleSignIn = async (values) => {

@@ -39,6 +39,7 @@
       .required($_('validation.field_required')),
     acceptedTermsAndCondition: yup
       .boolean()
+      .oneOf([true], $_('validation.terms_and_conditions_not_selected'))
       .required($_('validation.terms_and_conditions_not_selected')),
   });
 

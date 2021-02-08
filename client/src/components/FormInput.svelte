@@ -43,6 +43,8 @@
   const handleInput = (event) => {
     value = event.target.value;
   };
+
+  const inputWidth = type === 'password' ? 'w-11/12' : 'w-full';
 </script>
 
 <div class="my-5">
@@ -67,7 +69,7 @@
       on:focusout={handleMouseOut}
       on:focus={handleFocusInput}
       on:input={handleInput}
-      class={'text-grey  w-full rounded-3xl px-2 py-2 border-none'}
+      class={`text-grey rounded-3xl px-2 py-2 border-none ${inputWidth}`}
     />
 
     {#if type === 'password'}
