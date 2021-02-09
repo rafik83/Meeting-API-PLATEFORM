@@ -1,0 +1,12 @@
+Proximum\Vimeet365\Domain\Entity\Community\Step:
+    attributes:
+        output: 'Proximum\Vimeet365\Application\View\CommunityStepView'
+    collectionOperations: []
+    itemOperations:
+        get: ~
+    properties:
+        id: { identifier: true }
+        nomenclature:
+            subresource:
+                resourceClass: 'Proximum\Vimeet365\Domain\Entity\Nomenclature'
+                collection: false

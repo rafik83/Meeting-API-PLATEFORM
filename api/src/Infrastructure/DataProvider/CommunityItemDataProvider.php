@@ -8,7 +8,8 @@ use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use Proximum\Vimeet365\Application\Adapter\QueryBusInterface;
 use Proximum\Vimeet365\Application\Query\Community\CommunityViewQuery;
-use Proximum\Vimeet365\Domain\View\CommunityView;
+use Proximum\Vimeet365\Application\View\CommunityView;
+use Proximum\Vimeet365\Domain\Entity\Community;
 
 final class CommunityItemDataProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
@@ -21,7 +22,7 @@ final class CommunityItemDataProvider implements ItemDataProviderInterface, Rest
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
-        return CommunityView::class === $resourceClass;
+        return Community::class === $resourceClass;
     }
 
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?CommunityView

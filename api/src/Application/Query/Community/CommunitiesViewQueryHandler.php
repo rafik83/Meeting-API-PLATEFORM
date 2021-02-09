@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Application\Query\Community;
 
+use Proximum\Vimeet365\Application\View\CommunityListView;
 use Proximum\Vimeet365\Domain\Entity\Community;
 use Proximum\Vimeet365\Domain\Repository\CommunityRepositoryInterface;
-use Proximum\Vimeet365\Domain\View\CommunitiesView;
-use Proximum\Vimeet365\Domain\View\CommunityView;
 
 class CommunitiesViewQueryHandler
 {
@@ -18,13 +17,16 @@ class CommunitiesViewQueryHandler
         $this->communityRepository = $communityRepository;
     }
 
-    public function __invoke(CommunityViewQuery $query): CommunitiesView
+    /**
+     * @return CommunityListView[]
+     */
+    public function __invoke(CommunitiesViewQuery $query): array
     {
-        return new CommunitiesView(array_map(
-            static function (Community $community): CommunityView {
-                return new CommunityView($community->getId(), $community->getName());
+        return array_map(
+            static function (Community $community): CommunityListView {
+                return new CommunityListView($community->getId(), $community->getName());
             },
             $this->communityRepository->findAll()
-        ));
+        );
     }
 }

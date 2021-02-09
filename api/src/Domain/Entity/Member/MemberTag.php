@@ -16,7 +16,7 @@ class MemberTag
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity=Member::class)
+     * @ORM\ManyToOne(targetEntity=Member::class, inversedBy="tags")
      */
     private Member $member;
 
@@ -34,11 +34,17 @@ class MemberTag
      */
     private Tag $tag;
 
-    public function __construct(Member $member, Nomenclature $nomenclature, Tag $tag)
+    /**
+     * @ORM\Column(type="smallint", options={"default" = 0})
+     */
+    private int $priority;
+
+    public function __construct(Member $member, Nomenclature $nomenclature, Tag $tag, int $priority = 0)
     {
         $this->member = $member;
         $this->nomenclature = $nomenclature;
         $this->tag = $tag;
+        $this->priority = $priority;
     }
 
     public function getMember(): Member
@@ -54,5 +60,15 @@ class MemberTag
     public function getTag(): Tag
     {
         return $this->tag;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
     }
 }

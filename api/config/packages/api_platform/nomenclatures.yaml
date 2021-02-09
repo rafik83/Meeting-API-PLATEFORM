@@ -1,0 +1,8 @@
+Proximum\Vimeet365\Domain\Entity\Nomenclature:
+    attributes:
+        output: Proximum\Vimeet365\Application\View\NomenclatureView
+    collectionOperations: []
+    itemOperations:
+        get: ~
+    properties:
+        id: { identifier: true }

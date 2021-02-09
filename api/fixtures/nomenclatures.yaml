@@ -1,24 +1,129 @@
 Proximum\Vimeet365\Domain\Entity\Tag:
+    tag_iam_supplier:
+        __construct:
+            name: A Supplier
+        id: 1
+    tag_iam_keyaccount:
+        __construct:
+            name: A Key Account
+        id: 2
+
+    tag_goals_buy:
+        __construct:
+            name: buy
+        id: 3
+    tag_goals_sell:
+        __construct:
+            name: sell
+        id: 4
+    tag_goals_find_industrial_partners:
+        __construct:
+            name: find industrial partners
+        id: 5
+    tag_goals_find_financial_partners:
+        __construct:
+            name: find financial partners
+        id: 6
+    tag_goals_access_targeted_content:
+        __construct:
+            name: access targeted content
+        id: 7
+    tag_satellites:
+        __construct:
+            name: Satellites
+        id: 8
+    tag_space_apps:
+        __construct:
+            name: Space Apps
+        id: 9
     tag_ground:
         __construct:
             name: Ground
+        id: 10
+    tag_electromagnetic_technologies_and_techniques:
+        __construct:
+            name: Electromagnetic Technologies and Techniques
+        id: 11
+    tag_ground_station_system_and_networks:
+        __construct:
+            name: Ground Station System and Networks
+        id: 12
     tag_optics:
         __construct:
             name: Optics
+        id: 13
+    tag_optoelectronics:
+        __construct:
+            name: Optoelectronics
+        id: 14
+    tag_mission_operation_and_ground_data_systems:
+        __construct:
+            name: Mission Operation and Ground Data systems
+        id: 15
+    tag_rf_systems_payloads_and_technologies:
+        __construct:
+            name: RF Systems, Payloads and Technologies
+        id: 16
     tag_space_debris:
         __construct:
             name: Space Debris
+        id: 17
+    tag_space_rd:
+        __construct:
+            name: Space R&D
+        id: 18
+    tag_spacecraft_electrical_power:
+        __construct:
+            name: Spacecraft Electrical Power
+        id: 19
     tag_launcher:
         __construct:
             name: Launcher
+        id: 20
+    tag_life_in_space:
+        __construct:
+            name: Life in space
+        id: 21
 
 Proximum\Vimeet365\Domain\Entity\Nomenclature:
+    nomenclature_iam:
+        __construct:
+            community: '@community_1'
+            name: I am
+        id: 1
+        __calls:
+            -   'addTag': [ '@tag_iam_supplier' ]
+            -   'addTag': [ '@tag_iam_keyaccount' ]
+
+    nomenclature_goals:
+        __construct:
+            community: '@community_1'
+            name: Goals and objectives
+        id: 2
+        __calls:
+            -   'addTag': [ '@tag_goals_buy' ]
+            -   'addTag': [ '@tag_goals_sell' ]
+            -   'addTag': [ '@tag_goals_find_industrial_partners' ]
+            -   'addTag': [ '@tag_goals_find_financial_partners' ]
+            -   'addTag': [ '@tag_goals_access_targeted_content' ]
+
     nomenclature_activity_fields:
         __construct:
             community: '@community_1'
             name: Activity Fields
+        id: 3
         __calls:
-            - 'addTag': ['@tag_ground']
-            - 'addTag': ['@tag_optics', '@tag_ground']
-            - 'addTag': ['@tag_space_debris', '@tag_ground']
-            - 'addTag': ['@tag_launcher']
+            -   'addTag': [ '@tag_satellites' ]
+            -   'addTag': [ '@tag_ground' ]
+            -   'addTag': [ '@tag_electromagnetic_technologies_and_techniques', '@tag_ground' ]
+            -   'addTag': [ '@tag_ground_station_system_and_networks',  '@tag_ground' ]
+            -   'addTag': [ '@tag_optics',  '@tag_ground' ]
+            -   'addTag': [ '@tag_optoelectronics',  '@tag_ground' ]
+            -   'addTag': [ '@tag_mission_operation_and_ground_data_systems', '@tag_ground' ]
+            -   'addTag': [ '@tag_rf_systems_payloads_and_technologies',  '@tag_ground' ]
+            -   'addTag': [ '@tag_space_debris',  '@tag_ground' ]
+            -   'addTag': [ '@tag_space_rd',  '@tag_ground' ]
+            -   'addTag': [ '@tag_spacecraft_electrical_power', '@tag_ground' ]
+            -   'addTag': [ '@tag_space_apps' ]
+            -   'addTag': [ '@tag_life_in_space' ]
+            -   'addTag': [ '@tag_launcher' ]

@@ -1,0 +1,262 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Proximum\Vimeet365\Tests\Functional;
+
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Proximum\Vimeet365\Domain\Entity\Account;
+use Proximum\Vimeet365\Domain\Entity\Community;
+use Proximum\Vimeet365\Domain\Entity\Member;
+use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
+use Proximum\Vimeet365\Infrastructure\Repository\CommunityRepository;
+use Proximum\Vimeet365\Infrastructure\Security\User;
+
+class MemberTest extends ApiTestCase
+{
+    use RefreshDatabaseTrait;
+
+    protected static $client;
+
+    public function setUp(): void
+    {
+        self::$client = static::createClient();
+    }
+
+    public function testJoin(): void
+    {
+        $this->login('user@example.com');
+
+        $communityId = $this->getCommunity('Space industry')->getId();
+
+        $this->request('POST', '/api/members', ['community' => $communityId]);
+
+        self::assertResponseStatusCodeSame(201);
+
+        self::assertJsonContains([
+            '@type' => 'Member',
+            'currentQualificationStep' => [
+                '@type' => 'CommunityStepView',
+                'nomenclature' => [],
+            ],
+            'tagsByNomenclature' => [],
+        ]);
+    }
+
+    public function testJoinAlreadyJoin(): void
+    {
+        $this->login('member@example.com');
+        $communityId = $this->getCommunity('Space industry')->getId();
+
+        $this->request('POST', '/api/members', ['community' => $communityId]);
+
+        self::assertResponseStatusCodeSame(201);
+
+        self::assertJsonContains([
+            '@type' => 'Member',
+        ]);
+    }
+
+    public function testSetCommunityTag(): void
+    {
+        $this->login('joined@example.com');
+
+        $community = $this->getCommunity('Space industry');
+        $member = $this->getMember('joined@example.com', $community);
+
+        $currentStepId = $member->getCurrentQualificationStep()->getId();
+        $firstTag = $member->getCurrentQualificationStep()->getNomenclature()->getTags()->first()->getTag()->getId();
+
+        $this->request(
+            'PATCH',
+            '/api/members/' . $member->getId(),
+            [
+                'step' => $currentStepId,
+                'tags' => [
+                    ['id' => $firstTag, 'priority' => 0],
+                ],
+            ], [
+                'content-type' => 'application/merge-patch+json',
+            ]
+        );
+
+        self::assertResponseStatusCodeSame(200);
+
+        self::assertJsonContains([
+            '@type' => 'Member',
+            'currentQualificationStep' => [
+                '@type' => 'CommunityStepView',
+                'nomenclature' => [],
+            ],
+            'tagsByNomenclature' => [],
+        ]);
+    }
+
+    public function testSetCommunityTagCompletedProfile(): void
+    {
+        $this->login('joined@example.com');
+
+        $community = $this->getCommunity('Space industry');
+        $member = $this->getMember('joined@example.com', $community);
+
+        $currentStepId = $community->getSteps()->first()->getId();
+        $firstTag = $community->getSteps()->first()->getNomenclature()->getTags()->first()->getTag()->getId();
+
+        $this->request(
+            'PATCH',
+            '/api/members/' . $member->getId(),
+            [
+                'step' => $currentStepId,
+                'tags' => [
+                    ['id' => $firstTag, 'priority' => 0],
+                ],
+            ], [
+                'content-type' => 'application/merge-patch+json',
+            ]
+        );
+
+        self::assertResponseStatusCodeSame(200);
+
+        self::assertJsonContains([
+            '@type' => 'Member',
+            'tagsByNomenclature' => [],
+        ]);
+    }
+
+    /**
+     * @dataProvider provideTestSetCommunityTagInvalid
+     */
+    public function testSetCommunityTagInvalid(string $email, int $currentStepId, array $tags, array $expectedViolations): void
+    {
+        $this->login($email);
+
+        $community = $this->getCommunity('Space industry');
+        $member = $this->getMember($email, $community);
+
+        $this->request(
+            'PATCH',
+            '/api/members/' . $member->getId(),
+            [
+                'step' => $currentStepId,
+                'tags' => $tags,
+            ], [
+                'content-type' => 'application/merge-patch+json',
+            ]
+        );
+
+        self::assertResponseStatusCodeSame(422);
+
+        self::assertJsonContains([
+            '@context' => '/api/contexts/ConstraintViolationList',
+            '@type' => 'ConstraintViolationList',
+            'violations' => $expectedViolations,
+        ]);
+    }
+
+    public function provideTestSetCommunityTagInvalid(): iterable
+    {
+        yield 'invalid step' => [
+            'joined@example.com',
+            -1,
+            [['id' => 1, 'priority' => 0]],
+            [
+                [
+                    'propertyPath' => 'step',
+                    'message' => 'The step -1 does not belong to the member community',
+                ],
+            ],
+        ];
+
+        yield 'invalid priority' => [
+            'joined@example.com',
+            1,
+            [['id' => 1, 'priority' => -1]],
+            [
+                [
+                    'propertyPath' => 'tags[0].priority',
+                    'message' => 'This value should be "0" or more.',
+                ],
+            ],
+        ];
+
+        yield 'invalid tags' => [
+            'joined@example.com',
+            1,
+            [['id' => -1, 'priority' => 0]],
+            [
+                [
+                    'propertyPath' => 'tags',
+                    'message' => 'The tags "-1" does not belong to the step',
+                ],
+            ],
+        ];
+
+        yield 'not enough tags' => [
+            'joined@example.com',
+            1,
+            [],
+            [
+                [
+                    'propertyPath' => 'tags',
+                    'message' => 'This collection should contain exactly 1 element.',
+                ],
+            ],
+        ];
+
+        yield 'too many tags' => [
+            'joined@example.com',
+            1,
+            [
+                ['id' => 1, 'priority' => 0],
+                ['id' => 1, 'priority' => 1],
+            ],
+            [
+                [
+                    'propertyPath' => 'tags',
+                    'message' => 'This collection should contain exactly 1 element.',
+                ],
+            ],
+        ];
+    }
+
+    protected function request(string $method, string $url, array $body, array $headers = [])
+    {
+        return self::$client->request($method, $url, [
+            'headers' => array_merge([
+                'content-type' => 'application/ld+json',
+            ], $headers),
+            'body' => \json_encode($body),
+        ]);
+    }
+
+    protected function login(string $username): void
+    {
+        $accountRepository = self::$container->get(AccountRepository::class);
+
+        $account = $accountRepository->findOneByEmail($username);
+
+        self::$client->getKernelBrowser()->loginUser(new User($account), 'main');
+    }
+
+    protected function getCommunity(string $name): Community
+    {
+        if (self::$container === null) {
+            self::$client = static::createClient();
+        }
+
+        $communityRepository = self::$container->get(CommunityRepository::class);
+
+        return $communityRepository->findOneByName($name);
+    }
+
+    private function getMember(string $email, Community $community): Member
+    {
+        $accountRepository = self::$container->get(AccountRepository::class);
+
+        /** @var Account $account */
+        $account = $accountRepository->findOneByEmail($email);
+
+        return $account->getMemberFor($community);
+    }
+}

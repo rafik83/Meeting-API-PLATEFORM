@@ -1,0 +1,31 @@
+Proximum\Vimeet365\Domain\Entity\Community\Step:
+    community_1.step1:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_iam'
+            position: 0
+            title: "I am"
+            description: null
+            min: 1
+            max: 1
+        id: 1
+    community_1.step2:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_goals'
+            position: 1
+            title: "My Goals and objectives"
+            description: null
+            min: 1
+            max: null
+        id: 2
+    community_1.step3:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_activity_fields'
+            position: 2
+            title: "Your activities Fields"
+            description: "Choose your activity fields"
+            min: 1
+            max: null
+        id: 3

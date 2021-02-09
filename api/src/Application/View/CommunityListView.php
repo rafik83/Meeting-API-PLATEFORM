@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Proximum\Vimeet365\Domain\View;
+namespace Proximum\Vimeet365\Application\View;
 
-class CommunityView
+class CommunityListView
 {
     public int $id;
     public string $name;

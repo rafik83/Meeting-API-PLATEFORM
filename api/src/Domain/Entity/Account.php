@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Domain\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
 
@@ -49,6 +51,13 @@ class Account
      */
     private ?int $vimeetId = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Member::class, mappedBy="account")
+     *
+     * @var Collection<int, Member>
+     */
+    private Collection $members;
+
     public function __construct(
         string $email,
         string $password,
@@ -61,6 +70,8 @@ class Account
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->vimeetId = $vimeetId;
+
+        $this->members = new ArrayCollection();
 
         $this->acceptedTermsAndCondition();
     }
@@ -105,6 +116,27 @@ class Account
         $this->vimeetId = $vimeetId;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Member>
+     */
+    public function getMembers(): Collection
+    {
+        return $this->members;
+    }
+
+    public function getMemberFor(Community $community): ?Member
+    {
+        $member = $this->members->filter(
+            static fn (Member $member): bool => $member->getCommunity()->getId() === $community->getId()
+        )->first();
+
+        if ($member === false) {
+            return null;
+        }
+
+        return $member;
     }
 
     public function acceptedTermsAndCondition(): void

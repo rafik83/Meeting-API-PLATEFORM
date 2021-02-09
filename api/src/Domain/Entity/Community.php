@@ -7,6 +7,7 @@ namespace Proximum\Vimeet365\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Proximum\Vimeet365\Domain\Entity\Community\Step;
 
 /**
  * @ORM\Entity()
@@ -32,10 +33,27 @@ class Community
      */
     private Collection $nomenclatures;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Step::class, mappedBy="community", indexBy="position")
+     * @ORM\OrderBy({"position" = "ASC"})
+     *
+     * @var Collection<int, Step>
+     */
+    private Collection $steps;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Member::class, mappedBy="community")
+     *
+     * @var Collection<int, Member>
+     */
+    private Collection $members;
+
     public function __construct(string $name)
     {
         $this->name = $name;
         $this->nomenclatures = new ArrayCollection();
+        $this->steps = new ArrayCollection();
+        $this->members = new ArrayCollection();
     }
 
     public function getId(): int
@@ -61,5 +79,33 @@ class Community
     public function getNomenclatures(): Collection
     {
         return $this->nomenclatures;
+    }
+
+    /**
+     * @return Collection<int, Step>
+     */
+    public function getSteps(): Collection
+    {
+        return $this->steps;
+    }
+
+    public function getNextStep(Step $step): ?Step
+    {
+        return $this->getSteps()->get($step->getPosition() + 1);
+    }
+
+    public function join(Account $account): Member
+    {
+        $member = $account->getMemberFor($this);
+
+        if ($member !== null) {
+            return $member;
+        }
+
+        $member = new Member($this, $account);
+
+        $this->members->add($member);
+
+        return $member;
     }
 }

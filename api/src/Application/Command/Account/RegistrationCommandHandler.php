@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Proximum\Vimeet365\Application\Command;
+namespace Proximum\Vimeet365\Application\Command\Account;
 
 use Proximum\Vimeet365\Application\Adapter\PasswordEncoderInterface;
 use Proximum\Vimeet365\Domain\Entity\Account;
 use Proximum\Vimeet365\Domain\Repository\AccountRepositoryInterface;
 
-class AccountRegistrationCommandHandler
+class RegistrationCommandHandler
 {
     private AccountRepositoryInterface $accountRepository;
     private PasswordEncoderInterface $passwordEncoder;
@@ -19,7 +19,7 @@ class AccountRegistrationCommandHandler
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function __invoke(AccountRegistrationCommand $command): Account
+    public function __invoke(RegistrationCommand $command): Account
     {
         $encodedPassword = $this->passwordEncoder->encode($command->password);
 

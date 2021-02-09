@@ -18,6 +18,7 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Domain/Entity/'
+            - '../src/Application/Views/'
             - '../src/Vimeet/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
@@ -51,7 +52,7 @@ services:
 
     command_bus:
         class: Proximum\Vimeet365\Infrastructure\Adapter\BusAdapter
-        arguments: ['@messenger.bus.com']
+        arguments: ['@messenger.bus.commands']
 
     Proximum\Vimeet365\Application\Adapter\CommandBusInterface: '@command_bus'
     Proximum\Vimeet365\Application\Adapter\QueryBusInterface: '@query_bus'
@@ -59,3 +60,14 @@ services:
     Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\LoginDecorator:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
+
+    app.alice.property_access.reflection_property_accessor:
+        class: Nelmio\Alice\PropertyAccess\ReflectionPropertyAccessor
+        public: false
+        decorates: nelmio_alice.property_accessor
+        decoration_priority: -10
+        arguments: ['@app.symfony.property_access.property_accessor']
+
+    app.symfony.property_access.property_accessor:
+        class: Symfony\Component\PropertyAccess\PropertyAccessor
+        public: false

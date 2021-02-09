@@ -1,10 +1,20 @@
-Proximum\Vimeet365\Domain\View\CommunityView:
+Proximum\Vimeet365\Domain\Entity\Community:
     collectionOperations:
         get:
             path: "/communities"
+            output: 'Proximum\Vimeet365\Application\View\CommunityListView'
     itemOperations:
         get:
             path: "/communities/{id}"
             requirements: { id: '\d+' }
+            output: 'Proximum\Vimeet365\Application\View\CommunityView'
     properties:
         id: { identifier: true }
+        nomenclatures:
+            subresource:
+                resourceClass: 'Proximum\Vimeet365\Domain\Entity\Nomenclature'
+                collection: true
+        steps:
+            subresource:
+                resourceClass: 'Proximum\Vimeet365\Domain\Entity\Community\Step'
+                collection: true

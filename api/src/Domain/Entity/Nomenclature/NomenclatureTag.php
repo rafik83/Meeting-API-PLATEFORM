@@ -23,7 +23,7 @@ class NomenclatureTag
     private ?int $id = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Nomenclature::class)
+     * @ORM\ManyToOne(targetEntity=Nomenclature::class, inversedBy="tags")
      * @ORM\JoinColumn(nullable=false)
      */
     private Nomenclature $nomenclature;

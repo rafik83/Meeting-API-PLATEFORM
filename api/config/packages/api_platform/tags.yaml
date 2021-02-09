@@ -1,0 +1,8 @@
+Proximum\Vimeet365\Domain\Entity\Tag:
+    attributes:
+        output: Proximum\Vimeet365\Application\View\TagView
+    collectionOperations: []
+    itemOperations:
+        get: ~
+    properties:
+        id: { identifier: true }

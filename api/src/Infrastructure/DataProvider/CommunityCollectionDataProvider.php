@@ -8,7 +8,8 @@ use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use Proximum\Vimeet365\Application\Adapter\QueryBusInterface;
 use Proximum\Vimeet365\Application\Query\Community\CommunitiesViewQuery;
-use Proximum\Vimeet365\Domain\View\CommunityView;
+use Proximum\Vimeet365\Application\View\CommunityListView;
+use Proximum\Vimeet365\Domain\Entity\Community;
 
 final class CommunityCollectionDataProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
 {
@@ -21,11 +22,14 @@ final class CommunityCollectionDataProvider implements CollectionDataProviderInt
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
-        return CommunityView::class === $resourceClass;
+        return Community::class === $resourceClass;
     }
 
+    /**
+     * @return CommunityListView[]
+     */
     public function getCollection(string $resourceClass, ?string $operationName = null): array
     {
-        return $this->queryBus->handle(new CommunitiesViewQuery())->collection;
+        return $this->queryBus->handle(new CommunitiesViewQuery());
     }
 }

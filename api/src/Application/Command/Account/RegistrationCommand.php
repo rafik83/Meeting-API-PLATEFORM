@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Proximum\Vimeet365\Application\Command;
+namespace Proximum\Vimeet365\Application\Command\Account;
 
 use Proximum\Vimeet365\Domain\Entity\Account;
 use Proximum\Vimeet365\Infrastructure\Validator\Constraints\EntityReferenceDoesNotExist;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AccountRegistrationCommand
+class RegistrationCommand
 {
     /**
      * @Assert\Email

@@ -22,7 +22,7 @@ class Nomenclature
     private ?int $id = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Community::class)
+     * @ORM\ManyToOne(targetEntity=Community::class, inversedBy="nomenclatures")
      * @ORM\JoinColumn(nullable=false)
      */
     private Community $community;
@@ -35,7 +35,7 @@ class Nomenclature
     /**
      * @var Collection<int, NomenclatureTag>
      *
-     * @ORM\OneToMany(targetEntity=NomenclatureTag::class, mappedBy="community", cascade="ALL")
+     * @ORM\OneToMany(targetEntity=NomenclatureTag::class, mappedBy="nomenclature", cascade="ALL")
      */
     private Collection $tags;
 
@@ -44,6 +44,7 @@ class Nomenclature
         $this->tags = new ArrayCollection();
         $this->community = $community;
         $this->name = $name;
+        $this->community->getNomenclatures()->add($this);
     }
 
     public function getId(): ?int
