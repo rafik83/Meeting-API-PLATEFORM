@@ -2,6 +2,7 @@
   import successkid from 'images/successkid.jpg';
   import { getContext } from 'svelte';
   import registrationSteps from '../constants';
+  import { toRegistrationStep } from '../modules/routing';
   import LoginForm from './LoginForm.svelte';
   import RegistrationForm from './RegistrationForm.svelte';
   const { open, close } = getContext('simple-modal');
@@ -36,6 +37,7 @@
         {
           onSubmitForm: handleSignIn,
           errorMessage,
+          signUpUrl: toRegistrationStep(registrationSteps.SIGN_UP),
         },
         modalOptions
       );
@@ -47,6 +49,7 @@
         RegistrationForm,
         {
           onSubmitForm: onSignUp,
+          signInUrl: toRegistrationStep(registrationSteps.SIGN_IN),
           errorMessage,
         },
         modalOptions

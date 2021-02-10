@@ -1,7 +1,7 @@
 import {
-  register,
   init,
   locale as localeStore,
+  register,
   getLocaleFromPathname,
   locales,
 } from 'svelte-i18n';
@@ -60,6 +60,7 @@ export const initClienti18n = () => {
   init({
     ...INIT_OPTIONS,
     initialLocale: getLocaleFromPathname(/^\/([a-z]{2})\/?/),
+    fallbackLocale: 'fr',
   });
 };
 

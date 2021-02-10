@@ -6,10 +6,10 @@
   import * as yup from 'yup';
   import { extractErrors } from '../modules/validator';
   import Separator from './Separator.svelte';
-  import { toRegistrationStep } from '../modules/routing';
-  import registrationSteps from '../constants';
   import CreateAccountOrLoginLink from './CreateAccountOrLoginLink.svelte';
-  import RegistrationPipelineHeader from './RegistrationPipelineHeader.svelte';
+  import RegistrationPipelineHeader from './RegistrationFormHeader.svelte';
+
+  export let signInUrl;
 
   export let errorMessage;
 
@@ -119,7 +119,7 @@
     <CreateAccountOrLoginLink
       content={$_('registration.register')}
       label={$_('registration.no_account')}
-      href={toRegistrationStep(registrationSteps.SIGN_IN)}
+      href={signInUrl}
     />
   </div>
 </div>

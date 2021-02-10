@@ -6,10 +6,8 @@
   import * as yup from 'yup';
   import { extractErrors } from '../modules/validator';
   import Separator from './Separator.svelte';
-  import { toRegistrationStep } from '../modules/routing';
-  import registrationSteps from '../constants';
   import CreateAccountOrLoginLink from './CreateAccountOrLoginLink.svelte';
-  import RegistrationPipelineHeader from './RegistrationPipelineHeader.svelte';
+  import RegistrationFormHeader from './RegistrationFormHeader.svelte';
 
   let values = {
     password: '',
@@ -19,6 +17,7 @@
 
   export let onSubmitForm;
   export let errorMessage;
+  export let signUpUrl;
 
   let hasErrors = false;
 
@@ -45,7 +44,7 @@
 </script>
 
 <div class="w-3/5 mx-auto my-5 flex-col items-center">
-  <RegistrationPipelineHeader
+  <RegistrationFormHeader
     title={$_('registration.title')}
     subtitle={$_('registration.sign_in')}
   />
@@ -89,7 +88,7 @@
     <CreateAccountOrLoginLink
       content={$_('registration.sign_up')}
       label={$_('registration.no_account')}
-      href={toRegistrationStep(registrationSteps.SIGN_UP)}
+      href={signUpUrl}
     />
   </div>
 </div>
