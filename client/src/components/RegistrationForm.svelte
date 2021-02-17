@@ -7,7 +7,7 @@
   import { extractErrors } from '../modules/validator';
   import Separator from './Separator.svelte';
   import CreateAccountOrLoginLink from './CreateAccountOrLoginLink.svelte';
-  import RegistrationPipelineHeader from './RegistrationFormHeader.svelte';
+  import RegistrationPipeLineHeader from './RegistrationPipeLineHeader.svelte';
 
   export let signInUrl;
 
@@ -58,8 +58,8 @@
   };
 </script>
 
-<div class="w-3/5 mx-auto my-5 flex-col items-center">
-  <RegistrationPipelineHeader
+<div class="md:w-3/5 w-11/12 mx-auto my-5 flex-col items-center">
+  <RegistrationPipeLineHeader
     title={$_('registration.title')}
     subtitle={$_('registration.title')}
   />
@@ -109,7 +109,7 @@
       <button
         on:click|preventDefault={handleSubmitForm}
         type="submit"
-        class="w-full text-sm text-gray-50 font-semi-bold my-5 rounded-lg h-12  bg-gray-400">
+        class="w-full text-sm text-gray-50 font-semibold my-5 rounded-lg h-12  bg-gray-400">
         {$_('registration.sign_up')}
       </button>
     </form>

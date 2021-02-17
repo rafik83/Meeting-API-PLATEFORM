@@ -7,7 +7,7 @@
   import { extractErrors } from '../modules/validator';
   import Separator from './Separator.svelte';
   import CreateAccountOrLoginLink from './CreateAccountOrLoginLink.svelte';
-  import RegistrationFormHeader from './RegistrationFormHeader.svelte';
+  import RegistrationPipeLineHeader from './RegistrationPipeLineHeader.svelte';
 
   let values = {
     password: '',
@@ -43,8 +43,8 @@
   };
 </script>
 
-<div class="w-3/5 mx-auto my-5 flex-col items-center">
-  <RegistrationFormHeader
+<div class="md:w-3/5 w-11/12 mx-auto my-5 flex-col items-center">
+  <RegistrationPipeLineHeader
     title={$_('registration.title')}
     subtitle={$_('registration.sign_in')}
   />

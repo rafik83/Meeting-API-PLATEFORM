@@ -31,10 +31,16 @@
   }
 </script>
 
+<script>
+  import Modal from 'svelte-simple-modal';
+</script>
+
 {#if $isLoading}
   <div class="loading">Loading...</div>
 {:else}
-  <main class="bg-gray-50 flex flex-col items-center">
-    <slot />
-  </main>
+  <Modal>
+    <main class="bg-gray-50 flex flex-col h-full items-center">
+      <slot />
+    </main>
+  </Modal>
 {/if}

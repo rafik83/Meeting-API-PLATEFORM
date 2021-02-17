@@ -5,21 +5,21 @@ Feature:
 
     Scenario: I can not log into the platform if no email provided
         When I go to "/fr"
-        And I click on "success-kid"
+        And I press "join-community"
         And I fill in "loginUserName" with "john"
         And I press "Se connecter"
         Then I should see "Ce champs est requis"
 
     Scenario: I can not log into the platform if no password provided
         When I go to "/fr"
-        And I click on "success-kid"
-        And I fill in "loginPassword" with "toto"
+        And I press "join-community"
+        And I fill in "loginUserName" with "john"
         And I press "Se connecter"
         Then I should see "Ce champs est requis"
 
     Scenario: I can log into the platform
         When I go to "/fr"
-        And I click on "success-kid"
+        And I press "join-community"
         And I fill in "loginUserName" with "user@example.com"
         And I fill in "loginPassword" with "password"
         And I press "Se connecter"

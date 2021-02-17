@@ -10,8 +10,8 @@ start:
 lint: ## lint the project using eslint
 	npm run lint
 
-test :
+test:
 	npm run test
 
-watch-css : ## watch css changes
+watch-css: ## watch css changes
 	npm run watch:tailwind

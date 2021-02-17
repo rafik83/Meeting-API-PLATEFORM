@@ -11,10 +11,12 @@
         "field_required": "Ce champs est requis",
         "invalid_email": "Cet email est invalide",
         "invalid_password": "Le mot de passe doit avoir une longueur de {minPassword} caractères minimum",
-        "terms_and_conditions_not_selected": "Veuillez accepter les Conditions Génerales d'utilisation"
+        "terms_and_conditions_not_selected": "Veuillez accepter les Conditions Génerales d'utilisation",
+        "not_enough_tag_selected": "Veuillez selectionné encore min {value} tags"
     },
     "registration": {
         "welcome": "Bienvenue !",
+        "hello": "Bonjour",
         "please_sign_in": "Veuillez vous enregistrer",
         "create_account": "Create account",
         "no_account": "Vous n'avez pas encore de compte ?",
@@ -40,7 +42,10 @@
         "wrong_username_or_password": "Nom d'utilisateur ou mot de passe incorrect",
         "step-1-title": "Work in progress",
         "step-1-subtitle": "Work in progress ...",
-        "user_already_exists": "Un utilisateur existe déja avec cet email"
+        "user_already_exists": "Un utilisateur existe déjà avec cet email",
+        "select_goals_and_objectives": "Sélectionner vos {priorities_number} objectifs par priorité",
+        "selected": "{n, plural, =0{{n}/{priorities_number} sélectionné} one{{n}/{priorities_number} sélectionné} other{# /{priorities_number} sélectionnés}}",
+        "next": "Next"
     },
     "admin": {
         "title": "Page d'administration"
