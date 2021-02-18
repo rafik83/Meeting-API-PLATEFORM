@@ -4,7 +4,8 @@ install: ## Install dependencies
 	cp ./src/config.dist.ts ./src/config.ts
 	npm install
 	npm run build:tailwind
-start:
+
+start: ## Start development server
 	npm run dev
 
 lint: ## lint the project using eslint
@@ -15,3 +16,9 @@ test:
 
 watch-css: ## watch css changes
 	npm run watch:tailwind
+
+storybook: ## Start storybook server for development
+	npm run storybook
+
+build-storybook: ## Build storybook assets
+	npm run build-storybook
