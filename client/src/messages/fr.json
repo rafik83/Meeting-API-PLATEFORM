@@ -49,10 +49,15 @@
         "user_already_exists": "Un utilisateur existe déjà avec cet email",
         "select_goals_and_objectives": "Sélectionner vos {priorities_number} objectifs par priorité",
         "selected": "{n, plural, =0{{n}/{priorities_number} sélectionné} one{{n}/{priorities_number} sélectionné} other{# /{priorities_number} sélectionnés}}",
-        "next": "Next",
         "upload_logo": "Télécharger votre logo",
         "png_jpg": ".png ou .jpg 1Mo Maximum",
-        "loading": "... loading"
+        "loading": "... loading",
+        "characters": "{n, plural, =0{{n} caractère} one{{n} caractère} other{# caractères}}",
+        "country": "Pays",
+        "compagny_name": "Nom de la société",
+        "website": "Site web",
+        "description": "Description",
+        "next": "Suivant"
     },
     "admin": {
         "title": "Page d'administration"

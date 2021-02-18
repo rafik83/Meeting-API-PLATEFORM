@@ -4,7 +4,9 @@ export default {
   title: 'Vimeet365/CompanyForm',
   component: CompanyForm,
   args: {
-    toto: 'super chaine de caractère',
+    compagnyName: '',
+    compagnyWebsite: '',
+    compagnyDescription: '',
   },
 };
 
