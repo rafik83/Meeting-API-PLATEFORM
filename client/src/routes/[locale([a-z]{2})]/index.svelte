@@ -28,6 +28,7 @@
   import LoginForm from '../../components/LoginForm.svelte';
   import RegistrationForm from '../../components/RegistrationForm.svelte';
   import TagSelector from '../../components/TagSelector.svelte';
+  import RegistrationCompany from '../../components/RegistrationCompany.svelte';
 
   import { findById, register, authenticate } from '../../repository/account';
   import { toHomePage, toRegistrationStep } from '../../modules/routing';
@@ -165,6 +166,11 @@
           callBacks
         );
       }
+
+      break;
+
+    case registrationSteps.COMPANY_REGISTRATION:
+      open(RegistrationCompany, {}, modalOptions, callBacks);
 
       break;
 
