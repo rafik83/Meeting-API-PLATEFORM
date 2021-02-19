@@ -5,21 +5,21 @@
   import FormTextarea from './FormTextarea.svelte';
   import FormSelect from './FormSelect.svelte';
 
-  // Mocked values
-  export let max = 30;
-  export let options = [
-    { id: 'en', name: 'Royaume-uni' },
-    { id: 'fr', name: 'France' },
-  ];
+  // Input values
+  export let max;
+  export let options;
+  export let errors;
 
   // Return values
-  export let compagnyName;
-  export let compagnyWebsite;
-  export let compagnyDescription;
-  export let selectedLocale;
+  export let submittedValues = {
+    compagnyName: '',
+    selectedLocale: '',
+    compagnyWebsite: '',
+    compagnyDescription: '',
+  };
 
   const handleLocale = (e) => {
-    selectedLocale = e.target.value;
+    submittedValues.selectedLocale = e.target.value;
   };
 </script>
 
@@ -28,23 +28,27 @@
     type="text"
     label={$_('registration.compagny_name')}
     name="compagnyName"
-    bind:value={compagnyName}
+    errorMessage={errors.compagnyName}
+    bind:value={submittedValues.compagnyName}
   />
   <FormSelect
     {options}
     optionsTitle={$_('registration.country')}
     on:change={handleLocale}
+    errorMessage={errors.selectedLocale}
   />
   <FormInput
     type="text"
     label={$_('registration.website')}
     name="website"
-    bind:value={compagnyWebsite}
+    errorMessage={errors.compagnyWebsite}
+    bind:value={submittedValues.compagnyWebsite}
   />
   <FormTextarea
-    bind:value={compagnyDescription}
     {max}
-    name="description"
     label={$_('registration.description')}
+    name="description"
+    errorMessage={errors.compagnyDescription}
+    bind:value={submittedValues.compagnyDescription}
   />
 </div>

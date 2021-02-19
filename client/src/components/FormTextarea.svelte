@@ -17,7 +17,9 @@
     moveLabel = true;
   };
   const handleTextareaFocusOut = () => {
-    moveLabel = false;
+    if (value.length === 0) {
+      moveLabel = false;
+    }
   };
 </script>
 

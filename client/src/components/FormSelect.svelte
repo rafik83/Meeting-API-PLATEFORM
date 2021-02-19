@@ -19,3 +19,6 @@
     <option value={option.id}>{option.name}</option>
   {/each}
 </select>
+{#if errorMessage}
+  <span class="text-error mx-2 my-5">{errorMessage}</span>
+{/if}
