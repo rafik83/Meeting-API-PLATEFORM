@@ -44,6 +44,7 @@
   <FormTextarea
     bind:value={compagnyDescription}
     {max}
-    placeholder={$_('registration.description')}
+    name="description"
+    label={$_('registration.description')}
   />
 </div>
