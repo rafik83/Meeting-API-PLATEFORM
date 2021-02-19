@@ -3,7 +3,12 @@ import DragAndDrop from './DragAndDrop.svelte';
 export default {
   title: 'Vimeet365/DragAndDrop',
   component: DragAndDrop,
-  args: {},
+  args: {
+    name: 'input_file',
+    accept: '.jpg, .png',
+    type: 'file',
+    maxSize: 1048576,
+  },
 };
 
 const Template = ({ ...args }) => ({
@@ -11,4 +16,4 @@ const Template = ({ ...args }) => ({
   props: args,
 });
 
-export const Base = Template.bind({});
+export const InputFile = Template.bind({});

@@ -1,7 +1,10 @@
 <script>
-  import DragAndDrop from './DragAndDrop.svelte';
-  import CompanyForm from './CompanyForm.svelte';
-  export let toto;
+    import DragAndDrop from './DragAndDrop.svelte';
+    import CompanyForm from './CompanyForm.svelte';
+
+    let accept = ".jpg, .jpeg, .png";
+    let maxSize = 1024;
+
 </script>
 
 <!-- 
@@ -11,5 +14,5 @@
     -> si tout est ok passer les fichiers et les valeurs du formulaire à la page (index.svelte)
  -->
 
-<DragAndDrop />
-<CompanyForm {toto} />
+<DragAndDrop {accept} {maxSize}/>
+<CompanyForm />

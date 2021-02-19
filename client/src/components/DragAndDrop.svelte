@@ -1,15 +1,37 @@
 <script>
-    import Dropzone from "svelte-file-dropzone";
+    import {_} from 'svelte-i18n';
 
+    export let accept;
+    export let maxSize;
 
+    let values = {
+        file: '',
+    };
+
+    let acceptedFiles = [];
+    let fileRejections = [];
+
+    function inputFile(e) {
+        const files = e.target.files;
+        Object.keys(files).map((file) => {
+            if(files[file].size > 1048576) {
+                fileRejections.push(files[file].name);
+            } else {
+                acceptedFiles.push(files[file].name);
+            }
+        });
+    }
 </script>
 
-<style>
-    :global(custom-dropzone) {
-    }
-</style>
-
-<Dropzone>
-    <h2 class="">Upload your logo</h2>
-    <small>.png o .jpg 1Mo Maximum</small>
-</Dropzone>
+<div>
+<h1 class="underline font-semibold">{$_('registration.upload_logo')}</h1>
+<h2 class="text-community-300 text-sm">{$_('registration.png_jpg')}</h2>
+<input
+        {accept}
+        type="file"
+        autocomplete="off"
+        {maxSize}
+        on:change={inputFile}
+        bind:value={values.file}
+/>
+</div>
