@@ -3,7 +3,7 @@
     import CompanyForm from './CompanyForm.svelte';
 
     let accept = ".jpg, .jpeg, .png";
-    let maxSize = 1024;
+    let maxSize = 1048576;
 
 </script>
 
