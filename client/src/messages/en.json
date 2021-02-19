@@ -16,7 +16,9 @@
         "import_file_error": "Error(s):",
         "max_size_error": "File size is greater than 1MB",
         "mime_type_error": "The file format is not correct",
-        "file_upload_succeed": "File uploading succeed"
+        "file_upload_succeed": "File uploading succeed",
+        "maximum_characters": "Exceeds the limit of {value} characters",
+        "wrong_url": "This must be a valid URL"
     },
     "registration": {
         "welcome": "Welcome !",

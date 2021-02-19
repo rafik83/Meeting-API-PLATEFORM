@@ -16,7 +16,9 @@
         "import_file_error": "Erreur(s) :",
         "max_size_error": "La taille du fichier est supérieur à 1Mo",
         "mime_type_error": "Le format du fichier n'est pas correct",
-        "file_upload_succeed": "Ceci un message de réussite"
+        "file_upload_succeed": "Ceci un message de réussite",
+        "maximum_characters": "Dépasse la limite de {value} caractères",
+        "wrong_url": "Ce doit être une URL valide"
     },
     "registration": {
         "welcome": "Bienvenue !",
