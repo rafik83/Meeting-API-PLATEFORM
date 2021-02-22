@@ -51,8 +51,8 @@ describe('autocompletion', () => {
       expect(filterCountriesByName(countries, inputSearch)).toStrictEqual(
         filterCountries
       );
-    }); 
-    
+    });
+
     it('should return a list of results -- with ignore case', () => {
       const inputSearch = 'mOn';
 
