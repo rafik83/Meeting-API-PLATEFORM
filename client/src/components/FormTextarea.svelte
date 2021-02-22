@@ -42,7 +42,15 @@
   />
 
   {#if max}
+<<<<<<< HEAD
     <p class="text-right text-xs italic {value.length >= max ? 'text-error' : ''}">
+=======
+    <p
+      class="text-right text-xs italic {value.length >= max
+        ? 'text-error'
+        : ''}"
+    >
+>>>>>>> feat 2330 - update validation
       {$_('registration.characters', { values: { n: value.length } })}
     </p>
   {/if}
