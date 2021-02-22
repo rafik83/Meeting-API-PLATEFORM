@@ -42,7 +42,7 @@
   />
 
   {#if max}
-    <p class="text-right {value.length >= max ? 'text-error' : ''}">
+    <p class="text-right text-xs italic {value.length >= max ? 'text-error' : ''}">
       {$_('registration.characters', { values: { n: value.length } })}
     </p>
   {/if}

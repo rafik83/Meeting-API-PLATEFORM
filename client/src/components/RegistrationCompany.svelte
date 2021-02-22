@@ -29,8 +29,8 @@
     selectedLocale: yup.string().required($_('validation.field_required')),
     compagnyWebsite: yup
       .string()
-      .required($_('validation.field_required'))
-      .url($_('validation.wrong_url')),
+      .url($_('validation.wrong_url'))
+      .required($_('validation.field_required')),
     compagnyDescription: yup
       .string()
       .max(
