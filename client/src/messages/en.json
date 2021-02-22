@@ -47,7 +47,8 @@
         "selected": "{n, plural, =0{{n}/{priorities_number} selected} one{{n}/{priorities_number} selected} other{# /{priorities_number}selected}}",
         "next": "Suivant",
         "upload_logo": "Upload your logo",
-        "png_jpg": ".png or .jpg 1Mo Maximum"
+        "png_jpg": ".png or .jpg 1Mo Maximum",
+        "loading": "... loading"
     },
     "languages": {
         "en": "English",
