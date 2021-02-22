@@ -28,7 +28,10 @@
   export let label;
   export let value;
   export let errorMessage = null;
+  export let options = null;
+  export let datalistName = null;
   let displayPassword = false;
+  let dataId = null;
 
   const toggle = (event) => {
     const input = event.currentTarget.previousElementSibling;
@@ -42,6 +45,10 @@
 
   const handleInput = (event) => {
     value = event.target.value;
+    if (options) {
+      dataId = [...event.target.list.options].filter((option) => option.attributes.value.value === value)[0].dataset.id;
+    }
+    console.log(dataId);
   };
 
   const inputWidth = type === 'password' ? 'w-11/12' : 'w-full';
@@ -66,11 +73,20 @@
       id={name}
       {value}
       placeholder={label}
+      list={datalistName}
       on:focusout={handleMouseOut}
       on:focus={handleFocusInput}
       on:input={handleInput}
       class={`text-grey rounded-3xl px-2 py-2 border-none ${inputWidth}`}
+      autocomplete="on"
     />
+
+    {#if options}
+      <datalist id={datalistName}>
+        {#each options as option}
+          <option data-id={option.id} value={option.name} />{/each}
+      </datalist>
+    {/if}
 
     {#if type === 'password'}
       <button on:click|preventDefault={toggle} class="w-5 h-auto mx-2">

@@ -7,18 +7,18 @@
   export let label;
   export let placeholder;
   export let errorMessage = null;
-  let moveLabel = false;
+  let displayLabel = false;
 
   $: if (max && value.length > max) {
     value = value.substring(0, max);
   }
 
   const handleTextareaFocusIn = () => {
-    moveLabel = true;
+    displayLabel = true;
   };
   const handleTextareaFocusOut = () => {
-    if (value.length === 0) {
-      moveLabel = false;
+    if (!value) {
+      displayLabel = false;
     }
   };
 </script>
@@ -26,7 +26,7 @@
 <div class="relative">
   <label
     for={name}
-    class="absolute italic bg-gray-50 px-2 {moveLabel
+    class="transition duration-1000 ease-in-out absolute italic bg-gray-50 px-2 text-gray {displayLabel
       ? '-top-1 left-4 text-sm'
       : 'top-3 left-2'}">{label}</label
   >
@@ -42,7 +42,7 @@
   />
 
   {#if max}
-    <p class="text-right text-xs italic {value.length >= max ? 'text-error' : ''}">
+    <p class="text-right text-xs italic {value.length >= max ? 'text-error' : 'text-grey '}">
       {$_('registration.characters', { values: { n: value.length } })}
     </p>
   {/if}

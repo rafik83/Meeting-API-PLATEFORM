@@ -17,6 +17,11 @@
   export let options = [
     { id: 'en', name: 'Royaume-uni' },
     { id: 'fr', name: 'France' },
+    { id: 'ru', name: 'Russie' },
+    { id: 'be', name: 'Belgique' },
+    { id: 'mc', name: 'Monaco' },
+    { id: 'mn', name: 'Mongolia' },
+    { id: 'me', name: 'Montenegro' },
   ];
 
   // Return values

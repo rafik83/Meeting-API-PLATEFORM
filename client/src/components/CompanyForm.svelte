@@ -3,7 +3,6 @@
 
   import FormInput from './FormInput.svelte';
   import FormTextarea from './FormTextarea.svelte';
-  import FormSelect from './FormSelect.svelte';
 
   // Input values
   export let max;
@@ -31,9 +30,13 @@
     errorMessage={errors.compagnyName}
     bind:value={submittedValues.compagnyName}
   />
-  <FormSelect
+  <FormInput
     {options}
-    optionsTitle={$_('registration.country')}
+    datalistName="countriesList"
+    type="search"
+    name="countries-compagny"
+    value=""
+    label={$_('registration.country')}
     on:blur={handleLocale}
     errorMessage={errors.selectedLocale}
   />
