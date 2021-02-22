@@ -34,7 +34,7 @@
   <FormSelect
     {options}
     optionsTitle={$_('registration.country')}
-    on:change={handleLocale}
+    on:blur={handleLocale}
     errorMessage={errors.selectedLocale}
   />
   <FormInput
