@@ -47,3 +47,8 @@ export type Member = {
   joinedAt: Date;
   currentQualificationStep: QualificationStep;
 };
+
+export type Country = {
+  id: string;
+  name: string;
+}
