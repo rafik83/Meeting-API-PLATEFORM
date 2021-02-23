@@ -4,8 +4,8 @@ export default {
   title: 'Vimeet365/Button',
   component: Button,
   args: {
-    content: "Envoyer",
-    type: "submit"
+    content: 'Envoyer',
+    type: 'submit',
   },
 };
 

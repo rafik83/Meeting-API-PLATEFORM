@@ -31,7 +31,6 @@
   export let options = null;
   export let datalistName = null;
   let displayPassword = false;
-  let dataId = null;
 
   const toggle = (event) => {
     const input = event.currentTarget.previousElementSibling;
@@ -45,10 +44,6 @@
 
   const handleInput = (event) => {
     value = event.target.value;
-    if (options) {
-      dataId = [...event.target.list.options].filter((option) => option.attributes.value.value === value)[0].dataset.id;
-    }
-    console.log(dataId);
   };
 
   const inputWidth = type === 'password' ? 'w-11/12' : 'w-full';
@@ -63,7 +58,7 @@
     <label
       class:invisible={!displayLabel}
       for={name}
-      class="block mt-2  italic absolute bg-gray-50 mf-2.5 -mt-3.5 ml-3 px-2 text-sm {errorMessage
+      class="block -mt-3.5 italic absolute bg-gray-50 mf-2.5 ml-3 px-2 text-sm {errorMessage
         ? 'border-error text-error'
         : 'border-gray-200'}">{label}</label
     >
@@ -77,14 +72,15 @@
       on:focusout={handleMouseOut}
       on:focus={handleFocusInput}
       on:input={handleInput}
-      class={`text-grey rounded-3xl px-2 py-2 border-none ${inputWidth}`}
+      class={`text-grey rounded-3xl px-4 py-2 border-none ${inputWidth}`}
       autocomplete="on"
     />
 
     {#if options}
       <datalist id={datalistName}>
         {#each options as option}
-          <option data-id={option.id} value={option.name} />{/each}
+          <option data-id={option.id} value={option.name} />
+        {/each}
       </datalist>
     {/if}
 

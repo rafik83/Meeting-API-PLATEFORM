@@ -5,7 +5,8 @@
         "high_five": "Hellooo",
         "try_editing": "Modifiez le fichier (src/routes/index.svelte) pour tester live reloading.",
         "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer",
-        "page_not_found": "Cette page n'existe pas ou à été deplacée"
+        "page_not_found": "Cette page n'existe pas ou à été deplacée",
+        "search": "Rechercher"
     },
     "validation": {
         "field_required": "Ce champs est requis",

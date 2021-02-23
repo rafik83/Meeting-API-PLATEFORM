@@ -26,9 +26,9 @@
 <div class="relative">
   <label
     for={name}
-    class="transition duration-1000 ease-in-out absolute italic bg-gray-50 px-2 text-gray {displayLabel
+    class="transition duration-1000 ease-in-out absolute italic bg-gray-50 px-2 {displayLabel
       ? '-top-1 left-4 text-sm'
-      : 'top-3 left-2'}">{label}</label
+      : 'top-3 left-2 text-gray-400'}">{label}</label
   >
   <textarea
     id={name}
@@ -42,7 +42,11 @@
   />
 
   {#if max}
-    <p class="text-right text-xs italic {value.length >= max ? 'text-error' : 'text-grey '}">
+    <p
+      class="text-right text-xs text-gray-400 {value.length >= max
+        ? 'text-error'
+        : ''}"
+    >
       {$_('registration.characters', { values: { n: value.length } })}
     </p>
   {/if}
