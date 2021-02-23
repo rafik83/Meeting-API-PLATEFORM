@@ -11,5 +11,5 @@ interface ContextAwareMessageInterface
     /**
      * @Ignore
      */
-    public function setContext(object $member): void;
+    public function setContext(object $object): void;
 }

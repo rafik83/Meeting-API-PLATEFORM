@@ -8,7 +8,7 @@ use Proximum\Vimeet365\Domain\Entity\Community;
 
 interface CommunityRepositoryInterface
 {
-    public function findById(int $id): ?Community;
+    public function findOneById(int $id): ?Community;
 
     /**
      * @return Community[]

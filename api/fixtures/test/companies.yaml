@@ -1,0 +1,7 @@
+Proximum\Vimeet365\Domain\Entity\Company:
+    company_proximum:
+        __construct:
+            name: "Proximum"
+            countryCode: "FR"
+            website: "http://proximum.events"
+            activity: ""

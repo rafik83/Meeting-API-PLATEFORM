@@ -21,6 +21,7 @@ Proximum\Vimeet365\Domain\Entity\Account:
             firstName: 'Member'
             lastName: 'Doe'
             vimeetId: null
+        company: "@company_proximum"
 
     user_joined:
         __construct:

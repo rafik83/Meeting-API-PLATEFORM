@@ -58,6 +58,11 @@ class Account
      */
     private Collection $members;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class)
+     */
+    private ?Company $company = null;
+
     public function __construct(
         string $email,
         string $password,
@@ -147,5 +152,15 @@ class Account
     public function getAcceptedTermsAndConditionAt(): ?\DateTimeImmutable
     {
         return $this->acceptedTermsAndConditionAt;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): void
+    {
+        $this->company = $company;
     }
 }

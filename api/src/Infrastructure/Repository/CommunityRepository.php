@@ -16,7 +16,7 @@ class CommunityRepository extends ServiceEntityRepository implements CommunityRe
         parent::__construct($managerRegistry, Community::class);
     }
 
-    public function findById(int $id): ?Community
+    public function findOneById(int $id): ?Community
     {
         return $this->find($id);
     }

@@ -24,14 +24,37 @@ class Company
     private string $name;
 
     /**
+     * @ORM\Column(length=2)
+     */
+    private string $countryCode;
+
+    /**
      * @ORM\Column
      */
-    private string $description;
+    private string $website;
 
-    public function __construct(string $name, string $description)
-    {
+    /**
+     * @ORM\Column(length=300)
+     */
+    private string $activity;
+
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private ?string $logo;
+
+    public function __construct(
+        string $name,
+        string $countryCode,
+        string $website,
+        string $activity,
+        ?string $logo = null
+    ) {
         $this->name = $name;
-        $this->description = $description;
+        $this->countryCode = $countryCode;
+        $this->website = $website;
+        $this->activity = $activity;
+        $this->logo = $logo;
     }
 
     public function getId(): ?int
@@ -44,8 +67,36 @@ class Company
         return $this->name;
     }
 
-    public function getDescription(): string
+    public function getCountryCode(): string
     {
-        return $this->description;
+        return $this->countryCode;
+    }
+
+    public function getWebsite(): string
+    {
+        return $this->website;
+    }
+
+    public function getActivity(): string
+    {
+        return $this->activity;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): void
+    {
+        $this->logo = $logo;
+    }
+
+    public function update(string $name, string $countryCode, string $website, string $activity): void
+    {
+        $this->name = $name;
+        $this->countryCode = $countryCode;
+        $this->website = $website;
+        $this->activity = $activity;
     }
 }

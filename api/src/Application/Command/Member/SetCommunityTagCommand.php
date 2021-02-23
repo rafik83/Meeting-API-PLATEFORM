@@ -34,13 +34,13 @@ class SetCommunityTagCommand implements ContextAwareMessageInterface
      */
     public Member $member;
 
-    public function setContext(object $member): void
+    public function setContext(object $object): void
     {
-        if (!$member instanceof Member) {
+        if (!$object instanceof Member) {
             throw new \RuntimeException('something went wrong');
         }
 
-        $this->member = $member;
+        $this->member = $object;
     }
 
     public function getMember(): Member

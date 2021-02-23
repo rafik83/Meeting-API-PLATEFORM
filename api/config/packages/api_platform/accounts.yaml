@@ -9,3 +9,32 @@ Proximum\Vimeet365\Domain\Entity\Account:
             messenger: 'input'
     itemOperations:
         get: ~
+        account_post_company:
+            method: post
+            path: /accounts/{id}/company
+            controller: 'Proximum\Vimeet365\Infrastructure\Controller\AccountController::createCompany'
+            input: Proximum\Vimeet365\Application\Command\Account\Company\CreateCommand
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
+            openapi_context:
+                summary: Create a company
+        account_put_company:
+            method: put
+            path: /accounts/{id}/company
+            controller: 'Proximum\Vimeet365\Infrastructure\Controller\AccountController::linkCompany'
+            input: Proximum\Vimeet365\Application\Command\Account\Company\LinkCommand
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
+            openapi_context:
+                summary: Link an existing company to the account
+        account_patch_company:
+            method: patch
+            path: /accounts/{id}/company
+            controller: 'Proximum\Vimeet365\Infrastructure\Controller\AccountController::updateCompany'
+            input: Proximum\Vimeet365\Application\Command\Account\Company\UpdateCommand
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
+            openapi_context:
+                summary: Update the existing company of the account
+    properties:
+        company:
+            subresource:
+                resourceClass: 'Proximum\Vimeet365\Domain\Entity\Company'
+                collection: false

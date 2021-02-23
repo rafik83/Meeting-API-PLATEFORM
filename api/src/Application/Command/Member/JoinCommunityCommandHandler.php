@@ -33,7 +33,7 @@ class JoinCommunityCommandHandler
             throw new \RuntimeException('Unable to find the current account');
         }
 
-        $community = $this->communityRepository->findById($command->community);
+        $community = $this->communityRepository->findOneById($command->community);
 
         if ($community === null) {
             // can't happen, the api is protected

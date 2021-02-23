@@ -22,7 +22,7 @@ class CommunityViewQueryHandler
 
     public function __invoke(CommunityViewQuery $query): ?CommunityView
     {
-        $community = $this->communityRepository->findById($query->id);
+        $community = $this->communityRepository->findOneById($query->id);
         if (null === $community) {
             return null;
         }
