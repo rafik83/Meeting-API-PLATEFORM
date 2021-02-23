@@ -9,10 +9,7 @@ export default {
 const Template = ({ ...args }) => ({
   Component: DragAndDrop,
   props: args,
-  argTypes: {
-    onPinTask: { action: 'onPinTask' },
-    onArchiveTask: { action: 'onArchiveTask' },
-  },
+  argTypes: {},
 });
 
 export const Default = Template.bind({});

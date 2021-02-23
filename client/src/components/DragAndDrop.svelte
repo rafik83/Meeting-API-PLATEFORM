@@ -14,7 +14,7 @@
   /**
    * Override the default behavior of validating uploaded files
    * The default behavior does not validate files
-   * @type {(files: FileList) => FileList}
+   * @type {(files: FileList) => [[], FileList]}
    */
   export let validateFiles = (files) => files;
   /** Specify the label text */
@@ -32,8 +32,9 @@
   let ref = null;
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  export let errorMessage = '';
+  let errors = [];
   export let successMessage = '';
+  export let errorMessage = '';
   export let loading = false;
 </script>
 
@@ -55,9 +56,17 @@
   on:drop
   on:drop|preventDefault|stopPropagation={({ dataTransfer }) => {
     if (!disabled || loading) {
-      errorMessage = '';
+      // errorMessage = '';
       successMessage = '';
-      dispatch('drop', validateFiles(dataTransfer.files));
+
+      console.log(dataTransfer);
+
+      const [errorMessages, files] = validateFiles(dataTransfer.files);
+
+      if (Object.hasOwnProperty(errorMessages)) {
+        dispatch('drop', files);
+      } else {
+      }
     }
   }}
 >
