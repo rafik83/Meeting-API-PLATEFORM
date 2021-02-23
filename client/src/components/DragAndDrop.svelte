@@ -1,41 +1,35 @@
 <script>
   import { _ } from 'svelte-i18n';
-
-  /**
-   * @event {FileList} add
-   */
-  /**
-   * Specify the accepted file types
-   * @type {string[]}
-   */
-  export let accept = [];
-  /** Set to `true` to allow multiple files */
-  export let multiple = false;
-  /**
-   * Override the default behavior of validating uploaded files
-   * The default behavior does not validate files
-   * @type {(files: FileList) => [[], FileList]}
-   */
-  export let validateFiles = (files) => files;
-  /** Specify the label text */
-  // export let labelText = 'Add file';
-  /** Specify the `role` attribute of the drop container */
-  let role = 'button';
-  /** Set to `true` to disable the input */
-  export let disabled = false;
-  /** Specify `tabindex` attribute */
-  let tabindex = '0';
-  /** Set an id for the input element */
-  let id = 'ccs-' + Math.random().toString(36);
-  /** Specify a name attribute for the input */
-  export let name = '';
-  let ref = null;
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-  let errors = [];
+
+  export let accept = [];
+
+  export let multiple = false;
+
+  export let validateFiles = () => [];
+
+  export let disabled = false;
+
+  export let name = '';
+
   export let successMessage = '';
-  export let errorMessage = '';
+
   export let loading = false;
+
+  let ref = null;
+
+  let role = 'button';
+
+  let tabindex = '0';
+
+  let id = 'ccs-' + Math.random().toString(36);
+
+  const dispatch = createEventDispatcher();
+  let validationRepport = [];
+
+  const hasErrors = (errors) => {
+    return errors.some((item) => item.hasErrors);
+  };
 </script>
 
 <div
@@ -56,16 +50,10 @@
   on:drop
   on:drop|preventDefault|stopPropagation={({ dataTransfer }) => {
     if (!disabled || loading) {
-      // errorMessage = '';
       successMessage = '';
-
-      console.log(dataTransfer);
-
-      const [errorMessages, files] = validateFiles(dataTransfer.files);
-
-      if (Object.hasOwnProperty(errorMessages)) {
-        dispatch('drop', files);
-      } else {
+      validationRepport = validateFiles(dataTransfer.files);
+      if (!hasErrors(validationRepport)) {
+        dispatch('drop', dataTransfer.files);
       }
     }
   }}
@@ -89,9 +77,23 @@
       <p class="text-community-300 text-sm">{$_('registration.png_jpg')}</p>
     {/if}
 
-    {#if errorMessage}
-      <p class="text-error text-sm italic">{errorMessage}</p>
+    {#if hasErrors(validationRepport)}
+      {#each validationRepport as { fileName, errors: _errors }}
+        <p class="text-error mt-2 text-sm italic">
+          {$_('validation.import_file_error')}
+        </p>
+        <p>{fileName} :</p>
+        <ol>
+          {#if _errors.maxSizeExceeded}
+            <li>Heloo</li>
+          {/if}
+          {#if _errors.wrongMimeType}
+            <li>tata</li>
+          {/if}
+        </ol>
+      {/each}
     {/if}
+
     {#if successMessage}
       <p class="text-success text-sm italic">{successMessage}</p>
     {/if}
@@ -103,7 +105,7 @@
         tabindex="-1"
         {id}
         {disabled}
-        {accept}
+        accept={accept.join(',')}
         {name}
         {multiple}
         on:change

@@ -12,7 +12,8 @@
         "invalid_email": "Cet email est invalide",
         "invalid_password": "Le mot de passe doit avoir une longueur de {minPassword} caractères minimum",
         "terms_and_conditions_not_selected": "Veuillez accepter les Conditions Génerales d'utilisation",
-        "not_enough_tag_selected": "Veuillez selectionné encore min {value} tags"
+        "not_enough_tag_selected": "Veuillez selectionné encore min {value} tags",
+        "import_file_error": "Erreurs à l'importation des fichiers"
     },
     "registration": {
         "welcome": "Bienvenue !",

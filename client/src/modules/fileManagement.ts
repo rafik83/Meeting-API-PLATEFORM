@@ -1,5 +1,6 @@
 export type ErrorReport = {
   fileName: string;
+  hasErrors: boolean;
   errors: {
     [key: string]: boolean;
   };

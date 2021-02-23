@@ -1,4 +1,5 @@
 import DragAndDrop from './DragAndDrop.svelte';
+import type { ErrorReport } from '../modules/fileManagement';
 
 export default {
   title: 'Vimeet365/DragAndDrop',
@@ -20,13 +21,6 @@ Default.args = {
   maxSize: 1048576,
 };
 
-export const Error = Template.bind({});
-
-Error.args = {
-  ...Default.args,
-  errorMessage: "Ceci est un message d'erreur",
-};
-
 export const Success = Template.bind({});
 
 Success.args = {
@@ -39,4 +33,34 @@ export const Loading = Template.bind({});
 Loading.args = {
   ...Default.args,
   loading: true,
+};
+
+export const WithValidationErrors = Template.bind({});
+
+const fakeErrorReport: ErrorReport = {
+  fileName: 'hello.jpeg',
+  hasErrors: true,
+  errors: {
+    maxSizeExceeded: true,
+  },
+};
+
+WithValidationErrors.args = {
+  ...Default.args,
+  validateFiles: () => [fakeErrorReport],
+};
+
+export const WithoutValidationErrors = Template.bind({});
+
+const errorReport2: ErrorReport = {
+  fileName: 'hello.jpeg',
+  hasErrors: false,
+  errors: {
+    maxSizeExceeded: true,
+  },
+};
+
+WithoutValidationErrors.args = {
+  ...Default.args,
+  validateFiles: () => [errorReport2],
 };
