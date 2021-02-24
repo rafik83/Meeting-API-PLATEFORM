@@ -24,4 +24,10 @@ const Template = ({ ...args }) => ({
   props: args,
 });
 
-export const countries = Template.bind({});
+export const Basic = Template.bind({});
+export const SearchBar = Template.bind({});
+
+SearchBar.args = {
+  ...Basic.args,
+  searchBar: true,
+};

@@ -15,3 +15,9 @@ const Template = ({ ...args }) => ({
 });
 
 export const Submit = Template.bind({});
+export const Next = Template.bind({});
+
+Next.args = {
+  content: 'Suivant',
+  type: 'submit',
+};
