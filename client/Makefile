@@ -1,5 +1,6 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
 install: ## Install dependencies
 	cp ./src/config.dist.ts ./src/config.ts
 	npm install
@@ -11,7 +12,7 @@ start: ## Start development server
 lint: ## lint the project using eslint
 	npm run lint
 
-test:
+test: # Run lint, test unit and a coverage rapport
 	npm run test
 
 watch-css: ## watch css changes
@@ -22,3 +23,6 @@ storybook: ## Start storybook server for development
 
 build-storybook: ## Build storybook assets
 	npm run build-storybook
+
+prettify: ## Run prettify
+	npm run prettify
