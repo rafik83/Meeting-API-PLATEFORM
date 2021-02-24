@@ -1,133 +1,111 @@
 <script>
-  import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
-  import { getFileUploadReport } from "../modules/fileManagement";
+    import {getFileUploadReport} from '../modules/fileManagement';
+    import {_} from 'svelte-i18n';
+    import {createEventDispatcher} from 'svelte';
 
-  export let accept = [];
+    const dispatch = createEventDispatcher();
 
-  export let fileMaxSize = 1*1024*1024;
+    export let accept = [];
 
-  export let multiple = false;
+    export let fileMaxSize = 1 * 1024 * 1024;
 
-  export let disabled = false;
+    export let loading = false;
 
-  export let name = '';
+    let validationSucceed = false;
 
-  export let successMessage = '';
+    let inputRef;
 
-  export let loading = false;
+    const hasErrors = (errors) => {
+        return errors.some((item) => item.hasErrors);
+    };
 
-  let ref = null;
+    let validationRepport = [];
 
-  let role = 'button';
+    const handleUploadFile = (fileList) => {
+        if (loading) {
+            return;
+        }
 
-  let tabindex = '0';
+        validationRepport = getFileUploadReport(
+            fileList,
+            accept,
+            fileMaxSize
+        );
 
-  let id = 'ccs-' + Math.random().toString(36);
-
-  const dispatch = createEventDispatcher();
-  let validationRepport = [];
-
-  const hasErrors = (errors) => {
-    return errors.some((item) => item.hasErrors);
-  };
-
-  const handleUploadFile = (files) => {
-    if (!disabled && !loading) {
-      successMessage = '';
-      validationRepport = getFileUploadReport(files, accept, fileMaxSize);
-      if (!hasErrors(validationRepport)) {
-        dispatch('drop', files);
-      }
+        if (!hasErrors(validationRepport)) {
+            validationSucceed = true;
+            dispatch('fileUploaded', fileList);
+        }
     }
-  }
+
+    const handleDrop = (event) => {
+        validationSucceed = false;
+        const dataTransfer = event.dataTransfer;
+        handleUploadFile(dataTransfer.files);
+    };
+
+    const handleInputChange = ({ target })  => {
+        handleUploadFile(target.files);
+        console.log(target.files);
+    }
+
+    const handleInputClick = (e) => {
+        if (loading) {
+            e.preventDefault();
+        }
+        e.value = null;
+    };
 </script>
 
 <div
-  class="border-dashed flex h-2/5 align-middle items-center flex-col border"
-  {...$$restProps}
-  on:dragover
-  on:dragover|preventDefault|stopPropagation={({ dataTransfer }) => {
-    if (!disabled && !loading) {
-      dataTransfer.dropEffect = 'copy';
-    }
-  }}
-  on:dragleave
-  on:dragleave|preventDefault|stopPropagation={({ dataTransfer }) => {
-    if (!disabled && !loading) {
-      dataTransfer.dropEffect = 'move';
-    }
-  }}
-  on:drop
-  on:drop|preventDefault|stopPropagation={
-({ dataTransfer }) => {
-            console.log(dataTransfer);
-    handleUploadFile(dataTransfer.files);
-  }}
+        class=" h-1/5 flex"
+        on:drop|stopPropagation|preventDefault={handleDrop}
+        on:dragenter|stopPropagation|preventDefault
+        on:dragover|stopPropagation|preventDefault
 >
-  <label
-    class="w-full h-full flex flex-col justify-center items-center {loading
-      ? 'cursor-not-allowed bg-gray-100'
-      : 'cursor-pointer'}"
-    for={id}
-    {tabindex}
-    on:keydown
-    on:keydown={({ key }) => {
-      if ((key === ' ' || key === 'Enter') && !loading) {
-        ref.click();
-      }
-    }}>
-    {#if loading}
-      <p class="text-sm italic">{$_('registration.loading')}</p>
-    {:else}
-      <p class="underline font-semibold">{$_('registration.upload_logo')}</p>
-      <p class="text-community-300 text-sm">{$_('registration.png_jpg')}</p>
-    {/if}
+    <label class="w-full h-full flex text-center border-dashed align-middle items-center border flex-col justify-center
+{loading
+    ? 'cursor-not-allowed bg-gray-100'
+    : 'cursor-pointer'}"
+           tabindex="0">
+        {#if loading}
+            <p class="text-sm italic">{$_('registration.loading')}</p>
+        {:else}
+            <p class="underline font-semibold">{$_('registration.upload_logo')}</p>
+            <p class="text-community-300 text-sm">{$_('registration.png_jpg')}</p>
+        {/if}
 
-    {#if hasErrors(validationRepport)}
-      {#each validationRepport as { fileName, errors: _errors }}
-        <p class="text-sm">{fileName} :</p>
-        <p class="text-error mt-2 text-sm italic">
-          {$_('validation.import_file_error')}
-        </p>
-        <ol>
-          {#if _errors.maxSizeExceeded}
-            <li class="text-sm">{$_('validation.max_size_error')}</li>
-          {/if}
-          {#if _errors.wrongMimeType}
-            <li class="text-sm">{$_('validation.mime_type_error')}</li>
-          {/if}
-        </ol>
-      {/each}
-    {/if}
+        {#if validationSucceed && !loading}
+            <p class="text-success text-sm italic">
+                {$_('validation.file_upload_succeed')}
+            </p>
+        {/if}
 
-    {#if successMessage}
-      <p class="text-success text-sm italic">{successMessage}</p>
-    {/if}
-    <div {role}>
-      <input
-        bind:this={ref}
-        class="hidden"
-        type="file"
-        tabindex="-1"
-        {id}
-        {disabled}
-        accept={accept.join(',')}
-        {name}
-        {multiple}
-        on:change
-        on:change={({ target }) => {
-          console.log(target);
-          handleUploadFile(target.files);
-        }}
-        on:click
-        on:click={({ target }) => {
-          if (!loading) {
-            return;
-          }
-          target.value = null;
-        }}
-      />
-    </div>
-  </label>
+        {#if hasErrors(validationRepport)}
+            {#each validationRepport as {fileName, errors: _errors}}
+                <p class="text-sm">{fileName} :</p>
+                <p class="text-error mt-2 text-sm italic">
+                    {$_('validation.import_file_error')}
+                </p>
+                <ol>
+                    {#if _errors.maxSizeExceeded}
+                        <li class="text-sm">{$_('validation.max_size_error')}</li>
+                    {/if}
+                    {#if _errors.wrongMimeType}
+                        <li class="text-sm">{$_('validation.mime_type_error')}</li>
+                    {/if}
+                </ol>
+            {/each}
+        {/if}
+
+        <input
+                bind:this={inputRef}
+                on:change="{handleInputChange}"
+                on:click="{handleInputClick}"
+                type="file"
+                class="hidden"
+                tabindex="-1"
+        />
+    </label>
 </div>
+
