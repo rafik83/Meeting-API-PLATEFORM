@@ -19,7 +19,6 @@ export const getFileUploadReport = (
   maxSize: number
 ): Array<ErrorReport> => {
   const keys = Object.keys(fileList);
-
   const filteredKeys = keys.filter((item) => {
     return !isNaN(parseInt(item));
   });

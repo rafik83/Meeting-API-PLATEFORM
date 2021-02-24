@@ -18,7 +18,7 @@ export const Default = Template.bind({});
 Default.args = {
   name: 'input_file',
   accept: ['image/jpeg', 'image/png'],
-  maxSize: 1048576,
+  maxSize: 1*1024*1024,
 };
 
 export const Success = Template.bind({});

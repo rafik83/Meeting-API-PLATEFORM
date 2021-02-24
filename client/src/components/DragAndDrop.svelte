@@ -1,12 +1,13 @@
 <script>
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
+  import { getFileUploadReport } from "../modules/fileManagement";
 
   export let accept = [];
 
-  export let multiple = false;
+  export let fileMaxSize = 1*1024*1024;
 
-  export let validateFiles = () => [];
+  export let multiple = false;
 
   export let disabled = false;
 
@@ -30,6 +31,16 @@
   const hasErrors = (errors) => {
     return errors.some((item) => item.hasErrors);
   };
+
+  const handleUploadFile = (files) => {
+    if (!disabled && !loading) {
+      successMessage = '';
+      validationRepport = getFileUploadReport(files, accept, fileMaxSize);
+      if (!hasErrors(validationRepport)) {
+        dispatch('drop', files);
+      }
+    }
+  }
 </script>
 
 <div
@@ -48,14 +59,10 @@
     }
   }}
   on:drop
-  on:drop|preventDefault|stopPropagation={({ dataTransfer }) => {
-    if (!disabled && !loading) {
-      successMessage = '';
-      validationRepport = validateFiles(dataTransfer.files);
-      if (!hasErrors(validationRepport)) {
-        dispatch('drop', dataTransfer.files);
-      }
-    }
+  on:drop|preventDefault|stopPropagation={
+({ dataTransfer }) => {
+            console.log(dataTransfer);
+    handleUploadFile(dataTransfer.files);
   }}
 >
   <label
@@ -110,7 +117,8 @@
         {multiple}
         on:change
         on:change={({ target }) => {
-          dispatch('add', validateFiles(target.files));
+          console.log(target);
+          handleUploadFile(target.files);
         }}
         on:click
         on:click={({ target }) => {

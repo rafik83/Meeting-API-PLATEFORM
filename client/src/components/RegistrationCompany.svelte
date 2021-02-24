@@ -1,9 +1,11 @@
 <script>
   import DragAndDrop from './DragAndDrop.svelte';
   import CompanyForm from './CompanyForm.svelte';
+  import {getFileUploadReport} from "../modules/fileManagement";
 
-  let accept = '.jpg, .jpeg, .png';
-  let maxSize = 1048576;
+  let accept = ['image/jpg', 'image/jpeg', 'image/png'];
+  let maxSize = 1*1024*1024; // 1Mb
+  let dragAndDropName = 'Company logo';
 </script>
 
 <!-- 
@@ -13,5 +15,5 @@
     -> si tout est ok passer les fichiers et les valeurs du formulaire à la page (index.svelte)
  -->
 
-<DragAndDrop {accept} {maxSize} />
+<DragAndDrop {accept} {maxSize} name="{dragAndDropName}" validateFiles="{getFileUploadReport}"/>
 <CompanyForm />
