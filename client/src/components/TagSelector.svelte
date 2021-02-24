@@ -86,10 +86,6 @@
       />
     {/each}
 
-    <Button
-      on:click={handleNext}
-      content={$_('registration.next')}
-      type="submit"
-    />
+    <Button on:click={handleNext} kind="primary" type="submit">{$_('registration.next')}</Button>
   </div>
 </div>

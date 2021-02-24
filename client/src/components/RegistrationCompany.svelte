@@ -31,7 +31,7 @@
 
   const validationSchema = yup.object().shape({
     compagnyName: yup.string().required($_('validation.field_required')),
-    selectedLocale: yup.string().required($_('validation.field_required')),
+    selectedLocale: yup.string().max(2).required($_('validation.field_required')),
     compagnyWebsite: yup
       .string()
       .url($_('validation.wrong_url'))
@@ -80,9 +80,7 @@
     {options}
     bind:submittedValues={compagnyFormValues}
   />
-  <Button
-    type="submit"
-    content={$_('registration.next')}
-    on:click={handleSubmit}
-  />
+  <Button type="submit" kind="primary" on:click={handleSubmit}>
+    {$_('registration.next')}
+  </Button>
 </div>
