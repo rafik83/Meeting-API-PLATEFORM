@@ -13,7 +13,9 @@
         "invalid_password": "Le mot de passe doit avoir une longueur de {minPassword} caractères minimum",
         "terms_and_conditions_not_selected": "Veuillez accepter les Conditions Génerales d'utilisation",
         "not_enough_tag_selected": "Veuillez selectionné encore min {value} tags",
-        "import_file_error": "Erreurs à l'importation des fichiers"
+        "import_file_error": "Erreur(s) :",
+        "max_size_error": "La taille du fichier est supérieur à 1Mo",
+        "mime_type_error": "Le format du fichier n'est pas correct"
     },
     "registration": {
         "welcome": "Bienvenue !",

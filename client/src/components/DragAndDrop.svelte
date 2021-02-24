@@ -37,19 +37,19 @@
   {...$$restProps}
   on:dragover
   on:dragover|preventDefault|stopPropagation={({ dataTransfer }) => {
-    if (!disabled) {
+    if (!disabled && !loading) {
       dataTransfer.dropEffect = 'copy';
     }
   }}
   on:dragleave
   on:dragleave|preventDefault|stopPropagation={({ dataTransfer }) => {
-    if (!disabled || loading) {
+    if (!disabled && !loading) {
       dataTransfer.dropEffect = 'move';
     }
   }}
   on:drop
   on:drop|preventDefault|stopPropagation={({ dataTransfer }) => {
-    if (!disabled || loading) {
+    if (!disabled && !loading) {
       successMessage = '';
       validationRepport = validateFiles(dataTransfer.files);
       if (!hasErrors(validationRepport)) {
@@ -66,7 +66,7 @@
     {tabindex}
     on:keydown
     on:keydown={({ key }) => {
-      if (key === ' ' || (key === 'Enter' && !loading)) {
+      if ((key === ' ' || key === 'Enter') && !loading) {
         ref.click();
       }
     }}>
@@ -79,16 +79,16 @@
 
     {#if hasErrors(validationRepport)}
       {#each validationRepport as { fileName, errors: _errors }}
+        <p class="text-sm">{fileName} :</p>
         <p class="text-error mt-2 text-sm italic">
           {$_('validation.import_file_error')}
         </p>
-        <p>{fileName} :</p>
         <ol>
           {#if _errors.maxSizeExceeded}
-            <li>Heloo</li>
+            <li class="text-sm">{$_('validation.max_size_error')}</li>
           {/if}
           {#if _errors.wrongMimeType}
-            <li>tata</li>
+            <li class="text-sm">{$_('validation.mime_type_error')}</li>
           {/if}
         </ol>
       {/each}

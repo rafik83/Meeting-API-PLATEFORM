@@ -18,6 +18,7 @@ describe('fileManagement', () => {
       const expectedResult = [
         {
           fileName: fileName1,
+          hasErrors: false,
           errors: {
             maxSizeExceeded: false,
             wrongMimeType: false,
@@ -25,6 +26,7 @@ describe('fileManagement', () => {
         },
         {
           fileName: fileName2,
+          hasErrors: false,
           errors: {
             maxSizeExceeded: false,
             wrongMimeType: false,
@@ -57,6 +59,7 @@ describe('fileManagement', () => {
       const expectedResult = [
         {
           fileName: fileName1,
+          hasErrors: false,
           errors: {
             maxSizeExceeded: false,
             wrongMimeType: false,
@@ -65,6 +68,7 @@ describe('fileManagement', () => {
 
         {
           fileName: fileName2,
+          hasErrors: true,
           errors: {
             wrongMimeType: true,
             maxSizeExceeded: false,
@@ -80,7 +84,7 @@ describe('fileManagement', () => {
       ).toStrictEqual(expectedResult);
     });
 
-    it.only('should return errors if a file exceed the expected file size ', () => {
+    it('should return errors if a file exceed the expected file size ', () => {
       const fileName1 = 'toto.jpeg';
       const fileName2 = 'tata.jpeg';
 
@@ -92,6 +96,7 @@ describe('fileManagement', () => {
       const expectedResult = [
         {
           fileName: fileName1,
+          hasErrors: false,
           errors: {
             maxSizeExceeded: false,
             wrongMimeType: false,
@@ -100,6 +105,7 @@ describe('fileManagement', () => {
 
         {
           fileName: fileName2,
+          hasErrors: true,
           errors: {
             maxSizeExceeded: true,
             wrongMimeType: false,
@@ -131,6 +137,7 @@ describe('fileManagement', () => {
       const expectedResult: Array<ErrorReport> = [
         {
           fileName: fileName1,
+          hasErrors: true,
           errors: {
             maxSizeExceeded: false,
             wrongMimeType: true,
@@ -139,6 +146,7 @@ describe('fileManagement', () => {
 
         {
           fileName: fileName2,
+          hasErrors: true,
           errors: {
             maxSizeExceeded: true,
             wrongMimeType: false,
@@ -147,6 +155,7 @@ describe('fileManagement', () => {
 
         {
           fileName: fileName3,
+          hasErrors: true,
           errors: {
             maxSizeExceeded: true,
             wrongMimeType: true,

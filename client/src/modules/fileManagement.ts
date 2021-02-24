@@ -26,11 +26,17 @@ export const getFileUploadReport = (
 
   return filteredKeys.map(
     (item): ErrorReport => {
+      const isValidMimeType = hasValidMimeType(
+        fileList[item],
+        acceptedMimeType
+      );
+      const isNotExceedMaxSize = doesNotExceedMaxSize(fileList[item], maxSize);
       return {
         fileName: fileList[item].name,
+        hasErrors: !isValidMimeType || !isNotExceedMaxSize, // mettre ce booléan à true si hasValidMimeType() retourne true OU si doesNotExceedMaxSize retourne true
         errors: {
-          wrongMimeType: !hasValidMimeType(fileList[item], acceptedMimeType),
-          maxSizeExceeded: !doesNotExceedMaxSize(fileList[item], maxSize),
+          wrongMimeType: !isValidMimeType,
+          maxSizeExceeded: !isNotExceedMaxSize,
         },
       };
     }
