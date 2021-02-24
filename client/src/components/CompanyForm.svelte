@@ -23,7 +23,7 @@
   };
 </script>
 
-<div class="w-full">
+<form class="w-full">
   <FormInput
     type="text"
     label={$_('registration.compagny_name')}
@@ -55,4 +55,4 @@
     errorMessage={errors.compagnyDescription}
     bind:value={submittedValues.compagnyDescription}
   />
-</div>
+</form>

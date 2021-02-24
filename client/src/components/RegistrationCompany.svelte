@@ -10,7 +10,7 @@
   let accept = ['image/jpg', 'image/jpeg', 'image/png'];
   let maxSize = 1 * 1024 * 1024; // 1Mb
   let dragAndDropName = 'Company logo';
-  import FormSubmit from './FormSubmit.svelte';
+  import Button from './Button.svelte';
 
   // Mocked values
   export let maxDescription = 30;
@@ -73,12 +73,16 @@
   name={dragAndDropName}
   validateFiles={getFileUploadReport}
 />
-<form>
+<div>
   <CompanyForm
     {errors}
     max={maxDescription}
     {options}
     bind:submittedValues={compagnyFormValues}
   />
-  <FormSubmit value={$_('registration.next')} on:click={handleSubmit} />
-</form>
+  <Button
+    type="submit"
+    content={$_('registration.next')}
+    on:click={handleSubmit}
+  />
+</div>
