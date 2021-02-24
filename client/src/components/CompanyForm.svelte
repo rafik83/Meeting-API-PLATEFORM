@@ -33,10 +33,9 @@
   />
   <FormSelect
     {options}
-    datalistName="countriesList"
-    type="search"
     name="countries-compagny"
     value=""
+    searchBar
     label={$_('registration.country')}
     on:blur={handleLocale}
     errorMessage={errors.selectedLocale}

@@ -5,9 +5,8 @@
   export let value;
   export let name;
   export let label;
-  export let placeholder;
   export let errorMessage = null;
-  let displayLabel = false;
+  let displayLabel = value ? true : false;
 
   $: if (max && value.length > max) {
     value = value.substring(0, max);
@@ -36,7 +35,6 @@
       ? 'border-error text-error'
       : 'border-gray-200'}"
     bind:value
-    {placeholder}
     on:focus={handleTextareaFocusIn}
     on:focusout={handleTextareaFocusOut}
   />
