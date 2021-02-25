@@ -1,0 +1,8 @@
+Proximum\Vimeet365\Application\View\CountryView:
+    collectionOperations:
+        get:
+            path: "/countries"
+    itemOperations:
+        get: ~
+    properties:
+        code: { identifier: true }
