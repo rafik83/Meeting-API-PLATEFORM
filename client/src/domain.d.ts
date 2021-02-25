@@ -49,6 +49,15 @@ export type Member = {
 };
 
 export type Country = {
-  id: string;
+  code: string;
   name: string;
+};
+
+export type Company = {
+  id?: number;
+  name: string;
+  logo?: string;
+  countryCode: string;
+  activity: string;
+  website: string;
 };

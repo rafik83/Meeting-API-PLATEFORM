@@ -57,10 +57,11 @@
         "loading": "... loading",
         "characters": "{n, plural, =0{{n} caractère} one{{n} caractère} other{# caractères}}",
         "country": "Pays",
-        "compagny_name": "Nom de la société",
+        "company_name": "Nom de la société",
         "website": "Site web",
         "description": "Description",
-        "next": "Suivant"
+        "next": "Suivant",
+        "create_your_company": "create your company"
     },
     "admin": {
         "title": "Page d'administration"

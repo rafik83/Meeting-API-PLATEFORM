@@ -57,10 +57,11 @@
         "loading": "... loading",
         "characters": "{n, plural, =0{{n} character} one{{n} character} other{# characters}}",
         "country": "Country",
-        "compagny_name": "Compagny name",
+        "company_name": "Compagny name",
         "website": "Website",
         "description": "Description",
-        "next": "Next"
+        "next": "Next",
+        "create_your_company": "create your company"
     },
     "languages": {
         "en": "English",

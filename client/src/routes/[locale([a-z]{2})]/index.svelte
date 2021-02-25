@@ -9,10 +9,13 @@
       this.error(404, '');
     }
 
+    const countryList = await getCountries();
+
     let errorMessage = '';
 
     return {
       user,
+      countryList,
       step: currentStep,
       errorMessage,
       communityId,

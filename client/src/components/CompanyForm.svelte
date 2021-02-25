@@ -5,59 +5,58 @@
   import FormTextarea from './FormTextarea.svelte';
   import FormSelect from './FormSelect.svelte';
 
-  // Input values
   export let max;
-  export let selectOptions;
   export let errors;
+
+  export let selectOptions;
 
   let seletecdOption = {
     name: '',
     code: '',
   };
 
-  // Return values
   export let company = {
-    compagnyName: '',
-    selectedLocale: '',
-    compagnyWebsite: '',
-    compagnyDescription: '',
+    name: '',
+    countryCode: '',
+    website: '',
+    activity: '',
   };
 
   $: company = {
     ...company,
-    selectedLocale: seletecdOption.code,
+    countryCode: seletecdOption.code,
   };
 </script>
 
-<form class=" w-full">
+<form class="w-full">
   <FormInput
     type="text"
-    label={$_('registration.compagny_name')}
-    name="compagnyName"
-    errorMessage={errors.compagnyName}
-    bind:value={company.compagnyName}
+    label={$_('registration.company_name')}
+    name="name"
+    errorMessage={errors.name}
+    bind:value={company.name}
   />
   <FormSelect
     options={selectOptions}
-    name="countries-compagny"
+    name="countries-company"
     value=""
     searchBar
     label={$_('registration.country')}
     bind:selectedOption={seletecdOption}
-    errorMessage={errors.selectedLocale}
+    errorMessage={errors.countryCode}
   />
   <FormInput
     type="text"
     label={$_('registration.website')}
     name="website"
-    errorMessage={errors.compagnyWebsite}
-    bind:value={company.compagnyWebsite}
+    errorMessage={errors.website}
+    bind:value={company.website}
   />
   <FormTextarea
     {max}
     label={$_('registration.description')}
     name="description"
-    errorMessage={errors.compagnyDescription}
-    bind:value={company.compagnyDescription}
+    errorMessage={errors.activity}
+    bind:value={company.activity}
   />
 </form>
