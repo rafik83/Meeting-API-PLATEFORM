@@ -5,80 +5,80 @@
 
   import DragAndDrop from './DragAndDrop.svelte';
   import CompanyForm from './CompanyForm.svelte';
-  import { getFileUploadReport } from '../modules/fileManagement';
+  import Button from './Button.svelte';
+  import RegistrationPipeLineHeader from './RegistrationPipeLineHeader.svelte';
+
+  export let countryList;
+  export let onCreateCompany;
 
   let accept = ['image/jpg', 'image/jpeg', 'image/png'];
   let maxSize = 1 * 1024 * 1024; // 1Mb
+  let maxDescriptionLength = 300;
   let dragAndDropName = 'Company logo';
-  import Button from './Button.svelte';
 
-  // Mocked values
-  export let maxDescription = 30;
-  export let options = [
-    { id: 'en', name: 'Royaume-uni' },
-    { id: 'fr', name: 'France' },
-    { id: 'ru', name: 'Russie' },
-    { id: 'be', name: 'Belgique' },
-    { id: 'mc', name: 'Monaco' },
-    { id: 'mn', name: 'Mongolia' },
-    { id: 'me', name: 'Montenegro' },
-  ];
+  export let user;
 
-  // Return values
-  export let compagnyFormValues;
+  let companyFormValues;
 
   let errors = {};
 
+  const handleUploadFile = ({ detail }) => {
+    uploadedFile = detail[0];
+  };
+
   const validationSchema = yup.object().shape({
-    compagnyName: yup.string().required($_('validation.field_required')),
-    selectedLocale: yup.string().max(2).required($_('validation.field_required')),
-    compagnyWebsite: yup
+    name: yup.string().required($_('validation.field_required')),
+    countryCode: yup.string().required($_('validation.field_required')),
+    website: yup
       .string()
       .url($_('validation.wrong_url'))
       .required($_('validation.field_required')),
-    compagnyDescription: yup
+    activity: yup
       .string()
       .max(
-        maxDescription,
-        $_('validation.maximum_characters', { value: maxDescription })
+        maxDescriptionLength,
+        $_('validation.maximum_characters', { value: maxDescriptionLength })
       ),
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await validationSchema.validate(compagnyFormValues, {
+      await validationSchema.validate(companyFormValues, {
         abortEarly: false,
       });
       errors = {};
-      console.log(compagnyFormValues);
-
-      // onSubmitForm(compagnyFormValues);
+      onCreateCompany(file, companyFormValues);
     } catch (err) {
       errors = extractErrors(err);
     }
   };
 </script>
 
-<!-- 
-    - recupérer LE fichier upload
-    - recuperer les valeurs de company form
-    - validerr si les champs du company form sont ok
-    -> si tout est ok passer les fichiers et les valeurs du formulaire à la page (index.svelte)
- -->
+<div class="h-full px-5">
+  <RegistrationPipeLineHeader
+    title={$_('registration.hello') + '.'}
+    subtitle={user.firstName + ' ' + user.lastName}
+  />
 
-<DragAndDrop
-  {accept}
-  {maxSize}
-  name={dragAndDropName}
-  validateFiles={getFileUploadReport}
-/>
-<div>
+  <p class="text-community-300 font-semibold pb-4">
+    {$_('registration.create_your_company') + '.'}
+  </p>
+
+  <div class="h-52">
+    <p class="text-error " />
+    <DragAndDrop
+      on:fileUploaded={handleUploadFile}
+      {accept}
+      {maxSize}
+      name={dragAndDropName}
+    />
+  </div>
   <CompanyForm
     {errors}
-    max={maxDescription}
-    {options}
-    bind:submittedValues={compagnyFormValues}
+    max={maxDescriptionLength}
+    selectOptions={countryList}
+    bind:company={companyFormValues}
   />
   <Button type="submit" kind="primary" on:click={handleSubmit}>
     {$_('registration.next')}

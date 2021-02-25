@@ -1,10 +1,20 @@
+import { buildFakeUser } from '../__fixtures__/FakeUser';
 import RegistrationCompany from './RegistrationCompany.svelte';
 
 export default {
   title: 'Vimeet365/RegistrationCompany',
   component: RegistrationCompany,
   args: {
-    toto: 'super chaine de caractère',
+    user: buildFakeUser({}),
+    countryList: [
+      { code: 'en', name: 'Royaume-uni' },
+      { code: 'fr', name: 'France' },
+      { code: 'ru', name: 'Russie' },
+      { code: 'be', name: 'Belgique' },
+      { code: 'mc', name: 'Monaco' },
+      { code: 'mn', name: 'Mongolia' },
+      { code: 'me', name: 'Montenegro' },
+    ],
   },
 };
 
