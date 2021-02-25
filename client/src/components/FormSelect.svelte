@@ -19,16 +19,18 @@
   export let searchBar = false;
   let displaySelect = false;
   let filterOptions = options;
-  let filter = [];
+  let filteredCountries = [];
   let selectedLabel = '';
 
   const handleClick = () => {
     displaySelect = !displaySelect;
   };
 
+  export let selectedOption;
+
   const handleInputSearch = (e) => {
-    filter = filterCountriesByName(options, e.target.value);
-    filterOptions = filter ? filter : options;
+    filteredCountries = filterCountriesByName(options, e.target.value);
+    filterOptions = filteredCountries ? filteredCountries : options;
   };
   const handleClickOption = (e) => {
     displaySelect = !displaySelect;
@@ -66,7 +68,7 @@
       <select
         {name}
         {id}
-        on:blur
+        bind:value={selectedOption}
         on:click|stopPropagation|preventDefault={handleClickOption}
         class="w-full"
         size="5">
@@ -76,7 +78,7 @@
             class="{i % 2 === 0
               ? 'bg-gray-50'
               : 'bg-gray-100'} px-4 py-2 cursor-pointer"
-            value={option.id}>
+            value={option}>
             {option.name}
           </option>
         {/each}
