@@ -15,7 +15,7 @@ class CountriesTest extends ApiTestCase
 
     public function testGetCollection(): void
     {
-        $response = static::createClient()->request('GET', '/api/countries');
+        static::createClient()->request('GET', '/api/countries');
 
         self::assertResponseIsSuccessful();
         // Asserts that the returned content type is JSON-LD (the default)
@@ -26,11 +26,44 @@ class CountriesTest extends ApiTestCase
             '@context' => '/api/contexts/CountryView',
             '@id' => '/api/countries',
             '@type' => 'hydra:Collection',
+            'hydra:member' => [
+                [
+                    'code' => 'AF',
+                    'name' => 'Afghanistan',
+                ],
+                [
+                    'code' => 'AL',
+                    'name' => 'Albania',
+                ],
+            ],
         ]);
-
-        self::assertCount(249, $response->toArray()['hydra:member']);
 
         // Asserts that the returned JSON is validated by the JSON Schema generated for this resource by API Platform
         self::assertMatchesResourceCollectionJsonSchema(CountryView::class);
+    }
+
+    public function testGetItem(): void
+    {
+        static::createClient()->request('GET', '/api/countries/FR');
+
+        self::assertResponseIsSuccessful();
+        // Asserts that the returned content type is JSON-LD (the default)
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+
+        //Asserts that the returned JSON is a superset of this one
+        self::assertJsonContains([
+            'code' => 'FR',
+            'name' => 'France',
+        ]);
+
+        // Asserts that the returned JSON is validated by the JSON Schema generated for this resource by API Platform
+        self::assertMatchesResourceItemJsonSchema(CountryView::class);
+    }
+
+    public function testNotExistsingCountry(): void
+    {
+        static::createClient()->request('GET', '/api/countries/XK');
+
+        self::assertResponseStatusCodeSame(404);
     }
 }
