@@ -15,9 +15,11 @@
       bind:checked
     />
 
-    <span></span>
+    <span />
 
-    <label for={name} class="block {checked ? 'text-community-300' : 'text-gray-400' }">
+    <label
+      for={name}
+      class="block {checked ? 'text-community-300' : 'text-gray-400'}">
       {@html $_('registration.conditions', {
         values: {
           link:

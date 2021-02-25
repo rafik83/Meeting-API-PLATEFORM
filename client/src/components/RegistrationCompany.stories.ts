@@ -16,6 +16,7 @@ export default {
       { code: 'me', name: 'Montenegro' },
     ],
   },
+  argTypes: { onCreateCompany: { action: 'clicked' } },
 };
 
 const Template = ({ ...args }) => ({

@@ -10,6 +10,7 @@ export type User = {
   id?: number;
   email: string;
   acceptedTermsAndConditions?: number | Date;
+  company?: Company;
 };
 
 export type Community = {

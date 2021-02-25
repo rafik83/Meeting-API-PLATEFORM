@@ -38,7 +38,7 @@
   />
   <FormSelect
     options={selectOptions}
-    name="countries-company"
+    name="countryCode"
     value=""
     searchBar
     label={$_('registration.country')}
@@ -55,7 +55,7 @@
   <FormTextarea
     {max}
     label={$_('registration.description')}
-    name="description"
+    name="activity"
     errorMessage={errors.activity}
     bind:value={company.activity}
   />

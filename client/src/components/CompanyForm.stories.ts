@@ -30,9 +30,9 @@ export const Errors = Template.bind({});
 Errors.args = {
   ...Base.args,
   errors: {
-    compagnyName: 'fe',
-    selectedLocale: 'fe',
-    compagnyWebsite: 'fe',
-    compagnyDescription: 'fe',
+    name: 'fe',
+    countryCode: 'fe',
+    website: 'fe',
+    activity: 'fe',
   },
 };

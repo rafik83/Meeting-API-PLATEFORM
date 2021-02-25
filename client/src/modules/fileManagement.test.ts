@@ -172,8 +172,6 @@ describe('fileManagement', () => {
         maxSize
       );
 
-      console.log(result);
-
       expect(result).toStrictEqual(expectedResult);
     });
   });

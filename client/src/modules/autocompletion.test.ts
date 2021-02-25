@@ -3,17 +3,17 @@ import { filterCountriesByName } from './autocompletion';
 describe('autocompletion', () => {
   describe('filterCountriesByName', () => {
     const countries = [
-      { id: 'en', name: 'Royaume-uni' },
-      { id: 'fr', name: 'France' },
-      { id: 'ru', name: 'Russie' },
-      { id: 'be', name: 'Belgique' },
-      { id: 'mc', name: 'Monaco' },
-      { id: 'mn', name: 'Mongolia' },
-      { id: 'me', name: 'Montenegro' },
+      { code: 'en', name: 'Royaume-uni' },
+      { code: 'fr', name: 'France' },
+      { code: 'ru', name: 'Russie' },
+      { code: 'be', name: 'Belgique' },
+      { code: 'mc', name: 'Monaco' },
+      { code: 'mn', name: 'Mongolia' },
+      { code: 'me', name: 'Montenegro' },
     ];
     it('should return an array who matched tree first letter for an input string', () => {
       const inputSearch = 'Roy';
-      const filterCountries = [{ id: 'en', name: 'Royaume-uni' }];
+      const filterCountries = [{ code: 'en', name: 'Royaume-uni' }];
       expect(filterCountriesByName(countries, inputSearch)).toStrictEqual(
         filterCountries
       );
@@ -30,9 +30,9 @@ describe('autocompletion', () => {
     it('should return a list of results', () => {
       const inputSearch = 'Mon';
       const filterCountries = [
-        { id: 'mc', name: 'Monaco' },
-        { id: 'mn', name: 'Mongolia' },
-        { id: 'me', name: 'Montenegro' },
+        { code: 'mc', name: 'Monaco' },
+        { code: 'mn', name: 'Mongolia' },
+        { code: 'me', name: 'Montenegro' },
       ];
       expect(filterCountriesByName(countries, inputSearch)).toStrictEqual(
         filterCountries
@@ -42,9 +42,9 @@ describe('autocompletion', () => {
     it('should return a list of results -- with ignore case', () => {
       const inputSearch = 'mOn';
       const filterCountries = [
-        { id: 'mc', name: 'Monaco' },
-        { id: 'mn', name: 'Mongolia' },
-        { id: 'me', name: 'Montenegro' },
+        { code: 'mc', name: 'Monaco' },
+        { code: 'mn', name: 'Mongolia' },
+        { code: 'me', name: 'Montenegro' },
       ];
       expect(filterCountriesByName(countries, inputSearch)).toStrictEqual(
         filterCountries

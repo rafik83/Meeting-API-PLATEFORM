@@ -5,7 +5,7 @@ export default {
   component: Button,
   args: {
     type: 'submit',
-    kind: 'primary'
+    kind: 'primary',
   },
 };
 
@@ -33,7 +33,7 @@ tiertiary.args = {
 
 community.args = {
   ...primary.args,
-  kind: 'community'
+  kind: 'community',
 };
 
 ghost.args = {

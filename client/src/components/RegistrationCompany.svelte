@@ -10,13 +10,13 @@
 
   export let countryList;
   export let onCreateCompany;
+  export let user;
 
   let accept = ['image/jpg', 'image/jpeg', 'image/png'];
   let maxSize = 1 * 1024 * 1024; // 1Mb
   let maxDescriptionLength = 300;
   let dragAndDropName = 'Company logo';
-
-  export let user;
+  let uploadedFile;
 
   let companyFormValues;
 
@@ -48,7 +48,7 @@
         abortEarly: false,
       });
       errors = {};
-      onCreateCompany(file, companyFormValues);
+      onCreateCompany(uploadedFile, companyFormValues);
     } catch (err) {
       errors = extractErrors(err);
     }

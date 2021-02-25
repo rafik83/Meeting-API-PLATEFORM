@@ -1,5 +1,4 @@
 import DragAndDrop from './DragAndDrop.svelte';
-// import type { ErrorReport } from '../modules/fileManagement';
 
 export default {
   title: 'Vimeet365/DragAndDrop',
