@@ -5,14 +5,14 @@ export default {
   component: CompanyForm,
   args: {
     max: 30,
-    options: [
-      { id: 'en', name: 'Royaume-uni' },
-      { id: 'fr', name: 'France' },
-      { id: 'ru', name: 'Russie' },
-      { id: 'be', name: 'Belgique' },
-      { id: 'mc', name: 'Monaco' },
-      { id: 'mn', name: 'Mongolia' },
-      { id: 'me', name: 'Montenegro' },
+    selectOptions: [
+      { code: 'en', name: 'Royaume-uni' },
+      { code: 'fr', name: 'France' },
+      { code: 'ru', name: 'Russie' },
+      { code: 'be', name: 'Belgique' },
+      { code: 'mc', name: 'Monaco' },
+      { code: 'mn', name: 'Mongolia' },
+      { code: 'me', name: 'Montenegro' },
     ],
     errors: {},
   },
@@ -24,6 +24,7 @@ const Template = ({ ...args }) => ({
 });
 
 export const Base = Template.bind({});
+
 export const Errors = Template.bind({});
 
 Errors.args = {

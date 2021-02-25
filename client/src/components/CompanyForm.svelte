@@ -7,37 +7,43 @@
 
   // Input values
   export let max;
-  export let options;
+  export let selectOptions;
   export let errors;
 
+  let seletecdOption = {
+    name: '',
+    code: '',
+  };
+
   // Return values
-  export let submittedValues = {
+  export let company = {
     compagnyName: '',
     selectedLocale: '',
     compagnyWebsite: '',
     compagnyDescription: '',
   };
 
-  const handleLocale = (e) => {
-    submittedValues.selectedLocale = e.target.value;
+  $: company = {
+    ...company,
+    selectedLocale: seletecdOption.code,
   };
 </script>
 
-<form class="w-full">
+<form class=" w-full">
   <FormInput
     type="text"
     label={$_('registration.compagny_name')}
     name="compagnyName"
     errorMessage={errors.compagnyName}
-    bind:value={submittedValues.compagnyName}
+    bind:value={company.compagnyName}
   />
   <FormSelect
-    {options}
+    options={selectOptions}
     name="countries-compagny"
     value=""
     searchBar
     label={$_('registration.country')}
-    on:blur={handleLocale}
+    bind:selectedOption={seletecdOption}
     errorMessage={errors.selectedLocale}
   />
   <FormInput
@@ -45,13 +51,13 @@
     label={$_('registration.website')}
     name="website"
     errorMessage={errors.compagnyWebsite}
-    bind:value={submittedValues.compagnyWebsite}
+    bind:value={company.compagnyWebsite}
   />
   <FormTextarea
     {max}
     label={$_('registration.description')}
     name="description"
     errorMessage={errors.compagnyDescription}
-    bind:value={submittedValues.compagnyDescription}
+    bind:value={company.compagnyDescription}
   />
 </form>
