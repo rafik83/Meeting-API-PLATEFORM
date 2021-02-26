@@ -11,19 +11,23 @@
     <input
       on:change
       type="checkbox"
-      class="form-checkbox h-6 w-10 mr-2"
+      class="form-checkbox h-6 w-10 mr-2 cursor-pointer"
       bind:checked
     />
 
-    <label for={name} class="block text-gray-400">
+    <span />
+
+    <label
+      for={name}
+      class="block {checked ? 'text-community-300' : 'text-gray-400'}">
       {@html $_('registration.conditions', {
         values: {
           link:
-            '<a href="http://example.fr" target="_blank">' +
+            '<a href="http://example.fr" class="underline" target="_blank">' +
             $_('registration.termsConditions') +
             '</a>',
           link2:
-            '<a href="http://example2.fr" target="_blank">' +
+            '<a href="http://example2.fr" class="underline" target="_blank">' +
             $_('registration.policyConditions') +
             '</a>',
         },

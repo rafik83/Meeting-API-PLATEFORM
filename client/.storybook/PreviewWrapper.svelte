@@ -1,7 +1,7 @@
 <style>
   .preview {
-    width: 900px;
-    height: auto;
+    width: 400px;
+    height: 400px;
   }
 </style>
 

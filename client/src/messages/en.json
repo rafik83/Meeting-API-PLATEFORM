@@ -5,14 +5,21 @@
         "high_five": "High five",
         "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading.",
         "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer",
-        "page_not_found": "This page does not exists or has been moved"
+        "page_not_found": "This page does not exists or has been moved",
+        "search": "Search"
     },
     "validation": {
         "field_required": "Field Required",
         "invalid_email": "Invalid Email",
         "invalid_password": "the password must be at least {minPassword} characters long",
         "terms_and_conditions_not_selected": "Please accept the terms and conditions",
-        "not_enough_tag_selected": "Please accept min {value} tags more"
+        "not_enough_tag_selected": "Please accept min {value} tags more",
+        "import_file_error": "Error(s):",
+        "max_size_error": "File size is greater than 1MB",
+        "mime_type_error": "The file format is not correct",
+        "file_upload_succeed": "File uploading succeed",
+        "maximum_characters": "Exceeds the limit of {value} characters",
+        "wrong_url": "This must be a valid URL"
     },
     "registration": {
         "welcome": "Welcome !",
@@ -45,7 +52,16 @@
         "user_already_exists": "A user is already registred with this email",
         "select_goals_and_objectives": "Select {priorities_number} goals and objectives by priority",
         "selected": "{n, plural, =0{{n}/{priorities_number} selected} one{{n}/{priorities_number} selected} other{# /{priorities_number}selected}}",
-        "next": "Suivant"
+        "upload_logo": "Upload your logo",
+        "png_jpg": ".png or .jpg 1Mo Maximum",
+        "loading": "... loading",
+        "characters": "{n, plural, =0{{n} character} one{{n} character} other{# characters}}",
+        "country": "Country",
+        "company_name": "Compagny name",
+        "website": "Website",
+        "description": "Description",
+        "next": "Next",
+        "create_your_company": "create your company"
     },
     "languages": {
         "en": "English",

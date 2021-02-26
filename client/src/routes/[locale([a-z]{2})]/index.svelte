@@ -1,18 +1,25 @@
 <script context="module">
   import { isValidRegistrationStep } from '../../modules/validator';
 
+  import { getCountries } from '../../repository/countries';
   import { createMember, updateMember } from '../../repository/member';
 
   export async function preload({ query }, { communityId, user }) {
+    let countryList = [];
+
+    let errorMessage = '';
     const currentStep = query.step;
     if (currentStep && !isValidRegistrationStep(currentStep)) {
       this.error(404, '');
     }
 
-    let errorMessage = '';
+    if (currentStep === registrationSteps.COMPANY_REGISTRATION) {
+      countryList = await getCountries();
+    }
 
     return {
       user,
+      countryList,
       step: currentStep,
       errorMessage,
       communityId,
@@ -28,10 +35,12 @@
   import LoginForm from '../../components/LoginForm.svelte';
   import RegistrationForm from '../../components/RegistrationForm.svelte';
   import TagSelector from '../../components/TagSelector.svelte';
+  import RegistrationCompany from '../../components/RegistrationCompany.svelte';
 
   import { findById, register, authenticate } from '../../repository/account';
-  import { toHomePage, toRegistrationStep } from '../../modules/routing';
+  import { createCompany, uploadCompanyLogo } from '../../repository/company';
 
+  import { toHomePage, toRegistrationStep } from '../../modules/routing';
   const { open, close } = getContext('simple-modal');
 
   const { session } = stores();
@@ -41,6 +50,7 @@
   export let user;
   export let errorMessage;
   export let communityId;
+  export let countryList;
 
   let memberId = null;
 
@@ -60,7 +70,7 @@
         currentQualificationStep &&
         Object.keys(currentQualificationStep).length > 0
       ) {
-        await goto(toRegistrationStep(registrationSteps.QUALIFICATION));
+        await goto(toRegistrationStep(registrationSteps.COMPANY_REGISTRATION));
       } else {
         await goto(toHomePage());
         close();
@@ -98,6 +108,19 @@
         close();
       }
     } catch (e) {
+      errorMessage = $_('messages.error_has_occured');
+    }
+  };
+
+  const handleCreateCompany = async (companyLogo, companyData) => {
+    try {
+      const { company } = await createCompany(companyData, user.id);
+      if (companyLogo) {
+        await uploadCompanyLogo(companyLogo, company.id);
+      }
+
+      await goto(toRegistrationStep(registrationSteps.QUALIFICATION));
+    } catch (error) {
       errorMessage = $_('messages.error_has_occured');
     }
   };
@@ -165,6 +188,16 @@
           callBacks
         );
       }
+
+      break;
+
+    case registrationSteps.COMPANY_REGISTRATION:
+      open(
+        RegistrationCompany,
+        { countryList, user, onCreateCompany: handleCreateCompany },
+        modalOptions,
+        callBacks
+      );
 
       break;
 

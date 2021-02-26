@@ -20,5 +20,8 @@ test:
 watch-css:
 	$(MAKE) -C client watch-css
 
+storybook:
+	$(MAKE) -C client storybook
+
 load-fixtures :
 	$(MAKE) -C api load-fixtures

@@ -103,6 +103,7 @@ Pasword : password
 | `make lint`      | Lint the entire project against linters (php stan and eslint) |
 | `make help`      | List all available commands                                   |
 | `make watch-css` | Watch css changes                                             |
+| `make storybook` | start a storybook server development                          |
 
 ### Routes to know
 

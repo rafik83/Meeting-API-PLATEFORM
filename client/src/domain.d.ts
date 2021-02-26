@@ -10,6 +10,7 @@ export type User = {
   id?: number;
   email: string;
   acceptedTermsAndConditions?: number | Date;
+  company?: Company;
 };
 
 export type Community = {
@@ -46,4 +47,18 @@ export type Member = {
   id: number;
   joinedAt: Date;
   currentQualificationStep: QualificationStep;
+};
+
+export type Country = {
+  code: string;
+  name: string;
+};
+
+export type Company = {
+  id?: number;
+  name: string;
+  logo?: string;
+  countryCode: string;
+  activity: string;
+  website: string;
 };

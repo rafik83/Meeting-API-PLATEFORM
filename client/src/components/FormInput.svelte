@@ -28,6 +28,8 @@
   export let label;
   export let value;
   export let errorMessage = null;
+  export let options = null;
+  export let datalistName = null;
   let displayPassword = false;
 
   const toggle = (event) => {
@@ -56,7 +58,7 @@
     <label
       class:invisible={!displayLabel}
       for={name}
-      class="block mt-2  italic absolute bg-gray-50 mf-2.5 -mt-3.5 ml-3 px-2 text-sm {errorMessage
+      class="block -mt-3.5 italic absolute bg-gray-50 mf-2.5 ml-3 px-2 text-sm {errorMessage
         ? 'border-error text-error'
         : 'border-gray-200'}">{label}</label
     >
@@ -66,11 +68,21 @@
       id={name}
       {value}
       placeholder={label}
+      list={datalistName}
       on:focusout={handleMouseOut}
       on:focus={handleFocusInput}
       on:input={handleInput}
-      class={`text-grey rounded-3xl px-2 py-2 border-none ${inputWidth}`}
+      class={`text-grey rounded-3xl px-4 py-2 border-none ${inputWidth}`}
+      autocomplete="on"
     />
+
+    {#if options}
+      <datalist id={datalistName}>
+        {#each options as option}
+          <option data-id={option.id} value={option.name} />
+        {/each}
+      </datalist>
+    {/if}
 
     {#if type === 'password'}
       <button on:click|preventDefault={toggle} class="w-5 h-auto mx-2">

@@ -17,13 +17,13 @@
   };
 </script>
 
-<div class="flex w-full relative justify-center items-center mb-6">
+<div class="flex w-10/12 relative justify-center px-7 items-center mb-6">
   {#if priority && displayPriority}
     <PriorityItem {priority} />
   {/if}
 
   <button
-    class="px-7 py-5 shadow-full w-4/5 font-semibold uppercase rounded-full {priority
+    class="px-7 py-5 shadow-full w-full font-semibold uppercase rounded-full {priority
       ? 'bg-community-300 text-gray-50'
       : ''}"
     on:click={handleOnClick}>{name}</button
