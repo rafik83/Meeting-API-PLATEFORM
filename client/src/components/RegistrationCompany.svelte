@@ -11,6 +11,7 @@
   export let countryList;
   export let onCreateCompany;
   export let user;
+  export let isLoading;
 
   let accept = ['image/jpg', 'image/jpeg', 'image/png'];
   let maxSize = 1 * 1024 * 1024; // 1Mb
@@ -43,14 +44,16 @@
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await validationSchema.validate(companyFormValues, {
-        abortEarly: false,
-      });
-      errors = {};
-      onCreateCompany(uploadedFile, companyFormValues);
-    } catch (err) {
-      errors = extractErrors(err);
+    if (!isLoading) {
+      try {
+        await validationSchema.validate(companyFormValues, {
+          abortEarly: false,
+        });
+        errors = {};
+        onCreateCompany(uploadedFile, companyFormValues);
+      } catch (err) {
+        errors = extractErrors(err);
+      }
     }
   };
 </script>

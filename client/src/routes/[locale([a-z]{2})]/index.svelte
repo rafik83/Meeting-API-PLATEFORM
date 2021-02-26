@@ -51,6 +51,7 @@
   export let errorMessage;
   export let communityId;
   export let countryList;
+  let isLoading = false;
 
   let memberId = null;
 
@@ -114,9 +115,11 @@
 
   const handleCreateCompany = async (companyLogo, companyData) => {
     try {
+      isLoading = true;
       const { company } = await createCompany(companyData, user.id);
       if (companyLogo) {
         await uploadCompanyLogo(companyLogo, company.id);
+        isLoading = false;
       }
 
       await goto(toRegistrationStep(registrationSteps.QUALIFICATION));
@@ -194,7 +197,7 @@
     case registrationSteps.COMPANY_REGISTRATION:
       open(
         RegistrationCompany,
-        { countryList, user, onCreateCompany: handleCreateCompany },
+        { countryList, user, onCreateCompany: handleCreateCompany, isLoading },
         modalOptions,
         callBacks
       );
