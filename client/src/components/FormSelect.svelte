@@ -7,7 +7,7 @@
 <script>
   import { _ } from 'svelte-i18n';
   import { filterCountriesByName } from '../modules/autocompletion.ts';
-  import { fly, fade } from 'svelte/transition';
+  import { fly } from 'svelte/transition';
   import IconSearch from './IconSearch.svelte';
   import IconDropdown from './IconDropdown.svelte';
 
@@ -50,7 +50,7 @@
 
   {#if displaySelect}
     <div
-      transition:fade={{ duration: 250, delay: 0 }}
+      transition:fly={{ y: -20, duration: 250, delay: 0 }}
       class="flex flex-col justify-start items-start border rounded overflow-hidden absolute z-50 w-full bg-gray-100"
     >
       {#if searchBar}
@@ -74,7 +74,6 @@
         size="5">
         {#each filterOptions as option, i}
           <option
-            transition:fly={{ y: 20, duration: 250 }}
             class="{i % 2 === 0
               ? 'bg-gray-50'
               : 'bg-gray-100'} px-4 py-2 cursor-pointer"
