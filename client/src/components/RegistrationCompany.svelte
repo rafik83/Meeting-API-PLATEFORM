@@ -55,7 +55,7 @@
   };
 </script>
 
-<div class="h-full px-5">
+<div class="w-full px-8 py-2 mx-auto my-5 flex-col items-center">
   <RegistrationPipeLineHeader
     title={$_('registration.hello') + '.'}
     subtitle={user.firstName + ' ' + user.lastName}
@@ -65,8 +65,7 @@
     {$_('registration.create_your_company') + '.'}
   </p>
 
-  <div class="h-52">
-    <p class="text-error " />
+  <div class="h-40 flex text-center items-center justify-center flex-col">
     <DragAndDrop
       on:fileUploaded={handleUploadFile}
       {accept}

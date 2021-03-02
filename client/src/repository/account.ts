@@ -33,3 +33,9 @@ export const findById = async (userId: number): Promise<User> => {
 export const register = async (user: User): Promise<User> => {
   return (await post<User, User>('/accounts', user)).data;
 };
+
+export const uploadAvatar = async (accountAvatar: File, userId: number) => {
+  const formData = new FormData();
+  formData.append('file', accountAvatar);
+  await post<FormData, void>(`accounts/${userId}/avatar`, formData);
+};

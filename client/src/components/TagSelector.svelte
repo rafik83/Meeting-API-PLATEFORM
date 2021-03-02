@@ -49,7 +49,7 @@
   };
 </script>
 
-<div class="md:w-3/5 w-11/12 mx-auto my-5 flex-col items-center">
+<div class="w-full px-8 py-2 mx-auto my-5 flex-col items-center">
   <RegistrationPipeLineHeader
     title={$_('registration.hello') + '.'}
     subtitle={user.firstName + ' ' + user.lastName}

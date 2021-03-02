@@ -61,7 +61,10 @@
         "website": "Site web",
         "description": "Description",
         "next": "Suivant",
-        "create_your_company": "create your company"
+        "create_your_company": "create your company",
+        "upload_avatar" : "Téléchargez votre avatar",
+        "attention_members": "Attirez 8 fois plus l'attention des membres!",
+        "add_photo": "Ajoutez une photo pour attirer l'attention des membres."
     },
     "admin": {
         "title": "Page d'administration"

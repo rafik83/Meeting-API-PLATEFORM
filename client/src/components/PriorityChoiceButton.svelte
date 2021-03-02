@@ -17,7 +17,7 @@
   };
 </script>
 
-<div class="flex w-10/12 relative justify-center px-7 items-center mb-6">
+<div class="flex w-full relative justify-center px-7 items-center mb-6">
   {#if priority && displayPriority}
     <PriorityItem {priority} />
   {/if}

@@ -36,11 +36,18 @@
   import RegistrationForm from '../../components/RegistrationForm.svelte';
   import TagSelector from '../../components/TagSelector.svelte';
   import RegistrationCompany from '../../components/RegistrationCompany.svelte';
+  import AvatarUploader from '../../components/AvatarUploader.svelte';
 
-  import { findById, register, authenticate } from '../../repository/account';
+  import {
+    findById,
+    register,
+    authenticate,
+    uploadAvatar,
+  } from '../../repository/account';
   import { createCompany, uploadCompanyLogo } from '../../repository/company';
 
   import { toHomePage, toRegistrationStep } from '../../modules/routing';
+
   const { open, close } = getContext('simple-modal');
 
   const { session } = stores();
@@ -70,7 +77,7 @@
         currentQualificationStep &&
         Object.keys(currentQualificationStep).length > 0
       ) {
-        await goto(toRegistrationStep(registrationSteps.COMPANY_REGISTRATION));
+        await goto(toRegistrationStep(registrationSteps.UPLOAD_USER_AVATAR));
       } else {
         await goto(toHomePage());
         close();
@@ -112,6 +119,17 @@
     }
   };
 
+  const handleUploadAvatar = async (accountAvatar) => {
+    try {
+      if (accountAvatar) {
+        await uploadAvatar(accountAvatar, user.id);
+        await goto(toRegistrationStep(registrationSteps.COMPANY_REGISTRATION));
+      }
+    } catch (error) {
+      errorMessage = $_('messages.error_has_occured');
+    }
+  };
+
   const handleCreateCompany = async (companyLogo, companyData) => {
     try {
       const { company } = await createCompany(companyData, user.id);
@@ -129,6 +147,9 @@
     styleCloseButton: {
       color: '#2A2E43',
       boxShadow: 'none',
+    },
+    styleWindow: {
+      width: '30rem',
     },
   };
 
@@ -182,7 +203,7 @@
               currentQualificationStep.nomenclature.tags
             ),
             errorMessage,
-            user: $session.user,
+            user,
           },
           modalOptions,
           callBacks
@@ -195,6 +216,16 @@
       open(
         RegistrationCompany,
         { countryList, user, onCreateCompany: handleCreateCompany },
+        modalOptions,
+        callBacks
+      );
+
+      break;
+
+    case registrationSteps.UPLOAD_USER_AVATAR:
+      open(
+        AvatarUploader,
+        { user, onUploadAvatar: handleUploadAvatar },
         modalOptions,
         callBacks
       );

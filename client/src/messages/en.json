@@ -61,7 +61,10 @@
         "website": "Website",
         "description": "Description",
         "next": "Next",
-        "create_your_company": "create your company"
+        "create_your_company": "create your company",
+        "upload_avatar" : "Download your photo",
+        "attention_members": "Get 8 times the attention of members!",
+        "add_photo": "Add a photo to grab the attention of members."
     },
     "languages": {
         "en": "English",
