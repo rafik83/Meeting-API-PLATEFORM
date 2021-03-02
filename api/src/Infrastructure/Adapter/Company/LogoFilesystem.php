@@ -7,11 +7,11 @@ namespace Proximum\Vimeet365\Infrastructure\Adapter\Company;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\InflectorFactory;
 use League\Flysystem\FilesystemOperator;
-use Proximum\Vimeet365\Application\Adapter\Company\LogoUploaderInterface;
+use Proximum\Vimeet365\Application\Adapter\Company\LogoFilesystemInterface;
 use Proximum\Vimeet365\Domain\Entity\Company;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class LogoUploader implements LogoUploaderInterface
+class LogoFilesystem implements LogoFilesystemInterface
 {
     private FilesystemOperator $companyLogosStorage;
     private Inflector $inflector;
@@ -31,5 +31,14 @@ class LogoUploader implements LogoUploaderInterface
         $this->companyLogosStorage->write($filename, (string) file_get_contents((string) $file->getRealPath()));
 
         return $filename;
+    }
+
+    public function remove(string $filename): void
+    {
+        if (!$this->companyLogosStorage->fileExists($filename)) {
+            return;
+        }
+
+        $this->companyLogosStorage->delete($filename);
     }
 }

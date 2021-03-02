@@ -20,7 +20,7 @@ class CompanyTest extends ApiTestCase
     {
         $this->login('member@example.com');
         $company = $this->getCompany('Proximum');
-        self::assertNull($company->getLogo());
+
         $file = new UploadedFile(
             __DIR__ . '/../../fixtures/test/assets/sample-logo.png',
             'sample/logo.png',
@@ -47,6 +47,42 @@ class CompanyTest extends ApiTestCase
         self::assertTrue($storage->fileExists($company->getLogo()));
 
         $storage->delete($company->getLogo());
+    }
+
+    public function testRemovePreviousLogo(): void
+    {
+        $account = $this->login('member@example.com');
+        $company = $this->getCompany('Proximum');
+
+        $previousLogo = $company->getLogo();
+        self::assertNotNull($previousLogo);
+
+        /** @var FilesystemOperator $storage */
+        $storage = self::$container->get('companyLogos.storage');
+        $storage->write($previousLogo, file_get_contents(__DIR__ . '/../../fixtures/test/assets/sample-logo.png'));
+        self::assertTrue($storage->fileExists($previousLogo));
+
+        $file = new UploadedFile(
+            __DIR__ . '/../../fixtures/test/assets/sample-logo.png',
+            'sample/logo.png',
+            'image/png',
+        );
+
+        $this->request(
+            'POST',
+            sprintf('/api/companies/%d/logo', $company->getId()),
+            null, [
+            'Content-Type' => 'multipart/form-data',
+        ], [
+                'files' => [
+                    'logo' => $file,
+                ],
+            ]
+        );
+
+        self::assertResponseIsSuccessful();
+
+        self::assertFalse($storage->fileExists($previousLogo));
     }
 
     public function testSetEmptyLogo(): void

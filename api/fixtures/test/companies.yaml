@@ -5,3 +5,4 @@ Proximum\Vimeet365\Domain\Entity\Company:
             countryCode: "FR"
             website: "http://proximum.events"
             activity: ""
+        logo: "logo.png"
