@@ -33,6 +33,29 @@ Proximum\Vimeet365\Domain\Entity\Account:
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
             openapi_context:
                 summary: Update the existing company of the account
+
+        account_post_avatar:
+            method: post
+            path: /accounts/{id}/avatar
+            controller: 'Proximum\Vimeet365\Infrastructure\Controller\AccountController::uploadAvatar'
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
+            deserialize: false
+            openapi_context:
+                summary: Upload an avatar
+                requestBody:
+                    content:
+                        multipart/form-data:
+                            schema:
+                                type: object
+                                properties:
+                                    file:
+                                        type: string
+                                        format: binary
+                                        description: muste be png or jpeg file, with a 1M max size
+                            encoding:
+                                logo:
+                                    # only accept png/jpeg
+                                    contentType: image/png, image/jpeg
     properties:
         company:
             subresource:

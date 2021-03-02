@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Functional;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use League\Flysystem\FilesystemOperator;
-use Proximum\Vimeet365\Domain\Entity\Company;
 use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class CompanyTest extends ApiTestCase
+class AccountAvatarTest extends ApiTestCase
 {
-    // This trait provided by HautelookAliceBundle will take care of refreshing the database content to a known state before each test
     use RefreshDatabaseTrait;
 
-    public function testSetLogo(): void
+    public function testSetAvatar(): void
     {
-        $this->login('member@example.com');
-        $company = $this->getCompany('Proximum');
-        self::assertNull($company->getLogo());
+        $account = $this->login('user@example.com');
+
+        self::assertNull($account->getAvatar());
+
         $file = new UploadedFile(
             __DIR__ . '/../../fixtures/test/assets/sample-logo.png',
             'sample/logo.png',
@@ -29,58 +27,68 @@ class CompanyTest extends ApiTestCase
 
         $this->request(
             'POST',
-            sprintf('/api/companies/%d/logo', $company->getId()),
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
-                'Content-Type' => 'multipart/form-data',
-            ], [
+            'Content-Type' => 'multipart/form-data',
+        ], [
                 'files' => [
-                    'logo' => $file,
+                    'file' => $file,
                 ],
             ]
         );
 
         self::assertResponseIsSuccessful();
 
-        self::assertNotNull($company->getLogo());
+        self::assertNotNull($account->getAvatar());
         /** @var FilesystemOperator $storage */
-        $storage = self::$container->get('companyLogos.storage');
-        self::assertTrue($storage->fileExists($company->getLogo()));
+        $storage = self::$container->get('accountAvatar.storage');
+        self::assertTrue($storage->fileExists($account->getAvatar()));
 
-        $storage->delete($company->getLogo());
+        $storage->delete($account->getAvatar());
     }
 
-    public function testSetEmptyLogo(): void
+    public function testSetEmptyAvatar(): void
     {
-        $this->login('member@example.com');
-        $company = $this->getCompany('Proximum');
+        $account = $this->login('user@example.com');
 
         $this->request(
             'POST',
-            sprintf('/api/companies/%d/logo', $company->getId()),
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
             'Content-Type' => 'multipart/form-data',
         ]);
 
-        self::assertResponseStatusCodeSame(422);
-
-        self::assertJsonContains(
-            [
-                '@context' => '/api/contexts/ConstraintViolationList',
-                '@type' => 'ConstraintViolationList',
-                'violations' => [
-                    [
-                        'propertyPath' => 'logo',
-                        'message' => 'This value should not be null.',
-                        'code' => 'ad32d13f-c3d4-423b-909a-857b961eb720',
-                    ],
-                ],
-            ]
-        );
+        self::assertResponseIsSuccessful();
     }
 
-    public function testNotLoggedIn(): void
+    public function testRemoveAvatar(): void
     {
-        $company = $this->getCompany('Proximum');
+        $account = $this->login('member@example.com');
+        $avatar = $account->getAvatar();
+
+        self::assertNotNull($avatar);
+
+        /** @var FilesystemOperator $storage */
+        $storage = self::$container->get('accountAvatar.storage');
+        $storage->write($avatar, file_get_contents(__DIR__ . '/../../fixtures/test/assets/sample-logo.png'));
+        self::assertTrue($storage->fileExists($avatar));
+
+        $this->request(
+            'POST',
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
+            null, [
+            'Content-Type' => 'multipart/form-data',
+        ]);
+
+        self::assertResponseIsSuccessful();
+
+        self::assertFalse($storage->fileExists($avatar));
+        self::assertNull($account->getAvatar());
+    }
+
+    public function testSetAvatarNotLoggedIn(): void
+    {
+        $account = $this->getAccount('user@example.com');
 
         $file = new UploadedFile(
             __DIR__ . '/../../fixtures/test/assets/sample-logo.png',
@@ -90,12 +98,12 @@ class CompanyTest extends ApiTestCase
 
         $this->request(
             'POST',
-            sprintf('/api/companies/%d/logo', $company->getId()),
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
             'Content-Type' => 'multipart/form-data',
         ], [
                 'files' => [
-                    'logo' => $file,
+                    'file' => $file,
                 ],
             ]
         );
@@ -103,10 +111,10 @@ class CompanyTest extends ApiTestCase
         self::assertResponseStatusCodeSame(401);
     }
 
-    public function testNotMyCompany(): void
+    public function testSetAvatarNotMyUser(): void
     {
         $this->login('user@example.com');
-        $company = $this->getCompany('Proximum');
+        $account = $this->getAccount('member@example.com');
 
         $file = new UploadedFile(
             __DIR__ . '/../../fixtures/test/assets/sample-logo.png',
@@ -116,12 +124,12 @@ class CompanyTest extends ApiTestCase
 
         $this->request(
             'POST',
-            sprintf('/api/companies/%d/logo', $company->getId()),
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
             'Content-Type' => 'multipart/form-data',
         ], [
                 'files' => [
-                    'logo' => $file,
+                    'file' => $file,
                 ],
             ]
         );
@@ -129,10 +137,9 @@ class CompanyTest extends ApiTestCase
         self::assertResponseStatusCodeSame(403);
     }
 
-    public function testSetLogoNotImage(): void
+    public function testSetAvatartNotImage(): void
     {
-        $this->login('member@example.com');
-        $company = $this->getCompany('Proximum');
+        $account = $this->login('user@example.com');
 
         $file = new UploadedFile(
             __DIR__ . '/../../fixtures/test/assets/logo.pdf',
@@ -142,12 +149,12 @@ class CompanyTest extends ApiTestCase
 
         $this->request(
             'POST',
-            sprintf('/api/companies/%d/logo', $company->getId()),
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
             'Content-Type' => 'multipart/form-data',
         ], [
                 'files' => [
-                    'logo' => $file,
+                    'file' => $file,
                 ],
             ]
         );
@@ -160,7 +167,7 @@ class CompanyTest extends ApiTestCase
                 '@type' => 'ConstraintViolationList',
                 'violations' => [
                     [
-                        'propertyPath' => 'logo',
+                        'propertyPath' => 'file',
                         'code' => '744f00bc-4389-4c74-92de-9a43cde55534', // INVALID_MIME_TYPE_ERROR
                     ],
                 ],
@@ -168,10 +175,9 @@ class CompanyTest extends ApiTestCase
         );
     }
 
-    public function testSetLogoAcceptedImageType(): void
+    public function testSetAvatarAcceptedImageType(): void
     {
-        $this->login('member@example.com');
-        $company = $this->getCompany('Proximum');
+        $account = $this->login('user@example.com');
 
         $file = new UploadedFile(
             __DIR__ . '/../../fixtures/test/assets/sample-logo.gif',
@@ -181,12 +187,12 @@ class CompanyTest extends ApiTestCase
 
         $this->request(
             'POST',
-            sprintf('/api/companies/%d/logo', $company->getId()),
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
             'Content-Type' => 'multipart/form-data',
         ], [
                 'files' => [
-                    'logo' => $file,
+                    'file' => $file,
                 ],
             ]
         );
@@ -199,7 +205,7 @@ class CompanyTest extends ApiTestCase
                 '@type' => 'ConstraintViolationList',
                 'violations' => [
                     [
-                        'propertyPath' => 'logo',
+                        'propertyPath' => 'file',
                         'code' => '744f00bc-4389-4c74-92de-9a43cde55534', // INVALID_MIME_TYPE_ERROR
                     ],
                 ],
@@ -207,10 +213,9 @@ class CompanyTest extends ApiTestCase
         );
     }
 
-    public function testSetLogoTooBig(): void
+    public function testSetAvatarTooBig(): void
     {
-        $this->login('member@example.com');
-        $company = $this->getCompany('Proximum');
+        $account = $this->login('user@example.com');
 
         $file = new UploadedFile(
             __DIR__ . '/../../fixtures/test/assets/logo-too-large.png',
@@ -220,12 +225,12 @@ class CompanyTest extends ApiTestCase
 
         $this->request(
             'POST',
-            sprintf('/api/companies/%d/logo', $company->getId()),
+            sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
             'Content-Type' => 'multipart/form-data',
         ], [
                 'files' => [
-                    'logo' => $file,
+                    'file' => $file,
                 ],
             ]
         );
@@ -238,18 +243,11 @@ class CompanyTest extends ApiTestCase
                 '@type' => 'ConstraintViolationList',
                 'violations' => [
                     [
-                        'propertyPath' => 'logo',
+                        'propertyPath' => 'file',
                         'code' => 'df8637af-d466-48c6-a59d-e7126250a654', // TOO_LARGE_ERROR
                     ],
                 ],
             ]
         );
-    }
-
-    protected function getCompany(string $name): Company
-    {
-        $companyRepository = self::$container->get(ManagerRegistry::class)->getRepository(Company::class);
-
-        return $companyRepository->findOneBy(['name' => $name]);
     }
 }

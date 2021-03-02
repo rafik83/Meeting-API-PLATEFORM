@@ -4,25 +4,15 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Functional;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use Doctrine\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
-use Proximum\Vimeet365\Domain\Entity\Account;
 use Proximum\Vimeet365\Domain\Entity\Company;
-use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
-use Proximum\Vimeet365\Infrastructure\Security\User;
+use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 
 class AccountCompanyTest extends ApiTestCase
 {
     // This trait provided by HautelookAliceBundle will take care of refreshing the database content to a known state before each test
     use RefreshDatabaseTrait;
-
-    protected static $client;
-
-    public function setUp(): void
-    {
-        self::$client = static::createClient();
-    }
 
     public function testCreate(): void
     {
@@ -404,39 +394,6 @@ class AccountCompanyTest extends ApiTestCase
         );
 
         self::assertCount(1, $response->toArray(false)['violations']);
-    }
-
-    protected function request(string $method, string $url, ?array $body = null, array $headers = [])
-    {
-        return self::$client->request(
-            $method,
-            $url,
-            [
-                'headers' => array_merge(
-                    [
-                        'content-type' => 'application/ld+json',
-                    ],
-                    $headers
-                ),
-                'body' => \json_encode($body),
-            ]
-        );
-    }
-
-    protected function login(string $username): Account
-    {
-        $account = $this->getAccount($username);
-
-        self::$client->getKernelBrowser()->loginUser(new User($account), 'main');
-
-        return $account;
-    }
-
-    protected function getAccount(string $email): Account
-    {
-        $accountRepository = self::$container->get(AccountRepository::class);
-
-        return $accountRepository->findOneByEmail($email);
     }
 
     protected function getCompany(string $name): Company

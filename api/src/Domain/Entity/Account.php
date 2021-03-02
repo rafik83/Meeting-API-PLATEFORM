@@ -52,6 +52,11 @@ class Account
     private ?int $vimeetId = null;
 
     /**
+     * @ORM\Column(nullable=true)
+     */
+    private ?string $avatar = null;
+
+    /**
      * @ORM\OneToMany(targetEntity=Member::class, mappedBy="account")
      *
      * @var Collection<int, Member>
@@ -121,6 +126,16 @@ class Account
         $this->vimeetId = $vimeetId;
 
         return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 
     /**

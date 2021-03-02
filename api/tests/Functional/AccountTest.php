@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Functional;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Domain\Entity\Account;
+use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 
 class AccountTest extends ApiTestCase
 {
@@ -15,7 +15,7 @@ class AccountTest extends ApiTestCase
 
     public function testGetCollection(): void
     {
-        $response = static::createClient()->request('GET', '/api/accounts');
+        $response = self::$client->request('GET', '/api/accounts');
 
         self::assertResponseIsSuccessful();
         // Asserts that the returned content type is JSON-LD (the default)
@@ -44,7 +44,7 @@ class AccountTest extends ApiTestCase
 
     public function testCreate(): void
     {
-        static::createClient()->request('POST', '/api/accounts', [
+        self::$client->request('POST', '/api/accounts', [
             'headers' => [
                 'content-type' => 'application/ld+json',
             ],
@@ -62,7 +62,7 @@ class AccountTest extends ApiTestCase
 
     public function testCreateNonUniqueEmailFields(): void
     {
-        $response = static::createClient()->request(
+        $response = self::$client->request(
             'POST',
             '/api/accounts',
             [
@@ -99,7 +99,7 @@ class AccountTest extends ApiTestCase
 
     public function testCreateInvalidFields(): void
     {
-        $response = static::createClient()->request('POST', '/api/accounts', [
+        $response = self::$client->request('POST', '/api/accounts', [
             'headers' => [
                 'content-type' => 'application/ld+json',
             ],
@@ -130,7 +130,7 @@ class AccountTest extends ApiTestCase
 
     public function testCreateEmptyFields(): void
     {
-        $response = static::createClient()->request('POST', '/api/accounts', [
+        $response = self::$client->request('POST', '/api/accounts', [
             'headers' => [
                 'content-type' => 'application/ld+json',
             ],

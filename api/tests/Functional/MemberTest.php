@@ -4,25 +4,17 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Functional;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Domain\Entity\Account;
 use Proximum\Vimeet365\Domain\Entity\Community;
 use Proximum\Vimeet365\Domain\Entity\Member;
 use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
 use Proximum\Vimeet365\Infrastructure\Repository\CommunityRepository;
-use Proximum\Vimeet365\Infrastructure\Security\User;
+use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 
 class MemberTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
-
-    protected static $client;
-
-    public function setUp(): void
-    {
-        self::$client = static::createClient();
-    }
 
     public function testJoin(): void
     {
@@ -218,25 +210,6 @@ class MemberTest extends ApiTestCase
                 ],
             ],
         ];
-    }
-
-    protected function request(string $method, string $url, array $body, array $headers = [])
-    {
-        return self::$client->request($method, $url, [
-            'headers' => array_merge([
-                'content-type' => 'application/ld+json',
-            ], $headers),
-            'body' => \json_encode($body),
-        ]);
-    }
-
-    protected function login(string $username): void
-    {
-        $accountRepository = self::$container->get(AccountRepository::class);
-
-        $account = $accountRepository->findOneByEmail($username);
-
-        self::$client->getKernelBrowser()->loginUser(new User($account), 'main');
     }
 
     protected function getCommunity(string $name): Community

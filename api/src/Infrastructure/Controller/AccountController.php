@@ -9,7 +9,9 @@ use Proximum\Vimeet365\Application\Adapter\CommandBusInterface;
 use Proximum\Vimeet365\Application\Command\Account\Company\CreateCommand;
 use Proximum\Vimeet365\Application\Command\Account\Company\LinkCommand;
 use Proximum\Vimeet365\Application\Command\Account\Company\UpdateCommand;
+use Proximum\Vimeet365\Application\Command\Account\UploadAvatarCommand;
 use Proximum\Vimeet365\Domain\Entity\Account;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 class AccountController
@@ -47,6 +49,19 @@ class AccountController
     {
         try {
             $account = $this->commandBus->handle($data);
+        } catch (ValidationFailedException $exception) {
+            throw new ValidationException($exception->getViolations());
+        }
+
+        return $account;
+    }
+
+    public function uploadAvatar(Request $request, Account $data): Account
+    {
+        $command = new UploadAvatarCommand($data, $request->files->get('file'));
+
+        try {
+            $account = $this->commandBus->handle($command);
         } catch (ValidationFailedException $exception) {
             throw new ValidationException($exception->getViolations());
         }

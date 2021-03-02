@@ -15,7 +15,7 @@ Proximum\Vimeet365\Domain\Entity\Company:
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
             deserialize: false
             openapi_context:
-                summary: Create a company
+                summary: Upload a logo
                 requestBody:
                     content:
                         multipart/form-data:

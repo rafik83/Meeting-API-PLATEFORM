@@ -29,6 +29,7 @@ class AccountOutputDataTransformer implements DataTransformerInterface
             $data->getFirstName(),
             $data->getLastName(),
             $data->getAcceptedTermsAndConditionAt(),
+            $data->getAvatar(),
             $data->getCompany()
         );
     }

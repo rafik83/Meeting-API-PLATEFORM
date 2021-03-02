@@ -22,6 +22,7 @@ Proximum\Vimeet365\Domain\Entity\Account:
             lastName: 'Doe'
             vimeetId: null
         company: "@company_proximum"
+        avatar: avatar.png
 
     user_joined:
         __construct:

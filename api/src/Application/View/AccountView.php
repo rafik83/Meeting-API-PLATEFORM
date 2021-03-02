@@ -13,6 +13,7 @@ class AccountView
     public string $firstName;
     public string $lastName;
     public ?\DateTimeImmutable $acceptedTermsAndConditionAt;
+    public ?string $avatar;
     public ?Company $company = null;
 
     public function __construct(
@@ -21,6 +22,7 @@ class AccountView
         string $firstName,
         string $lastName,
         ?\DateTimeImmutable $acceptedTermsAndConditionAt,
+        ?string $avatar,
         ?Company $company
     ) {
         $this->id = $id;
@@ -28,6 +30,7 @@ class AccountView
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->acceptedTermsAndConditionAt = $acceptedTermsAndConditionAt;
+        $this->avatar = $avatar;
         $this->company = $company;
     }
 }
