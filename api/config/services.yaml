@@ -57,6 +57,10 @@ services:
     Proximum\Vimeet365\Application\Adapter\CommandBusInterface: '@command_bus'
     Proximum\Vimeet365\Application\Adapter\QueryBusInterface: '@query_bus'
 
+    Proximum\Vimeet365\Infrastructure\Bridge\ApiPlatform\AcceptLanguageEventListener:
+        bind:
+            $supportedLanguages: '%supported_languages%'
+
     Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\LoginDecorator:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false

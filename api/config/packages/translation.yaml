@@ -1,6 +1,10 @@
+parameters:
+    supported_languages: [en, fr]
+    default_language: en
+
 framework:
-    default_locale: en
+    default_locale: '%default_language%'
     translator:
         default_path: '%kernel.project_dir%/translations'
         fallbacks:
-            - en
+            - '%default_language%'
