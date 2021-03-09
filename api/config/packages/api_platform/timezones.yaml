@@ -1,0 +1,10 @@
+Proximum\Vimeet365\Application\View\TimezoneView:
+    collectionOperations:
+        get:
+            path: "/timezones"
+    itemOperations:
+        get: 
+            path: "/timezones/{code}"
+            requirements: { code: '.+' }
+    properties:
+        code: { identifier: true }
