@@ -2,7 +2,7 @@ doctrine:
     dbal:
         connections:
             default:
-                url: '%env(resolve:DATABASE_URL)%'
+                url: '%env(resolve:VIMEET_365_DATABASE_URL)%'
             vimeet:
                 url: '%env(resolve:VIMEET_DATABASE_URL)%'
 

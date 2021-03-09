@@ -30,7 +30,6 @@ install@integration:
 	composer install --ansi --verbose --no-interaction --no-progress --prefer-dist --optimize-autoloader --no-scripts --ignore-platform-reqs
 	bin/phpunit install
 	bin/console doctrine:migration:migrate --allow-no-migration -n
-	make load-fixtures
 
 lint.php-cs-fixer:  ## api lint php-cs-fixer
 lint: lint.php-cs-fixer lint.phpstan ## api linting

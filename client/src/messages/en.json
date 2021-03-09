@@ -51,7 +51,6 @@
         "step-1-subtitle": "Work in progress ...",
         "user_already_exists": "A user is already registred with this email",
         "select_goals_and_objectives": "Select {priorities_number} goals and objectives by priority",
-        "selected": "{n, plural, =0{{n}/{priorities_number} selected} one{{n}/{priorities_number} selected} other{# /{priorities_number}selected}}",
         "upload_logo": "Upload your logo",
         "png_jpg": ".png or .jpg 1Mo Maximum",
         "loading": "... loading",
@@ -62,9 +61,10 @@
         "description": "Description",
         "next": "Next",
         "create_your_company": "create your company",
-        "upload_avatar" : "Download your photo",
+        "upload_avatar": "Download your photo",
         "attention_members": "Get 8 times the attention of members!",
-        "add_photo": "Add a photo to grab the attention of members."
+        "add_photo": "Add a photo to grab the attention of members.",
+        "selected": "{n, plural, =0{{n}/{priorities_number} selected} one{{n}/{priorities_number} selected} other{#/{priorities_number}selected}}"
     },
     "languages": {
         "en": "English",

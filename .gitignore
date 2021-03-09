@@ -22,3 +22,5 @@
 package-lock.json
 
 **/config.ts
+
+e2e_tmp

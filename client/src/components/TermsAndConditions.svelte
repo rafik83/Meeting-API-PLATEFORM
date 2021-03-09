@@ -11,7 +11,8 @@
     <input
       on:change
       type="checkbox"
-      class="form-checkbox h-6 w-10 mr-2 cursor-pointer"
+      class="form-checkbox h-6 w-10 mr-2"
+      name="termsAndCondition"
       bind:checked
     />
 

@@ -3,7 +3,9 @@ default:
         default:
             contexts:
                 - Proximum\Vimeet365\Tests\Behat\FeatureContext
-
+                - Proximum\Vimeet365\Tests\Behat\DataBaseContext
+                - Proximum\Vimeet365\Tests\Behat\AccountContext
+                - Proximum\Vimeet365\Tests\Behat\CommunityContext
     extensions:
         FriendsOfBehat\SymfonyExtension:
             bootstrap: 'tests/bootstrap.php'

@@ -20,7 +20,7 @@ jobs:
         docker:
             -   image: circleci/php:7.4-node-browsers
                 environment: &api-env
-                    DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
+                    VIMEET_365_DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
             -   image: circleci/postgres:12.1-alpine
                 environment: &postgresql-env
                     POSTGRES_USER: docker
@@ -104,7 +104,7 @@ jobs:
 
             -   run:
                     name: start api server
-                    command: cd api && APP_ENV=test /home/circleci/.symfony/bin/symfony server:start --allow-http
+                    command: cd api && APP_ENV=e2e /home/circleci/.symfony/bin/symfony server:start --allow-http
                     background: true
 
             -   run:
@@ -116,7 +116,7 @@ jobs:
                     name: run behat tests
                     command: |
                         sleep 10
-                        cd api && vendor/bin/behat
+                        cd api && APP_ENV=e2e vendor/bin/behat
 workflows:
     integration:
         jobs:
