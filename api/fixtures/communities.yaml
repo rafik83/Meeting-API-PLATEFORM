@@ -2,8 +2,10 @@ Proximum\Vimeet365\Domain\Entity\Community:
     community_1:
         __construct:
             name: Space industry
-        id: 1
+            languages: ['en', 'fr']
+            defaultLanguage: 'en'
     community_2:
         __construct:
             name: Green tech
-        id: 2
+            languages: ['en']
+            defaultLanguage: 'en'

@@ -21,6 +21,6 @@ class MemberTagView
 
     public static function create(Tag $tag, int $priority = 0): self
     {
-        return new self((int) $tag->getId(), $tag->getName(), $priority);
+        return new self((int) $tag->getId(), (string) $tag->getLabel(), $priority);
     }
 }

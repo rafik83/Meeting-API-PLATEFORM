@@ -27,6 +27,20 @@ class Community
     private string $name;
 
     /**
+     * @var string[] ISO 639-1 (or ISO 639-2 if not available)
+     *
+     * @ORM\Column(type="simple_array")
+     */
+    private array $languages;
+
+    /**
+     * @var string ISO 639-1 (or ISO 639-2 if not available)
+     *
+     * @ORM\Column(length=3)
+     */
+    private string $defaultLanguage;
+
+    /**
      * @ORM\OneToMany(targetEntity=Nomenclature::class, mappedBy="community")
      *
      * @var Collection<int, Nomenclature>
@@ -48,9 +62,11 @@ class Community
      */
     private Collection $members;
 
-    public function __construct(string $name)
+    public function __construct(string $name, array $languages = ['en'], string $defaultLanguage = 'en')
     {
         $this->name = $name;
+        $this->languages = $languages;
+        $this->defaultLanguage = $defaultLanguage;
         $this->nomenclatures = new ArrayCollection();
         $this->steps = new ArrayCollection();
         $this->members = new ArrayCollection();
@@ -71,6 +87,19 @@ class Community
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
+    }
+
+    public function getDefaultLanguage(): string
+    {
+        return $this->defaultLanguage;
     }
 
     /**

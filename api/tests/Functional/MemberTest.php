@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Functional;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Domain\Entity\Account;
 use Proximum\Vimeet365\Domain\Entity\Community;
 use Proximum\Vimeet365\Domain\Entity\Member;
+use Proximum\Vimeet365\Domain\Entity\Tag;
 use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
 use Proximum\Vimeet365\Infrastructure\Repository\CommunityRepository;
 use Proximum\Vimeet365\Tests\Util\ApiTestCase;
@@ -119,18 +122,31 @@ class MemberTest extends ApiTestCase
     /**
      * @dataProvider provideTestSetCommunityTagInvalid
      */
-    public function testSetCommunityTagInvalid(string $email, int $currentStepId, array $tags, array $expectedViolations): void
+    public function testSetCommunityTagInvalid(string $email, string $currentStep, array $tags, array $expectedViolations): void
     {
         $this->login($email);
 
         $community = $this->getCommunity('Space industry');
         $member = $this->getMember($email, $community);
 
+        $step = $community->getSteps()->filter(fn (Community\Step $step): bool => $step->getTitle() === $currentStep)->first();
+
+        if ($step === false) {
+            $stepId = -1;
+        } else {
+            $stepId = $step->getId();
+        }
+
+        $tags = array_map(fn (array $nomenclatureTag) => [
+            'priority' => $nomenclatureTag['priority'],
+            'id' => $this->getTagId($nomenclatureTag['name']),
+        ], $tags);
+
         $this->request(
             'PATCH',
             '/api/members/' . $member->getId(),
             [
-                'step' => $currentStepId,
+                'step' => $stepId,
                 'tags' => $tags,
             ], [
                 'content-type' => 'application/merge-patch+json',
@@ -150,8 +166,8 @@ class MemberTest extends ApiTestCase
     {
         yield 'invalid step' => [
             'joined@example.com',
-            -1,
-            [['id' => 1, 'priority' => 0]],
+            'Undefined',
+            [['name' => 'A Supplier', 'priority' => 0]],
             [
                 [
                     'propertyPath' => 'step',
@@ -162,8 +178,8 @@ class MemberTest extends ApiTestCase
 
         yield 'invalid priority' => [
             'joined@example.com',
-            1,
-            [['id' => 1, 'priority' => -1]],
+            'I am',
+            [['name' => 'A Supplier', 'priority' => -1]],
             [
                 [
                     'propertyPath' => 'tags[0].priority',
@@ -174,19 +190,19 @@ class MemberTest extends ApiTestCase
 
         yield 'invalid tags' => [
             'joined@example.com',
-            1,
-            [['id' => -1, 'priority' => 0]],
+            'I am',
+            [['name' => 'Satellites', 'priority' => 0]],
             [
                 [
                     'propertyPath' => 'tags',
-                    'message' => 'The tags "-1" does not belong to the step',
+                    'code' => '7ac035d4-2492-4f57-9470-945a7e6a08c1', // tag not found in nomenclature step
                 ],
             ],
         ];
 
         yield 'not enough tags' => [
             'joined@example.com',
-            1,
+            'I am',
             [],
             [
                 [
@@ -198,10 +214,10 @@ class MemberTest extends ApiTestCase
 
         yield 'too many tags' => [
             'joined@example.com',
-            1,
+            'I am',
             [
-                ['id' => 1, 'priority' => 0],
-                ['id' => 1, 'priority' => 1],
+                ['name' => 'A Supplier', 'priority' => 0],
+                ['name' => 'A Key Account', 'priority' => 1],
             ],
             [
                 [
@@ -231,5 +247,27 @@ class MemberTest extends ApiTestCase
         $account = $accountRepository->findOneByEmail($email);
 
         return $account->getMemberFor($community);
+    }
+
+    private function getTagId(string $name): ?int
+    {
+        /** @var EntityRepository<Tag> $tagRepository */
+        $tagRepository = self::$container->get(ManagerRegistry::class)->getRepository(Tag::class);
+        $queryBuilder = $tagRepository->createQueryBuilder('tag');
+        $queryBuilder
+            ->innerJoin('tag.translations', 'translation')
+            ->where('translation.label = :label')
+            ->andWhere('translation.locale = :locale')
+            ->setParameter('label', $name)
+            ->setParameter('locale', 'en')
+        ;
+
+        $tag = $queryBuilder->getQuery()->getOneOrNullResult();
+
+        if ($tag !== null) {
+            return $tag->getId();
+        }
+
+        return null;
     }
 }

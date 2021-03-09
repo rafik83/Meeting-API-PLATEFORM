@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Application\View;
 
-use Proximum\Vimeet365\Domain\Entity\Tag;
+use Proximum\Vimeet365\Domain\Entity\Nomenclature\NomenclatureTag;
 
 class NomenclatureTagView
 {
     public TagView $tag;
     public ?TagView $parent;
 
-    public function __construct(Tag $tag, ?Tag $parent)
+    public function __construct(NomenclatureTag $nomenclatureTag)
     {
-        $this->tag = TagView::create($tag);
-        $this->parent = $parent !== null ? TagView::create($tag) : null;
+        $parent = $nomenclatureTag->getParent();
+
+        $this->tag = TagView::createFromNomenclatureTag($nomenclatureTag);
+        $this->parent = $parent !== null ? TagView::createFromNomenclatureTag($parent) : null;
     }
 }

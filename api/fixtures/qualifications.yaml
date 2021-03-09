@@ -8,7 +8,6 @@ Proximum\Vimeet365\Domain\Entity\Community\Step:
             description: null
             min: 1
             max: 1
-        id: 1
     community_1.step2:
         __construct:
             community: '@community_1'
@@ -18,7 +17,6 @@ Proximum\Vimeet365\Domain\Entity\Community\Step:
             description: null
             min: 1
             max: null
-        id: 2
     community_1.step3:
         __construct:
             community: '@community_1'
@@ -28,4 +26,12 @@ Proximum\Vimeet365\Domain\Entity\Community\Step:
             description: "Choose your activity fields"
             min: 1
             max: null
-        id: 3
+    community_2.step1:
+        __construct:
+            community: '@community_2'
+            nomenclature: '@nomenclature_iam'
+            position: 0
+            title: "I am 2"
+            description: null
+            min: 1
+            max: 1

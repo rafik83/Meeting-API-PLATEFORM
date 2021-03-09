@@ -8,7 +8,7 @@ use Proximum\Vimeet365\Domain\Entity\Nomenclature;
 
 class NomenclatureTagsView
 {
-    public Nomenclature $nomenclature;
+    public NomenclatureView $nomenclature;
 
     /** @var MemberTagView[] */
     public array $tags;
@@ -18,7 +18,7 @@ class NomenclatureTagsView
      */
     public function __construct(Nomenclature $nomenclature, array $tags)
     {
-        $this->nomenclature = $nomenclature;
+        $this->nomenclature = NomenclatureView::create($nomenclature);
         $this->tags = $tags;
     }
 }

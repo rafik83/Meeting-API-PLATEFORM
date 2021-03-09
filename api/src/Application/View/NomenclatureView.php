@@ -31,10 +31,7 @@ class NomenclatureView
             (int) $nomenclature->getId(),
             $nomenclature->getName(),
             array_map(
-                static fn (Nomenclature\NomenclatureTag $tag): NomenclatureTagView => new NomenclatureTagView(
-                    $tag->getTag(),
-                    $tag->getParent() !== null ? $tag->getParent()->getTag() : null
-                ),
+                static fn (Nomenclature\NomenclatureTag $tag): NomenclatureTagView => new NomenclatureTagView($tag),
                 $nomenclature->getTags()->getValues()
             )
         );

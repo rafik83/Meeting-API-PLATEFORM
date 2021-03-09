@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Domain\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Proximum\Vimeet365\Infrastructure\Repository\TagRepository")
  */
 class Tag
 {
@@ -19,13 +21,22 @@ class Tag
     private ?int $id = null;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(nullable=true, unique=true)
      */
-    private string $name;
+    private ?string $externalId;
 
-    public function __construct(string $name)
+    /**
+     * @var ArrayCollection<string, TagTranslation>
+     *
+     * @ORM\OneToMany(targetEntity=TagTranslation::class, mappedBy="tag", indexBy="locale", cascade="ALL")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Collection $translations;
+
+    public function __construct(?string $externalId = null)
     {
-        $this->name = $name;
+        $this->externalId = $externalId;
+        $this->translations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -33,8 +44,36 @@ class Tag
         return $this->id;
     }
 
-    public function getName(): string
+    public function getExternalId(): ?string
     {
-        return $this->name;
+        return $this->externalId;
+    }
+
+    /**
+     * @return Collection<string, TagTranslation>
+     */
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function setLabel(string $label, ?string $locale = null): void
+    {
+        $locale = \Locale::getPrimaryLanguage($locale ?? \Locale::getDefault());
+
+        $this->getTranslations()->set($locale, new TagTranslation($this, $locale, $label));
+    }
+
+    public function getLabel(?string $locale = null): ?string
+    {
+        $locale = \Locale::getPrimaryLanguage($locale ?? \Locale::getDefault());
+
+        $translation = $this->getTranslations()->get($locale);
+
+        if ($translation === null) {
+            return null;
+        }
+
+        return $translation->getLabel();
     }
 }

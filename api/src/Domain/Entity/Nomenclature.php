@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Domain\Entity\Nomenclature\NomenclatureTag;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Proximum\Vimeet365\Infrastructure\Repository\NomenclatureRepository")
  */
 class Nomenclature
 {
@@ -70,7 +70,15 @@ class Nomenclature
         return $this->tags;
     }
 
-    public function addTag(Tag $tag, ?Tag $parent = null): void
+    /**
+     * @return Collection<int, NomenclatureTag>
+     */
+    public function getRootTags(): Collection
+    {
+        return $this->tags->filter(fn (NomenclatureTag $nomenclatureTag): bool => $nomenclatureTag->getParent() === null);
+    }
+
+    public function addTag(Tag $tag, ?Tag $parent = null): NomenclatureTag
     {
         $parentNomenclatureTag = null;
         if ($parent !== null) {
@@ -78,7 +86,11 @@ class Nomenclature
             $parentNomenclatureTag = $parentNomenclatureTag === false ? null : $parentNomenclatureTag;
         }
 
-        $this->tags->add(new NomenclatureTag($this, $tag, $parentNomenclatureTag));
+        $nomenclatureTag = new NomenclatureTag($this, $tag, $parentNomenclatureTag);
+
+        $this->tags->add($nomenclatureTag);
+
+        return $nomenclatureTag;
     }
 
     public function removeTag(Tag $tag): void
@@ -95,5 +107,13 @@ class Nomenclature
         foreach ($nomenclatureTag->getChildren() as $child) {
             $this->removeTag($child->getTag());
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->community->getLanguages();
     }
 }
