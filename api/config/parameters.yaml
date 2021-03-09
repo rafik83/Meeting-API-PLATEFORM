@@ -1,0 +1,4 @@
+parameters:
+    supported_languages: [ en, fr ]
+    default_language: en
+    supported_spoken_languages: [en, zh, hi, es, ar, fr, bn, ru, pt, id]

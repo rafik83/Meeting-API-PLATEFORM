@@ -1,7 +1,3 @@
-parameters:
-    supported_languages: [en, fr]
-    default_language: en
-
 framework:
     default_locale: '%default_language%'
     translator:

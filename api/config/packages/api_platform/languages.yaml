@@ -1,0 +1,11 @@
+Proximum\Vimeet365\Application\View\LanguageView:
+    collectionOperations:
+        get:
+            path: "/languages"
+    itemOperations:
+        get: 
+            path: "/languages/{code}"
+    properties:
+        code: { identifier: true }
+    attributes:
+        pagination_enabled: false
