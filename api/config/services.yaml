@@ -1,9 +1,8 @@
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
+imports:
+    - { resource: 'parameters.yaml' }
 
 services:
     # default configuration for services in *this* file
@@ -60,6 +59,10 @@ services:
     Proximum\Vimeet365\Infrastructure\Bridge\ApiPlatform\AcceptLanguageEventListener:
         bind:
             $supportedLanguages: '%supported_languages%'
+
+    Proximum\Vimeet365\Infrastructure\DataProvider\LanguageDataProvider:
+        bind:
+            $languages: '%supported_spoken_languages%'
 
     Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\LoginDecorator:
         decorates: 'api_platform.openapi.factory'
