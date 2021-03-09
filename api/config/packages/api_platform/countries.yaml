@@ -7,3 +7,5 @@ Proximum\Vimeet365\Application\View\CountryView:
             path: "/countries/{code}"
     properties:
         code: { identifier: true }
+    attributes:
+        pagination_enabled: false
