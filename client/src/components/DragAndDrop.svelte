@@ -53,13 +53,14 @@
   };
 </script>
 
-<div class="h-full w-full border-dashed border"
+<div
+  class="h-full flex flex-col items-center w-full border-dashed border"
   on:drop|stopPropagation|preventDefault={handleDrop}
   on:dragenter|stopPropagation|preventDefault
   on:dragover|stopPropagation|preventDefault
 >
   <label
-    class="flex flex-col h-full w-full justify-center {loading
+    class="flex flex-col h-full w-full items-center justify-center {loading
       ? 'cursor-not-allowed bg-gray-100'
       : 'cursor-pointer'}"
     tabindex="0">

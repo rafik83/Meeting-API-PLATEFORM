@@ -1,0 +1,36 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 25 16"
+  {...$$restProps}
+  on:click
+  on:mouseover
+  on:mouseenter
+  on:mouseleave
+  on:keydown
+  ><slot /><defs
+    ><style>
+      .a {
+        fill: #fff;
+      }
+      .b {
+        fill: #57a863;
+      }
+      .c {
+        fill: #00209f;
+      }
+      .d {
+        fill: #f32840;
+      }
+    </style></defs
+  ><path
+    class="a"
+    d="M2.266,0H22.7A2.243,2.243,0,0,1,25,2.171V13.828A2.208,2.208,0,0,1,22.734,16H2.266A2.233,2.233,0,0,1,0,13.828V2.171A2.233,2.233,0,0,1,2.266,0Z"
+  /><path class="b" d="M64,5.3v0Z" transform="translate(-39 -3.281)" /><path
+    class="c"
+    d="M2.266,16H8.32V0H2.266A2.233,2.233,0,0,0,0,2.171V13.866A2.177,2.177,0,0,0,2.266,16Z"
+  /><path
+    class="d"
+    d="M48.755,16H42.7V0h6.055A2.233,2.233,0,0,1,51.02,2.171V13.866A2.177,2.177,0,0,1,48.755,16Z"
+    transform="translate(-26.02)"
+  /></svg
+>
