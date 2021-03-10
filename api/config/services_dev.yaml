@@ -1,10 +1,4 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-
-    Proximum\Vimeet365\Tests\Behat\:
-        resource: '../tests/Behat/*'
     app.alice.property_access.reflection_property_accessor:
         class: Nelmio\Alice\PropertyAccess\ReflectionPropertyAccessor
         public: false

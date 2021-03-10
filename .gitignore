@@ -24,3 +24,6 @@ package-lock.json
 **/config.ts
 
 e2e_tmp
+
+# Ignore specific docker-compose files
+docker-compose.*.yaml

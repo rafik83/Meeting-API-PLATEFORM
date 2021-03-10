@@ -14,3 +14,7 @@ services:
       - 'database:/var/lib/postgresql/data'
     ports:
       - 15432:5432
+  redis:
+      image: redis:6-alpine
+      ports:
+            - "6379:6379"    
