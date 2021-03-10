@@ -26,6 +26,3 @@ build-storybook: ## Build storybook assets
 
 prettify: ## Run prettify
 	npm run prettify
-
-generate-icons: ## Create Icon components from svg files
-	node ./scripts/generate-icon-components.js

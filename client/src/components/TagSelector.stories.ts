@@ -5,7 +5,6 @@ import {
 } from '../__fixtures__/FakeTags';
 import { buildFakeUser } from '../__fixtures__/FakeUser';
 import TagSelector from './TagSelector.svelte';
-import PreviewWrapper from './PreviewWrapper.svelte';
 
 const { min, max, nomenclature, title } = buildFakeQualificationStep({
   minTagCount: 1,
@@ -26,20 +25,6 @@ export default {
   component: TagSelector,
   args: defaultProps,
   argTypes: { onNext: { action: 'clicked' } },
-
-  decorators: [
-    (storyFn) => {
-      const story = storyFn();
-
-      return {
-        Component: PreviewWrapper,
-        props: {
-          child: story.Component,
-          props: story.props,
-        },
-      };
-    },
-  ],
 };
 
 const Template = ({ ...args }) => ({

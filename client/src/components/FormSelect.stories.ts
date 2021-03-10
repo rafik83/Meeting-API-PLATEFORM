@@ -1,5 +1,4 @@
 import FormSelect from './FormSelect.svelte';
-import PreviewWrapper from './PreviewWrapper.svelte';
 
 export default {
   title: 'Vimeet365/FormSelect',
@@ -18,19 +17,6 @@ export default {
     label: 'Pays',
     id: 'coutries',
   },
-  decorators: [
-    (storyFn) => {
-      const story = storyFn();
-
-      return {
-        Component: PreviewWrapper,
-        props: {
-          child: story.Component,
-          props: story.props,
-        },
-      };
-    },
-  ],
 };
 
 const Template = ({ ...args }) => ({
