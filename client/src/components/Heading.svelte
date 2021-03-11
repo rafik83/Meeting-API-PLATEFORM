@@ -4,7 +4,10 @@
 </script>
 
 {#if type === 'h1'}
-  <h1 class="md:text-5xl text-4xl  font-bold my-1 text-gray-500">
+  <h1
+    data-testid="heading"
+    class="md:text-5xl text-4xl  font-bold my-1 text-gray-500"
+  >
     {content}
   </h1>
 {:else if type === 'h2'}

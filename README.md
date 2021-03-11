@@ -118,4 +118,125 @@ Note that the server's port may change if not available on server start.
 
 To do so please read the documentation [here](https://symfony.com/doc/current/setup/symfony_server.html#defining-the-local-domain)
 
+
+## UI Kit and Design System 
+
+This project use a custom design system initiated with :heart: by Vincent Guerret. All mockups are available on Adobe XD.
+
+The component library that implements this design system is available on [Storybook](https://storybook.js.org/).
+
+You can access locally to storybook by running `make storybook`
+
+Design systems facilitate design and development through reuse, consistency, and extensibility.
+
+## Working with icons
+
+The design system contain a UI Kit with Icon and Illustrations components ready to use.
+
+This UI kit is automatically generated from svg files with [SVG To Svelte](https://github.com/metonym/svg-to-svelte)
+
+You can find a preview in Storybook inside the UIKit section
+
+### I need to use an icon
+
+Each icon are a Svelte Component by itself.
+
+You can directly import an icon like a regular svelte component
+
+```html
+<script>
+  import { Iconeye } from "./ui-kit/icons/IconEye";
+  import { IconBusiness } from "./ui-kit/icons/IconBusiness";
+</script>
+
+<IconBusiness />
+<IconEye />
+```
+
+### I need to change Icon color, width, height or other property
+
+Each Icon Component suppport by default customisable properties. 
+
+Example of usage : 
+
+```html
+<script>
+  import { Iconeye } from "./ui-kit/icons/IconEye";
+  import { IconBusiness } from "./ui-kit/icons/IconBusiness";
+</script>
+
+// Change component width and height
+
+<IconBusiness width={30} height={45} />
+
+// Change component fill
+
+<IconEye fill={"blue"} />
+```
+
+### I need to add a new icon
+
+In order to add a new icon you will need to follow few steps :
+
+**A. Add your svg file insie client/icons-draft folder`**
+
+The Icon Component generation script expect to find svg files into this particular folder. Feel free to put your svg file inside.
+
+**B. Clean your svg file**
+
+Before converting your svg file into a svelte component you may need to clean it first.
+
+1. Rename your svg file
+
+   We would like to keep file name consistency. Each svg file must be in [PascalCase](https://techterms.com/definition/pascalcase) and starting by `Icon`
+
+   Exemple : IconEye, IconBusiness
+
+   
+2. Remove global styles
+
+   Sometimes your svg file can use css classes. Those css classes are considered as global style by the navigator and can produce nasty side effetcs
+
+   If your svg file contains a `<style>` tag with classes like this :
+
+   ```svg
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+       <defs>
+           <style>
+           .a{fill:#fff;opacity:0;}
+           </style>
+       </defs>
+       <path class="a"> </path>
+   </svg>
+   ```
+
+   You have to convert those styles into tag props
+
+   ```svg
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+   <path fill="#fill" opacity="0"> </path>
+   </svg>
+   
+   ```
+
+3. Remove hard coded `width` and `height`
+
+   We want to be able to set the icon width and height dynamically so if your SVG has `width` and `height` hard coded properties, please remove them. 
+
+4. (optional) Remove hard coded fill and stroke
+
+   We also want to be able to set the icon color dynamicaly. Sometimes, it is required to remove hard coded `fill` and `stroke` property.
+
+   **BUT BE CAREFULL** This will work only with monochromatic icons. If your svg file has many different fill and stroke property with different values it is advised to not remove those  properties.
+
+   Please see `IconFlagEN` or `IconFlagFR` for an example of mutli chromatic icons
+
+**C. Add the svg file inside `client/svgIcons` folder.**
+
+**D . Run `make generate icons` and check the `client/ui-kit-icons` folder to see your brand new genrated Icon component**
+
+**E. Start storybook to see your icons under `Ui` section and check if it looks right.**
+
+
+
 #### Trounleshooting / FAQ

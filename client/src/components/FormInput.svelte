@@ -9,7 +9,7 @@
 </style>
 
 <script>
-  import IconEye from './IconEye.svelte';
+  import { IconEye } from '../ui-kit/icons/IconEye';
 
   export let displayLabel = false;
 
@@ -85,8 +85,11 @@
     {/if}
 
     {#if type === 'password'}
-      <button on:click|preventDefault={toggle} class="w-5 h-auto mx-2">
-        <IconEye color="#cccc" />
+      <button
+        on:click|preventDefault={toggle}
+        tabindex="-1"
+        class="w-5 h-auto mx-2">
+        <IconEye fill="#cccc" />
       </button>
     {/if}
   </div>

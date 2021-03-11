@@ -1,9 +1,22 @@
 import DragAndDrop from './DragAndDrop.svelte';
+import PreviewWrapper from './PreviewWrapper.svelte';
 
 export default {
   title: 'Vimeet365/DragAndDrop',
-  excludeStories: /.*Data$/,
   component: DragAndDrop,
+  decorators: [
+    (storyFn) => {
+      const story = storyFn();
+
+      return {
+        Component: PreviewWrapper,
+        props: {
+          child: story.Component,
+          props: story.props,
+        },
+      };
+    },
+  ],
 };
 
 const Template = ({ ...args }) => ({

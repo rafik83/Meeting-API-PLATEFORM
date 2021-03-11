@@ -8,8 +8,8 @@
   import { _ } from 'svelte-i18n';
   import { filterCountriesByName } from '../modules/autocompletion.ts';
   import { fly } from 'svelte/transition';
-  import IconSearch from './IconSearch.svelte';
-  import IconDropdown from './IconDropdown.svelte';
+  import { IconSearch } from '../ui-kit/icons/IconSearch';
+  import { IconDropDown } from '../ui-kit/icons/IconDropDown';
 
   export let options;
   export let name;
@@ -45,7 +45,7 @@
       : 'border-gray-200'}"
     on:click|stopPropagation|preventDefault={handleClick}>
     {selectedLabel ? selectedLabel : label}
-    <IconDropdown classList="mt-1.5" />
+    <IconDropDown width={25} height={25} stroke={'rgba(42, 46, 67, .7)'} />
   </button>
 
   {#if displaySelect}
@@ -60,10 +60,9 @@
           on:input={handleInputSearch}
           placeholder={$_('messages.search')}
         />
-        <IconSearch
-          classList="absolute right-10 top-3.5 w-9 border-0"
-          color="rgba(42, 46, 67, .7)"
-        />
+        <i class="absolute right-10 top-3.5 w-9 border-0">
+          <IconSearch fill="rgba(42, 46, 67, .7)" />
+        </i>
       {/if}
       <select
         {name}
