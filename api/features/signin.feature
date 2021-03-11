@@ -26,6 +26,6 @@ Feature:
         And I fill in "loginUserName" with "john@doe.com"
         And I fill in "loginPassword" with "password"
         And I press "Se connecter"
-        And I wait 2000
+        And I wait 4000
         Then I should see "John Doe"
         
