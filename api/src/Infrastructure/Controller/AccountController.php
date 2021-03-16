@@ -9,6 +9,7 @@ use Proximum\Vimeet365\Application\Adapter\CommandBusInterface;
 use Proximum\Vimeet365\Application\Command\Account\Company\CreateCommand;
 use Proximum\Vimeet365\Application\Command\Account\Company\LinkCommand;
 use Proximum\Vimeet365\Application\Command\Account\Company\UpdateCommand;
+use Proximum\Vimeet365\Application\Command\Account\UpdateProfileCommand;
 use Proximum\Vimeet365\Application\Command\Account\UploadAvatarCommand;
 use Proximum\Vimeet365\Domain\Entity\Account;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,5 +68,14 @@ class AccountController
         }
 
         return $account;
+    }
+
+    public function updateProfile(UpdateProfileCommand $data): Account
+    {
+        try {
+            return $this->commandBus->handle($data);
+        } catch (ValidationFailedException $exception) {
+            throw new ValidationException($exception->getViolations());
+        }
     }
 }

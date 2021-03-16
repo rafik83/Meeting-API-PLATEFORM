@@ -9,13 +9,27 @@ use Proximum\Vimeet365\Domain\Entity\Nomenclature\NomenclatureTag;
 
 class Exporter
 {
+    /** @var string[] */
+    private array $defaultLanguages;
+
+    /**
+     * @param string[] $defaultLanguages
+     */
+    public function __construct(array $defaultLanguages = ['en'])
+    {
+        $this->defaultLanguages = $defaultLanguages;
+    }
+
     public function export(Nomenclature $nomenclature, \SplFileObject $output): void
     {
         $output->setCsvControl(';');
 
         $rows = [];
 
-        $languages = $nomenclature->getLanguages();
+        $languages = $this->defaultLanguages;
+        if ($nomenclature->getCommunity() !== null) {
+            $languages = $nomenclature->getCommunity()->getLanguages();
+        }
 
         $rows[] = array_merge([''], $languages);
 

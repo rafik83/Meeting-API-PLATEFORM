@@ -23,7 +23,7 @@ class ExporterTest extends TestCase
         $community->getNomenclatures()->willReturn(new ArrayCollection());
         $community->getLanguages()->willReturn(['en', 'fr']);
 
-        $nomenclature = new Nomenclature($community->reveal(), 'Nomenclature');
+        $nomenclature = new Nomenclature('Nomenclature', $community->reveal());
 
         $importer = new Importer(
             $this->prophesize(TagRepositoryInterface::class)->reveal(),

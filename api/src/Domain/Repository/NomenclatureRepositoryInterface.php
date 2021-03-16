@@ -9,4 +9,6 @@ use Proximum\Vimeet365\Domain\Entity\Nomenclature;
 interface NomenclatureRepositoryInterface
 {
     public function findOneById(int $id): ?Nomenclature;
+
+    public function findJobPositionNomenclature(): ?Nomenclature;
 }

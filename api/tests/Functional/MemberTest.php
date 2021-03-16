@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Functional;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Domain\Entity\Account;
 use Proximum\Vimeet365\Domain\Entity\Community;
 use Proximum\Vimeet365\Domain\Entity\Member;
-use Proximum\Vimeet365\Domain\Entity\Tag;
 use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
 use Proximum\Vimeet365\Infrastructure\Repository\CommunityRepository;
 use Proximum\Vimeet365\Tests\Util\ApiTestCase;
@@ -247,27 +244,5 @@ class MemberTest extends ApiTestCase
         $account = $accountRepository->findOneByEmail($email);
 
         return $account->getMemberFor($community);
-    }
-
-    private function getTagId(string $name): ?int
-    {
-        /** @var EntityRepository<Tag> $tagRepository */
-        $tagRepository = self::$container->get(ManagerRegistry::class)->getRepository(Tag::class);
-        $queryBuilder = $tagRepository->createQueryBuilder('tag');
-        $queryBuilder
-            ->innerJoin('tag.translations', 'translation')
-            ->where('translation.label = :label')
-            ->andWhere('translation.locale = :locale')
-            ->setParameter('label', $name)
-            ->setParameter('locale', 'en')
-        ;
-
-        $tag = $queryBuilder->getQuery()->getOneOrNullResult();
-
-        if ($tag !== null) {
-            return $tag->getId();
-        }
-
-        return null;
     }
 }

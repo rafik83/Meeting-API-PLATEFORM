@@ -52,20 +52,24 @@ Proximum\Vimeet365\Domain\Entity\Tag:
         label: Launcher
     tag_life_in_space:
         label: Life in space
+    tag_job_system_engineer:
+        label: System Engineer
+    tag_job_network_engineer:
+        label: Network Engineer
 
 Proximum\Vimeet365\Domain\Entity\Nomenclature:
     nomenclature_iam:
         __construct:
+            reference: I am
             community: '@community_1'
-            name: I am
         __calls:
             -   'addTag': [ '@tag_iam_supplier' ]
             -   'addTag': [ '@tag_iam_keyaccount' ]
 
     nomenclature_goals:
         __construct:
+            reference: Goals and objectives
             community: '@community_1'
-            name: Goals and objectives
         __calls:
             -   'addTag': [ '@tag_goals_buy' ]
             -   'addTag': [ '@tag_goals_sell' ]
@@ -75,8 +79,8 @@ Proximum\Vimeet365\Domain\Entity\Nomenclature:
 
     nomenclature_activity_fields:
         __construct:
+            reference: Activity Fields
             community: '@community_1'
-            name: Activity Fields
         __calls:
             -   'addTag': [ '@tag_satellites' ]
             -   'addTag': [ '@tag_ground' ]
@@ -95,8 +99,15 @@ Proximum\Vimeet365\Domain\Entity\Nomenclature:
 
     nomenclature_iam2:
         __construct:
+            reference: I am
             community: '@community_2'
-            name: I am
         __calls:
             -   'addTag': [ '@tag_iam_supplier' ]
             -   'addTag': [ '@tag_iam_keyaccount' ]
+
+    nomenclature_job_position:
+        __construct:
+            reference: job_position
+        __calls:
+            -   'addTag': [ '@tag_job_system_engineer' ]
+            -   'addTag': [ '@tag_job_network_engineer' ]

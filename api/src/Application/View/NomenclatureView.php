@@ -10,7 +10,7 @@ class NomenclatureView
 {
     public int $id;
 
-    public string $name;
+    public string $reference;
 
     /** @var NomenclatureTagView[] */
     public array $tags;
@@ -18,10 +18,10 @@ class NomenclatureView
     /**
      * @param NomenclatureTagView[] $tags
      */
-    public function __construct(int $id, string $name, array $tags = [])
+    public function __construct(int $id, string $reference, array $tags = [])
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->reference = $reference;
         $this->tags = $tags;
     }
 
@@ -29,7 +29,7 @@ class NomenclatureView
     {
         return new self(
             (int) $nomenclature->getId(),
-            $nomenclature->getName(),
+            $nomenclature->getReference(),
             array_map(
                 static fn (Nomenclature\NomenclatureTag $tag): NomenclatureTagView => new NomenclatureTagView($tag),
                 $nomenclature->getTags()->getValues()

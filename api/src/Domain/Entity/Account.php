@@ -68,6 +68,32 @@ class Account
      */
     private ?Company $company = null;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tag::class)
+     */
+    private ?Tag $jobPosition = null;
+
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private ?string $jobTitle = null;
+
+    /**
+     * @var string[]
+     * @ORM\Column(nullable=true, type="simple_array")
+     */
+    private array $languages = [];
+
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private ?string $country = null;
+
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private ?string $timezone = null;
+
     public function __construct(
         string $email,
         string $password,
@@ -177,5 +203,19 @@ class Account
     public function setCompany(?Company $company): void
     {
         $this->company = $company;
+    }
+
+    public function updateProfile(
+        ?Tag $jobPosition,
+        ?string $jobTitle,
+        array $languages,
+        string $country,
+        string $timezone
+    ): void {
+        $this->jobPosition = $jobPosition;
+        $this->jobTitle = $jobTitle;
+        $this->languages = $languages;
+        $this->country = $country;
+        $this->timezone = $timezone;
     }
 }

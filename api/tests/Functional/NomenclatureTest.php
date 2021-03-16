@@ -4,30 +4,21 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Functional;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use Doctrine\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Domain\Entity\Nomenclature;
+use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 
 class NomenclatureTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
 
-    protected static $client;
-
-    public function setUp(): void
-    {
-        self::$client = static::createClient();
-    }
-
     public function testGetEn(): void
     {
         $nomenclature = $this->getNomenclature('Goals and objectives');
 
-        self::$client->request('GET', sprintf('/api/nomenclatures/%d', $nomenclature->getId()), [
-            'headers' => [
-                'Accept-Language' => 'en',
-            ],
+        $this->request('GET', sprintf('/api/nomenclatures/%d', $nomenclature->getId()), null, [
+            'Accept-Language' => 'en',
         ]);
 
         self::assertResponseIsSuccessful();
@@ -48,10 +39,8 @@ class NomenclatureTest extends ApiTestCase
     {
         $nomenclature = $this->getNomenclature('Goals and objectives');
 
-        self::$client->request('GET', sprintf('/api/nomenclatures/%d', $nomenclature->getId()), [
-            'headers' => [
-                'Accept-Language' => 'fr',
-            ],
+        $this->request('GET', sprintf('/api/nomenclatures/%d', $nomenclature->getId()), null, [
+            'Accept-Language' => 'fr',
         ]);
 
         self::assertResponseIsSuccessful();
@@ -72,10 +61,8 @@ class NomenclatureTest extends ApiTestCase
     {
         $nomenclature = $this->getNomenclature('Goals and objectives');
 
-        self::$client->request('GET', sprintf('/api/nomenclatures/%d', $nomenclature->getId()), [
-            'headers' => [
-                'Accept-Language' => 'fy',
-            ],
+        $this->request('GET', sprintf('/api/nomenclatures/%d', $nomenclature->getId()), null, [
+            'Accept-Language' => 'fy',
         ]);
 
         self::assertResponseIsSuccessful();
@@ -92,14 +79,29 @@ class NomenclatureTest extends ApiTestCase
         ]);
     }
 
-    protected function getNomenclature(string $name): Nomenclature
+    public function testGetJobPosition(): void
     {
-        if (self::$container === null) {
-            self::$client = static::createClient();
-        }
+        $this->request('GET', '/api/nomenclatures/job_position', null, [
+            'Accept-Language' => 'en',
+        ]);
 
+        self::assertResponseIsSuccessful();
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-language', 'en');
+
+        // Asserts that the returned JSON is a superset of this one
+        self::assertJsonContains([
+            '@type' => 'Nomenclature',
+            'tags' => [
+                ['tag' => ['name' => 'System Engineer']],
+            ],
+        ]);
+    }
+
+    protected function getNomenclature(string $reference): Nomenclature
+    {
         $nomenclatureRepository = self::$container->get(ManagerRegistry::class)->getRepository(Nomenclature::class);
 
-        return $nomenclatureRepository->findOneByName($name);
+        return $nomenclatureRepository->findOneByReference($reference);
     }
 }

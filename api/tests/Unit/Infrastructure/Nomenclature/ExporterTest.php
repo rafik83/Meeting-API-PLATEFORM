@@ -23,7 +23,7 @@ class ExporterTest extends TestCase
         $community->getNomenclatures()->willReturn(new ArrayCollection());
         $community->getLanguages()->willReturn(['fr', 'en']);
 
-        $nomenclature = new Nomenclature($community->reveal(), 'Nomenclature');
+        $nomenclature = new Nomenclature('Nomenclature', $community->reveal());
 
         $importer = new Importer(
             $this->prophesize(TagRepositoryInterface::class)->reveal(),
@@ -32,7 +32,7 @@ class ExporterTest extends TestCase
 
         $importer->import($nomenclature, new \SplFileObject(self::FILES_DIRECTORY . '/output-multi-language.csv'));
 
-        $exporter = new Exporter();
+        $exporter = new Exporter(['fr', 'en', 'it']);
         $outputFile = new \SplTempFileObject();
         $exporter->export($nomenclature, $outputFile);
 

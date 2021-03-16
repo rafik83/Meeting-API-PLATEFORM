@@ -20,4 +20,9 @@ class NomenclatureRepository extends ServiceEntityRepository implements Nomencla
     {
         return $this->findOneBy(['id' => $id]);
     }
+
+    public function findJobPositionNomenclature(): ?Nomenclature
+    {
+        return $this->findOneBy(['reference' => Nomenclature::JOB_POSITION_NOMENCLATURE, 'community' => null]);
+    }
 }

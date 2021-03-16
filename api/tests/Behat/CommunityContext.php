@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Proximum\Vimeet365\Domain\Entity\Community;
 use Proximum\Vimeet365\Domain\Entity\Community\Step;
 use Proximum\Vimeet365\Domain\Entity\Nomenclature;
-use Proximum\Vimeet365\Domain\Entity\Nomenclature\NomenclatureTag;
 use Proximum\Vimeet365\Domain\Entity\Tag;
 
 /**
@@ -30,20 +29,16 @@ class CommunityContext implements Context
     /**
      * @Given I want to join aerospacial community
      */
-    public function iWantToJoinAerospacialCommunity()
+    public function iWantToJoinAerospacialCommunity(): void
     {
         $tagSupplier = new Tag('Supplier');
         $tagBuyer = new Tag('Buyer');
         $community = new Community('aerospacial');
-        $nomenclature = new Nomenclature($community, 'Goldfish');
-        $nomenclatureTag1 = new NomenclatureTag($nomenclature, $tagSupplier);
-        $nomenclatureTag2 = new NomenclatureTag($nomenclature, $tagBuyer);
+        $nomenclature = new Nomenclature('Goldfish', $community);
+        $nomenclature->addTag($tagSupplier);
+        $nomenclature->addTag($tagBuyer);
         $step = new Step($community, $nomenclature, 1, 'I am', null, 1, 1);
 
-        $this->doctrine->persist($tagBuyer);
-        $this->doctrine->persist($tagSupplier);
-        $this->doctrine->persist($nomenclatureTag1);
-        $this->doctrine->persist($nomenclatureTag2);
         $this->doctrine->persist($nomenclature);
         $this->doctrine->persist($step);
         $this->doctrine->persist($community);
@@ -54,49 +49,35 @@ class CommunityContext implements Context
     /**
      * @Given I want to join proximum community
      */
-    public function iWantToJoinProximumCommunity()
+    public function iWantToJoinProximumCommunity(): void
     {
         $community = new Community('proximum');
-        $nomenclature = new Nomenclature($community, 'Goldfish');
+        $nomenclature = new Nomenclature('Goldfish', $community);
 
         $step1 = new Step($community, $nomenclature, 1, 'I am', null, 1, 1);
         $tagSupplier = new Tag('Supplier');
         $tagBuyer = new Tag('Buyer');
 
-        $nomenclatureTag1 = new NomenclatureTag($nomenclature, $tagSupplier);
-        $nomenclatureTag2 = new NomenclatureTag($nomenclature, $tagBuyer);
+        $nomenclature->addTag($tagSupplier);
+        $nomenclature->addTag($tagBuyer);
 
-        $nomenclature2 = new Nomenclature($community, 'Apollo');
+        $nomenclature2 = new Nomenclature('Apollo', $community);
         $step2 = new Step($community, $nomenclature2, 2, 'I love', null, 2, 3);
         $tagCaramel = new Tag('Caramel');
         $tagChocolat = new Tag('Chocolat');
         $tagKiwi = new Tag('Kiwi');
         $tagBanane = new Tag('Banane');
 
-        $nomenclatureTag3 = new NomenclatureTag($nomenclature2, $tagCaramel);
-        $nomenclatureTag4 = new NomenclatureTag($nomenclature2, $tagChocolat);
+        $nomenclature2->addTag($tagCaramel);
+        $nomenclature2->addTag($tagChocolat);
+        $nomenclature2->addTag($tagKiwi);
+        $nomenclature2->addTag($tagBanane);
 
-        $nomenclatureTag5 = new NomenclatureTag($nomenclature2, $tagKiwi);
-        $nomenclatureTag6 = new NomenclatureTag($nomenclature2, $tagBanane);
-
-        $this->doctrine->persist($tagBuyer);
-        $this->doctrine->persist($tagSupplier);
-        $this->doctrine->persist($nomenclatureTag1);
-        $this->doctrine->persist($nomenclatureTag2);
         $this->doctrine->persist($nomenclature);
         $this->doctrine->persist($step1);
         $this->doctrine->persist($step2);
         $this->doctrine->persist($community);
-
-        $this->doctrine->persist($nomenclatureTag3);
-        $this->doctrine->persist($nomenclatureTag4);
-        $this->doctrine->persist($nomenclatureTag5);
-        $this->doctrine->persist($nomenclatureTag6);
         $this->doctrine->persist($nomenclature2);
-        $this->doctrine->persist($tagCaramel);
-        $this->doctrine->persist($tagChocolat);
-        $this->doctrine->persist($tagKiwi);
-        $this->doctrine->persist($tagBanane);
 
         $this->doctrine->flush();
     }

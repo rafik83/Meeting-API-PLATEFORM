@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Tests\Unit\Domain\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
-use Proximum\Vimeet365\Domain\Entity\Community;
 use Proximum\Vimeet365\Domain\Entity\Nomenclature;
 use Proximum\Vimeet365\Domain\Entity\Tag;
 
@@ -14,10 +12,7 @@ class NomenclatureTest extends TestCase
 {
     public function testAddTag(): void
     {
-        $community = $this->prophesize(Community::class);
-        $community->getNomenclatures()->willReturn(new ArrayCollection());
-
-        $nomenclature = new Nomenclature($community->reveal(), 'My Nomenclature');
+        $nomenclature = new Nomenclature('My Nomenclature');
 
         $rootTag = new Tag('My Tag');
         $childTag = new Tag('My Tag');
@@ -36,9 +31,7 @@ class NomenclatureTest extends TestCase
 
     public function testRemoveTag(): void
     {
-        $community = $this->prophesize(Community::class);
-        $community->getNomenclatures()->willReturn(new ArrayCollection());
-        $nomenclature = new Nomenclature($community->reveal(), 'My Nomenclature');
+        $nomenclature = new Nomenclature('My Nomenclature');
 
         $rootTag = new Tag('My Tag');
         $childTag = new Tag('My Tag');
@@ -55,9 +48,7 @@ class NomenclatureTest extends TestCase
 
     public function testRemoveRootTag(): void
     {
-        $community = $this->prophesize(Community::class);
-        $community->getNomenclatures()->willReturn(new ArrayCollection());
-        $nomenclature = new Nomenclature($community->reveal(), 'My Nomenclature');
+        $nomenclature = new Nomenclature('My Nomenclature');
 
         $rootTag = new Tag('My Tag');
         $childTag = new Tag('My Tag');

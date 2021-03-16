@@ -146,9 +146,12 @@ class NomenclatureTag
             return $translation->getLabel();
         }
 
-        $defaultLanguage = $this->getNomenclature()->getCommunity()->getDefaultLanguage();
-        if ($locale !== $defaultLanguage) {
-            return $this->getLabel($defaultLanguage);
+        $community = $this->getNomenclature()->getCommunity();
+        if ($community !== null) {
+            $defaultLanguage = $community->getDefaultLanguage();
+            if ($locale !== $defaultLanguage) {
+                return $this->getLabel($defaultLanguage);
+            }
         }
 
         return null;

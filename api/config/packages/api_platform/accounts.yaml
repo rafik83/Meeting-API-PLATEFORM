@@ -9,6 +9,12 @@ Proximum\Vimeet365\Domain\Entity\Account:
             messenger: 'input'
     itemOperations:
         get: ~
+        account_patch_profile:
+            method: patch
+            path: /accounts/{id}/profile
+            controller: Proximum\Vimeet365\Infrastructure\Controller\AccountController::updateProfile
+            input: Proximum\Vimeet365\Application\Command\Account\UpdateProfileCommand
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
         account_post_company:
             method: post
             path: /accounts/{id}/company

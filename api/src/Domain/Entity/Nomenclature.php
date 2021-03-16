@@ -14,6 +14,8 @@ use Proximum\Vimeet365\Domain\Entity\Nomenclature\NomenclatureTag;
  */
 class Nomenclature
 {
+    public const JOB_POSITION_NOMENCLATURE = 'job_position';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -23,14 +25,13 @@ class Nomenclature
 
     /**
      * @ORM\ManyToOne(targetEntity=Community::class, inversedBy="nomenclatures")
-     * @ORM\JoinColumn(nullable=false)
      */
-    private Community $community;
+    private ?Community $community;
 
     /**
      * @ORM\Column()
      */
-    private string $name;
+    private string $reference;
 
     /**
      * @var Collection<int, NomenclatureTag>
@@ -39,12 +40,15 @@ class Nomenclature
      */
     private Collection $tags;
 
-    public function __construct(Community $community, string $name)
+    public function __construct(string $reference, ?Community $community = null)
     {
         $this->tags = new ArrayCollection();
-        $this->community = $community;
-        $this->name = $name;
-        $this->community->getNomenclatures()->add($this);
+        $this->reference = $reference;
+
+        if ($community !== null) {
+            $this->community = $community;
+            $this->community->getNomenclatures()->add($this);
+        }
     }
 
     public function getId(): ?int
@@ -52,14 +56,14 @@ class Nomenclature
         return $this->id;
     }
 
-    public function getCommunity(): Community
+    public function getCommunity(): ?Community
     {
         return $this->community;
     }
 
-    public function getName(): string
+    public function getReference(): string
     {
-        return $this->name;
+        return $this->reference;
     }
 
     /**
@@ -107,13 +111,5 @@ class Nomenclature
         foreach ($nomenclatureTag->getChildren() as $child) {
             $this->removeTag($child->getTag());
         }
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getLanguages(): array
-    {
-        return $this->community->getLanguages();
     }
 }

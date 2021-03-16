@@ -20,7 +20,7 @@ export const buildFakeQualificationStep = ({
 }): QualificationStep => {
   return {
     nomenclature: {
-      name: 'fakeNomenclatureName',
+      reference: 'fakeNomenclatureName',
       tags:
         nomenclatureTags && nomenclatureTags.length > 0
           ? nomenclatureTags

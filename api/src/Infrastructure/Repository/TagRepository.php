@@ -20,4 +20,15 @@ class TagRepository extends ServiceEntityRepository implements TagRepositoryInte
     {
         return $this->findOneBy(['externalId' => $id]);
     }
+
+    public function getOneById(int $id): Tag
+    {
+        $queryBuilder = $this->createQueryBuilder('tag');
+
+        $queryBuilder
+            ->where('tag.id = :id')
+            ->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getSingleResult();
+    }
 }

@@ -30,7 +30,7 @@ export type NomenclatureTag = {
 
 export type Nomenclature = {
   id: number;
-  name: string;
+  reference: string;
   tags: Array<NomenclatureTag>;
 };
 export type QualificationStep = {

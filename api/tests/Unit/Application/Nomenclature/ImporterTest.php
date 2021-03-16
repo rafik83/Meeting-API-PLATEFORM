@@ -20,7 +20,7 @@ class ImporterTest extends TestCase
         $tagNomenclatureRepository = $this->prophesize(NomenclatureTagRepositoryInterface::class);
         $community = $this->prophesize(Community::class);
         $community->getNomenclatures()->willReturn(new ArrayCollection());
-        $nomenclature = new Nomenclature($community->reveal(), 'Simple');
+        $nomenclature = new Nomenclature('Simple', $community->reveal());
 
         $importer = new Importer($tagRepository->reveal(), $tagNomenclatureRepository->reveal());
         $importer->import($nomenclature, new \SplFileObject(__DIR__ . '/files/simple.csv'));
@@ -45,7 +45,7 @@ class ImporterTest extends TestCase
         $tagNomenclatureRepository = $this->prophesize(NomenclatureTagRepositoryInterface::class);
         $community = $this->prophesize(Community::class);
         $community->getNomenclatures()->willReturn(new ArrayCollection());
-        $nomenclature = new Nomenclature($community->reveal(), 'Simple');
+        $nomenclature = new Nomenclature('Simple', $community->reveal());
 
         $importer = new Importer($tagRepository->reveal(), $tagNomenclatureRepository->reveal());
         $importer->import($nomenclature, new \SplFileObject(__DIR__ . '/files/complex.csv'));
@@ -70,7 +70,7 @@ class ImporterTest extends TestCase
         $tagNomenclatureRepository = $this->prophesize(NomenclatureTagRepositoryInterface::class);
         $community = $this->prophesize(Community::class);
         $community->getNomenclatures()->willReturn(new ArrayCollection());
-        $nomenclature = new Nomenclature($community->reveal(), 'Simple');
+        $nomenclature = new Nomenclature('Simple', $community->reveal());
 
         $importer = new Importer($tagRepository->reveal(), $tagNomenclatureRepository->reveal());
         $importer->import($nomenclature, new \SplFileObject(__DIR__ . '/files/multi.csv'));
@@ -123,7 +123,7 @@ class ImporterTest extends TestCase
         $tagNomenclatureRepository = $this->prophesize(NomenclatureTagRepositoryInterface::class);
         $community = $this->prophesize(Community::class);
         $community->getNomenclatures()->willReturn(new ArrayCollection());
-        $nomenclature = new Nomenclature($community->reveal(), 'Simple');
+        $nomenclature = new Nomenclature('Simple', $community->reveal());
 
         $importer = new Importer($tagRepository->reveal(), $tagNomenclatureRepository->reveal());
         $importer->import($nomenclature, new \SplFileObject(__DIR__ . '/files/alias.csv'));

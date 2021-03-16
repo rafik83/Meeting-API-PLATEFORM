@@ -64,7 +64,19 @@ services:
         bind:
             $languages: '%supported_spoken_languages%'
 
+    Proximum\Vimeet365\Infrastructure\Bridge\Vimeet\Nomenclature\Exporter:
+        bind:
+            $defaultLanguages: '%supported_languages%'
+
+    Proximum\Vimeet365\Infrastructure\Nomenclature\Exporter:
+        bind:
+            $defaultLanguages: '%supported_languages%'
+
     Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\LoginDecorator:
+        decorates: 'api_platform.openapi.factory'
+        autoconfigure: false
+
+    Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\NomenclatureDecorator:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
@@ -72,7 +84,7 @@ services:
         class: \Predis\Client
         arguments:
             $parameters: { host: '%env(resolve:VIMEET365_REDIS_HOST)%', port: '%env(int:VIMEET365_REDIS_PORT)%', database: 1}
-            
+
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
-            - '@redis_session'  
+            - '@redis_session'
