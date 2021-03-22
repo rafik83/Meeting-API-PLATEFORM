@@ -36,7 +36,7 @@ Feature:
 
     Scenario: I can sign up as John Doe
         Given the database is purged
-        And I want to join proximum community
+        And I want to join aerospacial community
         When I go to "/fr"
         And I press "join-community"
         And I follow "S'inscrire"

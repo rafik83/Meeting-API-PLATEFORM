@@ -3,7 +3,7 @@
   import * as yup from 'yup';
   import { extractErrors } from '../modules/validator';
 
-  import DragAndDrop from './DragAndDrop.svelte';
+  import FileUploader from './FileUploader.svelte';
   import CompanyForm from './CompanyForm.svelte';
   import Button from './Button.svelte';
   import RegistrationPipeLineHeader from './RegistrationPipeLineHeader.svelte';
@@ -66,7 +66,7 @@
   </p>
 
   <div class="h-40 flex text-center items-center justify-center flex-col">
-    <DragAndDrop
+    <FileUploader
       on:fileUploaded={handleUploadFile}
       {accept}
       {maxSize}

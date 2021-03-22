@@ -1,4 +1,4 @@
-import type { NomenclatureTag, Tag } from '../domain';
+import type { Nomenclature, NomenclatureTag, Tag } from '../domain';
 
 export const buildFakeTag = ({ name, priority, id }: Partial<Tag>): Tag => {
   return {
@@ -15,5 +15,17 @@ export const buildFakeNomenclatureTag = (
   return {
     parent,
     tag: child || buildFakeTag({}),
+  };
+};
+
+export const buildFakeJobPositionNomenclature = ({
+  id,
+  reference,
+  tags = [],
+}: Partial<Nomenclature>): Nomenclature => {
+  return {
+    id: id || 666,
+    tags,
+    reference: reference || 'dummy_ref',
   };
 };

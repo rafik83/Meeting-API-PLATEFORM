@@ -1,5 +1,5 @@
 import type { User, Crendentials } from '../domain';
-import { get, post } from '../modules/axios';
+import { get, post, patch } from '../modules/axios';
 
 export const getUserIdFromLocation = (
   locationHeader: string
@@ -38,4 +38,27 @@ export const uploadAvatar = async (accountAvatar: File, userId: number) => {
   const formData = new FormData();
   formData.append('file', accountAvatar);
   await post<FormData, void>(`accounts/${userId}/avatar`, formData);
+};
+
+type AddAccountPersonalData = {
+  jobPosition: string;
+  country: string;
+  timezone: string;
+  languages: Array<string>;
+  jobTitle: string;
+};
+
+export const updateProfile = async (
+  userId: number,
+  payload: AddAccountPersonalData
+): Promise<void> => {
+  await patch<AddAccountPersonalData, void>(
+    `/accounts/${userId}/profile`,
+    payload,
+    {
+      headers: {
+        'Content-Type': 'application/merge-patch+json',
+      },
+    }
+  );
 };

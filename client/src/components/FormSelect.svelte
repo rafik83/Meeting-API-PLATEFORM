@@ -11,6 +11,7 @@
   import { IconSearch } from '../ui-kit/icons/IconSearch';
   import { IconDropDown } from '../ui-kit/icons/IconDropDown';
 
+  // options must have a "name" key who is shown in the front for select
   export let options;
   export let name;
   export let label;
@@ -32,9 +33,10 @@
     filteredCountries = filterCountriesByName(options, e.target.value);
     filterOptions = filteredCountries ? filteredCountries : options;
   };
-  const handleClickOption = (e) => {
+
+  const handleClickOption = () => {
     displaySelect = !displaySelect;
-    selectedLabel = e.target.textContent;
+    selectedLabel = selectedOption.name;
   };
 </script>
 
@@ -43,7 +45,8 @@
     class="border bg-gray-50 rounded-3xl w-full mt-2 py-2 px-5 font-bold flex justify-between align-center {errorMessage
       ? 'border-error text-error'
       : 'border-gray-200'}"
-    on:click|stopPropagation|preventDefault={handleClick}>
+    on:click|stopPropagation|preventDefault={handleClick}
+    {label}>
     {selectedLabel ? selectedLabel : label}
     <IconDropDown width={25} height={25} stroke={'rgba(42, 46, 67, .7)'} />
   </button>
@@ -56,12 +59,13 @@
       {#if searchBar}
         <input
           type="search"
+          name="{label.toLowerCase()}-searchinput"
           class="border mt-3 mb-4 ml-4 mr-6 px-4 pt-3 pb-2"
           on:input={handleInputSearch}
           placeholder={$_('messages.search')}
         />
-        <i class="absolute right-10 top-3.5 w-9 border-0">
-          <IconSearch fill="rgba(42, 46, 67, .7)" />
+        <i class="absolute right-9 top-5 w-8 border-0">
+          <IconSearch fill="rgba(42, 46, 67, .7)" width="100%" height="100%"/>
         </i>
       {/if}
       <select

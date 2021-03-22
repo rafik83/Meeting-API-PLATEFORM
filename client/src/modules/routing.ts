@@ -6,8 +6,12 @@ localeStore.subscribe((value) => {
   currentLocale = value;
 });
 
+export const toOnboardingStep = (step: number) => {
+  return `${currentLocale}/onboarding/${step}`;
+};
+
 export const toRegistrationStep = (step: string) => {
-  return `${currentLocale}?step=${step}`;
+  return `${currentLocale}?target=${step}`;
 };
 
 export const toHomePage = () => {

@@ -1,35 +1,25 @@
-<style>
-  input:focus::placeholder {
-    color: transparent;
-  }
-
-  input::placeholder {
-    font-style: italic;
-  }
-</style>
-
 <script>
   import { IconEye } from '../ui-kit/icons/IconEye';
 
-  export let displayLabel = false;
+  export let name;
+  export let type;
+  export let value;
+  export let label = '';
+  export let errorMessage = null;
+  export let options = null;
+  export let datalistName = null;
+  let displayLabel = value ? true : false;
 
   const handleFocusInput = () => {
     displayLabel = true;
   };
 
-  const handleMouseOut = () => {
+  const handleFocusOut = () => {
     if (!value) {
       displayLabel = false;
     }
   };
 
-  export let name;
-  export let type;
-  export let label;
-  export let value;
-  export let errorMessage = null;
-  export let options = null;
-  export let datalistName = null;
   let displayPassword = false;
 
   const toggle = (event) => {
@@ -46,33 +36,34 @@
     value = event.target.value;
   };
 
-  const inputWidth = type === 'password' ? 'w-11/12' : 'w-full';
+  const inputWidthClasse = type === 'password' ? 'w-11/12' : 'w-full';
+
+  $: labelErrorClasses = errorMessage ? 'text-error' : 'boder-gray-200';
+
+  $: labeClasses = displayLabel ? '-top-3 left-2 text-sm' : 'top-1.5 text-base';
 </script>
 
 <div class="my-5">
   <div
-    class="border flex rounded-3xl  {errorMessage
+    class="border flex rounded-3xl relative {errorMessage
       ? 'border-error'
       : 'border-gray-200'}"
   >
     <label
-      class:invisible={!displayLabel}
       for={name}
-      class="block -mt-3.5 italic absolute bg-gray-50 mf-2.5 ml-3 px-2 text-sm {errorMessage
-        ? 'border-error text-error'
-        : 'border-gray-200'}">{label}</label
-    >
+      class="block transition-all duration-250 italic absolute bg-gray-50 mf-2.5 ml-3 px-2 {labelErrorClasses} {labeClasses} ">
+      {label}
+    </label>
 
     <input
       {type}
       id={name}
       {value}
-      placeholder={label}
       list={datalistName}
-      on:focusout={handleMouseOut}
+      on:focusout={handleFocusOut}
       on:focus={handleFocusInput}
       on:input={handleInput}
-      class={`text-grey rounded-3xl px-4 py-2 border-none ${inputWidth}`}
+      class="text-grey rounded-3xl px-4 py-2 border-none {inputWidthClasse}"
       autocomplete="on"
     />
 

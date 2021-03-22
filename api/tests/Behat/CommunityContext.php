@@ -7,7 +7,6 @@ namespace Proximum\Vimeet365\Tests\Behat;
 use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
 use Proximum\Vimeet365\Domain\Entity\Community;
-use Proximum\Vimeet365\Domain\Entity\Community\Step;
 use Proximum\Vimeet365\Domain\Entity\Nomenclature;
 use Proximum\Vimeet365\Domain\Entity\Tag;
 
@@ -31,53 +30,24 @@ class CommunityContext implements Context
      */
     public function iWantToJoinAerospacialCommunity(): void
     {
-        $tagSupplier = new Tag('Supplier');
-        $tagBuyer = new Tag('Buyer');
         $community = new Community('aerospacial');
-        $nomenclature = new Nomenclature('Goldfish', $community);
-        $nomenclature->addTag($tagSupplier);
-        $nomenclature->addTag($tagBuyer);
-        $step = new Step($community, $nomenclature, 1, 'I am', null, 1, 1);
+
+        $nomenclature = new Nomenclature('job_position');
+
+        $job1 = new Tag();
+        $job1->setLabel('Ministre');
+
+        $job2 = new Tag();
+        $job2->setLabel('Culivateur de champignon');
+
+        $nomenclature->addTag($job1);
+        $nomenclature->addTag($job2);
 
         $this->doctrine->persist($nomenclature);
-        $this->doctrine->persist($step);
         $this->doctrine->persist($community);
 
-        $this->doctrine->flush();
-    }
-
-    /**
-     * @Given I want to join proximum community
-     */
-    public function iWantToJoinProximumCommunity(): void
-    {
-        $community = new Community('proximum');
-        $nomenclature = new Nomenclature('Goldfish', $community);
-
-        $step1 = new Step($community, $nomenclature, 1, 'I am', null, 1, 1);
-        $tagSupplier = new Tag('Supplier');
-        $tagBuyer = new Tag('Buyer');
-
-        $nomenclature->addTag($tagSupplier);
-        $nomenclature->addTag($tagBuyer);
-
-        $nomenclature2 = new Nomenclature('Apollo', $community);
-        $step2 = new Step($community, $nomenclature2, 2, 'I love', null, 2, 3);
-        $tagCaramel = new Tag('Caramel');
-        $tagChocolat = new Tag('Chocolat');
-        $tagKiwi = new Tag('Kiwi');
-        $tagBanane = new Tag('Banane');
-
-        $nomenclature2->addTag($tagCaramel);
-        $nomenclature2->addTag($tagChocolat);
-        $nomenclature2->addTag($tagKiwi);
-        $nomenclature2->addTag($tagBanane);
-
-        $this->doctrine->persist($nomenclature);
-        $this->doctrine->persist($step1);
-        $this->doctrine->persist($step2);
-        $this->doctrine->persist($community);
-        $this->doctrine->persist($nomenclature2);
+        $this->doctrine->persist($job1);
+        $this->doctrine->persist($job2);
 
         $this->doctrine->flush();
     }

@@ -1,9 +1,9 @@
-import DragAndDrop from './DragAndDrop.svelte';
+import FileUploader from './FileUploader';
 import PreviewWrapper from './PreviewWrapper.svelte';
 
 export default {
-  title: 'Vimeet365/DragAndDrop',
-  component: DragAndDrop,
+  title: 'Vimeet365/FileUploader',
+  component: FileUploader,
   decorators: [
     (storyFn) => {
       const story = storyFn();
@@ -20,7 +20,7 @@ export default {
 };
 
 const Template = ({ ...args }) => ({
-  Component: DragAndDrop,
+  Component: FileUploader,
   props: args,
   argTypes: {},
 });
@@ -38,12 +38,6 @@ export const Errored = Template.bind({});
 Errored.args = {
   ...Default.args,
   fileMaxSize: 15,
-};
-
-export const Success = Template.bind({});
-
-Success.args = {
-  ...Default.args,
 };
 
 export const Loading = Template.bind({});

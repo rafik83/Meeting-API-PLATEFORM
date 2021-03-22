@@ -27,6 +27,7 @@
   export let error;
 
   const dev = process.env.NODE_ENV === 'development';
+  import { _ } from 'svelte-i18n';
 </script>
 
 <svelte:head>
@@ -35,7 +36,13 @@
 
 <h1>{status}</h1>
 
-<p>{error.message}</p>
+<p>
+  {#if status == 401}
+    {$_('messages.you_are_not_authorized')}
+  {:else}
+    {error.message}
+  {/if}
+</p>
 
 {#if dev && error.stack}
   <pre>{error.stack}</pre>

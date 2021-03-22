@@ -54,6 +54,11 @@ export type Country = {
   name: string;
 };
 
+export type Language = {
+  code: string;
+  name: string;
+};
+
 export type Company = {
   id?: number;
   name: string;
@@ -61,4 +66,9 @@ export type Company = {
   countryCode: string;
   activity: string;
   website: string;
+};
+
+export type TimeZone = {
+  code: string;
+  name: string;
 };

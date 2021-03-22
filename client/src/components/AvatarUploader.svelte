@@ -1,51 +1,33 @@
 <script>
   import { _ } from 'svelte-i18n';
-  import DragAndDrop from './DragAndDrop.svelte';
-  import Button from './Button.svelte';
-  import RegistrationPipeLineHeader from './RegistrationPipeLineHeader.svelte';
-
-  let accept = ['image/jpg', 'image/jpeg', 'image/png'];
-  let maxSize = 1 * 1024 * 1024; // 1Mb
+  import FileUploader from './FileUploader.svelte';
+  export let fileMaxSize;
   let dragAndDropName = 'Account avatar';
-  let uploadedFile;
+  let loading;
 
-  export let onUploadAvatar;
-  export let user;
-  export let loading;
+  export let uploadedFile;
 
   const handleUploadFile = ({ detail }) => {
     uploadedFile = detail[0];
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    onUploadAvatar(uploadedFile);
-  };
 </script>
 
-<div class="h-full px-5">
-  <RegistrationPipeLineHeader
-    title={$_('registration.hello') + '.'}
-    subtitle={user.firstName + ' ' + user.lastName}
-  />
-
-  <h2 class="text-community-300 my-6 font-semibold text-2xl pl-8">
+<div class="h-full mt-5 md:px-5">
+  <h2 class="text-community-300 md:my-6 mb-2 font-semibold text-xl md:text-2xl">
     {$_('registration.attention_members')}
   </h2>
-  <h4 class="font-semibold mb-1">{$_('registration.add_photo')}</h4>
+  <h4 class="font-semibold mb-8">{$_('registration.add_photo')}</h4>
 
-  <div class="h-40 flex text-center items-center justify-center flex-col">
-    <DragAndDrop
+  <div
+    class="md:h-3/6 box-border flex text-center items-center justify-center flex-col"
+  >
+    <FileUploader
       on:fileUploaded={handleUploadFile}
+      accept={['image/jpg', 'image/png']}
       {loading}
-      {accept}
-      {maxSize}
+      maxSize={fileMaxSize}
       name={dragAndDropName}
       textDropZone={$_('registration.upload_avatar')}
     />
   </div>
-
-  <Button type="submit" kind="primary" on:click={handleSubmit}>
-    {$_('registration.next')}
-  </Button>
 </div>

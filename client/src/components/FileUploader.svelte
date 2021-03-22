@@ -13,7 +13,7 @@
 
   let validationSucceed = false;
 
-  export let textDropZone = $_('registration.upload_logo');
+  let defaultText = $_('registration.upload_logo');
 
   const hasErrors = (errors) => {
     return errors.some((item) => item.hasErrors);
@@ -53,21 +53,24 @@
   };
 </script>
 
-<div class="h-full w-full border-dashed border"
+<div
+  class="md:h-full h-32 flex w-full border-dashed border-4"
   on:drop|stopPropagation|preventDefault={handleDrop}
   on:dragenter|stopPropagation|preventDefault
   on:dragover|stopPropagation|preventDefault
 >
   <label
-    class="flex flex-col h-full w-full justify-center {loading
+    class="flex flex-col h-full items-center w-full justify-center {loading
       ? 'cursor-not-allowed bg-gray-100'
       : 'cursor-pointer'}"
     tabindex="0">
     {#if loading}
       <p class="text-sm italic">{$_('registration.loading')}</p>
     {:else}
-      <p class="underline font-semibold">{textDropZone}</p>
-      <p class="text-community-300 text-sm">{$_('registration.png_jpg')}</p>
+      <slot>
+        <p class="underline font-semibold">{defaultText}</p>
+        <p class="text-community-300 text-sm">{$_('registration.png_jpg')}</p>
+      </slot>
     {/if}
 
     {#if validationSucceed && !loading}

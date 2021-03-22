@@ -2,7 +2,6 @@
   main {
     position: relative;
     max-width: 100%;
-    padding: 2em;
     margin: 0 auto;
     box-sizing: border-box;
   }
@@ -39,7 +38,7 @@
   <div class="loading">Loading...</div>
 {:else}
   <Modal>
-    <main class="bg-gray-50 flex flex-col h-full items-center">
+    <main class="bg-gray-50 flex h-full flex-col overflow-auto items-center">
       <slot />
     </main>
   </Modal>
