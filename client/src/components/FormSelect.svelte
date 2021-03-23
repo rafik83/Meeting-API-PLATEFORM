@@ -65,7 +65,7 @@
           placeholder={$_('messages.search')}
         />
         <i class="absolute right-9 top-5 w-8 border-0">
-          <IconSearch fill="rgba(42, 46, 67, .7)" width="100%" height="100%"/>
+          <IconSearch fill="rgba(42, 46, 67, .7)" width="100%" height="100%" />
         </i>
       {/if}
       <select
