@@ -3,7 +3,6 @@ import { buildFakeUser } from '../__fixtures__/FakeUser';
 import {
   buildFakeNomenclatureTag,
   buildFakeTag,
-  buildFakeNomenclatureTag,
 } from '../__fixtures__/FakeTags';
 import RegistrationAccount from './RegistrationAccount.svelte';
 

@@ -3,7 +3,7 @@
 
   import FormInput from './FormInput.svelte';
   import FormSelect from './FormSelect.svelte';
-  import Heading from './Heading.svelte';
+  import H4 from './H4.svelte';
 
   export let errorMessage;
 
@@ -58,7 +58,7 @@
 </script>
 
 <form class="w-full">
-  <Heading type="h4-community">{$_('account.your_job')}</Heading>
+  <H4 community withBackground>{$_('account.your_job')}</H4>
   <FormSelect
     options={jobPositions}
     name="jobPosition"
@@ -78,12 +78,12 @@
     errorMessage={validationErrors.jobTitle}
   />
 
-  <Heading type="h4-community" with-background={true}>
+  <H4 community withBackground>
     {$_('account.you_speak')}
     <span class="text-xs font-semibold italic">
       ({$_('account.order_of_priority')})
     </span>
-  </Heading>
+  </H4>
 
   {#if validationErrors.languages}
     <p class="text-error">{$_('validation.one_language_required')}</p>
@@ -116,7 +116,7 @@
     bind:selectedOption={formValues.selectedThirdLanguage}
   />
 
-  <Heading type="h4-community">{$_('account.your_location')}</Heading>
+  <H4 community withBackground>{$_('account.your_location')}</H4>
   <FormSelect
     options={countries}
     name={'country'}
