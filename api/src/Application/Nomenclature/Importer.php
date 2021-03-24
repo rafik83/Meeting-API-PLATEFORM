@@ -51,7 +51,7 @@ class Importer
             $parent = $this->findParent((string) $row[1]);
 
             /** @var array<string, string> $labels */
-            $labels = (array) array_combine($languages, \array_slice($row, 2));
+            $labels = array_combine($languages, \array_slice($row, 2));
 
             $tag = $this->getTagByExternalId($id, $labels);
 

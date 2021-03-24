@@ -13,18 +13,13 @@ class CommunityView
     /** @var NomenclatureView[] */
     public array $nomenclatures;
 
-    /** @var CommunityStepView[] */
-    public array $steps;
-
     /**
-     * @param NomenclatureView[]  $nomenclatures
-     * @param CommunityStepView[] $steps
+     * @param NomenclatureView[] $nomenclatures
      */
-    public function __construct(int $id, string $name, array $nomenclatures, array $steps)
+    public function __construct(int $id, string $name, array $nomenclatures)
     {
         $this->id = $id;
         $this->name = $name;
         $this->nomenclatures = $nomenclatures;
-        $this->steps = $steps;
     }
 }

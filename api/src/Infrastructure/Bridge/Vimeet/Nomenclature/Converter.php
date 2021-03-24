@@ -29,7 +29,8 @@ class Converter
                 ++$level;
             }
 
-            $labels = (array) array_combine(
+            /** @var array<string, string> $labels */
+            $labels = array_combine(
                 $languages,
                 array_map(
                     static fn (string $input): string => utf8_encode($input),

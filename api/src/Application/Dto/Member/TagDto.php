@@ -18,9 +18,9 @@ class TagDto
     /**
      * @Assert\Range(min="0")
      */
-    public int $priority;
+    public ?int $priority;
 
-    public function __construct(int $id, int $priority)
+    public function __construct(int $id, ?int $priority)
     {
         $this->id = $id;
         $this->priority = $priority;

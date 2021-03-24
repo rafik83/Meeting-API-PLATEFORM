@@ -1,0 +1,37 @@
+Proximum\Vimeet365\Domain\Entity\Member\Goal:
+    member_1_goal_1:
+        __construct:
+            member: '@member_1'
+            goal: '@community_goal'
+            tag: '@tag_goals_buy'
+            priority: 0
+    member_1_goal_2:
+        __construct:
+            member: '@member_1'
+            goal: '@community_goal'
+            tag: '@tag_goals_sell'
+            priority: 1
+    member_1_goal_1.1:
+        __construct:
+            member: '@member_1'
+            goal: '@community_goal_sell'
+            tag: '@tag_satellites'
+            priority: 1
+    member_1_goal_1.2:
+        __construct:
+            member: '@member_1'
+            goal: '@community_goal_sell'
+            tag: '@tag_optics'
+            priority: 1
+    member_1_goal_2.1:
+        __construct:
+            member: '@member_1'
+            goal: '@community_goal_buy'
+            tag: '@tag_satellites'
+            priority: 1
+    member_1_goal_2.2:
+        __construct:
+            member: '@member_1'
+            goal: '@community_goal_buy'
+            tag: '@tag_space_rd'
+            priority: 1

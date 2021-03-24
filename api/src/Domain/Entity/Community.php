@@ -7,7 +7,7 @@ namespace Proximum\Vimeet365\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Proximum\Vimeet365\Domain\Entity\Community\Step;
+use Proximum\Vimeet365\Domain\Entity\Community\Goal;
 
 /**
  * @ORM\Entity()
@@ -48,19 +48,18 @@ class Community
     private Collection $nomenclatures;
 
     /**
-     * @ORM\OneToMany(targetEntity=Step::class, mappedBy="community", indexBy="position")
-     * @ORM\OrderBy({"position" = "ASC"})
-     *
-     * @var Collection<int, Step>
-     */
-    private Collection $steps;
-
-    /**
      * @ORM\OneToMany(targetEntity=Member::class, mappedBy="community")
      *
      * @var Collection<int, Member>
      */
     private Collection $members;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="community")
+     *
+     * @var Collection<int, Goal>
+     */
+    private Collection $goals;
 
     public function __construct(string $name, array $languages = ['en'], string $defaultLanguage = 'en')
     {
@@ -68,8 +67,8 @@ class Community
         $this->languages = $languages;
         $this->defaultLanguage = $defaultLanguage;
         $this->nomenclatures = new ArrayCollection();
-        $this->steps = new ArrayCollection();
         $this->members = new ArrayCollection();
+        $this->goals = new ArrayCollection();
     }
 
     public function getId(): int
@@ -111,16 +110,11 @@ class Community
     }
 
     /**
-     * @return Collection<int, Step>
+     * @return Collection<int, Goal>
      */
-    public function getSteps(): Collection
+    public function getGoals(): Collection
     {
-        return $this->steps;
-    }
-
-    public function getNextStep(Step $step): ?Step
-    {
-        return $this->getSteps()->get($step->getPosition() + 1);
+        return $this->goals;
     }
 
     public function join(Account $account): Member

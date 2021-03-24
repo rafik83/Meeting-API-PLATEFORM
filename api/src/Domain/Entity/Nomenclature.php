@@ -112,4 +112,18 @@ class Nomenclature
             $this->removeTag($child->getTag());
         }
     }
+
+    public function findTag(Tag $tag): ?NomenclatureTag
+    {
+        $nomenclatureTag = $this->tags
+            ->filter(fn (NomenclatureTag $nomenclatureTag): bool => $nomenclatureTag->getTag()->getId() === $tag->getId())
+            ->first()
+        ;
+
+        if ($nomenclatureTag === false) {
+            return null;
+        }
+
+        return $nomenclatureTag;
+    }
 }

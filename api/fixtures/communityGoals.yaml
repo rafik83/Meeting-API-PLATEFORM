@@ -1,0 +1,47 @@
+Proximum\Vimeet365\Domain\Entity\Community\Goal:
+    community_goal:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_goals'
+            min: 1
+            max: 4
+
+    community_goal_buy:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_activity_fields'
+            tag: '@tag_goals_buy'
+            parent: '@community_goal'
+            min: 1
+
+    community_goal_sell:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_activity_fields'
+            tag: '@tag_goals_sell'
+            parent: '@community_goal'
+            min: 1
+
+    community_goal_find_industrial_partners:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_activity_fields'
+            tag: '@tag_goals_find_industrial_partners'
+            parent: '@community_goal'
+            min: 1
+
+    community_goal_find_financial_partners:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_activity_fields'
+            tag: '@tag_goals_find_financial_partners'
+            parent: '@community_goal'
+            min: 1
+
+    community_goal_access_targeted_content:
+        __construct:
+            community: '@community_1'
+            nomenclature: '@nomenclature_activity_fields'
+            tag: '@tag_goals_sell'
+            parent: '@community_goal'
+            min: 1

@@ -14,7 +14,7 @@ Proximum\Vimeet365\Domain\Entity\Community:
             subresource:
                 resourceClass: 'Proximum\Vimeet365\Domain\Entity\Nomenclature'
                 collection: true
-        steps:
+        goals:
             subresource:
-                resourceClass: 'Proximum\Vimeet365\Domain\Entity\Community\Step'
+                resourceClass: 'Proximum\Vimeet365\Domain\Entity\Community\Goal'
                 collection: true

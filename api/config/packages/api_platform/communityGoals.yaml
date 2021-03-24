@@ -1,0 +1,12 @@
+Proximum\Vimeet365\Domain\Entity\Community\Goal:
+    shortName: CommunityGoal
+    attributes:
+        output: 'Proximum\Vimeet365\Application\View\Goal\CommunityGoalView'
+    collectionOperations:
+        get:
+            path: "/communityGoals"
+    itemOperations:
+        get:
+            path: "/communityGoals/{id}"
+    properties:
+        id: { identifier: true }

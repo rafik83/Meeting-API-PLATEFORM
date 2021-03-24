@@ -7,44 +7,35 @@ namespace Proximum\Vimeet365\Application\Command\Member;
 use Proximum\Vimeet365\Application\ContextAwareMessageInterface;
 use Proximum\Vimeet365\Application\Dto\Member\TagDto;
 use Proximum\Vimeet365\Domain\Entity\Member;
-use Proximum\Vimeet365\Infrastructure\Validator\Constraints\Member\CommunityStepConfigurationMatch;
-use Proximum\Vimeet365\Infrastructure\Validator\Constraints\Member\CommunityStepExist;
+use Proximum\Vimeet365\Infrastructure\Validator\Constraints\MemberGoal\GoalConfigurationMatch;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Assert\Sequentially(constraints={
- *  @CommunityStepExist(),
- *  @CommunityStepConfigurationMatch()
- * })
+ * @GoalConfigurationMatch
  */
-class SetCommunityTagCommand implements ContextAwareMessageInterface
+class SetGoalsCommand implements ContextAwareMessageInterface
 {
-    public int $step = 0;
+    public int $goal;
 
     /**
      * @Assert\Valid()
      *
      * @var TagDto[]
      */
-    public array $tags = [];
+    public array $tags;
 
-    /**
-     * @Ignore
-     */
+    /** @Ignore */
     public Member $member;
 
     public function setContext(object $object): void
     {
         if (!$object instanceof Member) {
-            throw new \RuntimeException('something went wrong');
+            throw new \RuntimeException(
+                sprintf('Must be called with a %s instance %s given', Member::class, \get_class($object))
+            );
         }
 
         $this->member = $object;
-    }
-
-    public function getMember(): Member
-    {
-        return $this->member;
     }
 }

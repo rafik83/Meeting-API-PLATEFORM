@@ -3,25 +3,8 @@ Proximum\Vimeet365\Domain\Entity\Member:
         __construct:
             community: '@community_1'
             account: '@user_completed'
-        currentQualificationStep: null
 
     member_2:
         __construct:
             community: '@community_1'
             account: '@user_joined'
-
-Proximum\Vimeet365\Domain\Entity\Member\MemberTag:
-    member_1_step_1_tag_1:
-        __construct: ['@member_1', '@nomenclature_iam', '@tag_iam_supplier']
-    member_1_step_2_tag_1:
-        __construct: ['@member_1', '@nomenclature_goals', '@tag_goals_buy']
-    member_1_step_2_tag_2:
-        __construct: ['@member_1', '@nomenclature_goals', '@tag_goals_find_industrial_partners']
-    member_1_step_3_tag_1:
-        __construct: ['@member_1', '@nomenclature_activity_fields', '@tag_ground']
-    member_1_step_3_tag_2:
-        __construct: ['@member_1', '@nomenclature_activity_fields', '@tag_optics']
-    member_1_step_3_tag_3:
-        __construct: ['@member_1', '@nomenclature_activity_fields', '@tag_optoelectronics']
-    member_1_step_3_tag_4:
-        __construct: ['@member_1', '@nomenclature_activity_fields', '@tag_space_debris']

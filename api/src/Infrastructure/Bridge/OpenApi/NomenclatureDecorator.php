@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Infrastructure\Bridge\OpenApi;
 
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
+use ApiPlatform\Core\OpenApi\Model\Operation;
+use ApiPlatform\Core\OpenApi\Model\PathItem;
+use ApiPlatform\Core\OpenApi\Model\Response;
 use ApiPlatform\Core\OpenApi\OpenApi;
 
 class NomenclatureDecorator implements OpenApiFactoryInterface
@@ -20,10 +23,18 @@ class NomenclatureDecorator implements OpenApiFactoryInterface
     {
         $openApi = ($this->decorated)($context);
 
-        $responses = $openApi->getPaths()->getPath('/api/nomenclatures/{id}')->getGet()->getResponses();
+        /** @var PathItem $pathItem */
+        $pathItem = $openApi->getPaths()->getPath('/api/nomenclatures/{id}');
+        /** @var Operation $operation */
+        $operation = $pathItem->getGet();
+        /** @var Response[] $responses */
+        $responses = $operation->getResponses();
 
+        /** @var PathItem $endpoint */
         $endpoint = $openApi->getPaths()->getPath('/api/nomenclatures/job_position');
-        $operation = $endpoint->getGet()
+        /** @var Operation $operation */
+        $operation = $endpoint->getGet();
+        $operation = $operation
             ->withParameters([])
             ->withResponses($responses)
         ;

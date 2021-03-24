@@ -9,9 +9,18 @@ Proximum\Vimeet365\Domain\Entity\Member:
             security: 'is_granted("ROLE_USER")'
     itemOperations:
         get: ~
-        patch:
-            messenger: input
-            input: 'Proximum\Vimeet365\Application\Command\Member\SetCommunityTagCommand'
-            security: 'is_granted("ROLE_USER") and object.getAccount() == user.getAccount()'
+        member_get_goals:
+            method: get
+            path: /members/{id}/goals
+            controller: Proximum\Vimeet365\Infrastructure\Controller\MemberGoalController::getGoals
+            output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
+        member_post_goals:
+            method: post
+            path: /members/{id}/goals
+            controller: Proximum\Vimeet365\Infrastructure\Controller\MemberGoalController::updateGoals
+            input: Proximum\Vimeet365\Application\Command\Member\SetGoalsCommand
+            output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
     properties:
         id: { identifier: true }

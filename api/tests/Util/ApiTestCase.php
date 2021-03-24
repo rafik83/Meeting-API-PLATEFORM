@@ -9,6 +9,7 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Domain\Entity\Account;
+use Proximum\Vimeet365\Domain\Entity\Member;
 use Proximum\Vimeet365\Domain\Entity\Tag;
 use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
 use Proximum\Vimeet365\Infrastructure\Security\User;
@@ -36,6 +37,22 @@ abstract class ApiTestCase extends ApiPlatformApiTestCase
         $accountRepository = self::$container->get(AccountRepository::class);
 
         return $accountRepository->findOneByEmail($email);
+    }
+
+    protected function getMember(string $email, string $communityName): Member
+    {
+        $managerRegistry = self::$container->get(ManagerRegistry::class);
+        $memberRepository = $managerRegistry->getRepository(Member::class);
+        $queryBuilder = $memberRepository->createQueryBuilder('m');
+        $queryBuilder
+            ->join('m.account', 'account')
+            ->join('m.community', 'community')
+            ->andWhere('account.email = :email')
+            ->andWhere('community.name = :community')
+            ->setMaxResults(1)
+            ->setParameters(['email' => $email, 'community' => $communityName]);
+
+        return $queryBuilder->getQuery()->getSingleResult();
     }
 
     protected function request(string $method, string $url, ?array $body = null, array $headers = [], array $extra = [])

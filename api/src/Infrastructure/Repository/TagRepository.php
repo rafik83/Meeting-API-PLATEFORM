@@ -31,4 +31,19 @@ class TagRepository extends ServiceEntityRepository implements TagRepositoryInte
 
         return $queryBuilder->getQuery()->getSingleResult();
     }
+
+    public function findByIds(array $tagsId): array
+    {
+        if (\count($tagsId) === 0) {
+            return [];
+        }
+
+        $queryBuilder = $this->createQueryBuilder('tag');
+        $queryBuilder
+            ->andWhere($queryBuilder->expr()->in('tag.id', $tagsId))
+            ->indexBy('tag', 'tag.id')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

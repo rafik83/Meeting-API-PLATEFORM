@@ -8,19 +8,10 @@ class MemberView
 {
     public int $id;
     public \DateTimeImmutable $joinedAt;
-    public ?CommunityStepView $currentQualificationStep;
 
-    /** @var NomenclatureTagsView[] */
-    public array $tagsByNomenclature;
-
-    /**
-     * @param NomenclatureTagsView[] $tagsByNomenclature
-     */
-    public function __construct(int $id, \DateTimeImmutable $joinedAt, ?CommunityStepView $currentQualificationStep, array $tagsByNomenclature)
+    public function __construct(int $id, \DateTimeImmutable $joinedAt)
     {
         $this->id = $id;
         $this->joinedAt = $joinedAt;
-        $this->currentQualificationStep = $currentQualificationStep;
-        $this->tagsByNomenclature = $tagsByNomenclature;
     }
 }
