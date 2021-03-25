@@ -10,7 +10,7 @@
     const target = query.target;
 
     if (userId) {
-      user = findById(userId);
+      user = await findById(userId);
     }
 
     return {
