@@ -32,7 +32,7 @@
   <FormInput
     type="text"
     label={$_('registration.company_name')}
-    name="name"
+    name="companyName"
     errorMessage={errors.name}
     bind:value={company.name}
   />

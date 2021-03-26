@@ -16,5 +16,4 @@ coverage
 /static/index.css
 
 # ignore raw svg used for IconComponents
-
-/icons-draft/*
+/icons-draft

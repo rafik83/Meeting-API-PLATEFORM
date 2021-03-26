@@ -28,11 +28,11 @@
   import * as yup from 'yup';
   import { goto } from '@sapper/app';
 
-  import RegistrationPipeLineHeader from '../../../components/RegistrationPipeLineHeader.svelte';
+  import OnboardingContainer from '../../../components/OnboardingContainer.svelte';
   import IconRocket from '../../../ui-kit/icons/IconRocket/IconRocket.svelte';
   import Button from '../../../components/Button.svelte';
   import { extractErrors } from '../../../modules/validator';
-  import { toHomePage } from '../../../modules/routing';
+  import { toOnboardingStep } from '../../../modules/routing';
   import RegistrationAccount from '../../../components/RegistrationAccount.svelte';
   import AvatarUploader from '../../../components/AvatarUploader.svelte';
 
@@ -63,7 +63,7 @@
       if (userAvatar) {
         await uploadAvatar(userAvatar, user.id);
       }
-      await goto(toHomePage());
+      await goto(toOnboardingStep(2));
     } catch (error) {
       validationErrors = extractErrors(error);
     }
@@ -74,46 +74,33 @@
   <title>{$_('onboarding.title')}</title>
 </svelte:head>
 
-<div
-  class="fixed xl:block hidden top-0 left-0 bottom-0 bg-gradient-to-tl
-         from-community-300 to-gray-400 xl:w-1/3 content-center"
->
-  <div class="h-full py-5 flex flex-col items-center justify-center">
-    <IconRocket width="90%" />
-    <p class="text-gray-50 text-2xl font-bold uppercase">Step 1/5</p>
+<OnboardingContainer step="1" {user}>
+  <div slot="icon" class="w-11/12">
+    <IconRocket />
   </div>
-</div>
 
-<section class="flex h-full w-full">
-  <div
-    class="xl:fixed top-0 right-0 bottom-24 overflow-auto xl:w-2/3 w-full p-5 "
-  >
-    <RegistrationPipeLineHeader
-      title={`${$_('registration.hello')}.`}
-      subtitle={`${user.firstName} ${user.lastName}`}
-    />
-    <div class=" flex justify-between">
-      <div class="md:w-1/2  md:pr-10">
-        <RegistrationAccount
-          {jobPositions}
-          {timezones}
-          {validationErrors}
-          {countries}
-          bind:personalData
-        />
-      </div>
+  <div slot="content" class="flex justify-between">
+    <div class="md:w-1/2  md:pr-10">
+      <RegistrationAccount
+        {jobPositions}
+        {timezones}
+        {validationErrors}
+        {countries}
+        bind:personalData
+      />
+    </div>
 
-      <div class="md:w-1/2">
-        <AvatarUploader
-          bind:uploadedFile={userAvatar}
-          fileMaxSize={1 * 1024 * 1024}
-        />
-      </div>
+    <div class="md:w-1/2">
+      <AvatarUploader
+        bind:uploadedFile={userAvatar}
+        fileMaxSize={1 * 1024 * 1024}
+      />
     </div>
   </div>
-  <div class="fixed right-0 bottom-0 xl:w-2/3 w-full h-24 bg-gray-50 px-5">
+
+  <div slot="button">
     <Button on:click={handleUploadPersonalData}>
       {$_('registration.next')}
     </Button>
   </div>
-</section>
+</OnboardingContainer>

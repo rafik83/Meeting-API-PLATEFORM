@@ -30,8 +30,8 @@ Feature:
         And I press "Fuseau horaire"
         And I select "Acre Time (Eirunepe)" from "timezone"
         And I press "Suivant"
-        And I wait 3000
-        Then I should see "Vous êtes connecté"
+        And I wait 2000
+        Then I should see "Créez votre entreprise."
         
     Scenario: I can search my job position from the job position list
         Given the database is purged
