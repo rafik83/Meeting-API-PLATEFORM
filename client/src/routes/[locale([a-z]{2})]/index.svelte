@@ -47,13 +47,15 @@
 
   const handleSignIn = async (values) => {
     try {
-      $session.userId = await authenticate(values);
+      const userId = await authenticate(values);
       await createMember(communityId);
+      $session.userId = userId;
       Cookies.set('userId', $session.userId, {
         expires: 365,
       });
 
       close();
+
       await goto(toOnboardingStep(1));
     } catch (e) {
       errorMessage = $_('messages.error_has_occured');
