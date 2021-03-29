@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import config from '../config';
-
-const client = axios.create({
-  baseURL: config.API_URL,
+let client = axios.create({
+  // eslint-disable-next-line no-undef
+  baseURL: process.env.API_URL,
   withCredentials: true,
   headers: {
     Accept: 'application/json',

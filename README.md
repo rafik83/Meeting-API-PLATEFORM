@@ -63,6 +63,15 @@ nvm install --lts
 Once you've successfully followed the prerequisites steps, you're ready to setup your local environement
 At repository root level, there is a `Makefile` containing few convenient scripts that might help you.
 
+#### Create your local environement
+
+This project use [dotenv](https://www.npmjs.com/package/dotenv) to manage environement variables.
+
+All you have to do is create a `.env` file containing this value
+
+```
+API_URL=http://localhost:8000
+```
 #### Install the dependencies
 
 Run this make command

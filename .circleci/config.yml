@@ -94,12 +94,16 @@ jobs:
             -   save_cache: *save-composer-cache
 
             -   run:
+                    environment:
+                        API_URL: "http://localhost:8000/api"
                     name: build client app
                     command: cd client && npm run build
 
             -   run:
+                    environment:
+                        API_URL: "http://localhost:8000/api"
                     name: start client server
-                    command: cd client && npm run start
+                    command: cd client && node __sapper__/build
                     background: true
 
             -   run:
