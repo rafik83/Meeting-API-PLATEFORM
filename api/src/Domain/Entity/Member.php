@@ -79,6 +79,13 @@ class Member
         return $this->goals;
     }
 
+    public function hasGoal(Community\Goal $communityGoal, Tag $tag): bool
+    {
+        return $this->goals->exists(
+            fn (int $index, Goal $goal) => $goal->getTag()->getId() === $tag->getId() && $goal->getGoal()->getId() === $communityGoal->getId()
+        );
+    }
+
     public function getJoinedAt(): \DateTimeImmutable
     {
         return $this->joinedAt;

@@ -41,6 +41,16 @@ class GoalConfigurationMatchValidator extends ConstraintValidator
             return;
         }
 
+        if ($goal->getParent() !== null && $goal->getTag() !== null && !$value->member->hasGoal($goal->getParent(), $goal->getTag())) {
+            $this->context->buildViolation($constraint->parentNotConfiguredMessage)
+                    ->setCode(GoalConfigurationMatch::PARENT_NOT_CONFIGURED)
+                    ->atPath('goal')
+                    ->addViolation()
+                ;
+
+            return;
+        }
+
         $context = $this->context;
         $validator = $context->getValidator()->inContext($context);
         $validator

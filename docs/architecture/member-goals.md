@@ -18,22 +18,20 @@ Pour chacun de ses objectifs il peut l'affiner et le prioriser par rapport a ses
 [
     {
         "id": 1,
+        "community": 1,
         "nomenclature": {},
         "min": 1,
         "max": 4,
-        "parent": {}, # or null
-        "children": [],
+        "parent": null, # or int
         "tag": {}, # or null
-        "position": 0
     }
 ]
 ```
 
 - Nomenclature : l’ensemble des valeurs possibles
 - Min / Max : nombre de valeur que l’on doit sélectionner pour remplir cette objectif
-- Parent / Children : pour lier les objectifs entre eux
+- Parent : pour lier les objectifs entre eux
 - Tag : si renseigné, permet de s’avoir que l’on doit prendre ce sous-objectif si on a choisi ce tag dans l’objectif parent
-- Position : dans l’éventualité où l’on aurais plusieurs objectifs principaux a renseigner a l’inscription
 
 
 ### Liste des objectifs / sous-objectifs défini par le membre

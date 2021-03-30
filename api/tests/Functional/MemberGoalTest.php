@@ -217,4 +217,33 @@ class MemberGoalTest extends ApiTestCase
 
         self::assertCount(1, $response->toArray(false)['violations']);
     }
+
+    public function testInvalidParentNotSet(): void
+    {
+        $this->login('joined@example.com');
+        $member = $this->getMember('joined@example.com', 'Space industry');
+
+        $goal = $member->getCommunity()->getGoals()->filter(fn (Goal $goal) => $goal->getTag() !== null && $goal->getTag()->getLabel() === 'sell')->first();
+
+        $response = $this->request('POST', sprintf('/api/members/%d/goals', $member->getId()), [
+            'goal' => $goal->getId(),
+            'tags' => [['id' => $this->getTagId('Optics'), 'priority' => null]],
+        ]);
+
+        self::assertResponseStatusCodeSame(422);
+
+        self::assertJsonContains([
+            '@context' => '/api/contexts/ConstraintViolationList',
+            '@type' => 'ConstraintViolationList',
+            'violations' => [
+                [
+                    'propertyPath' => 'goal',
+                    'message' => 'Can\'t edit this goal as the parent goal is not configured',
+                    'code' => '3ee827e4-d3e8-4fa2-ad67-c2480e04d5d8',
+                ],
+            ],
+        ]);
+
+        self::assertCount(1, $response->toArray(false)['violations']);
+    }
 }
