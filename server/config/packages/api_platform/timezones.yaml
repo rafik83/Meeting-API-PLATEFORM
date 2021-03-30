@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Application\View\TimezoneView:
+Proximum\Vimeet365\Api\Application\View\TimezoneView:
     collectionOperations:
         get:
             path: "/timezones"

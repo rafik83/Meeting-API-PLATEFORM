@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Application\View\LanguageView:
+Proximum\Vimeet365\Api\Application\View\LanguageView:
     collectionOperations:
         get:
             path: "/languages"

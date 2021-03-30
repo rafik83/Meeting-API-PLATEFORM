@@ -2,12 +2,12 @@ security:
     enable_authenticator_manager: true
 
     encoders:
-        Proximum\Vimeet365\Infrastructure\Security\User:
+        Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser:
             algorithm: 'auto'
 
     providers:
         user_provider:
-            id: Proximum\Vimeet365\Infrastructure\Security\UserProvider
+            id: Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUserProvider
 
     firewalls:
         dev:
@@ -15,6 +15,7 @@ security:
             security: false
         main:
             lazy: true
+            pattern: ^/api/
             json_login:
                 check_path: /api/login
             provider: user_provider

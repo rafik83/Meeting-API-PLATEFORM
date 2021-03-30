@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Domain\Entity\Tag:
+Proximum\Vimeet365\Core\Domain\Entity\Tag:
     tag_iam_supplier:
         label: A Supplier
     tag_iam_keyaccount:
@@ -57,7 +57,7 @@ Proximum\Vimeet365\Domain\Entity\Tag:
     tag_job_network_engineer:
         label: Network Engineer
 
-Proximum\Vimeet365\Domain\Entity\Nomenclature:
+Proximum\Vimeet365\Core\Domain\Entity\Nomenclature:
     nomenclature_iam:
         __construct:
             reference: I am

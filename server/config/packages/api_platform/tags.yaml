@@ -1,6 +1,6 @@
-Proximum\Vimeet365\Domain\Entity\Tag:
+Proximum\Vimeet365\Core\Domain\Entity\Tag:
     attributes:
-        output: Proximum\Vimeet365\Application\View\TagView
+        output: Proximum\Vimeet365\Api\Application\View\TagView
     collectionOperations: []
     itemOperations:
         get: ~

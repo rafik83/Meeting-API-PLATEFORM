@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Application\View\CountryView:
+Proximum\Vimeet365\Api\Application\View\CountryView:
     collectionOperations:
         get:
             path: "/countries"

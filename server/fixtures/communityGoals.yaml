@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Domain\Entity\Community\Goal:
+Proximum\Vimeet365\Core\Domain\Entity\Community\Goal:
     community_goal:
         __construct:
             community: '@community_1'
