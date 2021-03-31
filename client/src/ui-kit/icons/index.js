@@ -10,3 +10,5 @@ export { IconUser } from './IconUser';
 export { IconUser1 } from './IconUser1';
 export { IconVideo } from './IconVideo';
 export { IconLaunching } from './IconLaunching';
+export { IconArrowRight } from './IconArrowRight';
+export { IconArrowLeft } from './IconArrowLeft';

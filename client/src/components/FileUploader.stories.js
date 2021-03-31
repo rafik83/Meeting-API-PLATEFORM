@@ -1,5 +1,5 @@
 import FileUploader from './FileUploader';
-import PreviewWrapper from './PreviewWrapper.svelte';
+import PreviewDecorator from './PreviewDecorator.svelte';
 
 export default {
   title: 'Vimeet365/FileUploader',
@@ -9,7 +9,7 @@ export default {
       const story = storyFn();
 
       return {
-        Component: PreviewWrapper,
+        Component: PreviewDecorator,
         props: {
           child: story.Component,
           props: story.props,

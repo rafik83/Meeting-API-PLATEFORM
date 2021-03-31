@@ -27,6 +27,7 @@
     "polka": "next",
     "sirv": "^1.0.0",
     "svelte-i18n": "^3.3.0",
+    "tiny-slider": "^2.9.3",
     "yup": "^0.32.8"
   },
   "devDependencies": {

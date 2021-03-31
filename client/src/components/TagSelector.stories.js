@@ -5,7 +5,7 @@ import {
 } from '../__fixtures__/FakeTags';
 import { buildFakeUser } from '../__fixtures__/FakeUser';
 import TagSelector from './TagSelector.svelte';
-import PreviewWrapper from './PreviewWrapper.svelte';
+import PreviewDecorator from './PreviewDecorator.svelte';
 
 const { min, max, nomenclature, title } = buildFakeQualificationStep({
   minTagCount: 1,
@@ -32,7 +32,7 @@ export default {
       const story = storyFn();
 
       return {
-        Component: PreviewWrapper,
+        Component: PreviewDecorator,
         props: {
           child: story.Component,
           props: story.props,

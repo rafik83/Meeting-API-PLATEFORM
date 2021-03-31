@@ -1,6 +1,6 @@
 <style>
   .preview {
-    width: 500px;
+    width: 90vw;
     height: 500px;
   }
 </style>

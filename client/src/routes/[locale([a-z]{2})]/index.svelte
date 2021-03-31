@@ -25,14 +25,14 @@
 
 <script>
   import { goto, stores } from '@sapper/app';
-  import { getContext } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
   import Cookies from 'js-cookie';
-
   import LoginForm from '../../components/LoginForm.svelte';
   import RegistrationForm from '../../components/RegistrationForm.svelte';
-
   import { toOnboardingStep, toRegistrationStep } from '../../modules/routing';
+  import registrationSteps from '../../constants';
+  import Slide from '../../components/Slide.svelte';
 
   const { open, close } = getContext('simple-modal');
 
@@ -43,7 +43,60 @@
   export let errorMessage;
   export let communityId;
 
-  import registrationSteps from '../../constants';
+  let Slider;
+  onMount(async () => {
+    // See doc here: https://sapper.svelte.dev/docs/#Third-party_libraries_that_depend_on_window
+    const module = await import('../../components/Slider.svelte');
+    Slider = module.default;
+  });
+
+  const fakeCardDataForSlider = [
+    {
+      id: 1,
+      name: 'hello',
+      date: '20/02/2021',
+    },
+    {
+      id: 2,
+      name: 'world',
+      date: '20/02/2021',
+    },
+    {
+      id: 3,
+      name: '!!!',
+      date: '20/02/2021',
+    },
+    {
+      id: 1,
+      name: 'hello',
+      date: '20/02/2021',
+    },
+    {
+      id: 2,
+      name: 'world',
+      date: '20/02/2021',
+    },
+    {
+      id: 3,
+      name: '!!!',
+      date: '20/02/2021',
+    },
+    {
+      id: 1,
+      name: 'hello',
+      date: '20/02/2021',
+    },
+    {
+      id: 2,
+      name: 'world',
+      date: '20/02/2021',
+    },
+    {
+      id: 3,
+      name: '!!!',
+      date: '20/02/2021',
+    },
+  ];
 
   const handleSignIn = async (values) => {
     try {
@@ -123,3 +176,11 @@
     Click here to join the community
   </button>
 {/if}
+
+<div class="w-full overflow-hidden">
+  <svelte:component this={Slider} slidesToDisplay=3>
+    {#each fakeCardDataForSlider as data}
+      <Slide {...data} />
+    {/each}
+  </svelte:component>
+</div>
