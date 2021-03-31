@@ -25,7 +25,8 @@ class MemberOutputDataTransformer implements DataTransformerInterface
 
         return new MemberView(
             (int) $data->getId(),
-            $data->getJoinedAt()
+            $data->getJoinedAt(),
+            $data->getCommunity()->getId()
         );
     }
 

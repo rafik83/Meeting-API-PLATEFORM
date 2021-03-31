@@ -16,6 +16,9 @@ class AccountView
     public ?string $avatar;
     public ?Company $company = null;
 
+    /** @var MemberView[] */
+    public array $members = [];
+
     public function __construct(
         int $id,
         string $email,
@@ -23,7 +26,8 @@ class AccountView
         string $lastName,
         ?\DateTimeImmutable $acceptedTermsAndConditionAt,
         ?string $avatar,
-        ?Company $company
+        ?Company $company,
+        array $members = []
     ) {
         $this->id = $id;
         $this->email = $email;
@@ -32,5 +36,6 @@ class AccountView
         $this->acceptedTermsAndConditionAt = $acceptedTermsAndConditionAt;
         $this->avatar = $avatar;
         $this->company = $company;
+        $this->members = $members;
     }
 }

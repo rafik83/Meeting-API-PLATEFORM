@@ -6,7 +6,9 @@ namespace Proximum\Vimeet365\Infrastructure\DataTransformer;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use Proximum\Vimeet365\Application\View\AccountView;
+use Proximum\Vimeet365\Application\View\MemberView;
 use Proximum\Vimeet365\Domain\Entity\Account;
+use Proximum\Vimeet365\Domain\Entity\Member;
 
 class AccountOutputDataTransformer implements DataTransformerInterface
 {
@@ -30,7 +32,8 @@ class AccountOutputDataTransformer implements DataTransformerInterface
             $data->getLastName(),
             $data->getAcceptedTermsAndConditionAt(),
             $data->getAvatar(),
-            $data->getCompany()
+            $data->getCompany(),
+            $data->getMembers()->map(fn (Member $member) => new MemberView((int) $member->getId(), $member->getJoinedAt(), $member->getCommunity()->getId()))->getValues()
         );
     }
 
