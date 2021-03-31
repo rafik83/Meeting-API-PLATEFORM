@@ -90,5 +90,10 @@
   "direction": "ltr",
   "comunities": {
     "title": "Titre de la communauté"
+  },
+  "cards": {
+    "match": "Match à {percent}%",
+    "view_profile": "Voir le profil",
+    "meet": "Rencontrer"
   }
 }

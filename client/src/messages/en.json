@@ -91,5 +91,10 @@
   "direction": "ltr",
   "comunities": {
     "title": "Title of the community"
+  },
+  "cards": {
+    "match": "{percent}% match",
+    "view_profile": "View profile",
+    "meet": "Meet"
   }
 }
