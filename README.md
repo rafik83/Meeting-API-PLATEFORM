@@ -97,7 +97,7 @@ make watch-css
 
 Once you started the application you can log in with a previously stored user.
 
-Here are his credentials 
+Here are his credentials
 
 User name : john@doe.com
 Pasword : password
@@ -128,7 +128,7 @@ Note that the server's port may change if not available on server start.
 To do so please read the documentation [here](https://symfony.com/doc/current/setup/symfony_server.html#defining-the-local-domain)
 
 
-## UI Kit and Design System 
+## UI Kit and Design System
 
 This project use a custom design system initiated with :heart: by Vincent Guerret. All mockups are available on Adobe XD.
 
@@ -164,9 +164,9 @@ You can directly import an icon like a regular svelte component
 
 ### I need to change Icon color, width, height or other property
 
-Each Icon Component suppport by default customisable properties. 
+Each Icon Component suppport by default customisable properties.
 
-Example of usage : 
+Example of usage :
 
 ```html
 <script>
@@ -187,7 +187,7 @@ Example of usage :
 
 In order to add a new icon you will need to follow few steps :
 
-**A. Add your svg file insie client/icons-draft folder`**
+**A. Add your svg file inside client/icons-draft folder`**
 
 The Icon Component generation script expect to find svg files into this particular folder. Feel free to put your svg file inside.
 
@@ -201,7 +201,7 @@ Before converting your svg file into a svelte component you may need to clean it
 
    Exemple : IconEye, IconBusiness
 
-   
+
 2. Remove global styles
 
    Sometimes your svg file can use css classes. Those css classes are considered as global style by the navigator and can produce nasty side effetcs
@@ -225,12 +225,12 @@ Before converting your svg file into a svelte component you may need to clean it
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
    <path fill="#fill" opacity="0"> </path>
    </svg>
-   
+
    ```
 
 3. Remove hard coded `width` and `height`
 
-   We want to be able to set the icon width and height dynamically so if your SVG has `width` and `height` hard coded properties, please remove them. 
+   We want to be able to set the icon width and height dynamically so if your SVG has `width` and `height` hard coded properties, please remove them.
 
 4. (optional) Remove hard coded fill and stroke
 
@@ -242,7 +242,7 @@ Before converting your svg file into a svelte component you may need to clean it
 
 **C. Add the svg file inside `client/svgIcons` folder.**
 
-**D . Run `make generate icons` and check the `client/ui-kit-icons` folder to see your brand new genrated Icon component**
+**D . Run `node scripts/generate-components-from-svg.js` and check the `client/ui-kit-icons` folder to see your brand new genrated Icon component**
 
 **E. Start storybook to see your icons under `Ui` section and check if it looks right.**
 
