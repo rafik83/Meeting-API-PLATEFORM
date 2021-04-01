@@ -1,0 +1,12 @@
+dependencies:
+- name: mysql
+  version: 1.4.0
+  repository: https://storage.googleapis.com/synalabs-kubernetes-charts/
+  condition: mysql.enabled
+- name: redis
+  version: 9.4.3
+  repository: https://storage.googleapis.com/synalabs-kubernetes-charts/
+  condition: redis.enabled
+- name: postgresql
+  repository: https://storage.googleapis.com/synalabs-kubernetes-charts/
+  condition: postgresql.enabled

@@ -1,0 +1,383 @@
+## Global parameters
+
+## Vimeet environment
+## Default to 'dev', possibles other values: 'production'
+environment: prod
+
+## Extra volumes to add to the deployment
+##
+extraVolumes:
+  # - name: var-cache
+  #   emptyDir: {}
+
+## Extra volume mounts to add to the container
+##
+extraVolumeMounts:
+  # - mountPath:  /path-to/var/cache
+  #   name: var-cache
+
+## API - API Symfony parameters
+parameters:
+  parameters_yml: |
+
+image:
+  registry: ""
+  repository: eu.gcr.io/proximum-vimeet-staging/vimeet365_api
+  tag: latest
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: Always
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistryKeySecretName
+
+##
+## External database configuration
+##
+externalDatabase:
+  ## Database host
+  host: 10.91.1.5
+
+  ## Database port
+  port: 5432
+
+  ## Database user
+  user: vimeet
+
+  ## Database password
+  password: ""
+
+  ## Database name
+  database: proximum_vimeet365
+
+  ## Slave configuration
+  # slave:
+  #     hostList:
+  #     port: 3306
+  #     user: externaldb
+  #     password:
+  #     database: externaldb
+
+vimeetDatabase:
+  ## Database host
+  host: 10.91.0.2
+
+  ## Database port
+  port: 3306
+
+  ## Database user
+  user: root
+
+  ## Database password
+  password: ""
+
+  ## Database name
+  database: vimeet_preprod
+
+##
+## PostgreSql chart configuration
+##
+postgresql:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 11.6.0-debian-9-r44
+
+  postgresqlDatabase: vimeet365
+  postgresqlUsername: postgres
+  postgresqlPassword: postgres
+
+  ## Pod Service Account
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+  serviceAccount:
+    enabled: false
+    ## Name of an already existing service account. Setting this value disables the automatic service account creation.
+    # name:
+
+##
+## Mysql chart configuration
+##
+mysql:
+  ## Whether to deploy a mysql server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
+  enabled: false
+  imageTag: "5.6.33"
+
+  mysqlDatabase: proximum_vimeet
+  mysqlUser: vimeet
+  mysqlPassword: vimeet
+
+  ## Mysql admin password
+  ## Default: random 10 character string
+  # mysqlRootPassword:
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  persistence:
+    enabled: true
+    ## mysql data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+    accessMode: ReadWriteOnce
+    size: 8Gi
+
+  extraVolumes: |
+    - name: initdb
+      persistentVolumeClaim:
+        claimName: vimeet-mysql-initdb
+
+  extraVolumeMounts: |
+    - name: initdb
+      mountPath: /docker-entrypoint-initdb.d
+      readOnly: true
+
+##
+## External redis configuration
+##
+externalRedis:
+  ## Redis host
+  host:
+
+  ## Redis port
+  port: 6379
+
+##
+## Redis chart configuration
+##
+redis:
+  enabled: true
+  cluster:
+    enabled: false
+  usePassword: false
+  master:
+    disableCommands: |
+
+## New Relic configuration
+##
+newrelic:
+  enabled: false
+  #appName: "My Application"
+  #licenseKey: "XXXXXXXXXXXXXXXXXXXXXXXXX"
+
+## Proxy cache configuration
+##
+proxyCache:
+  enabled: false
+  ## host:
+
+## Kubernetes configuration
+##
+service:
+  type: NodePort
+  # HTTP Port
+  port: 80
+  ## nodePorts:
+  ##   http: <to set explicitly, choose port between 30000-32767>
+  ##   https: <to set explicitly, choose port between 30000-32767>
+  nodePorts:
+    http: ""
+  ## Enable client source IP preservation
+  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Local
+  ## Control where client requests go, to the same pod or round-robin
+  ## Values: ClientIP or None
+  ## ref: https://kubernetes.io/docs/user-guide/services/
+  sessionAffinity: "None"
+  ## Service annotations done as key:value pairs
+  annotations: {}
+
+## Configure the ingress resource that allows you to access the
+## Vimeet installation. Set up the URL
+## ref: http://kubernetes.io/docs/user-guide/ingress/
+##
+ingress:
+  ## Set to true to enable ingress record generation
+  enabled: true
+
+  ## Set to true if any of the hosts has TLS enabled
+  tls: false
+
+  ## Set this to true in order to add the corresponding annotations for cert-manager
+  certManager: false
+
+  ## Ingress annotations done as key:value pairs
+  ## For a full list of possible ingress annotations, please see
+  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+  ##
+  ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
+  ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
+    nginx.ingress.kubernetes.io/proxy-body-size: "256m"
+    nginx.ingress.kubernetes.io/app-root: /api
+
+  # Ingress basic-auth login and hashed passwords (using htpasswd)
+  basicAuth:
+    enabled: false
+    users:
+      proximum: $apr1$4ylzrpCV$Ap/JGx5tpCVh1njArKj9Q1
+      synalabs: $apr1$gKk5P785$AKk5HpFnI.GRmfr0GNnBV0
+  
+  # List of IP to whitelist
+  whitelistIp:
+    enabled: false
+    # ip: "212.83.154.200, 94.23.141.214/32"
+
+  ## The list of hostnames to be covered with this ingress record.
+  ## Most likely this will be just one host, but in the event more hosts are needed, this is an array
+  hosts:
+  - name: api.staging.vimeet365.com
+    path: /api
+
+    # Set this to true in order to enable TLS on the ingress record
+    tls: false
+
+    ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+    tlsSecret: api.vimeet365.local-tls
+
+    # Send trafic to GCE varnish via external service
+    varnish:
+      enabled: false
+      port: 54270
+
+  secrets:
+  ## If you're providing your own certificates, please use this to add the certificates as secrets
+  ## key and certificate should start with -----BEGIN CERTIFICATE----- or
+  ## -----BEGIN RSA PRIVATE KEY-----
+  ##
+  ## name should line up with a tlsSecret set further up
+  ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
+  ##
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  # - name: vimeet365.local-tls
+  #   key:
+  #   certificate:
+
+## Apache Replica scaling
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetAverageUtilization: 60
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  enabled: false
+  nfs:
+    enabled: false
+    server: fs-master.vimeet365.internal
+    path: /shared
+  ## Vimeet Data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  #existingClaim:
+
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 300m
+
+## Configure extra options for liveness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
+livenessProbe:
+  enabled: false
+  path: /healthz?mode=liveness
+  port: http
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  enabled: false
+  path: /healthz?mode=readiness
+  port: http
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 6
+  successThreshold: 1
+
+## Pod annotations
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+podAnnotations: {}
+
+## Affinity for pod assignment
+## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}
+
+# Add your own init container or uncomment and modify the given example.
+initContainers:
+  {}
+#  cache-clear:
+#    image: eu.gcr.io/proximum-vimeet-staging/vimeet
+#    imagePullPolicy: Always
+#    command:
+#      - sh
+#      - -c
+#      - cd /var/www/proximum-vimeet365.project.local/htdocs/current && bin/console cache:clear --env=prod && exit 0
+#    securityContext:
+#      runAsUser: 33
+#    volumeMounts:
+#      - mountPath: /share/shared
+#        name: vimeet-data
+#      - mountPath: /var/www/proximum-vimeet365.project.local/htdocs/current/var/cache
+#        name: vimeet-var-cache
+#  cache-warmup:
+#    image: eu.gcr.io/proximum-vimeet-staging/vimeet
+#    imagePullPolicy: Always
+#    command:
+#      - sh
+#      - -c
+#      - cd /var/www/proximum-vimeet365.project.local/htdocs/current && bin/console cache:warmup --env=prod
+#    securityContext:
+#      runAsUser: 33
+#    volumeMounts:
+#      - mountPath: /share/shared
+#        name: vimeet-data
+#      - mountPath: /var/www/proximum-vimeet365.project.local/htdocs/current/var/cache
+#        name: vimeet-var-cache
+
+## Add entries to a Pod's /etc/hosts file 
+## Provides Pod-level override of hostname
+##
+hostAliases:
+  - ip: "127.0.0.1"
+    hostnames:
+    - "status.localhost"
+  - ip: "10.11.0.95"
+    hostnames:
+      - "optaplanner"

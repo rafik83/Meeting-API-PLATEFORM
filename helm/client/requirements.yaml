@@ -1,0 +1,5 @@
+dependencies:
+- name: redis
+  version: 9.4.3
+  repository: https://storage.googleapis.com/synalabs-kubernetes-charts/
+  condition: redis.enabled

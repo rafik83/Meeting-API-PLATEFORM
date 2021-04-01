@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "vimeet365.fullname" . }}
+  labels:
+    app: "{{ template "vimeet365.name" . }}"
+    tier: client
+    chart: "{{ template "vimeet365.chart" . }}"
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  replicas: {{ .Values.hpa.minReplicas }}
+  selector:
+    matchLabels:
+      app: {{ template "vimeet365.name" . }}
+      tier: client
+      release: "{{ .Release.Name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ template "vimeet365.name" . }}"
+        tier: client
+        chart: "{{ template "vimeet365.chart" . }}"
+        release: {{ .Release.Name | quote }}
+{{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+{{- end }}
+    spec:
+{{- include "vimeet365.imagePullSecrets" . | indent 6 }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 6 }}
+{{- if .Values.initContainers }}
+      initContainers:
+{{- range $key, $value := .Values.initContainers }}
+        - name: {{ $key }}
+{{ toYaml $value | indent 10 }}
+{{- end }}
+{{- end }}
+      containers:
+      - name: {{ template "vimeet365.fullname" . }}
+        image: {{ template "vimeet365.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        envFrom:
+          - configMapRef:
+              name: {{ template "vimeet365.fullname" . }}
+          - secretRef:
+              name: {{ template "vimeet365.fullname" . }}
+        ports:
+        - name: http
+          containerPort: 3000
+        {{- if .Values.livenessProbe.enabled }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.livenessProbe.path }}
+            port: {{ .Values.livenessProbe.port }}
+            httpHeaders:
+            - name: Host
+              value: {{ include "vimeet365.host" . | quote }}
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+        {{- end }}
+        {{- if .Values.readinessProbe.enabled }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.readinessProbe.path }}
+            port: {{ .Values.readinessProbe.port }}
+            httpHeaders:
+            - name: Host
+              value: {{ include "vimeet365.host" . | quote }}
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+        {{- end }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        {{- if .Values.extraVolumeMounts }}
+{{ toYaml .Values.extraVolumeMounts | indent 8 }}
+        {{- end }}
+        - mountPath: /share/shared
+          name: vimeet-data
+      volumes:
+      {{- if .Values.extraVolumes }}
+{{ toYaml .Values.extraVolumes | indent 6 }}
+      {{- end }}
+      - name: vimeet-data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "vimeet365.fullname" . }}-data{{- end }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+      {{- end }}

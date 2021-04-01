@@ -27,3 +27,6 @@ e2e_tmp
 
 # Ignore specific docker-compose files
 docker-compose.*.yaml
+
+# Ignore Helm value files
+values-*.yaml
