@@ -1,0 +1,48 @@
+timeout: 1800s
+
+options:
+  machineType: 'N1_HIGHCPU_8'
+
+steps:
+
+  # npmInstall
+  - name: 'gcr.io/cloud-builders/npm:node-14.10.0'
+    id: npmInstall
+    volumes:
+    - name: 'node-modules'
+      path: '/workspace/client/node_modules'
+    args: ['install']
+    dir: 'client/'
+    waitFor: ['-']
+
+  # Build client image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build client image'
+    volumes:
+    - name: 'node-modules'
+      path: '/workspace/client/node_modules'
+    args:
+      - 'build'
+      - '--file=Dockerfile'
+      - '--tag=eu.gcr.io/${_PROJECT_ID}/${_FRONT_REPO_NAME}:$COMMIT_SHA'
+      - '.'
+    dir: 'client/'
+
+  # Create custom image tag and write to file /workspace/_TAG
+  - name: 'ubuntu'
+    id: 'Prepare tag name'
+    args: ['bash', '-c', "echo `echo $TAG_NAME$BRANCH_NAME | sed 's,/,-,g' | awk '{print tolower($0)}'`-$(date -u +%Y%m%dT%H%M)-$SHORT_SHA > _TAG; echo $(cat _TAG)"]
+
+  # Tag client image with custom tag
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Tag client image'
+    entrypoint: '/bin/bash'
+    args: ['-c', "docker tag eu.gcr.io/${_PROJECT_ID}/${_FRONT_REPO_NAME}:$COMMIT_SHA eu.gcr.io/${_PROJECT_ID}/${_FRONT_REPO_NAME}:$(cat _TAG)"]
+
+substitutions:
+  _PROJECT_ID: "proximum-vimeet-staging"
+  _FRONT_REPO_NAME: "vimeet365_client"
+
+images: [
+  'eu.gcr.io/${_PROJECT_ID}/${_FRONT_REPO_NAME}'
+]
