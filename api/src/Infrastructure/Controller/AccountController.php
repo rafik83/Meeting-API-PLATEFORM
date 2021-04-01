@@ -12,16 +12,26 @@ use Proximum\Vimeet365\Application\Command\Account\Company\UpdateCommand;
 use Proximum\Vimeet365\Application\Command\Account\UpdateProfileCommand;
 use Proximum\Vimeet365\Application\Command\Account\UploadAvatarCommand;
 use Proximum\Vimeet365\Domain\Entity\Account;
+use Proximum\Vimeet365\Infrastructure\Security\User;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
-class AccountController
+class AccountController extends AbstractController
 {
     private CommandBusInterface $commandBus;
 
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
+    }
+
+    public function getMe(): Account
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $user->getAccount();
     }
 
     public function createCompany(CreateCommand $data): Account

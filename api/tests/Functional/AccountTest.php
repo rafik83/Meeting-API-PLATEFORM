@@ -174,4 +174,20 @@ class AccountTest extends ApiTestCase
 
         self::assertCount(5, $response->toArray(false)['violations']);
     }
+
+    public function testCurrent(): void
+    {
+        $this->login('user@example.com');
+
+        $this->request('GET', '/api/accounts/me');
+
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testCurrentNotAuthenticated(): void
+    {
+        $this->request('GET', '/api/accounts/me');
+
+        self::assertResponseStatusCodeSame(401);
+    }
 }

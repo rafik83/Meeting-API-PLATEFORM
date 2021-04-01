@@ -80,6 +80,10 @@ services:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
+    Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\CurrentAccountDecorator:
+        decorates: 'api_platform.openapi.factory'
+        autoconfigure: false
+
     redis_session:
         class: \Predis\Client
         arguments:

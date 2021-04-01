@@ -8,7 +8,17 @@ Proximum\Vimeet365\Domain\Entity\Account:
             input: 'Proximum\Vimeet365\Application\Command\Account\RegistrationCommand'
             messenger: 'input'
     itemOperations:
-        get: ~
+        get:
+            requirements:
+                id: '\d+'
+        get_me:
+            method: get
+            path: /accounts/me
+            controller: Proximum\Vimeet365\Infrastructure\Controller\AccountController::getMe
+            read: false
+            security: 'is_granted("ROLE_USER")'
+            openapi_context:
+                summary: Retrieve the current account
         account_patch_profile:
             method: patch
             path: /accounts/{id}/profile
