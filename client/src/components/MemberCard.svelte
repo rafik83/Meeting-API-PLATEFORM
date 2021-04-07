@@ -11,10 +11,6 @@
   let show = false;
   let status = false;
 
-  function toggleShow() {
-    show = !show;
-  }
-
   export let account;
   export let url;
   export let isOnline;
@@ -34,9 +30,9 @@
 </script>
 
 <div
-  on:mouseenter={toggleShow}
-  on:mouseleave={toggleShow}
-  class="w-96 shadow-full"
+  on:mouseenter={() => (show = true)}
+  on:mouseleave={() => (show = false)}
+  class="w-96 bg-gray-50 shadow-full"
 >
   <div class="flex px-4 pt-8 pb-4">
     <div>

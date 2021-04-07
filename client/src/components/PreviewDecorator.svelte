@@ -2,6 +2,7 @@
   .preview {
     width: 90vw;
     height: 500px;
+    overflow-x: hidden;
   }
 </style>
 
