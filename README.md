@@ -70,7 +70,7 @@ This project use [dotenv](https://www.npmjs.com/package/dotenv) to manage enviro
 All you have to do is create a `.env` file containing this value
 
 ```
-API_URL=http://localhost:8000
+API_URL=http://localhost:8365/api
 ```
 #### Install the dependencies
 
@@ -119,7 +119,7 @@ Pasword : password
 | Port number          | What's running on ?                     |
 | -------------------- | --------------------------------------- |
 | `localhost:3000`     | The port where is running sapper server |
-| `localhost:8000/api` | This is the api main route              |
+| `localhost:8365/api` | This is the api main route              |
 
 Note that the server's port may change if not available on server start.
 
