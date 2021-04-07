@@ -18,12 +18,24 @@ export const authenticate = async (
   if (!headers || !headers.location) {
     throw new Error('No Location header found');
   }
-
   const userId = getUserIdFromLocation(headers.location);
   if (!userId) {
     throw new Error('No id found in the header');
   }
   return userId;
+};
+
+export const getUserMemberIdInCommunity = (
+  user: User,
+  communityId: number
+): number | null => {
+  const member = user.members.find(
+    (member) => member.community === communityId
+  );
+  if (!member) {
+    return null;
+  }
+  return member.id;
 };
 
 export const findById = async (userId: number): Promise<User> => {
@@ -33,7 +45,6 @@ export const findById = async (userId: number): Promise<User> => {
 export const register = async (user: User): Promise<User> => {
   return (await post<User, User>('/accounts', user)).data;
 };
-
 export const uploadAvatar = async (accountAvatar: File, userId: number) => {
   const formData = new FormData();
   formData.append('file', accountAvatar);

@@ -18,7 +18,7 @@ export const buildFakeNomenclatureTag = (
   };
 };
 
-export const buildFakeJobPositionNomenclature = ({
+export const buildFakeNomenclature = ({
   id,
   reference,
   tags = [],

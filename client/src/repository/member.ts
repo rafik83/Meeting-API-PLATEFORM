@@ -6,11 +6,11 @@ type CreateMemberPayload = {
 };
 
 export const createMember = async (communityId: number): Promise<Member> => {
-  const reponse = await post<CreateMemberPayload, Member>('/members', {
-    community: communityId,
-  });
-
-  return reponse.data;
+  return (
+    await post<CreateMemberPayload, Member>('/members', {
+      community: communityId,
+    })
+  ).data;
 };
 
 type UpdateMemberPayload = {
@@ -36,4 +36,19 @@ export const updateMember = async (
   );
 
   return result.data;
+};
+
+export type SaveCommunityGoalPayload = {
+  goal: number;
+  tags: Array<Tag>;
+};
+
+export const saveCommunityGoal = async (
+  memberId: number,
+  data: SaveCommunityGoalPayload
+): Promise<void> => {
+  await post<SaveCommunityGoalPayload, void>(
+    `/members/${memberId}/goals`,
+    data
+  );
 };

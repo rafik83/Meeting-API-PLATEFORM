@@ -15,7 +15,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   dragAndDropName: 'Avatar Upload',
-  name: 'input_file',
   accept: ['image/jpeg', 'image/png'],
   fileMaxSize: 1 * 1024 * 1024,
   user: buildFakeUser({}),

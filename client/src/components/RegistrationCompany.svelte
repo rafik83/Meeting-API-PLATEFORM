@@ -6,7 +6,7 @@
   import FileUploader from './FileUploader.svelte';
   import CompanyForm from './CompanyForm.svelte';
   import Button from './Button.svelte';
-  import RegistrationPipeLineHeader from './RegistrationPipeLineHeader.svelte';
+  import OnboardingHeader from './OnboardingHeader.svelte';
 
   export let countryList;
   export let onCreateCompany;
@@ -15,7 +15,6 @@
   let accept = ['image/jpg', 'image/jpeg', 'image/png'];
   let maxSize = 1 * 1024 * 1024; // 1Mb
   let maxDescriptionLength = 300;
-  let dragAndDropName = 'Company logo';
   let uploadedFile;
 
   let companyFormValues;
@@ -56,7 +55,7 @@
 </script>
 
 <div class="w-full px-8 py-2 mx-auto my-5 flex-col items-center">
-  <RegistrationPipeLineHeader
+  <OnboardingHeader
     title={$_('registration.hello') + '.'}
     subtitle={user.firstName + ' ' + user.lastName}
   />
@@ -66,12 +65,7 @@
   </p>
 
   <div class="h-40 flex text-center items-center justify-center flex-col">
-    <FileUploader
-      on:fileUploaded={handleUploadFile}
-      {accept}
-      {maxSize}
-      name={dragAndDropName}
-    />
+    <FileUploader on:fileUploaded={handleUploadFile} {accept} {maxSize} />
   </div>
   <CompanyForm
     {errors}

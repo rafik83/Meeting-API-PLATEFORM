@@ -1,24 +1,30 @@
-import { buildFakeQualificationStep } from '../__fixtures__/FakeQualificationSteps';
-import {
-  buildFakeNomenclatureTag,
-  buildFakeTag,
-} from '../__fixtures__/FakeTags';
-import { buildFakeUser } from '../__fixtures__/FakeUser';
+import { buildFakeTag } from '../__fixtures__/FakeTags';
 import TagSelector from './TagSelector.svelte';
 import PreviewDecorator from './PreviewDecorator.svelte';
 
-const { min, max, nomenclature, title } = buildFakeQualificationStep({
-  minTagCount: 1,
-  maxTagCount: 1,
-  title: 'A very nice title for this step',
+const fakeTag1 = buildFakeTag({ name: 'un tag', id: 1, priority: null });
+const fakeTag2 = buildFakeTag({
+  name: 'un tag plus long',
+  id: 2,
+  priority: null,
+});
+const fakeTag3 = buildFakeTag({
+  name: 'un autre tag avec un texte plus long',
+  id: 3,
+  priority: null,
+});
+const fakeTag4 = buildFakeTag({
+  name:
+    'un autre tag avec un texte plus long car il faut bien tester les edge cases',
+  id: 4,
+  priority: null,
 });
 
 const defaultProps = {
-  min,
-  max,
-  nomenclatureTags: nomenclature.tags,
-  title,
-  user: buildFakeUser({}),
+  min: null,
+  max: null,
+  title: 'a very nice title',
+  tags: [fakeTag1, fakeTag2, fakeTag3, fakeTag4],
 };
 
 export default {
@@ -49,51 +55,25 @@ const Template = ({ ...args }) => ({
 
 export const base = Template.bind({});
 
-const fakeTag1 = buildFakeTag({ name: 'tag1', id: 1, priority: null });
-const fakeTag2 = buildFakeTag({ name: 'tag2', id: 2, priority: null });
-const fakeTag3 = buildFakeTag({ name: 'tag3', id: 3, priority: null });
-const fakeTag4 = buildFakeTag({ name: 'tag4', id: 4, priority: null });
+export const withoutTitle = Template.bind({});
 
-const qualificationStep2 = buildFakeQualificationStep({
-  minTagCount: 1,
-  maxTagCount: 33,
-  title: 'A very nice title for this step',
-
-  nomenclatureTags: [
-    buildFakeNomenclatureTag(fakeTag1),
-    buildFakeNomenclatureTag(fakeTag2),
-    buildFakeNomenclatureTag(fakeTag3),
-    buildFakeNomenclatureTag(fakeTag4),
-  ],
-});
-
-export const withAMinimumOfTagRequired = Template.bind({});
-
-withAMinimumOfTagRequired.args = {
+withoutTitle.args = {
   ...base.args,
-  min: qualificationStep2.min,
-  max: qualificationStep2.max,
-  nomenclatureTags: qualificationStep2.nomenclature.tags,
-};
-
-export const withoutMinimum = Template.bind({});
-
-withoutMinimum.args = {
-  ...withAMinimumOfTagRequired.args,
   min: 1,
-  max: null,
-  title: '',
-  nomenclatureTags: qualificationStep2.nomenclature.tags,
-};
-
-export const withTitle = Template.bind({});
-
-withTitle.args = {
-  ...withAMinimumOfTagRequired.args,
-  min: 1,
-  title: 'A nice title',
+  title: null,
   description: 'A nice description',
-  nomenclatureTags: qualificationStep2.nomenclature.tags,
+  tags: [fakeTag4, fakeTag1, fakeTag2, fakeTag3],
+};
+
+export const withAMaximumOfTagExpected = Template.bind({});
+
+withAMaximumOfTagExpected.args = {
+  ...base.args,
+  min: 1,
+  max: 2,
+  title: null,
+  description: 'A nice description',
+  tags: [fakeTag4, fakeTag1, fakeTag2, fakeTag3],
 };
 
 export const Errored = Template.bind({});

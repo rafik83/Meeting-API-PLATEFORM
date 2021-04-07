@@ -52,9 +52,12 @@
   const handleSignIn = async (values) => {
     try {
       const userId = await authenticate(values);
+
       await createMember(communityId);
+
       $session.userId = userId;
-      Cookies.set('userId', $session.userId, {
+      $session.isAuthenticated = true;
+      Cookies.set('userId', userId, {
         expires: 365,
       });
 

@@ -1,11 +1,9 @@
-import type { NomenclatureTag, Tag } from '../domain';
+import type { Nomenclature, NomenclatureTag, Tag } from '../domain';
 
-export const getTagsMaxPriority = (
-  nomenclatureTags: Array<NomenclatureTag>
-): number => {
+export const getTagsMaxPriority = (tags: Array<Tag>): number => {
   const result = Math.max.apply(
     Math,
-    nomenclatureTags.map((item) => item.tag.priority)
+    tags.map((item) => item.priority)
   );
 
   return result;
@@ -13,73 +11,53 @@ export const getTagsMaxPriority = (
 
 export const updatePriorities = (
   selectedTag: Tag,
-  nomenclatureTags: Array<NomenclatureTag>
-): Array<NomenclatureTag> => {
-  const tagsMaxPriority = getTagsMaxPriority(nomenclatureTags);
+  tags: Array<Tag>
+): Array<Tag> => {
+  const tagsMaxPriority = getTagsMaxPriority(tags);
 
-  return nomenclatureTags.map((nomenclatureTag) => {
-    const { tag } = nomenclatureTag;
+  return tags.map((tag) => {
     if (!selectedTag.priority) {
-      if (nomenclatureTag.tag.id === selectedTag.id) {
+      if (tag.id === selectedTag.id) {
         return {
-          ...nomenclatureTag,
-          tag: {
-            ...tag,
-            priority: tagsMaxPriority ? tagsMaxPriority + 1 : 1,
-          },
+          ...tag,
+          priority: tagsMaxPriority ? tagsMaxPriority + 1 : 1,
         };
       }
 
-      return nomenclatureTag;
+      return tag;
     }
 
     if (tag.id === selectedTag.id) {
       return {
-        ...nomenclatureTag,
-        tag: {
-          ...tag,
-          priority: null,
-        },
+        ...tag,
+        priority: null,
       };
     }
 
     if (tag.priority >= selectedTag.priority) {
       return {
-        ...nomenclatureTag,
-        tag: {
-          ...tag,
-          priority: tag.priority - 1,
-        },
+        ...tag,
+        priority: tag.priority - 1,
       };
     }
 
-    return nomenclatureTag;
+    return tag;
   });
 };
 
-export const filterTagsWithNoPriorities = (
-  nomenclatureTags: Array<NomenclatureTag>
-) => {
-  return nomenclatureTags.filter((item) => item.tag.priority);
+export const filterTagsWithNoPriorities = (tags: Array<Tag>) => {
+  return tags.filter((item) => item.priority);
 };
 
-export const getTagsWithPriorityCount = (
-  nomenclatureTags: Array<NomenclatureTag>
-): number => {
-  return filterTagsWithNoPriorities(nomenclatureTags).length;
+export const getTagsWithPriorityCount = (tags: Array<Tag>): number => {
+  return filterTagsWithNoPriorities(tags).length;
 };
 
-export const setTagPriorityToNullIfNotDefined = (
-  nomenclatureTags: Array<NomenclatureTag>
-) => {
-  return nomenclatureTags.map((item) => {
-    const { tag } = item;
+export const setTagPriorityToNullIfNotDefined = (tags: Array<Tag>) => {
+  return tags.map((tag) => {
     return {
-      ...item,
-      tag: {
-        ...tag,
-        priority: tag.priority || null,
-      },
+      ...tag,
+      priority: tag.priority || null,
     };
   });
 };
@@ -92,4 +70,10 @@ export const getTagsFromNomenclatureTags = (
   });
 };
 
-//
+export const getTagsFromNomenclature = (
+  nomenclaturesTags: Nomenclature
+): Array<Tag> => {
+  return nomenclaturesTags.tags.map((item) => {
+    return item.tag;
+  });
+};

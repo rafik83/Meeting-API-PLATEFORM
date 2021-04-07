@@ -99,6 +99,7 @@
     <input
       on:change={handleInputChange}
       on:click={handleInputClick}
+      accept={accept.join(', ')}
       type="file"
       class="hidden"
       tabindex="-1"

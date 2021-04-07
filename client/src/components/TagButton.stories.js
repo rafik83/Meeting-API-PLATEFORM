@@ -1,4 +1,5 @@
-import PriorityChoiceButton from './PriorityChoiceButton.svelte';
+import TagButton from './TagButton.svelte';
+import PreviewWrapper from './PreviewWrapper.svelte';
 
 const defaultProps = {
   name: 'myTag',
@@ -8,13 +9,26 @@ const defaultProps = {
 };
 
 export default {
-  title: 'Vimeet365/PriorityChoiceButton',
-  component: PriorityChoiceButton,
+  title: 'Vimeet365/TagButton',
+  component: TagButton,
   args: defaultProps,
+  decorators: [
+    (storyFn) => {
+      const story = storyFn();
+
+      return {
+        Component: PreviewWrapper,
+        props: {
+          child: story.Component,
+          props: story.props,
+        },
+      };
+    },
+  ],
 };
 
 const Template = ({ ...args }) => ({
-  Component: PriorityChoiceButton,
+  Component: Tag,
   props: args,
 });
 

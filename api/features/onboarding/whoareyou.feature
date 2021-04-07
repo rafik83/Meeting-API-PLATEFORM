@@ -32,7 +32,7 @@ Feature:
         And I press "Suivant"
         And I wait 2000
         Then I should see "Créez votre entreprise."
-        
+
     Scenario: I can search my job position from the job position list
         Given the database is purged
         And the user "john@doe.com" is created
@@ -42,4 +42,3 @@ Feature:
         And I press "Fonction"
         And I fill in "fonction-searchinput" with "culti"
         Then I should not see "Ministre"
-         

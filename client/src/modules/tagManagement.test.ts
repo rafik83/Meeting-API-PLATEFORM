@@ -1,4 +1,6 @@
+import type { Nomenclature } from '../domain';
 import {
+  buildFakeNomenclature,
   buildFakeNomenclatureTag,
   buildFakeTag,
 } from '../__fixtures__/FakeTags';
@@ -9,6 +11,7 @@ import {
   getTagsMaxPriority,
   setTagPriorityToNullIfNotDefined,
   getTagsFromNomenclatureTags,
+  getTagsFromNomenclature,
 } from './tagManagement';
 
 describe('priorities', () => {
@@ -17,42 +20,27 @@ describe('priorities', () => {
       const tag1 = buildFakeTag({ id: 2, priority: 666 });
       const tag2 = buildFakeTag({ id: 2, priority: 2 });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tag1);
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tag2);
-
-      expect(getTagsMaxPriority([nomenclatureTag1, nomenclatureTag2])).toBe(
-        666
-      );
+      expect(getTagsMaxPriority([tag1, tag2])).toBe(666);
     });
 
     it('should return the max priority from a nomenclature tag array', () => {
       const tag1 = buildFakeTag({ id: 2, priority: 666 });
       const tag2 = buildFakeTag({ id: 2, priority: null });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tag1);
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tag2);
-
-      expect(getTagsMaxPriority([nomenclatureTag1, nomenclatureTag2])).toBe(
-        666
-      );
+      expect(getTagsMaxPriority([tag1, tag2])).toBe(666);
     });
 
     it('should return the max priority from a nomenclature tag array', () => {
       const tag1 = buildFakeTag({ id: 2, priority: null });
       const tag2 = buildFakeTag({ id: 2, priority: null });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tag1);
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tag2);
-
-      expect(getTagsMaxPriority([nomenclatureTag1, nomenclatureTag2])).toBe(0);
+      expect(getTagsMaxPriority([tag1, tag2])).toBe(0);
     });
 
     it('should return the max priority from a nomenclature tag array', () => {
       const tag1 = buildFakeTag({ id: 2, priority: undefined });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tag1);
-
-      expect(getTagsMaxPriority([nomenclatureTag1])).toBe(NaN);
+      expect(getTagsMaxPriority([tag1])).toBe(NaN);
     });
   });
   describe('updatePriorities', () => {
@@ -61,25 +49,13 @@ describe('priorities', () => {
       const tag2 = buildFakeTag({ id: 2, priority: null });
       const tag3 = buildFakeTag({ id: 3, priority: null });
 
-      const nomenlcatureTag1 = buildFakeNomenclatureTag(tag1);
-      const nomenlcatureTag2 = buildFakeNomenclatureTag(tag2);
-      const nomenlcatureTag3 = buildFakeNomenclatureTag(tag3);
-
-      const expectedResult = [
-        nomenlcatureTag1,
-        nomenlcatureTag2,
-        nomenlcatureTag3,
-      ];
+      const expectedResult = [tag1, tag2, tag3];
 
       const selectedTag = buildFakeTag({ id: 666 });
 
-      expect(
-        updatePriorities(selectedTag, [
-          nomenlcatureTag1,
-          nomenlcatureTag2,
-          nomenlcatureTag3,
-        ])
-      ).toStrictEqual(expectedResult);
+      expect(updatePriorities(selectedTag, [tag1, tag2, tag3])).toStrictEqual(
+        expectedResult
+      );
     });
 
     it('should update the selected tag priority with the highest priority if has no prior priority set -- other tag with null priority case', () => {
@@ -88,17 +64,14 @@ describe('priorities', () => {
       const tag1 = buildFakeTag({ id: myTagId, priority: null });
       const tag2 = buildFakeTag({ id: 2, priority: null });
 
-      const nomenlcatureTag1 = buildFakeNomenclatureTag(tag1);
-      const nomenlcatureTag2 = buildFakeNomenclatureTag(tag2);
-
-      const nomenclatureTags = [nomenlcatureTag1, nomenlcatureTag2];
+      const tags = [tag1, tag2];
 
       const selectedTag = buildFakeTag({ id: myTagId });
 
-      const result = updatePriorities(selectedTag, nomenclatureTags);
+      const result = updatePriorities(selectedTag, tags);
 
-      expect(result[0].tag.priority).toBe(1);
-      expect(result[1].tag.priority).toBe(null);
+      expect(result[0].priority).toBe(1);
+      expect(result[1].priority).toBe(null);
     });
 
     it('should set the selected tag priority to null and decrease other tag priority ', () => {
@@ -112,15 +85,12 @@ describe('priorities', () => {
 
       const tag2 = buildFakeTag({ id: 2, priority: 2 });
 
-      const nomenlcatureTag1 = buildFakeNomenclatureTag(selectedTag);
-      const nomenlcatureTag2 = buildFakeNomenclatureTag(tag2);
+      const tags = [selectedTag, tag2];
 
-      const nomenclatureTags = [nomenlcatureTag1, nomenlcatureTag2];
+      const result = updatePriorities(selectedTag, tags);
 
-      const result = updatePriorities(selectedTag, nomenclatureTags);
-
-      expect(result[0].tag.priority).toBe(null);
-      expect(result[1].tag.priority).toBe(1);
+      expect(result[0].priority).toBe(null);
+      expect(result[1].priority).toBe(1);
     });
 
     it('should set the selected tag priority to null and only decrease other tag priority with higher priority values', () => {
@@ -134,21 +104,13 @@ describe('priorities', () => {
       const tag2 = buildFakeTag({ id: 2, priority: 1 });
       const tag3 = buildFakeTag({ id: 3, priority: 3 });
 
-      const nomenclatureWithSelectedTag = buildFakeNomenclatureTag(selectedTag);
-      const nomenlcatureTag2 = buildFakeNomenclatureTag(tag2);
-      const nomenlcatureTag3 = buildFakeNomenclatureTag(tag3);
+      const tags = [selectedTag, tag2, tag3];
 
-      const tagsNomenclatures = [
-        nomenclatureWithSelectedTag,
-        nomenlcatureTag2,
-        nomenlcatureTag3,
-      ];
+      const result = updatePriorities(selectedTag, tags);
 
-      const result = updatePriorities(selectedTag, tagsNomenclatures);
-
-      expect(result[0].tag.priority).toBe(null);
-      expect(result[1].tag.priority).toBe(1);
-      expect(result[2].tag.priority).toBe(2);
+      expect(result[0].priority).toBe(null);
+      expect(result[1].priority).toBe(1);
+      expect(result[2].priority).toBe(2);
     });
   });
 
@@ -157,11 +119,9 @@ describe('priorities', () => {
       const tagWitoutPriority = buildFakeTag({ priority: null });
       const tagWithPriority = buildFakeTag({ priority: 33 });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tagWitoutPriority);
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tagWithPriority);
       expect(
-        filterTagsWithNoPriorities([nomenclatureTag1, nomenclatureTag2])
-      ).toStrictEqual([nomenclatureTag2]);
+        filterTagsWithNoPriorities([tagWitoutPriority, tagWithPriority])
+      ).toStrictEqual([tagWithPriority]);
     });
   });
 
@@ -170,10 +130,8 @@ describe('priorities', () => {
       const tagWitoutPriority = buildFakeTag({ priority: null });
       const tagWithPriority = buildFakeTag({ priority: 66 });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tagWithPriority);
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tagWitoutPriority);
       expect(
-        getTagsWithPriorityCount([nomenclatureTag1, nomenclatureTag2])
+        getTagsWithPriorityCount([tagWitoutPriority, tagWithPriority])
       ).toBe(1);
     });
   });
@@ -183,16 +141,13 @@ describe('priorities', () => {
       const tagWitoutPriority = buildFakeTag({ priority: undefined });
       const tagWithPriority = buildFakeTag({ priority: 66 });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tagWitoutPriority);
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tagWithPriority);
-
       const result = setTagPriorityToNullIfNotDefined([
-        nomenclatureTag1,
-        nomenclatureTag2,
+        tagWitoutPriority,
+        tagWithPriority,
       ]);
 
-      expect(result[0].tag.priority).toBeNull();
-      expect(result[1].tag.priority).toBe(66);
+      expect(result[0].priority).toBeNull();
+      expect(result[1].priority).toBe(66);
     });
   });
 
@@ -215,5 +170,26 @@ describe('priorities', () => {
         getTagsFromNomenclatureTags([nomenclatureTag1, nomenclatureTag2])
       ).toStrictEqual([tag1, tag2]);
     });
+  });
+
+  it('should return all tags from nomenclature ', () => {
+    const tag1 = buildFakeTag({
+      name: 'job1',
+    });
+
+    const tag2 = buildFakeTag({
+      name: 'job2',
+    });
+
+    const jobPositionNomenclatureTag1 = buildFakeNomenclatureTag(tag1);
+
+    const jobPositionNomenclatureTag2 = buildFakeNomenclatureTag(tag2);
+
+    const nomenclature: Nomenclature = buildFakeNomenclature({
+      tags: [jobPositionNomenclatureTag1, jobPositionNomenclatureTag2],
+    });
+
+    const result = getTagsFromNomenclature(nomenclature);
+    expect(result).toStrictEqual([tag1, tag2]);
   });
 });

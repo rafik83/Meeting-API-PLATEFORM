@@ -11,6 +11,7 @@ export type User = {
   email: string;
   acceptedTermsAndConditions?: number | Date;
   company?: Company;
+  members: Array<Member>;
 };
 
 export type Community = {
@@ -46,6 +47,7 @@ export type QualificationStep = {
 export type Member = {
   id: number;
   joinedAt: Date;
+  community: number;
   currentQualificationStep: QualificationStep;
 };
 
@@ -71,4 +73,14 @@ export type Company = {
 export type TimeZone = {
   code: string;
   name: string;
+};
+
+export type CommunityGoal = {
+  id: number;
+  community: number;
+  nomenclature: Nomenclature;
+  min: number;
+  max: number;
+  tag: Tag;
+  parent?: number;
 };
