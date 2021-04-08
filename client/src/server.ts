@@ -13,7 +13,9 @@ import { setBaseUrl } from './modules/axios';
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
-setBaseUrl(process.env.API_URL);
+const apiUrlSsr = process.env.API_URL_SSR ? process.env.API_URL_SSR : process.env.API_URL;
+console.info('Use this url for SSR api calls: '+apiUrlSsr);
+setBaseUrl(apiUrlSsr);
 
 polka()
   .use(
@@ -37,5 +39,5 @@ polka()
     })
   )
   .listen(PORT, (err: Error) => {
-    if (err) console.log('error', err);
+    if (err) console.error('error', err);
   });

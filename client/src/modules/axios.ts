@@ -13,7 +13,10 @@ const getClient = (): AxiosInstance => {
 };
 
 export const setBaseUrl = (url: string) => {
-  apiUrl = url;
+  // init apiUrl only once, if it's set for SSR, it must not be changed after
+  if (!apiUrl) {
+    apiUrl = url;
+  }
 };
 
 export const post = <T, R>(url: string, payload: T) => {
