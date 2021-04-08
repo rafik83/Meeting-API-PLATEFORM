@@ -20,7 +20,8 @@
 <script>
   import { _ } from 'svelte-i18n';
   import * as yup from 'yup';
-  import { goto } from '@sapper/app';
+  import { goto, stores } from '@sapper/app';
+  import { setBaseUrl } from '../../../modules/axios';
 
   import { extractErrors } from '../../../modules/validator';
   import { toHomePage } from '../../../modules/routing';
@@ -43,6 +44,9 @@
     website: '',
     activity: '',
   };
+
+  const {session} = stores();
+  setBaseUrl($session.apiUrl);
 
   const validationSchema = yup.object().shape({
     name: yup.string().required($_('validation.field_required')),

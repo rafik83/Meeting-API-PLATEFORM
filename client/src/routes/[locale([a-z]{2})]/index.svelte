@@ -1,8 +1,9 @@
 <script context="module">
+  import { setBaseUrl } from '../../modules/axios';
   import { createMember } from '../../repository/member';
   import { register, findById, authenticate } from '../../repository/account';
 
-  export async function preload({ query }, { communityId, userId }) {
+  export async function preload({ query }, { communityId, userId, apiUrl }) {
     let countryList = [];
 
     let errorMessage = '';
@@ -42,6 +43,8 @@
   export let user;
   export let errorMessage;
   export let communityId;
+
+  setBaseUrl($session.apiUrl);
 
   let Slider;
   onMount(async () => {

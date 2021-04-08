@@ -17,7 +17,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const mode = process.env.NODE_ENV;
-const API_URL = process.env.API_URL;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
@@ -36,7 +35,6 @@ export default {
       replace({
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
-        'process.env.API_URL': JSON.stringify(API_URL),
       }),
       svelte({
         preprocess: sveltePreprocess(),
@@ -99,7 +97,6 @@ export default {
       replace({
         'process.browser': false,
         'process.env.NODE_ENV': JSON.stringify(mode),
-        'process.env.API_URL': JSON.stringify(API_URL),
       }),
       svelte({
         preprocess: sveltePreprocess(),

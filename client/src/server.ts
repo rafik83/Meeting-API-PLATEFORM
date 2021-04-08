@@ -8,9 +8,12 @@ import { i18nMiddleware, addLocaleToRequest } from './modules/i18n';
 import { communityMiddleWare } from './modules/community';
 import cookieParser from 'cookie-parser';
 import { authentificationMiddleWare } from './modules/authentification';
+import { setBaseUrl } from './modules/axios';
 
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
+
+setBaseUrl(process.env.API_URL);
 
 polka()
   .use(
@@ -28,6 +31,7 @@ polka()
           communityId: req.communityId,
           userId: req.userId,
           isAuthenticated: req.userId !== undefined,
+          apiUrl: process.env.API_URL,
         };
       },
     })
