@@ -45,7 +45,7 @@
     activity: '',
   };
 
-  const {session} = stores();
+  const { session } = stores();
   setBaseUrl($session.apiUrl);
 
   const validationSchema = yup.object().shape({

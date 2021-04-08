@@ -2,7 +2,7 @@
   import { createMember } from '../../repository/member';
   import { register, findById, authenticate } from '../../repository/account';
 
-  export async function preload({ query }, { communityId, userId, apiUrl }) {
+  export async function preload({ query }, { communityId, userId }) {
     let countryList = [];
 
     let errorMessage = '';
@@ -181,7 +181,7 @@
 {/if}
 
 <div class="w-full overflow-hidden">
-  <svelte:component this={Slider} slidesToDisplay=3>
+  <svelte:component this={Slider} slidesToDisplay="3">
     {#each fakeCardDataForSlider as data}
       <Slide {...data} />
     {/each}

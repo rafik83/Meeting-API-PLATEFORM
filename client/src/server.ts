@@ -13,8 +13,10 @@ import { setBaseUrl } from './modules/axios';
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
-const apiUrlSsr = process.env.API_URL_SSR ? process.env.API_URL_SSR : process.env.API_URL;
-console.info('Use this url for SSR api calls: '+apiUrlSsr);
+const apiUrlSsr = process.env.API_URL_SSR
+  ? process.env.API_URL_SSR
+  : process.env.API_URL;
+console.info('Use this url for SSR api calls: ' + apiUrlSsr);
 setBaseUrl(apiUrlSsr);
 
 polka()
