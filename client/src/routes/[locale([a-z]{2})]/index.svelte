@@ -1,5 +1,4 @@
 <script context="module">
-  import { setBaseUrl } from '../../modules/axios';
   import { createMember } from '../../repository/member';
   import { register, findById, authenticate } from '../../repository/account';
 
@@ -29,22 +28,23 @@
   import { getContext, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
   import Cookies from 'js-cookie';
+
   import LoginForm from '../../components/LoginForm.svelte';
   import RegistrationForm from '../../components/RegistrationForm.svelte';
   import { toOnboardingStep, toRegistrationStep } from '../../modules/routing';
+  import { setBaseUrl } from '../../modules/axios';
   import registrationSteps from '../../constants';
   import Slide from '../../components/Slide.svelte';
 
   const { open, close } = getContext('simple-modal');
 
   const { session } = stores();
+  setBaseUrl($session.apiUrl);
 
   export let target;
   export let user;
   export let errorMessage;
   export let communityId;
-
-  setBaseUrl($session.apiUrl);
 
   let Slider;
   onMount(async () => {
