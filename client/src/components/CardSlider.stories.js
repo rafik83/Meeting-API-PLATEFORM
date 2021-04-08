@@ -7,7 +7,7 @@ export default {
   component: CardSlider,
   args: {
     memberDataForCards: buildFakeMemberCards(),
-    title: "Title of list"
+    title: 'Title of list',
   },
   decorators: [
     (storyFun) => {

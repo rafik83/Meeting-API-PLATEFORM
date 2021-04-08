@@ -1,3 +1,3 @@
-import IconBusiness from "./IconBusiness.svelte";
+import IconBusiness from './IconBusiness.svelte';
 export { IconBusiness };
 export default IconBusiness;

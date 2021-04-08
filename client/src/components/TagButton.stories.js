@@ -28,7 +28,7 @@ export default {
 };
 
 const Template = ({ ...args }) => ({
-  Component: Tag,
+  Component: TagButton,
   props: args,
 });
 
