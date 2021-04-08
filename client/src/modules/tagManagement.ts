@@ -77,3 +77,50 @@ export const getTagsFromNomenclature = (
     return item.tag;
   });
 };
+
+export type TreeItem = {
+  children: TreeItem[];
+  tag: Tag;
+  parent: Tag | null;
+};
+
+export const buildTagTree = (nomenclature: Nomenclature): Array<TreeItem> => {
+  const tree: Array<TreeItem> = [];
+
+  nomenclature.tags.forEach((currentNomenclatureTag: NomenclatureTag) => {
+    let existingTreeItem = tree.find((treeItem) => {
+      return treeItem.tag.id === currentNomenclatureTag.tag.id;
+    });
+
+    if (!existingTreeItem) {
+      const treeItem: TreeItem = {
+        children: [],
+        tag: currentNomenclatureTag.tag,
+        parent: null,
+      };
+      tree.push(treeItem);
+      existingTreeItem = treeItem;
+    }
+
+    existingTreeItem.parent = currentNomenclatureTag.parent;
+
+    if (currentNomenclatureTag.parent) {
+      let parentTreeItem = tree.find((treeItem) => {
+        return treeItem.tag.id === currentNomenclatureTag.parent.id;
+      });
+
+      if (!parentTreeItem) {
+        parentTreeItem = {
+          children: [],
+          tag: currentNomenclatureTag.parent,
+          parent: null,
+        };
+        tree.push(parentTreeItem);
+      }
+
+      parentTreeItem.children.push(existingTreeItem);
+    }
+  });
+
+  return tree;
+};

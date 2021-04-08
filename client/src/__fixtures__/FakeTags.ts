@@ -13,7 +13,7 @@ export const buildFakeNomenclatureTag = (
   parent?: Tag
 ): NomenclatureTag => {
   return {
-    parent,
+    parent: parent || null,
     tag: child || buildFakeTag({}),
   };
 };
