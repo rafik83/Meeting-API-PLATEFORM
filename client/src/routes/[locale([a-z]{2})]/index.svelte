@@ -28,9 +28,11 @@
   import { getContext, onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
   import Cookies from 'js-cookie';
+
   import LoginForm from '../../components/LoginForm.svelte';
   import RegistrationForm from '../../components/RegistrationForm.svelte';
   import { toOnboardingStep, toRegistrationStep } from '../../modules/routing';
+  import { setBaseUrl } from '../../modules/axios';
   import registrationSteps from '../../constants';
 
   let CardsList;
@@ -43,6 +45,7 @@
   const { open, close } = getContext('simple-modal');
 
   const { session } = stores();
+  setBaseUrl($session.apiUrl);
 
   export let target;
   export let user;

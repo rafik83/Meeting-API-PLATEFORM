@@ -31,7 +31,8 @@
 <script>
   import { _ } from 'svelte-i18n';
   import * as yup from 'yup';
-  import { goto } from '@sapper/app';
+  import { goto, stores } from '@sapper/app';
+  import { setBaseUrl } from '../../../modules/axios';
 
   import OnboardingContainer from '../../../components/OnboardingContainer.svelte';
   import IconRocket from '../../../ui-kit/icons/IconRocket/IconRocket.svelte';
@@ -49,6 +50,9 @@
   let userAvatar;
   let personalData;
   let validationErrors;
+
+  const { session } = stores();
+  setBaseUrl($session.apiUrl);
 
   const validationSchema = yup.object().shape({
     jobPosition: yup
