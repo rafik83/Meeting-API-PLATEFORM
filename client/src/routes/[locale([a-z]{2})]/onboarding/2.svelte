@@ -1,14 +1,18 @@
 <script context="module">
   import { getCountries } from '../../../repository/countries';
   import { findById } from '../../../repository/account';
+  import { toHomePage, toOnboardingStep } from '../../../modules/routing';
   import {
     createCompany,
     uploadCompanyLogo,
   } from '../../../repository/company';
 
-  export async function preload(page, session) {
+  export async function preload(page, { userId, isAuthenticated }) {
+    if (!isAuthenticated) {
+      this.redirect(302, toHomePage());
+    }
     const countries = await getCountries();
-    const user = await findById(session.userId);
+    const user = await findById(userId);
 
     return {
       user,
@@ -21,10 +25,8 @@
   import { _ } from 'svelte-i18n';
   import * as yup from 'yup';
   import { goto, stores } from '@sapper/app';
-  import { setBaseUrl } from '../../../modules/axios';
-
   import { extractErrors } from '../../../modules/validator';
-  import { toHomePage } from '../../../modules/routing';
+  import { setBaseUrl } from '../../../modules/axios';
   import OnboardingContainer from '../../../components/OnboardingContainer.svelte';
   import CompanyForm from '../../../components/CompanyForm.svelte';
   import FileUploader from '../../../components/FileUploader.svelte';
@@ -71,7 +73,7 @@
       if (companyLogo) {
         await uploadCompanyLogo(companyLogo, company.id);
       }
-      await goto(toHomePage());
+      await goto(toOnboardingStep(3));
     } catch (error) {
       validationErrors = extractErrors(error);
     }
@@ -87,11 +89,11 @@
     <IconLaunching width="90%" class="mx-auto" />
   </div>
 
-  <section slot="content" class="w-full h-full">
+  <section slot="content" class="w-full p-8 h-full">
     <div class="md:w-5/12">
-      <H3>{$_('registration.company_not_find')}.</H3>
+      <H3>{$_('validation.company_not_found')}.</H3>
     </div>
-    <div class="md:flex justify-between flex-warp">
+    <div class="md:flex justify-between  flex-warp">
       <div class="md:w-5/12">
         <CompanyForm
           selectOptions={countries}

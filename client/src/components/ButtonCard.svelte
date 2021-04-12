@@ -1,5 +1,5 @@
 <script>
-  export let type;
+  export let type = '';
   export let kind = 'primary';
   let style;
 
@@ -18,7 +18,7 @@
 
 <button
   on:click|preventDefault
-  type={type || ''}
+  {type}
   class="w-auto text-sm font-semibold rounded-xl h-12 px-4 {style}">
   <slot>Button</slot>
 </button>

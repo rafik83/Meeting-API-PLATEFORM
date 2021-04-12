@@ -12,3 +12,4 @@ export { IconVideo } from './IconVideo';
 export { IconLaunching } from './IconLaunching';
 export { IconArrowRight } from './IconArrowRight';
 export { IconArrowLeft } from './IconArrowLeft';
+export { IconSatellite } from './IconSatellite';

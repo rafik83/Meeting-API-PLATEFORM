@@ -2,17 +2,22 @@
   import { getCountries } from '../../../repository/countries';
   import { getTimeZones } from '../../../repository/timezones';
   import { getAllJobPositions } from '../../../repository/nomenclatures';
+  import { toHomePage, toOnboardingStep } from '../../../modules/routing';
   import {
     findById,
     updateProfile,
     uploadAvatar,
   } from '../../../repository/account';
 
-  export async function preload(page, session) {
+  export async function preload(page, { userId, isAuthenticated }) {
+    if (!isAuthenticated) {
+      this.redirect(302, toHomePage());
+    }
+
     const countries = await getCountries();
     const timezones = await getTimeZones();
     const jobPositions = await getAllJobPositions();
-    const user = await findById(session.userId);
+    const user = await findById(userId);
 
     return {
       user,
@@ -33,7 +38,7 @@
   import IconRocket from '../../../ui-kit/icons/IconRocket/IconRocket.svelte';
   import Button from '../../../components/Button.svelte';
   import { extractErrors } from '../../../modules/validator';
-  import { toOnboardingStep } from '../../../modules/routing';
+
   import RegistrationAccount from '../../../components/RegistrationAccount.svelte';
   import AvatarUploader from '../../../components/AvatarUploader.svelte';
 
@@ -83,7 +88,7 @@
     <IconRocket />
   </div>
 
-  <div slot="content" class="flex justify-between">
+  <div slot="content" class="md:flex p-8 justify-between">
     <div class="md:w-1/2  md:pr-10">
       <RegistrationAccount
         {jobPositions}

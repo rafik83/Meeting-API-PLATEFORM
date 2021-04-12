@@ -34,7 +34,13 @@
   import { toOnboardingStep, toRegistrationStep } from '../../modules/routing';
   import { setBaseUrl } from '../../modules/axios';
   import registrationSteps from '../../constants';
-  import Slide from '../../components/Slide.svelte';
+
+  let CardsList;
+  onMount(async () => {
+    // See doc here: https://sapper.svelte.dev/docs/#Third-party_libraries_that_depend_on_window
+    const module = await import('../../components/CardSlider.svelte');
+    CardsList = module.default;
+  });
 
   const { open, close } = getContext('simple-modal');
 
@@ -46,67 +52,15 @@
   export let errorMessage;
   export let communityId;
 
-  let Slider;
-  onMount(async () => {
-    // See doc here: https://sapper.svelte.dev/docs/#Third-party_libraries_that_depend_on_window
-    const module = await import('../../components/Slider.svelte');
-    Slider = module.default;
-  });
-
-  const fakeCardDataForSlider = [
-    {
-      id: 1,
-      name: 'hello',
-      date: '20/02/2021',
-    },
-    {
-      id: 2,
-      name: 'world',
-      date: '20/02/2021',
-    },
-    {
-      id: 3,
-      name: '!!!',
-      date: '20/02/2021',
-    },
-    {
-      id: 1,
-      name: 'hello',
-      date: '20/02/2021',
-    },
-    {
-      id: 2,
-      name: 'world',
-      date: '20/02/2021',
-    },
-    {
-      id: 3,
-      name: '!!!',
-      date: '20/02/2021',
-    },
-    {
-      id: 1,
-      name: 'hello',
-      date: '20/02/2021',
-    },
-    {
-      id: 2,
-      name: 'world',
-      date: '20/02/2021',
-    },
-    {
-      id: 3,
-      name: '!!!',
-      date: '20/02/2021',
-    },
-  ];
-
   const handleSignIn = async (values) => {
     try {
       const userId = await authenticate(values);
+
       await createMember(communityId);
+
       $session.userId = userId;
-      Cookies.set('userId', $session.userId, {
+      $session.isAuthenticated = true;
+      Cookies.set('userId', userId, {
         expires: 365,
       });
 
@@ -169,21 +123,15 @@
   }
 </script>
 
-{#if user}
-  <h1>Vous êtes connecté</h1>
-{:else}
-  <button
-    id="join-community"
-    class="md:w-1/3 w-full font-semi-bold text-gray-50 bg-community-300 h-1/3 "
-    on:click={() => goto(toRegistrationStep(registrationSteps.SIGN_IN))}>
-    Click here to join the community
-  </button>
-{/if}
-
-<div class="w-full overflow-hidden">
-  <svelte:component this={Slider} slidesToDisplay="3">
-    {#each fakeCardDataForSlider as data}
-      <Slide {...data} />
-    {/each}
-  </svelte:component>
-</div>
+<section class="h-full w-full pb-28 overflow-x-hidden">
+  {#if user}
+    <h1>Vous êtes connecté</h1>
+  {:else}
+    <button
+      id="join-community"
+      class="md:w-1/3 block m-auto w-full font-semi-bold text-gray-50 bg-community-300 h-1/3 "
+      on:click={() => goto(toRegistrationStep(registrationSteps.SIGN_IN))}>
+      Click here to join the community
+    </button>
+  {/if}
+</section>

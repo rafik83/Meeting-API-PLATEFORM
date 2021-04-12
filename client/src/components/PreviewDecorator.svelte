@@ -1,7 +1,8 @@
 <style>
   .preview {
     width: 90vw;
-    height: 500px;
+    height: 90vh;
+    overflow-x: hidden;
   }
 </style>
 

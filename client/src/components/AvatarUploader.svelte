@@ -2,7 +2,6 @@
   import { _ } from 'svelte-i18n';
   import FileUploader from './FileUploader.svelte';
   export let fileMaxSize;
-  let dragAndDropName = 'Account avatar';
   let loading;
 
   export let uploadedFile;
@@ -26,8 +25,6 @@
       accept={['image/jpg', 'image/png']}
       {loading}
       maxSize={fileMaxSize}
-      name={dragAndDropName}
-      textDropZone={$_('registration.upload_avatar')}
     />
   </div>
 </div>

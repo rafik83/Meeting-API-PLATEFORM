@@ -13,12 +13,12 @@ export const buildFakeNomenclatureTag = (
   parent?: Tag
 ): NomenclatureTag => {
   return {
-    parent,
+    parent: parent || null,
     tag: child || buildFakeTag({}),
   };
 };
 
-export const buildFakeJobPositionNomenclature = ({
+export const buildFakeNomenclature = ({
   id,
   reference,
   tags = [],

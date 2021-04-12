@@ -2,7 +2,6 @@ Feature:
     In order to prove that I can register my company
     As a user
     I want to save my company data
-    
     Scenario: I can save my company if all required fields are filled
         Given the database is purged
         And the user "john@doe.com" is created
@@ -16,9 +15,8 @@ Feature:
         And I fill in "website" with "https://bestcompany.com"
         And I fill in "activity" with "Best describe ever"
         And I press "Suivant"
-        And I wait 1000
-
-        Then I should see "Vous êtes connecté"
+        And I wait 3000
+        Then I should see "Selectionnez 2 objectifs par priorité"
 
     Scenario: I can search countries from the country list
         Given the database is purged
