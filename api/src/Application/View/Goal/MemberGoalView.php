@@ -9,14 +9,14 @@ use Proximum\Vimeet365\Domain\Entity\Member;
 
 class MemberGoalView
 {
-    public Goal $goal;
+    public CommunityGoalView $goal;
 
     /** @var MemberGoalTagView[] */
     public array $tags;
 
     public function __construct(Goal $goal, Member $member)
     {
-        $this->goal = $goal;
+        $this->goal = new CommunityGoalView($goal);
         $this->tags = $member->getGoals()
             ->filter(
                 fn (Member\Goal $memberGoal): bool => $memberGoal->getGoal()->getId() === $goal->getId()
