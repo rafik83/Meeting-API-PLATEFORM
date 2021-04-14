@@ -2,36 +2,48 @@ Proximum\Vimeet365\Domain\Entity\Member\Goal:
     member_1_goal_1:
         __construct:
             member: '@member_1'
-            goal: '@community_goal'
+            communityGoal: '@community_goal'
             tag: '@tag_goals_buy'
             priority: 0
     member_1_goal_2:
         __construct:
             member: '@member_1'
-            goal: '@community_goal'
+            communityGoal: '@community_goal'
             tag: '@tag_goals_sell'
             priority: 1
     member_1_goal_1.1:
         __construct:
             member: '@member_1'
-            goal: '@community_goal_sell'
+            communityGoal: '@community_goal_sell'
             tag: '@tag_satellites'
-            priority: 1
+            priority: null
     member_1_goal_1.2:
         __construct:
             member: '@member_1'
-            goal: '@community_goal_sell'
+            communityGoal: '@community_goal_sell'
             tag: '@tag_optics'
-            priority: 1
+            priority: null
+    member_1_goal_1.3:
+        __construct:
+            member: '@member_1'
+            communityGoal: '@community_goal_sell'
+            tag: '@tag_mission_operation_and_ground_data_systems'
+            priority: null
+    member_1_goal_1.4:
+        __construct:
+            member: '@member_1'
+            communityGoal: '@community_goal_sell'
+            tag: '@tag_spacecraft_electrical_power'
+            priority: null
     member_1_goal_2.1:
         __construct:
             member: '@member_1'
-            goal: '@community_goal_buy'
+            communityGoal: '@community_goal_buy'
             tag: '@tag_satellites'
-            priority: 1
+            priority: null
     member_1_goal_2.2:
         __construct:
             member: '@member_1'
-            goal: '@community_goal_buy'
+            communityGoal: '@community_goal_buy'
             tag: '@tag_space_rd'
-            priority: 1
+            priority: null

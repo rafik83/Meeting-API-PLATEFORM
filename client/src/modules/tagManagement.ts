@@ -1,4 +1,4 @@
-import type { Nomenclature, NomenclatureTag, Tag } from '../domain';
+import type { Nomenclature, Tag } from '../domain';
 
 export const getTagsMaxPriority = (tags: Array<Tag>): number => {
   const result = Math.max.apply(
@@ -62,19 +62,11 @@ export const setTagPriorityToNullIfNotDefined = (tags: Array<Tag>) => {
   });
 };
 
-export const getTagsFromNomenclatureTags = (
-  nomenclatureTags: Array<NomenclatureTag>
-): Array<Tag> => {
-  return nomenclatureTags.map((nomenclatureTag) => {
-    return nomenclatureTag.tag;
-  });
-};
-
 export const getTagsFromNomenclature = (
   nomenclaturesTags: Nomenclature
 ): Array<Tag> => {
   return nomenclaturesTags.tags.map((item) => {
-    return item.tag;
+    return item;
   });
 };
 
@@ -84,35 +76,35 @@ export type TreeItem = {
   parent: Tag | null;
 };
 
-export const buildTagTree = (nomenclature: Nomenclature): Array<TreeItem> => {
+export const buildTagTree = (tags: Array<Tag>): Array<TreeItem> => {
   const tree: Array<TreeItem> = [];
 
-  nomenclature.tags.forEach((currentNomenclatureTag: NomenclatureTag) => {
+  tags.forEach((currentTag: Tag) => {
     let existingTreeItem = tree.find((treeItem) => {
-      return treeItem.tag.id === currentNomenclatureTag.tag.id;
+      return treeItem.tag.id === currentTag.id;
     });
 
     if (!existingTreeItem) {
       const treeItem: TreeItem = {
         children: [],
-        tag: currentNomenclatureTag.tag,
+        tag: currentTag,
         parent: null,
       };
       tree.push(treeItem);
       existingTreeItem = treeItem;
     }
 
-    existingTreeItem.parent = currentNomenclatureTag.parent;
+    existingTreeItem.parent = currentTag.parent;
 
-    if (currentNomenclatureTag.parent) {
+    if (currentTag.parent) {
       let parentTreeItem = tree.find((treeItem) => {
-        return treeItem.tag.id === currentNomenclatureTag.parent.id;
+        return treeItem.tag.id === currentTag.parent.id;
       });
 
       if (!parentTreeItem) {
         parentTreeItem = {
           children: [],
-          tag: currentNomenclatureTag.parent,
+          tag: currentTag.parent,
           parent: null,
         };
         tree.push(parentTreeItem);

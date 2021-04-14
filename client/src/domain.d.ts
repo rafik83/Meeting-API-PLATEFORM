@@ -19,36 +19,22 @@ export type Community = {
 };
 
 export type Tag = {
+  parent?: Tag;
   priority?: number;
   name: string;
   id: number;
 };
 
-export type NomenclatureTag = {
-  tag: Tag;
-  parent?: Tag;
-};
-
 export type Nomenclature = {
   id: number;
   reference: string;
-  tags: Array<NomenclatureTag>;
-};
-export type QualificationStep = {
-  id: number;
-  description: string;
-  nomenclature: Nomenclature;
-  position: number;
-  title: string;
-  min: number;
-  max: number;
+  tags: Array<Tag>;
 };
 
 export type Member = {
   id: number;
   joinedAt: Date;
   community: number;
-  currentQualificationStep: QualificationStep;
 };
 
 export type Country = {
@@ -73,14 +59,4 @@ export type Company = {
 export type TimeZone = {
   code: string;
   name: string;
-};
-
-export type CommunityGoal = {
-  id: number;
-  community: number;
-  nomenclature: Nomenclature;
-  min: number;
-  max: number;
-  tag: Tag;
-  parent?: number;
 };

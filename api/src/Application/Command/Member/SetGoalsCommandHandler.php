@@ -20,22 +20,22 @@ class SetGoalsCommandHandler
 
     public function __invoke(SetGoalsCommand $command): Member
     {
-        $member = $command->member;
+        $member = $command->getMember();
         $community = $member->getCommunity();
 
         /** @var CommunityGoal $goal */
-        $goal = $community->getGoals()->filter(fn (CommunityGoal $communityGoal): bool => $communityGoal->getId() === $command->goal)->first();
+        $goal = $community->getGoals()->filter(fn (CommunityGoal $communityGoal): bool => $communityGoal->getId() === $command->getGoal())->first();
 
-        $existingMemberGoals = $member->getGoals()->filter(fn (Member\Goal $memberGoal): bool => $memberGoal->getGoal()->getId() === $command->goal);
+        $existingMemberGoals = $member->getGoals()->filter(fn (Member\Goal $memberGoal): bool => $memberGoal->getCommunityGoal()->getId() === $command->getGoal());
 
         foreach ($existingMemberGoals as $existingMemberGoal) {
             $member->getGoals()->removeElement($existingMemberGoal);
         }
 
-        $tagsId = array_map(fn (TagDto $tagDto): int => $tagDto->id, $command->tags);
+        $tagsId = array_map(fn (TagDto $tagDto): int => $tagDto->id, $command->getTags());
         $tags = $this->tagRepository->findByIds($tagsId);
 
-        foreach ($command->tags as $tagDto) {
+        foreach ($command->getTags() as $tagDto) {
             new Member\Goal($member, $goal, $tags[$tagDto->id], $tagDto->priority);
         }
 

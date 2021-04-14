@@ -19,10 +19,10 @@ class MemberGoalView
         $this->goal = new CommunityGoalView($goal);
         $this->tags = $member->getGoals()
             ->filter(
-                fn (Member\Goal $memberGoal): bool => $memberGoal->getGoal()->getId() === $goal->getId()
+                fn (Member\Goal $memberGoal): bool => $memberGoal->getCommunityGoal()->getId() === $goal->getId()
             )
             ->map(
-                fn (Member\Goal $memberGoal): MemberGoalTagView => new MemberGoalTagView($memberGoal->getTag(), $memberGoal->getPriority())
+                fn (Member\Goal $memberGoal): MemberGoalTagView => MemberGoalTagView::create($memberGoal)
             )
             ->getValues()
         ;

@@ -7,6 +7,7 @@ namespace Proximum\Vimeet365\Infrastructure\Controller;
 use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use Proximum\Vimeet365\Application\Adapter\CommandBusInterface;
 use Proximum\Vimeet365\Application\Adapter\QueryBusInterface;
+use Proximum\Vimeet365\Application\Command\Member\RankGoalsCommand;
 use Proximum\Vimeet365\Application\Command\Member\SetGoalsCommand;
 use Proximum\Vimeet365\Application\Query\Member\GetGoalsQuery;
 use Proximum\Vimeet365\Application\View\Goal\MemberGoalView;
@@ -36,6 +37,20 @@ class MemberGoalController
      * @return MemberGoalView[]
      */
     public function updateGoals(SetGoalsCommand $data): array
+    {
+        try {
+            $member = $this->commandBus->handle($data);
+        } catch (ValidationFailedException $exception) {
+            throw new ValidationException($exception->getViolations());
+        }
+
+        return $this->queryBus->handle(new GetGoalsQuery($member));
+    }
+
+    /**
+     * @return MemberGoalView[]
+     */
+    public function rankGoals(RankGoalsCommand $data): array
     {
         try {
             $member = $this->commandBus->handle($data);

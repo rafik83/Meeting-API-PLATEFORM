@@ -1,20 +1,16 @@
-import type { Nomenclature, NomenclatureTag, Tag } from '../domain';
+import type { Nomenclature, Tag } from '../domain';
 
-export const buildFakeTag = ({ name, priority, id }: Partial<Tag>): Tag => {
+export const buildFakeTag = ({
+  name,
+  priority,
+  id,
+  parent,
+}: Partial<Tag>): Tag => {
   return {
     priority,
     name: name || 'fakeTag',
     id: id || 666,
-  };
-};
-
-export const buildFakeNomenclatureTag = (
-  child?: Tag,
-  parent?: Tag
-): NomenclatureTag => {
-  return {
     parent: parent || null,
-    tag: child || buildFakeTag({}),
   };
 };
 

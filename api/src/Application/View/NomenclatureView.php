@@ -12,11 +12,11 @@ class NomenclatureView
 
     public string $reference;
 
-    /** @var NomenclatureTagView[] */
+    /** @var TagView[] */
     public array $tags;
 
     /**
-     * @param NomenclatureTagView[] $tags
+     * @param TagView[] $tags
      */
     public function __construct(int $id, string $reference, array $tags = [])
     {
@@ -31,7 +31,7 @@ class NomenclatureView
             (int) $nomenclature->getId(),
             $nomenclature->getReference(),
             array_map(
-                static fn (Nomenclature\NomenclatureTag $tag): NomenclatureTagView => new NomenclatureTagView($tag),
+                static fn (Nomenclature\NomenclatureTag $tag): TagView => TagView::createFromNomenclatureTag($tag),
                 $nomenclature->getTags()->getValues()
             )
         );

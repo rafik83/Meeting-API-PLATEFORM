@@ -10,19 +10,17 @@ use Proximum\Vimeet365\Domain\Entity\Community\Goal;
 use Proximum\Vimeet365\Domain\Entity\Member;
 use Proximum\Vimeet365\Infrastructure\Validator\Constraints\EntityReferenceExists;
 use Proximum\Vimeet365\Infrastructure\Validator\Constraints\MemberGoal\GoalBelongToMemberCommunity;
-use Proximum\Vimeet365\Infrastructure\Validator\Constraints\MemberGoal\HasEnoughTagSet;
-use Proximum\Vimeet365\Infrastructure\Validator\Constraints\MemberGoal\HasParentGoalConfigured;
 use Proximum\Vimeet365\Infrastructure\Validator\Constraints\MemberGoal\TagBelongToGoal;
+use Proximum\Vimeet365\Infrastructure\Validator\Constraints\MemberGoal\TagMustBeSetBeforeRank;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @GoalBelongToMemberCommunity
  * @TagBelongToGoal
- * @HasParentGoalConfigured
- * @HasEnoughTagSet
+ * @TagMustBeSetBeforeRank
  */
-class SetGoalsCommand implements ContextAwareMessageInterface, MemberGoalCommandInterface
+class RankGoalsCommand implements ContextAwareMessageInterface, MemberGoalCommandInterface
 {
     /**
      * @EntityReferenceExists(entity=Goal::class, identityField="id")
@@ -31,6 +29,7 @@ class SetGoalsCommand implements ContextAwareMessageInterface, MemberGoalCommand
 
     /**
      * @Assert\Valid()
+     * @Assert\Count(min=0, max=3)
      *
      * @var TagDto[]
      */

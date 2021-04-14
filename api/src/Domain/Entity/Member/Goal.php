@@ -32,7 +32,7 @@ class Goal
      * @ORM\ManyToOne(targetEntity=CommunityGoal::class)
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private CommunityGoal $goal;
+    private CommunityGoal $communityGoal;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tag::class)
@@ -45,10 +45,10 @@ class Goal
      */
     private ?int $priority;
 
-    public function __construct(Member $member, CommunityGoal $goal, Tag $tag, ?int $priority)
+    public function __construct(Member $member, CommunityGoal $communityGoal, Tag $tag, ?int $priority)
     {
         $this->member = $member;
-        $this->goal = $goal;
+        $this->communityGoal = $communityGoal;
         $this->tag = $tag;
         $this->priority = $priority;
 
@@ -65,9 +65,9 @@ class Goal
         return $this->member;
     }
 
-    public function getGoal(): CommunityGoal
+    public function getCommunityGoal(): CommunityGoal
     {
-        return $this->goal;
+        return $this->communityGoal;
     }
 
     public function getTag(): Tag
@@ -78,5 +78,10 @@ class Goal
     public function getPriority(): ?int
     {
         return $this->priority;
+    }
+
+    public function setPriority(?int $priority): void
+    {
+        $this->priority = $priority;
     }
 }

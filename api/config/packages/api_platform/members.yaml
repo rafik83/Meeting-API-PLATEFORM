@@ -22,5 +22,12 @@ Proximum\Vimeet365\Domain\Entity\Member:
             input: Proximum\Vimeet365\Application\Command\Member\SetGoalsCommand
             output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
+        member_post_rank_goals:
+            method: post
+            path: /members/{id}/goals-ranking
+            controller: Proximum\Vimeet365\Infrastructure\Controller\MemberGoalController::rankGoals
+            input: 'Proximum\Vimeet365\Application\Command\Member\RankGoalsCommand'
+            output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
     properties:
         id: { identifier: true }

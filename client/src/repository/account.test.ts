@@ -1,4 +1,3 @@
-import { buildFakeQualificationStep } from '../__fixtures__/FakeQualificationSteps';
 import { buildFakeUser } from '../__fixtures__/FakeUser';
 import { getUserIdFromLocation, getUserMemberIdInCommunity } from './account';
 
@@ -24,13 +23,11 @@ describe('Account Repository', () => {
           id: memberId,
           joinedAt: new Date(),
           community: communityId,
-          currentQualificationStep: buildFakeQualificationStep({}),
         },
         {
           id: 444,
           joinedAt: new Date(),
           community: communityId,
-          currentQualificationStep: buildFakeQualificationStep({}),
         },
       ],
     });
@@ -48,13 +45,11 @@ describe('Account Repository', () => {
           id: memberId,
           joinedAt: new Date(),
           community: 333,
-          currentQualificationStep: buildFakeQualificationStep({}),
         },
         {
           id: 444,
           joinedAt: new Date(),
           community: 8888,
-          currentQualificationStep: buildFakeQualificationStep({}),
         },
       ],
     });

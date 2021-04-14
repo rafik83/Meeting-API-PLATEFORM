@@ -1,22 +1,19 @@
-import type { Nomenclature } from '../domain';
-import {
-  buildFakeNomenclature,
-  buildFakeNomenclatureTag,
-  buildFakeTag,
-} from '../__fixtures__/FakeTags';
+import { buildFakeNomenclature, buildFakeTag } from '../__fixtures__/FakeTags';
+
 import type { TreeItem } from './tagManagement';
 import {
   buildTagTree,
   filterTagsWithNoPriorities,
+  updatePriorities,
   getTagsFromNomenclature,
-  getTagsFromNomenclatureTags,
   getTagsMaxPriority,
   getTagsWithPriorityCount,
   setTagPriorityToNullIfNotDefined,
-  updatePriorities,
 } from './tagManagement';
 
-describe('priorities', () => {
+import type { Nomenclature } from '../domain';
+
+describe('tagManagaement', () => {
   describe('getTagsMaxPriority', () => {
     it('should return the max priority from a nomenclature tag array', () => {
       const tag1 = buildFakeTag({ id: 2, priority: 666 });
@@ -153,27 +150,6 @@ describe('priorities', () => {
     });
   });
 
-  describe('getTagsFromNomenclatureTags', () => {
-    it('should get the tags from nomenclature tags', () => {
-      const tag1 = buildFakeTag({
-        name: 'toto',
-        priority: 33,
-      });
-
-      const tag2 = buildFakeTag({
-        name: 'tuto',
-        priority: 33,
-      });
-
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tag1);
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tag2);
-
-      expect(
-        getTagsFromNomenclatureTags([nomenclatureTag1, nomenclatureTag2])
-      ).toStrictEqual([tag1, tag2]);
-    });
-  });
-
   it('should return all tags from nomenclature ', () => {
     const tag1 = buildFakeTag({
       name: 'job1',
@@ -183,12 +159,8 @@ describe('priorities', () => {
       name: 'job2',
     });
 
-    const jobPositionNomenclatureTag1 = buildFakeNomenclatureTag(tag1);
-
-    const jobPositionNomenclatureTag2 = buildFakeNomenclatureTag(tag2);
-
     const nomenclature: Nomenclature = buildFakeNomenclature({
-      tags: [jobPositionNomenclatureTag1, jobPositionNomenclatureTag2],
+      tags: [tag1, tag2],
     });
 
     const result = getTagsFromNomenclature(nomenclature);
@@ -197,55 +169,56 @@ describe('priorities', () => {
 
   describe('buildTagTree', () => {
     it('should return a tree', () => {
-      const tagParent = buildFakeTag({
+      const tagBuy = buildFakeTag({
         name: 'Buy',
         id: 333,
       });
 
-      const tagChild1 = buildFakeTag({
+      const tagToto = buildFakeTag({
         name: 'Toto',
         id: 222,
+        parent: tagBuy,
       });
 
-      const tagChild2 = buildFakeTag({
+      const tagTata = buildFakeTag({
         name: 'Tata',
         id: 566,
+        parent: tagBuy,
       });
 
-      const nomenclatureTag1 = buildFakeNomenclatureTag(tagChild1, tagParent);
+      const result = buildTagTree([tagBuy, tagToto, tagTata]);
 
-      const nomenclatureTag2 = buildFakeNomenclatureTag(tagChild2, tagParent);
-
-      const nomenclatureTag3 = buildFakeNomenclatureTag(tagParent);
-
-      const nomenclature = buildFakeNomenclature({
-        id: 666,
-        tags: [nomenclatureTag1, nomenclatureTag2, nomenclatureTag3],
-      });
-      const result = buildTagTree(nomenclature);
-
-      const expectedTagChild1TreeItem: TreeItem = {
+      const totoTreeItem: TreeItem = {
         children: [],
-        tag: tagChild1,
-        parent: tagParent,
+        tag: tagToto,
+        parent: tagBuy,
       };
 
-      const expectedTagChild2TreeItem: TreeItem = {
+      const tataTreeItem: TreeItem = {
         children: [],
-        tag: tagChild2,
-        parent: tagParent,
+        tag: tagTata,
+        parent: tagBuy,
       };
 
-      const expectedTagParentTreeItem: TreeItem = {
-        children: [expectedTagChild1TreeItem, expectedTagChild2TreeItem],
-        tag: tagParent,
+      const buyTreeItem: TreeItem = {
+        children: [totoTreeItem, tataTreeItem],
+        tag: tagBuy,
         parent: null,
       };
 
+      /* The expected tree should look like this
+       *         Buy
+       *          │
+       *          │
+       *    ┌─────┴──────┐
+       *    ▼            ▼
+       * Toto           Tata
+       */
+
       const expectedResult: Array<TreeItem> = [
-        expectedTagChild1TreeItem,
-        expectedTagParentTreeItem,
-        expectedTagChild2TreeItem,
+        buyTreeItem,
+        totoTreeItem,
+        tataTreeItem,
       ];
 
       expect(result).toStrictEqual(expectedResult);
@@ -270,58 +243,50 @@ describe('priorities', () => {
       const tagA1 = buildFakeTag({
         name: 'a1',
         id: 4,
+        parent: tagA,
       });
 
       const tagA2 = buildFakeTag({
         name: 'a2',
         id: 5,
+        parent: tagA,
       });
 
       const tagA11 = buildFakeTag({
         name: 'a11',
         id: 6,
+        parent: tagA1,
       });
 
       const tagA12 = buildFakeTag({
         name: 'a12',
         id: 7,
+        parent: tagA1,
       });
 
       const tagA121 = buildFakeTag({
         name: 'a121',
         id: 8,
+        parent: tagA12,
       });
 
       const tagB1 = buildFakeTag({
         name: 'b1',
         id: 9,
+        parent: tagB,
       });
 
-      const nomenclatureTagA = buildFakeNomenclatureTag(tagA);
-      const nomenclatureTagB = buildFakeNomenclatureTag(tagB);
-      const nomenclatureTagC = buildFakeNomenclatureTag(tagC);
-      const nomenclatureTagA1 = buildFakeNomenclatureTag(tagA1, tagA);
-      const nomenclatureTagA2 = buildFakeNomenclatureTag(tagA2, tagA);
-      const nomenclatureTagA11 = buildFakeNomenclatureTag(tagA11, tagA1);
-      const nomenclatureTagA12 = buildFakeNomenclatureTag(tagA12, tagA1);
-      const nomenclatureTagA121 = buildFakeNomenclatureTag(tagA121, tagA12);
-      const nomenclatureTagB1 = buildFakeNomenclatureTag(tagB1, tagB);
-
-      const nomenclature = buildFakeNomenclature({
-        id: 666,
-        tags: [
-          nomenclatureTagA,
-          nomenclatureTagB,
-          nomenclatureTagC,
-          nomenclatureTagA1,
-          nomenclatureTagA2,
-          nomenclatureTagA11,
-          nomenclatureTagA12,
-          nomenclatureTagA121,
-          nomenclatureTagB1,
-        ],
-      });
-      const result = buildTagTree(nomenclature);
+      const result = buildTagTree([
+        tagA,
+        tagB,
+        tagC,
+        tagA1,
+        tagA2,
+        tagA11,
+        tagA12,
+        tagA121,
+        tagB1,
+      ]);
 
       const expectedTagA121TreeItem: TreeItem = {
         children: [],

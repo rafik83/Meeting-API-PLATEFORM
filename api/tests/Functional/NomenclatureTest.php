@@ -29,8 +29,8 @@ class NomenclatureTest extends ApiTestCase
         self::assertJsonContains([
             '@type' => 'Nomenclature',
             'tags' => [
-                ['tag' => ['name' => 'buy']],
-                ['tag' => ['name' => 'sell']],
+                ['name' => 'buy'],
+                ['name' => 'sell'],
             ],
         ]);
     }
@@ -51,8 +51,8 @@ class NomenclatureTest extends ApiTestCase
         self::assertJsonContains([
             '@type' => 'Nomenclature',
             'tags' => [
-                ['tag' => ['name' => 'acheter']],
-                ['tag' => ['name' => 'vendre']],
+                ['name' => 'acheter'],
+                ['name' => 'vendre'],
             ],
         ]);
     }
@@ -73,8 +73,8 @@ class NomenclatureTest extends ApiTestCase
         self::assertJsonContains([
             '@type' => 'Nomenclature',
             'tags' => [
-                ['tag' => ['name' => 'buy']],
-                ['tag' => ['name' => 'sell']],
+                ['name' => 'buy'],
+                ['name' => 'sell'],
             ],
         ]);
     }
@@ -93,7 +93,7 @@ class NomenclatureTest extends ApiTestCase
         self::assertJsonContains([
             '@type' => 'Nomenclature',
             'tags' => [
-                ['tag' => ['name' => 'System Engineer']],
+                ['name' => 'System Engineer'],
             ],
         ]);
     }

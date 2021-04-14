@@ -76,4 +76,9 @@ class Tag
 
         return $translation->getLabel();
     }
+
+    public function __toString(): string
+    {
+        return (string) $this->getLabel();
+    }
 }
