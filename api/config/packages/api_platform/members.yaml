@@ -11,7 +11,7 @@ Proximum\Vimeet365\Domain\Entity\Member:
         get: ~
         member_get_goals:
             method: get
-            path: /members/{id}/goals
+            path: /members/{id}/goals.{_format}
             controller: Proximum\Vimeet365\Infrastructure\Controller\MemberGoalController::getGoals
             output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
