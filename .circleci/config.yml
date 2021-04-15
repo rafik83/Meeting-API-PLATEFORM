@@ -16,10 +16,10 @@ jobs:
                     key: npm-deps-{{ checksum "client/package-lock.json" }}
                     paths:
                         - client/node_modules/
-    api:
+    server:
         docker:
             -   image: circleci/php:7.4-node-browsers
-                environment: &api-env
+                environment: &server-env
                     VIMEET_365_DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
             -   image: circleci/postgres:12.1-alpine
                 environment: &postgresql-env
@@ -29,7 +29,7 @@ jobs:
         steps:
             - checkout
 
-            -   run: &api-server-dependencies
+            -   run: &server-dependencies
                     name: Install server dependencies
                     command: |
                         sudo apt update
@@ -39,39 +39,39 @@ jobs:
             # Download and cache dependencies
             -   restore_cache: &restore-composer-cache
                     keys:
-                        - api-composer-deps-{{ checksum "api/composer.lock" }}
-                        - api-composer-deps-
+                        - server-composer-deps-{{ checksum "server/composer.lock" }}
+                        - server-composer-deps-
 
             -   run:
                     name: "Install Dependencies"
-                    command: make -C api install@integration
+                    command: make -C server install@integration
 
             -   save_cache: &save-composer-cache
-                    key: api-composer-deps-{{ checksum "api/composer.lock" }}
+                    key: server-composer-deps-{{ checksum "server/composer.lock" }}
                     paths:
                         - ~/.composer/cache
-                        - api/vendor
-                        - api/bin/.phpunit
+                        - server/vendor
+                        - server/bin/.phpunit
 
             -   run:
                     name: "Lint (php-cs-fixer)"
-                    command: make -C api lint.php-cs-fixer@integration
+                    command: make -C server lint.php-cs-fixer@integration
             -   run:
                     name: "Lint (PHPStan)"
-                    command: make -C api lint.phpstan@integration
+                    command: make -C server lint.phpstan@integration
 
             -   run:
                     name: "Tests (Unit)"
-                    command: make -C api test@integration
+                    command: make -C server test@integration
     e2e:
         docker:
             -   image: circleci/php:7.4-node-browsers
-                environment: *api-env
+                environment: *server-env
             -   image: circleci/postgres:12.1-alpine
                 environment: *postgresql-env
         steps:
             - checkout
-            -   run: *api-server-dependencies
+            -   run: *server-dependencies
 
             -   run:
                     name: install symfony cli
@@ -88,7 +88,7 @@ jobs:
                     name: "Install Dependencies"
                     command: |
                         make -C client install
-                        make -C api install@integration
+                        make -C server install@integration
 
             -   save_cache: *save-npm-cache
             -   save_cache: *save-composer-cache
@@ -107,8 +107,8 @@ jobs:
                     background: true
 
             -   run:
-                    name: start api server
-                    command: cd api && APP_ENV=e2e /home/circleci/.symfony/bin/symfony server:start --allow-http
+                    name: start server api
+                    command: cd server && APP_ENV=e2e /home/circleci/.symfony/bin/symfony server:start --allow-http
                     background: true
 
             -   run:
@@ -120,13 +120,13 @@ jobs:
                     name: run behat tests
                     command: |
                         sleep 10
-                        cd api && APP_ENV=e2e vendor/bin/behat
+                        cd server && APP_ENV=e2e vendor/bin/behat
 workflows:
     integration:
         jobs:
             - client
-            - api
+            - server
             - e2e:
                     requires:
                         - client
-                        - api
+                        - server
