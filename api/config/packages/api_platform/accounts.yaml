@@ -13,7 +13,7 @@ Proximum\Vimeet365\Domain\Entity\Account:
                 id: '\d+'
         get_me:
             method: get
-            path: /accounts/me
+            path: /accounts/me.{_format}
             controller: Proximum\Vimeet365\Infrastructure\Controller\AccountController::getMe
             read: false
             security: 'is_granted("ROLE_USER")'
