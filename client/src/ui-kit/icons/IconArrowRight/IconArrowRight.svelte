@@ -1,8 +1,10 @@
+<script>
+  export let stroke = '#2a2e43';
+</script>
+
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 13.214 27.875"
-  width="100%"
-  height="100%"
   {...$$restProps}
   on:click
   on:mouseover
@@ -10,7 +12,7 @@
   on:mouseleave
   on:keydown>
   <slot />
-  <g fill="none" stroke="#2a2e43">
+  <g fill="none" {stroke}>
     <path
       stroke-width="3px"
       stroke-miterlimit="10"

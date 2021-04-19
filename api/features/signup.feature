@@ -5,6 +5,8 @@ Feature:
 
     Scenario: I can see the sign up form
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I press "join-community"
         And I fill in "loginUserName" with "john"
         And I follow "S'inscrire"
@@ -12,6 +14,8 @@ Feature:
 
     Scenario: I can not sign up if I miss to fill some field
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I press "join-community"
         And I follow "S'inscrire"
         And I fill in "password" with "hello world"
@@ -20,6 +24,8 @@ Feature:
 
     Scenario: I can not sign up if I did'nt provide a valid email
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I press "join-community"
         And I follow "S'inscrire"
         And I fill in "email" with "invalid email"
@@ -28,6 +34,8 @@ Feature:
 
     Scenario: I can not sign up if I did'nt provide a valid password
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I press "join-community"
         And I follow "S'inscrire"
         And I fill in "password" with "toto"
@@ -38,6 +46,8 @@ Feature:
         Given the database is purged
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I press "join-community"
         And I follow "S'inscrire"
         And I fill in "email" with "john@doe.com"

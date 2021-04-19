@@ -1,5 +1,5 @@
 import TagButton from './TagButton.svelte';
-import PreviewWrapper from './PreviewWrapper.svelte';
+import PreviewDecorator from './PreviewDecorator.svelte';
 
 const defaultProps = {
   name: 'myTag',
@@ -17,7 +17,7 @@ export default {
       const story = storyFn();
 
       return {
-        Component: PreviewWrapper,
+        Component: PreviewDecorator,
         props: {
           child: story.Component,
           props: story.props,

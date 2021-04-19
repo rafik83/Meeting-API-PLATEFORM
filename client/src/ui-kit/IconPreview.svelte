@@ -1,7 +1,7 @@
 <script>
   import * as icons from './icons';
 
-  const iconsWithStrokeNames = ['IconDropDown', 'IconLoader'];
+  const iconsWithStrokeNames = ['IconDropDown', 'IconLoader', 'IconArrowLeft', 'IconArrowRight'];
 
   const iconsWitoutStroke = Object.keys(icons).filter(
     (item) => !iconsWithStrokeNames.includes(item)
@@ -17,9 +17,9 @@
 
   <h2 class="mt-5 text-l text-bold">Supports fill property</h2>
 
-  <div class="flex mt-8">
+  <div class="flex flex-wrap mt-8">
     {#each iconsWitoutStroke as icon}
-      <div class="px-5 flex flex-col items-center">
+      <div class="px-5 my-5 w-52 flex flex-col items-center">
         <svelte:component
           this={icons[icon]}
           title={icon}
@@ -34,9 +34,9 @@
 
   <h2 class="mt-5 text-l text-bold">Supports stroke property</h2>
 
-  <div class="flex mt-8">
+  <div class="flex flex-wrap mt-8">
     {#each iconsWithStroke as icon}
-      <div class="px-5 flex flex-col items-center">
+      <div class="px-5 my-5 w-52 flex flex-col items-center">
         <svelte:component
           this={icons[icon]}
           title={icon}

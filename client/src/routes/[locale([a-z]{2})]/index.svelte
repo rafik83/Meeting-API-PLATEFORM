@@ -34,6 +34,7 @@
   import { toOnboardingStep, toRegistrationStep } from '../../modules/routing';
   import { setBaseUrl } from '../../modules/axios';
   import registrationSteps from '../../constants';
+  import Nav from '../../components/Nav.svelte';
 
   let CardsList;
   onMount(async () => {
@@ -124,14 +125,8 @@
 </script>
 
 <section class="h-full w-full pb-28 overflow-x-hidden">
+  <Nav {user} />
   {#if user}
-    <h1>Vous êtes connecté</h1>
-  {:else}
-    <button
-      id="join-community"
-      class="md:w-1/3 block m-auto w-full font-semi-bold text-gray-50 bg-community-300 h-1/3 "
-      on:click={() => goto(toRegistrationStep(registrationSteps.SIGN_IN))}>
-      Click here to join the community
-    </button>
+    <h1 class="text-center">Vous êtes connecté</h1>
   {/if}
 </section>

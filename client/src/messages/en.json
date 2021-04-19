@@ -85,7 +85,9 @@
     "second_language": "Language n°2",
     "third_language": "Language n°3",
     "your_location": "Your location",
-    "timezone": "Timezone"
+    "timezone": "Timezone",
+    "free": "Free",
+    "connected": "Connected"
   },
   "languages": {
     "en": "English",

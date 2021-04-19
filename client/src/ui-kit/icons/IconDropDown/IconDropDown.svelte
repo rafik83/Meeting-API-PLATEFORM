@@ -7,7 +7,8 @@
   on:mouseenter
   on:mouseleave
   on:keydown
-  ><slot /><defs><style></style></defs><g
+  ><slot />
+  <g
     transform="translate(23.366 1.183) rotate(90)"
     ><path fill="none" stroke-width="3px" d="M0,0,8.749,11.221,0,22.443" /></g
   ></svg

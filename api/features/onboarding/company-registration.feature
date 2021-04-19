@@ -7,6 +7,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
         And I go to "/fr/onboarding/2"
         And I fill in "companyName" with "Best Company"
@@ -23,6 +25,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
         And I go to "/fr/onboarding/2"
 
@@ -35,6 +39,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
 
         And I go to "/fr/onboarding/2"
@@ -47,6 +53,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
 
         And I go to "/fr/onboarding/2"
@@ -63,6 +71,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
 
         And I go to "/fr/onboarding/2"
@@ -78,6 +88,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
 
         And I go to "/fr/onboarding/2"

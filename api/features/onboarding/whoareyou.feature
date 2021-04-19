@@ -8,6 +8,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
         And I press "Fonction"
         And I select "Ministre" from "jobPosition" 
@@ -19,6 +21,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
         And I press "Fonction"
         And I select "Ministre" from "jobPosition" 
@@ -38,6 +42,8 @@ Feature:
         And the user "john@doe.com" is created
         And I want to join aerospacial community
         When I go to "/fr"
+        And I press "menu-responsive"
+        And I wait 1000
         And I sign in as "john@doe.com"
         And I press "Fonction"
         And I fill in "fonction-searchinput" with "culti"

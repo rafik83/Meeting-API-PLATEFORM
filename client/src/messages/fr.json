@@ -85,7 +85,9 @@
     "second_language": "Langue n°2",
     "third_language": "Langue n°3",
     "your_location": "Votre localisation",
-    "timezone": "Fuseau horaire"
+    "timezone": "Fuseau horaire",
+    "free": "Gratuit",
+    "connected": "Connecté"
   },
   "admin": {
     "title": "Page d'administration"

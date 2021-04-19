@@ -11,6 +11,8 @@ Feature:
     |  3     | Buy      |
     |  4     | Sell     |
     When I go to "/fr"
+    And I press "menu-responsive"
+    And I wait 1000
     And I sign in as "john@doe.com"
     Scenario: I can select one more goal
     When I go to "/fr/onboarding/4-3"
