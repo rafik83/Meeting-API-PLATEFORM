@@ -60,3 +60,27 @@ export type TimeZone = {
   code: string;
   name: string;
 };
+
+export type MemberGoal = {
+  goal: CommunityGoal;
+  tags: Array<{
+    priority: number;
+    tag: Tag;
+  }>;
+};
+
+export type CommunityGoal = {
+  id: number;
+  community: number;
+  nomenclature: Nomenclature;
+  min: number;
+  max: number;
+  tag: Tag;
+  parent?: number;
+};
+
+export type TagTreeItem = {
+  children: TagTreeItem[];
+  tag: Tag;
+  parent: Tag | null;
+};

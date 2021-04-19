@@ -20,4 +20,9 @@ class MemberRepository extends ServiceEntityRepository implements MemberReposito
     {
         $this->getEntityManager()->persist($member);
     }
+
+    public function findOneById(int $id): ?Member
+    {
+        return $this->find($id);
+    }
 }

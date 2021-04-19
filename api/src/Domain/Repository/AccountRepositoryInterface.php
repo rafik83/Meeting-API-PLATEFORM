@@ -9,4 +9,6 @@ use Proximum\Vimeet365\Domain\Entity\Account;
 interface AccountRepositoryInterface
 {
     public function add(Account $account): void;
+
+    public function findOneByEmail(string $email): ?Account;
 }

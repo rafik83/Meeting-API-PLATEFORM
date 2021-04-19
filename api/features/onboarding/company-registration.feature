@@ -16,7 +16,7 @@ Feature:
         And I fill in "activity" with "Best describe ever"
         And I press "Suivant"
         And I wait 3000
-        Then I should see "Selectionnez 2 objectifs par priorité"
+        Then I should see "Selectionnez 1 objectif"
 
     Scenario: I can search countries from the country list
         Given the database is purged

@@ -1,4 +1,4 @@
-import type { Nomenclature, Tag } from '../domain';
+import type { MemberGoal, Nomenclature, Tag } from '../domain';
 
 export const getTagsMaxPriority = (tags: Array<Tag>): number => {
   const result = Math.max.apply(
@@ -115,4 +115,10 @@ export const buildTagTree = (tags: Array<Tag>): Array<TreeItem> => {
   });
 
   return tree;
+};
+
+export const getTagsFromMemberGoal = (memberGoal: MemberGoal): Array<Tag> => {
+  return memberGoal.tags.map((item) => {
+    return item.tag;
+  });
 };

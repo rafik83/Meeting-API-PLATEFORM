@@ -39,6 +39,6 @@ export const del = (url: string) => {
   return getClient().delete(url);
 };
 
-export const get = async <T>(url: string, withCredentials: boolean = false) => {
-  return getClient().get<T>(url, { withCredentials });
+export const get = async <T>(url: string) => {
+  return getClient().get<T>(url);
 };

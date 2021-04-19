@@ -1,5 +1,5 @@
-import type { Tag, Member } from '../domain';
-import { patch, post } from '../modules/axios';
+import type { Tag, Member, MemberGoal } from '../domain';
+import { get, patch, post } from '../modules/axios';
 
 type CreateMemberPayload = {
   community: number;
@@ -51,4 +51,13 @@ export const saveCommunityGoal = async (
     `/members/${memberId}/goals`,
     data
   );
+};
+
+export const getMemberGoals = async (
+  communityId: number
+): Promise<Array<MemberGoal>> => {
+  const result = (await get<Array<MemberGoal>>(`/members/${communityId}/goals`))
+    .data;
+
+  return result;
 };

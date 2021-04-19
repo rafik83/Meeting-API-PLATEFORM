@@ -72,7 +72,8 @@
     "title": "Vimeet365 - Onboarding",
     "currentStep": "Step {currentStep}/{maxStep}",
     "selected": "{n, plural, =0{{n}/{priorities_number} maximum selected} one{{n}/{priorities_number} maximum selected} other{#/{priorities_number} maxium selected}}",
-    "select_your_goals": "Select {n, plural, one {# objective} other {# objectives by priority}}"
+    "select_your_goals": "Select {n, plural, one {# objective} other {# objectives by priority}}",
+    "detail_another_objective": "Do you want to detail another objective?"
   },
   "account": {
     "employment": "Employment",

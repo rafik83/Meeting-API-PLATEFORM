@@ -61,4 +61,13 @@ class AccountRepository extends ServiceEntityRepository implements AccountReposi
     {
         $this->getEntityManager()->persist($account);
     }
+
+    public function findOneByEmail(string $email): ?Account
+    {
+        return $this->createQueryBuilder('account')
+            ->andWhere('account.email = :email')
+            ->setParameter(':email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

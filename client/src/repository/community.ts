@@ -1,4 +1,4 @@
-import type { CommunityGoal, Tag } from '../domain';
+import type { CommunityGoal, MemberGoal, Tag } from '../domain';
 import { get } from '../modules/axios';
 import { getTagsFromNomenclature } from '../modules/tagManagement';
 
@@ -28,4 +28,13 @@ export const getCommunityMainObjectives = async (
     min,
     tags,
   };
+};
+
+export const getCommunityGoals = async (
+  communityId: number
+): Promise<Array<MemberGoal>> => {
+  const result = (
+    await get<Array<MemberGoal>>(`/communities/${communityId}/goals`)
+  ).data;
+  return result;
 };

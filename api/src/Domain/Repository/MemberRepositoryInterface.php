@@ -9,4 +9,6 @@ use Proximum\Vimeet365\Domain\Entity\Member;
 interface MemberRepositoryInterface
 {
     public function add(Member $account): void;
+
+    public function findOneById(int $id): ?Member;
 }
