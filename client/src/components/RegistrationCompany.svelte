@@ -74,6 +74,6 @@
     bind:company={companyFormValues}
   />
   <Button type="submit" kind="primary" on:click={handleSubmit}>
-    {$_('registration.next')}
+    {$_('messages.next')}
   </Button>
 </div>

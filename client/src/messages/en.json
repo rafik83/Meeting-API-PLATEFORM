@@ -4,10 +4,13 @@
     "success": "Great success!",
     "high_five": "High five",
     "try_editing": "Try editing this file (src/routes/index.svelte) to test live reloading.",
-    "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer",
+    "error_has_occured": "An error has occurred. Please try again.",
     "page_not_found": "This page does not exists or has been moved",
     "search": "Search",
-    "you_are_not_authorized": "You are not authorized"
+    "you_are_not_authorized": "You are not authorized",
+    "later": "later",
+    "previous": "Previous step",
+    "next": "Next"
   },
   "validation": {
     "field_required": "Field Required",
@@ -62,7 +65,6 @@
     "company_name": "Company name",
     "website": "Website",
     "description": "Description",
-    "next": "Next",
     "create_your_company": "Create your company",
     "upload_avatar": "Download your photo",
     "attention_members": "Get 8 times the attention of members!",

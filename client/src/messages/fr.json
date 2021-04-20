@@ -7,7 +7,10 @@
     "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer",
     "page_not_found": "Cette page n'existe pas ou à été deplacée",
     "search": "Rechercher",
-    "you_are_not_authorized": "Vous n'êtes pas autorisé"
+    "you_are_not_authorized": "Vous n'êtes pas autorisé",
+    "later": "plus tard",
+    "previous": "Précédent",
+    "next": "Suivant"
   },
   "validation": {
     "field_required": "Ce champs est requis",
@@ -62,7 +65,6 @@
     "company_name": "Nom de la société",
     "website": "Site web",
     "description": "Description",
-    "next": "Suivant",
     "create_your_company": "Créez votre entreprise.",
     "upload_avatar": "Téléchargez votre avatar",
     "attention_members": "Attirez 8 fois plus l'attention des membres!",

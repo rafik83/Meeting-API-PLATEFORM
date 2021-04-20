@@ -67,7 +67,7 @@
           goal: goalId,
           tags: selectedTags,
         });
-        await goto(toOnboardingStep(4));
+        await goto(toOnboardingStep('4-1'));
       } catch (e) {
         if (e.response.status === 401) {
           $session.userId = null;
@@ -104,9 +104,15 @@
     </div>
   </section>
 
-  <div slot="button">
+  <div class="flex  justify-between w-1/2 m-auto" slot="button">
+    <Button
+      withMarging
+      on:click={async () => await goto(toOnboardingStep('2'))}
+    >
+      {$_('messages.previous')}
+    </Button>
     <Button on:click={handleSubmitGoals}>
-      {$_('registration.next')}
+      {$_('messages.next')}
     </Button>
   </div>
 </OnboardingContainer>

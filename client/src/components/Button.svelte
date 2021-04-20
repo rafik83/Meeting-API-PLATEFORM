@@ -1,6 +1,7 @@
 <script>
   export let type = '';
   export let kind = 'primary';
+  export let withMarging = false;
   let style;
 
   if (kind === 'primary') {
@@ -35,6 +36,7 @@
 <button
   on:click|preventDefault
   {type}
-  class="w-full text-sm font-semibold my-5 rounded-lg h-12 {style}">
+  class="w-full text-sm font-semibold my-5 rounded-lg h-12 {style}"
+  class:mx-5={withMarging}>
   <slot>Button</slot>
 </button>

@@ -31,6 +31,7 @@
   import TagButton from '../../../components/TagButton.svelte';
   import { setBaseUrl } from '../../../modules/axios';
   import Loader from '../../../components/Loader.svelte';
+  import Button from '../../../components/Button.svelte';
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -91,5 +92,14 @@
         </div>
       </div>
     </section>
+
+    <div class="flex  justify-between w-1/2 m-auto" slot="button">
+      <Button on:click={async () => await goto(toOnboardingStep('4-1'))}>
+        {$_('messages.previous')}
+      </Button>
+      <Button on:click={async () => await goto(toHomePage())}>
+        {$_('messages.later')}
+      </Button>
+    </div>
   </OnboardingContainer>
 {/if}

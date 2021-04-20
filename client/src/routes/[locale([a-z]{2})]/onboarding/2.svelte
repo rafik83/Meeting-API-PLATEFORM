@@ -116,9 +116,9 @@
     </div>
   </section>
 
-  <div slot="button">
+  <div class="w-1/3 m-auto" slot="button">
     <Button on:click={handleUploadCompanyData}>
-      {$_('registration.next')}
+      {$_('messages.next')}
     </Button>
   </div>
 </OnboardingContainer>

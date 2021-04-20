@@ -1,4 +1,4 @@
-import type { User, Crendentials } from '../domain';
+import type { User, Credentials } from '../domain';
 import { get, post, patch } from '../modules/axios';
 
 export const getUserIdFromLocation = (
@@ -12,9 +12,9 @@ export const getUserIdFromLocation = (
 };
 
 export const authenticate = async (
-  credentials: Crendentials
+  credentials: Credentials
 ): Promise<number> => {
-  const { headers } = await post<Crendentials, void>('/login', credentials);
+  const { headers } = await post<Credentials, void>('/login', credentials);
   if (!headers || !headers.location) {
     throw new Error('No Location header found');
   }
