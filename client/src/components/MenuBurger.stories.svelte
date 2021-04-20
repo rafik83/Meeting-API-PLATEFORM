@@ -9,5 +9,5 @@
   <MenuBurger {...args} />
 </Template>
 
-<Story name="Close" args={{open: false}} />
-<Story name="Open" args={{open: true}} />
+<Story name="Close" args={{ open: false }} />
+<Story name="Open" args={{ open: true }} />

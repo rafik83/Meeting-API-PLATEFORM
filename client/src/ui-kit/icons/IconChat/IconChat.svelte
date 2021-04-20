@@ -1,5 +1,5 @@
 <script>
-  export let fill = "#2a2e43";
+  export let fill = '#2a2e43';
 </script>
 
 <svg

@@ -1,7 +1,12 @@
 <script>
   import * as icons from './icons';
 
-  const iconsWithStrokeNames = ['IconDropDown', 'IconLoader', 'IconArrowLeft', 'IconArrowRight'];
+  const iconsWithStrokeNames = [
+    'IconDropDown',
+    'IconLoader',
+    'IconArrowLeft',
+    'IconArrowRight',
+  ];
 
   const iconsWitoutStroke = Object.keys(icons).filter(
     (item) => !iconsWithStrokeNames.includes(item)

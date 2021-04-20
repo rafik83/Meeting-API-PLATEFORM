@@ -1,6 +1,7 @@
 <script>
-  export let fill = "#fff";
+  export let fill = '#fff';
 </script>
+
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
@@ -11,8 +12,7 @@
   on:mouseleave
   on:keydown
   ><slot />
-  <path {fill} opacity="0" d="M0,0H24V24H0Z" /><g
-    transform="translate(1.24 1)"
+  <path {fill} opacity="0" d="M0,0H24V24H0Z" /><g transform="translate(1.24 1)"
     ><path
       d="M9.9,5.268H20.934a1.011,1.011,0,0,0,.9-1.087h0a1.011,1.011,0,0,0-.9-1.087H9.9A1.011,1.011,0,0,0,9,4.181H9A1.011,1.011,0,0,0,9.9,5.268Z"
       transform="translate(-4.307 -3.094)"

@@ -1,6 +1,7 @@
 <script>
-  export let stroke = "#2a2e43";
+  export let stroke = '#2a2e43';
 </script>
+
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 13.214 27.875"

@@ -1,7 +1,7 @@
 <script>
   import { IconMenuBurger } from '../ui-kit/icons';
   export let open = false;
-  export let stroke = '#2a2e43'
+  export let stroke = '#2a2e43';
 </script>
 
 <div
@@ -11,5 +11,5 @@
     open = !open;
   }}
 >
-  <IconMenuBurger width="32" {open} {stroke}/>
+  <IconMenuBurger width="32" {open} {stroke} />
 </div>

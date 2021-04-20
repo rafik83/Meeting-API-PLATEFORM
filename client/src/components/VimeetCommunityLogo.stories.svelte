@@ -3,10 +3,7 @@
   import VimeetCommunityLogo from './VimeetCommunityLogo.svelte';
 </script>
 
-<Meta
-  title="Vimeet365/VimeetCommunityLogo"
-  component={VimeetCommunityLogo}
-/>
+<Meta title="Vimeet365/VimeetCommunityLogo" component={VimeetCommunityLogo} />
 
 <Template let:args>
   <VimeetCommunityLogo {...args} />
@@ -15,13 +12,13 @@
 <Story
   name="Space"
   args={{
-    communityName:"Space",
+    communityName: 'Space',
   }}
 />
 
 <Story
   name="Industry"
   args={{
-    communityName:"Industry",
+    communityName: 'Industry',
   }}
 />

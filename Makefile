@@ -13,6 +13,10 @@ lint:
 	$(MAKE) -C api	lint.phpstan
 	$(MAKE) -C client lint
 
+prettify: 
+	$(MAKE) -C api	lint.phpstan
+	$(MAKE) -C client prettify	
+
 test: 
 	$(MAKE) -C api	test-unit
 	$(MAKE) -C client test
