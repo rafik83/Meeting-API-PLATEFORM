@@ -12,7 +12,7 @@
 />
 
 <Template let:args>
-  <Tag {...args} />
+  <Tag {...args}>Tag</Tag>
 </Template>
 
 <Story

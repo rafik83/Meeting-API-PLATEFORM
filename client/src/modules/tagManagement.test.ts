@@ -1,17 +1,24 @@
+import type { Nomenclature, TagTreeItem } from '../domain';
+import {
+  createGroupOfTreeItemsByParent,
+  GroupedTreeItem,
+  groupTreeItemByParent,
+  updatePrioritiesWithinGroupedTreeItems,
+} from '../modules/tagManagement';
 import { buildFakeNomenclature, buildFakeTag } from '../__fixtures__/FakeTags';
+import { buildFakeTreeItem } from '../__fixtures__/TreeItem';
 
-import type { TreeItem } from './tagManagement';
 import {
   buildTagTree,
   filterTagsWithNoPriorities,
   updatePriorities,
   getTagsFromNomenclature,
   getTagsMaxPriority,
+  filterTagTree,
+  getFirstLevelTreeItems,
   getTagsWithPriorityCount,
   setTagPriorityToNullIfNotDefined,
 } from './tagManagement';
-
-import type { Nomenclature } from '../domain';
 
 describe('tagManagaement', () => {
   describe('getTagsMaxPriority', () => {
@@ -188,19 +195,19 @@ describe('tagManagaement', () => {
 
       const result = buildTagTree([tagBuy, tagToto, tagTata]);
 
-      const totoTreeItem: TreeItem = {
+      const totoTreeItem: TagTreeItem = {
         children: [],
         tag: tagToto,
         parent: tagBuy,
       };
 
-      const tataTreeItem: TreeItem = {
+      const tataTreeItem: TagTreeItem = {
         children: [],
         tag: tagTata,
         parent: tagBuy,
       };
 
-      const buyTreeItem: TreeItem = {
+      const buyTreeItem: TagTreeItem = {
         children: [totoTreeItem, tataTreeItem],
         tag: tagBuy,
         parent: null,
@@ -215,7 +222,7 @@ describe('tagManagaement', () => {
        * Toto           Tata
        */
 
-      const expectedResult: Array<TreeItem> = [
+      const expectedResult: Array<TagTreeItem> = [
         buyTreeItem,
         totoTreeItem,
         tataTreeItem,
@@ -288,59 +295,59 @@ describe('tagManagaement', () => {
         tagB1,
       ]);
 
-      const expectedTagA121TreeItem: TreeItem = {
+      const expectedTagA121TreeItem: TagTreeItem = {
         children: [],
         tag: tagA121,
         parent: tagA12,
       };
 
-      const expectedTagA11TreeItem: TreeItem = {
+      const expectedTagA11TreeItem: TagTreeItem = {
         children: [],
         tag: tagA11,
         parent: tagA1,
       };
 
-      const expectedTgA12TreeItem: TreeItem = {
+      const expectedTgA12TreeItem: TagTreeItem = {
         children: [expectedTagA121TreeItem],
         tag: tagA12,
         parent: tagA1,
       };
 
-      const expectedTagA1TreeItem: TreeItem = {
+      const expectedTagA1TreeItem: TagTreeItem = {
         children: [expectedTagA11TreeItem, expectedTgA12TreeItem],
         tag: tagA1,
         parent: tagA,
       };
 
-      const expectedTagA2TreeItem: TreeItem = {
+      const expectedTagA2TreeItem: TagTreeItem = {
         children: [],
         tag: tagA2,
         parent: tagA,
       };
 
-      const expectedTagB1TreeItem: TreeItem = {
+      const expectedTagB1TreeItem: TagTreeItem = {
         children: [],
         tag: tagB1,
         parent: tagB,
       };
 
-      const expectedTagATreeItem: TreeItem = {
+      const expectedTagATreeItem: TagTreeItem = {
         children: [expectedTagA1TreeItem, expectedTagA2TreeItem],
         tag: tagA,
         parent: null,
       };
-      const expectedTagBTreeItem: TreeItem = {
+      const expectedTagBTreeItem: TagTreeItem = {
         children: [expectedTagB1TreeItem],
         tag: tagB,
         parent: null,
       };
-      const expectedTagCTreeItem: TreeItem = {
+      const expectedTagCTreeItem: TagTreeItem = {
         children: [],
         tag: tagC,
         parent: null,
       };
 
-      const expectedResult: Array<TreeItem> = [
+      const expectedResult: Array<TagTreeItem> = [
         expectedTagATreeItem,
         expectedTagBTreeItem,
         expectedTagCTreeItem,
@@ -352,6 +359,667 @@ describe('tagManagaement', () => {
         expectedTagB1TreeItem,
       ];
 
+      expect(result).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe('filterTagTree', () => {
+    it('should return a filtered TagTree', () => {
+      const SpaceRDTag = buildFakeTag({
+        name: 'Space R&D',
+        id: 18,
+      });
+
+      const GroundTag = buildFakeTag({
+        name: 'Ground',
+        id: 10,
+      });
+
+      const SatelliteTag = buildFakeTag({
+        name: 'Satellite',
+        id: 8,
+      });
+
+      /* The tag tree looks like this :
+       *
+       *            Ground
+       *              │
+       *       ───────┴─────────────
+       * Satellite            Space R&D
+       */
+
+      const spaceRDTreeItem = buildFakeTreeItem({
+        tag: SpaceRDTag,
+      });
+
+      const SatelliteTreeItem = buildFakeTreeItem({
+        tag: SatelliteTag,
+      });
+
+      const GroundTreeItem = buildFakeTreeItem({
+        tag: GroundTag,
+        parent: null,
+        children: [spaceRDTreeItem, SatelliteTreeItem],
+      });
+
+      /*
+                                      The user has selected those tags
+                                    */
+
+      const selectedTags = [SpaceRDTag];
+      const expectedResult = [spaceRDTreeItem];
+
+      const result = filterTagTree(GroundTreeItem, selectedTags);
+      expect(result).toStrictEqual(expectedResult);
+    });
+
+    it('should return a filtered TagTree -- user has selected multiple tags from the tree', () => {
+      const GroundTag = buildFakeTag({
+        name: 'Ground',
+        id: 10,
+      });
+
+      const SatelliteTag = buildFakeTag({
+        name: 'Satellite',
+        id: 8,
+        parent: GroundTag,
+      });
+
+      const SpacecraftPowerTag = buildFakeTag({
+        name: 'SpacecraftPower',
+        id: 19,
+        parent: GroundTag,
+      });
+
+      const SpaceRDTag = buildFakeTag({
+        name: 'Space R&D',
+        id: 18,
+        parent: GroundTag,
+      });
+
+      /* The tag tree looks like this
+       *         Ground
+       *         │  │ │
+       *         │  │ └──────────────┐
+       *         │  │                │
+       *         ▼  ▼                ▼
+       * Satellite  Space R&D  Spacecraft Power
+       */
+
+      const SpaceRDTreeItem = buildFakeTreeItem({
+        tag: SpaceRDTag,
+        parent: GroundTag,
+        children: [],
+      });
+
+      const SatelliteTreeItem = buildFakeTreeItem({
+        tag: SatelliteTag,
+        parent: GroundTag,
+        children: [],
+      });
+
+      const SpacecraftPowerTreeItem = buildFakeTreeItem({
+        tag: SpacecraftPowerTag,
+        parent: GroundTag,
+        children: [],
+      });
+
+      const GroundTreeItem = buildFakeTreeItem({
+        tag: GroundTag,
+        parent: null,
+        children: [SpaceRDTreeItem, SatelliteTreeItem, SpacecraftPowerTreeItem],
+      });
+
+      /*
+                                                                                            The user has selected those tags
+                                                                                          */
+      const selectedTags = [SatelliteTag, SpacecraftPowerTag];
+
+      const expectedResult = [SatelliteTreeItem, SpacecraftPowerTreeItem];
+
+      expect(filterTagTree(GroundTreeItem, selectedTags)).toStrictEqual(
+        expectedResult
+      );
+    });
+
+    it('should return a filtered TagTree -- with only one grand child', () => {
+      /* The user has selected Space R&D Tag from the "Buy" nomenclature
+       *  - Electronics
+       */
+
+      const GroundTag = buildFakeTag({
+        name: 'Ground',
+        id: 10,
+      });
+
+      const SatelliteTag = buildFakeTag({
+        name: 'Satellite',
+        id: 8,
+        parent: GroundTag,
+      });
+
+      const ElectronicsTag = buildFakeTag({
+        name: 'Electronics',
+        id: 222,
+        parent: SatelliteTag,
+      });
+
+      /* The tree looks like this :
+       *
+       *            Ground
+       *            │
+       *            │
+       *            │
+       *            ▼
+       *          Satellite
+       *              │
+       *              |
+       *              ▼
+       *         Electronics
+       */
+
+      const ElectronicTreeItem = buildFakeTreeItem({
+        tag: ElectronicsTag,
+        parent: SatelliteTag,
+      });
+
+      const SatelliteTreeItem = buildFakeTreeItem({
+        tag: SatelliteTag,
+        parent: GroundTag,
+        children: [ElectronicTreeItem],
+      });
+
+      const GroundTreeItem = buildFakeTreeItem({
+        tag: GroundTag,
+        parent: null,
+        children: [SatelliteTreeItem],
+      });
+
+      // The user has selected those tags
+
+      const selectedTags = [ElectronicsTag];
+
+      const expectedTree = [ElectronicTreeItem];
+      const result = filterTagTree(GroundTreeItem, selectedTags);
+
+      expect(result).toStrictEqual(expectedTree);
+    });
+
+    it('should return a filtered TagTree -- grand children case', () => {
+      const GroundTag = buildFakeTag({
+        name: 'Ground',
+        id: 10,
+      });
+      const SatelliteTag = buildFakeTag({
+        name: 'Satellite',
+        id: 8,
+        parent: GroundTag,
+      });
+
+      const SpacecraftPowerTag = buildFakeTag({
+        name: 'SpacecraftPower',
+        id: 19,
+        parent: GroundTag,
+      });
+
+      const OpticsTag = buildFakeTag({
+        name: 'Optics',
+        id: 444,
+        parent: SatelliteTag,
+      });
+
+      const ElectronicsTag = buildFakeTag({
+        name: 'Electronics',
+        id: 222,
+        parent: SatelliteTag,
+      });
+
+      const TurbineTag = buildFakeTag({
+        name: 'Turbine',
+        id: 999,
+        parent: SpacecraftPowerTag,
+      });
+
+      const PistonTag = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+        parent: SpacecraftPowerTag,
+      });
+
+      /* The tree looks like this tree :
+       *
+       *            Ground
+       *            │    │
+       *            │    └──────────────┐
+       *            │                   │
+       *            ▼                   ▼
+       *    Satellite          Spacecraft Power
+       *   ┌───┘ └───┐ *        ┌───┘ └───┐
+       *   ▼         ▼          ▼         ▼
+       * Optics    Electronics  Turbine   Piston
+       */
+
+      const PistonTreeItem = buildFakeTreeItem({
+        tag: PistonTag,
+        parent: SpacecraftPowerTag,
+        children: [],
+      });
+      const TurbineTreeItem = buildFakeTreeItem({
+        tag: TurbineTag,
+        parent: SpacecraftPowerTag,
+      });
+
+      const spaceCraftTreeItem = buildFakeTreeItem({
+        tag: SpacecraftPowerTag,
+        parent: GroundTag,
+        children: [PistonTreeItem, TurbineTreeItem],
+      });
+
+      const opticTreeItem = buildFakeTreeItem({
+        tag: OpticsTag,
+        parent: SatelliteTag,
+      });
+
+      const ElectronicTreeItem = buildFakeTreeItem({
+        tag: ElectronicsTag,
+        parent: SatelliteTag,
+      });
+
+      const SatelliteTreeItem = buildFakeTreeItem({
+        tag: SatelliteTag,
+        parent: GroundTag,
+        children: [opticTreeItem, ElectronicTreeItem],
+      });
+
+      const GroundTreeItem = buildFakeTreeItem({
+        tag: GroundTag,
+        parent: null,
+        children: [SatelliteTreeItem, spaceCraftTreeItem],
+      });
+
+      // The user has selected those tags
+
+      const selectedTags = [TurbineTag, OpticsTag];
+
+      const expectedTree = [opticTreeItem, TurbineTreeItem];
+
+      const result = filterTagTree(GroundTreeItem, selectedTags);
+
+      expect(result).toStrictEqual(expectedTree);
+    });
+  });
+
+  describe('getFirstLevelTags', () => {
+    it('should return only the first level tags', () => {
+      const GroundTag = buildFakeTag({
+        name: 'Ground',
+        id: 10,
+      });
+
+      const SpacecraftPowerTag = buildFakeTag({
+        name: 'SpacecraftPower',
+        id: 19,
+      });
+
+      const TurbineTag = buildFakeTag({
+        name: 'Turbine',
+        id: 999,
+      });
+
+      const PistonTag = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+      });
+
+      const PistonTreeItem = buildFakeTreeItem({
+        tag: PistonTag,
+        parent: SpacecraftPowerTag,
+      });
+      const TurbineTreeItem = buildFakeTreeItem({
+        tag: TurbineTag,
+        parent: SpacecraftPowerTag,
+      });
+
+      const spaceCraftTreeItem = buildFakeTreeItem({
+        tag: SpacecraftPowerTag,
+        parent: GroundTag,
+        children: [PistonTreeItem, TurbineTreeItem],
+      });
+
+      const GroundTreeItem = buildFakeTreeItem({
+        tag: GroundTag,
+        parent: null,
+        children: [spaceCraftTreeItem],
+      });
+
+      /* The tree looks like this tree :
+       *
+       *            Ground
+       *            │    │
+       *            │    └──────────────┐
+       *            │                   │
+       *            ▼                   ▼
+       *    Satellite          Spacecraft Power
+       *   ┌───┘ └───┐ *        ┌───┘ └───┐
+       *   ▼         ▼          ▼         ▼
+       * Optics    Electronics  Turbine   Piston
+       */
+
+      const tree = [
+        GroundTreeItem,
+        spaceCraftTreeItem,
+        PistonTreeItem,
+        TurbineTreeItem,
+      ];
+
+      const result = getFirstLevelTreeItems(tree);
+
+      expect(result).toStrictEqual([GroundTreeItem]);
+    });
+  });
+  describe('groupTreeItemByParent', () => {
+    it('should an array of tag item grouped by parent', () => {
+      const GroundTag = buildFakeTag({
+        name: 'Ground',
+        id: 10,
+      });
+
+      const SpacecraftPowerTag = buildFakeTag({
+        name: 'SpacecraftPower',
+        id: 19,
+      });
+
+      const TurbineTag = buildFakeTag({
+        name: 'Turbine',
+        id: 999,
+      });
+
+      const PistonTag = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+      });
+
+      const PistonTreeItem = buildFakeTreeItem({
+        tag: PistonTag,
+        parent: SpacecraftPowerTag,
+      });
+      const TurbineTreeItem = buildFakeTreeItem({
+        tag: TurbineTag,
+        parent: SpacecraftPowerTag,
+      });
+
+      const spaceCraftTreeItem = buildFakeTreeItem({
+        tag: SpacecraftPowerTag,
+        parent: GroundTag,
+        children: [PistonTreeItem, TurbineTreeItem],
+      });
+
+      const GroundTreeItem = buildFakeTreeItem({
+        tag: GroundTag,
+        parent: null,
+        children: [spaceCraftTreeItem],
+      });
+
+      const tree = [
+        GroundTreeItem,
+        spaceCraftTreeItem,
+        PistonTreeItem,
+        TurbineTreeItem,
+      ];
+
+      const groupedTreeItem1: GroupedTreeItem = {
+        parent: GroundTag,
+        children: [SpacecraftPowerTag],
+      };
+
+      const groupedTreeItem2: GroupedTreeItem = {
+        parent: SpacecraftPowerTag,
+        children: [PistonTag, TurbineTag],
+      };
+
+      const expectedResult = [groupedTreeItem1, groupedTreeItem2];
+      const result = groupTreeItemByParent(tree);
+
+      expect(result).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe('createGroupOfTreeItemsByParent', () => {
+    it('should return few groups of f', () => {
+      const GroundTag = buildFakeTag({
+        name: 'Ground',
+        id: 10,
+      });
+
+      const ElectronicTag = buildFakeTag({
+        name: 'Electronic',
+        id: 10,
+      });
+
+      const SatelliteTag = buildFakeTag({
+        name: 'Satellite',
+        id: 10,
+      });
+
+      const OpticsTag = buildFakeTag({
+        name: 'Optics',
+        id: 444,
+        parent: SatelliteTag,
+      });
+
+      const SpacecraftPowerTag = buildFakeTag({
+        name: 'SpacecraftPower',
+        id: 19,
+      });
+
+      const TurbineTag = buildFakeTag({
+        name: 'Turbine',
+        id: 999,
+      });
+
+      const PistonTag = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+      });
+
+      const PistonTreeItem = buildFakeTreeItem({
+        tag: PistonTag,
+        parent: SpacecraftPowerTag,
+      });
+      const TurbineTreeItem = buildFakeTreeItem({
+        tag: TurbineTag,
+        parent: SpacecraftPowerTag,
+      });
+
+      const opticTreeItem = buildFakeTreeItem({
+        tag: OpticsTag,
+        parent: SatelliteTag,
+      });
+
+      const ElectronicTreeItem = buildFakeTreeItem({
+        tag: ElectronicTag,
+        parent: SatelliteTag,
+      });
+
+      const satelliteTreeItem = buildFakeTreeItem({
+        tag: SatelliteTag,
+        parent: GroundTag,
+        children: [opticTreeItem, ElectronicTreeItem],
+      });
+
+      const spaceCraftTreeItem = buildFakeTreeItem({
+        tag: SpacecraftPowerTag,
+        parent: GroundTag,
+        children: [PistonTreeItem, TurbineTreeItem],
+      });
+
+      /* The trees looks like this
+       *
+       *    Satellite          Spacecraft Power
+       *   ┌───┘ └───┐ *        ┌───┘ └───┐
+       *   ▼         ▼          ▼         ▼
+       * Optics    Electronics  Turbine   Piston
+       */
+
+      // The user has selected those tags
+
+      const selectedTags = [PistonTag, TurbineTag, ElectronicTag, OpticsTag];
+
+      const result = createGroupOfTreeItemsByParent(
+        [satelliteTreeItem, spaceCraftTreeItem],
+        selectedTags
+      );
+
+      const groupedTreeItem1: GroupedTreeItem = {
+        parent: SatelliteTag,
+        children: [OpticsTag, ElectronicTag],
+      };
+
+      const groupedTreeItem2: GroupedTreeItem = {
+        parent: SpacecraftPowerTag,
+        children: [PistonTag, TurbineTag],
+      };
+
+      const expectedResult = [groupedTreeItem1, groupedTreeItem2];
+
+      expect(result).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe('updatePrioritiesWithinGroupedTreeItems', () => {
+    it('should update tag priorities within grouped tree items', () => {
+      const SatelliteTag = buildFakeTag({
+        name: 'Satellite',
+        id: 10,
+      });
+
+      const ElectronicTag = buildFakeTag({
+        name: 'Electronic',
+        id: 10,
+      });
+
+      const OpticsTag = buildFakeTag({
+        name: 'Optics',
+        id: 444,
+      });
+
+      const SpacecraftPowerTag = buildFakeTag({
+        name: 'SpacecraftPower',
+        id: 19,
+      });
+
+      const TurbineTag = buildFakeTag({
+        name: 'Turbine',
+        id: 999,
+      });
+
+      const PistonTag = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+      });
+
+      const groupedTreeItem1: GroupedTreeItem = {
+        parent: SatelliteTag,
+        children: [OpticsTag, ElectronicTag],
+      };
+
+      const groupedTreeItem2: GroupedTreeItem = {
+        parent: SpacecraftPowerTag,
+        children: [PistonTag, TurbineTag],
+      };
+
+      const PistonTagPriority = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+        priority: 3,
+      });
+
+      const OpticsTagPriority = buildFakeTag({
+        name: 'Optics',
+        id: 444,
+        priority: 2,
+      });
+
+      const groupedTreeItem1Priority: GroupedTreeItem = {
+        parent: SatelliteTag,
+        children: [OpticsTagPriority, ElectronicTag],
+      };
+
+      const groupedTreeItem2Priority: GroupedTreeItem = {
+        parent: SpacecraftPowerTag,
+        children: [PistonTagPriority, TurbineTag],
+      };
+
+      const result = updatePrioritiesWithinGroupedTreeItems(
+        [PistonTagPriority, TurbineTag, OpticsTagPriority, ElectronicTag],
+        [groupedTreeItem1, groupedTreeItem2]
+      );
+
+      const expectedResult = [
+        groupedTreeItem1Priority,
+        groupedTreeItem2Priority,
+      ];
+      expect(result).toStrictEqual(expectedResult);
+    });
+
+    it('should update tag priorities within grouped tree items', () => {
+      const SatelliteTag = buildFakeTag({
+        name: 'Satellite',
+        id: 10,
+      });
+
+      const ElectronicTag = buildFakeTag({
+        name: 'Electronic',
+        id: 10,
+      });
+
+      const OpticsTag = buildFakeTag({
+        name: 'Optics',
+        id: 444,
+      });
+
+      const TurbineTag = buildFakeTag({
+        name: 'Turbine',
+        id: 999,
+      });
+
+      const PistonTag = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+      });
+
+      const groupedTreeItem1: GroupedTreeItem = {
+        parent: SatelliteTag,
+        children: [PistonTag, TurbineTag, OpticsTag, ElectronicTag],
+      };
+
+      const PistonTagPriority = buildFakeTag({
+        name: 'Piston',
+        id: 8855555,
+        priority: 3,
+      });
+
+      const OpticsTagPriority = buildFakeTag({
+        name: 'Optics',
+        id: 444,
+        priority: 2,
+      });
+
+      const groupedTreeItem1Priority: GroupedTreeItem = {
+        parent: SatelliteTag,
+        children: [
+          PistonTagPriority,
+          TurbineTag,
+          OpticsTagPriority,
+          ElectronicTag,
+        ],
+      };
+
+      const result = updatePrioritiesWithinGroupedTreeItems(
+        [PistonTagPriority, TurbineTag, OpticsTagPriority, ElectronicTag],
+        [groupedTreeItem1]
+      );
+      const expectedResult = [groupedTreeItem1Priority];
       expect(result).toStrictEqual(expectedResult);
     });
   });

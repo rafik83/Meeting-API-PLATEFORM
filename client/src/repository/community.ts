@@ -16,10 +16,6 @@ export const getCommunityMainObjectives = async (
     await get<Array<CommunityGoal>>(`/communities/${communityId}/goals`)
   ).data;
 
-  /*
-    The main community objective is the one without parent id
-   */
-
   const { nomenclature, min, max, id } = result.find((item) => !item.parent);
   const tags = getTagsFromNomenclature(nomenclature);
   return {

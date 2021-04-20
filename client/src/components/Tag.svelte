@@ -11,5 +11,5 @@
 
 <span
   class="inline-block text-sm font-semibold rounded-full py-2 px-5 my-2 mr-3 {style} max-w-full">
-  <slot>Tag</slot>
+  <slot />
 </span>

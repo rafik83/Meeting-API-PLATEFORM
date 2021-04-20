@@ -23,7 +23,7 @@
     "file_upload_succeed": "Ceci un message de réussite",
     "maximum_characters": "Dépasse la limite de {value} caractères",
     "wrong_url": "Ce doit être une URL valide",
-    "not_enough_tag_selected": "Veuillez sélectionner encore {value} tags",
+    "not_enough_tag_selected": "{value, plural, =0{Veuillez sélectionner {value} tag} one{Veuillez sélectionner {value} tag} other{# Veuillez sélectionner encore {value} tags}}",
     "one_language_required": "Veuillez sélectionner au moins une langue",
     "company_not_found": "Désolé, nous n'avons pas trouvé votre entreprise"
   },
@@ -75,6 +75,7 @@
     "currentStep": "Etape {currentStep}/{maxStep}",
     "selected": "{n, plural, =0{{n}/{priorities_number} maximum sélectionné} one{{n}/{priorities_number} maximum sélectionné} other{#/{priorities_number} maximum sélectionnés}}",
     "select_your_goals": "Selectionnez {n, plural, one {# objectif} other {# objectifs par priorité}}",
+    "select": "sélectionnés",
     "detail_another_objective": "Voulez-vous détailler un autre objectif ?"
   },
   "account": {
@@ -101,6 +102,7 @@
   "cards": {
     "match": "Match à {percent}%",
     "view_profile": "Voir le profil",
-    "meet": "Rencontrer"
+    "meet": "Rencontrer",
+    "select_items_of_your_main_objective": "Sélectionnez 3 éléments de votre objectif principal par ordre de priorité"
   }
 }

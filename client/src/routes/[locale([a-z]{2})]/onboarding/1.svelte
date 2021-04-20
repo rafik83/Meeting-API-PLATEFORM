@@ -88,7 +88,7 @@
     <IconRocket />
   </div>
 
-  <div slot="content" class="md:flex p-8 justify-between">
+  <div slot="content" class="flex justify-between pl-10">
     <div class="md:w-1/2  md:pr-10">
       <RegistrationAccount
         {jobPositions}

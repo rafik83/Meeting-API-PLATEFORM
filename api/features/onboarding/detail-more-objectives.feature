@@ -14,7 +14,8 @@ Feature:
     And I press "menu-responsive"
     And I wait 1000
     And I sign in as "john@doe.com"
-    Scenario: I can select one more goal
+
+Scenario: I can select one more goal
     When I go to "/fr/onboarding/4-3"
     And I wait 3000
     Then I should see "Buy"

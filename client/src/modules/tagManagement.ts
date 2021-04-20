@@ -1,4 +1,4 @@
-import type { MemberGoal, Nomenclature, Tag } from '../domain';
+import type { MemberGoal, Nomenclature, Tag, TagTreeItem } from '../domain';
 
 export const getTagsMaxPriority = (tags: Array<Tag>): number => {
   const result = Math.max.apply(
@@ -70,14 +70,8 @@ export const getTagsFromNomenclature = (
   });
 };
 
-export type TreeItem = {
-  children: TreeItem[];
-  tag: Tag;
-  parent: Tag | null;
-};
-
-export const buildTagTree = (tags: Array<Tag>): Array<TreeItem> => {
-  const tree: Array<TreeItem> = [];
+export const buildTagTree = (tags: Array<Tag>): Array<TagTreeItem> => {
+  const tree: Array<TagTreeItem> = [];
 
   tags.forEach((currentTag: Tag) => {
     let existingTreeItem = tree.find((treeItem) => {
@@ -85,7 +79,7 @@ export const buildTagTree = (tags: Array<Tag>): Array<TreeItem> => {
     });
 
     if (!existingTreeItem) {
-      const treeItem: TreeItem = {
+      const treeItem: TagTreeItem = {
         children: [],
         tag: currentTag,
         parent: null,
@@ -117,8 +111,103 @@ export const buildTagTree = (tags: Array<Tag>): Array<TreeItem> => {
   return tree;
 };
 
+export const filterTagTree = (
+  subTree: TagTreeItem,
+  tags: Array<Tag>
+): Array<TagTreeItem> => {
+  let result = [];
+  subTree.children.forEach((child) => {
+    const itemExists =
+      tags.findIndex((tag) => {
+        return child.tag.id === tag.id;
+      }) !== -1;
+
+    if (itemExists) {
+      result = [...result, child];
+    }
+    if (child.children.length > 0) {
+      result = [...result, ...filterTagTree(child, tags)];
+    }
+  });
+
+  return result;
+};
+
+export const getFirstLevelTreeItems = (tree: Array<TagTreeItem>) => {
+  return tree.filter((treeItem) => {
+    return !treeItem.parent;
+  });
+};
+
+export type GroupedTreeItem = {
+  parent: Tag;
+  children: Array<Tag>;
+};
+
+export const groupTreeItemByParent = (
+  tree: Array<TagTreeItem>
+): Array<GroupedTreeItem> => {
+  const groupedTreeItems: Array<GroupedTreeItem> = [];
+
+  tree.forEach((treeItem) => {
+    if (!treeItem.parent) {
+      return;
+    }
+    const foundGroupedTreeItem = groupedTreeItems.find(
+      (item) => item.parent.id === treeItem.parent.id
+    );
+
+    if (foundGroupedTreeItem) {
+      foundGroupedTreeItem.children.push(treeItem.tag);
+    } else {
+      const newGroupedTagItem: GroupedTreeItem = {
+        parent: treeItem.parent,
+        children: [treeItem.tag],
+      };
+
+      groupedTreeItems.push(newGroupedTagItem);
+    }
+  });
+
+  return groupedTreeItems;
+};
+
 export const getTagsFromMemberGoal = (memberGoal: MemberGoal): Array<Tag> => {
   return memberGoal.tags.map((item) => {
     return item.tag;
   });
+};
+
+export const createGroupOfTreeItemsByParent = (
+  treeItems: Array<TagTreeItem>,
+  selectedTags: Array<Tag>
+): Array<GroupedTreeItem> => {
+  let result: Array<GroupedTreeItem> = [];
+
+  treeItems.forEach((treeItem) => {
+    const filteredItems = filterTagTree(treeItem, selectedTags);
+    const group = groupTreeItemByParent(filteredItems);
+    result = [...result, ...group];
+  });
+
+  return result;
+};
+
+export const updatePrioritiesWithinGroupedTreeItems = (
+  tags: Array<Tag>,
+  groups: Array<GroupedTreeItem>
+): Array<GroupedTreeItem> => {
+  const _groups = [...groups];
+  _groups.forEach((group) => {
+    group.children.forEach((item) => {
+      const foundChild = tags.find((tag) => tag.id === item.id);
+      if (foundChild) {
+        item.priority = foundChild.priority;
+      } else {
+        item.priority = null;
+      }
+    });
+  });
+
+  return _groups;
 };

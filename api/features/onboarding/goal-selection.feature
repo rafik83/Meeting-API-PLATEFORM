@@ -15,7 +15,7 @@ Feature:
         And I press "Buy"
         Then I should see "1/2 maximum sélectionné"
 
-    Scenario: I can select only 3 objectives
+    Scenario: I can deselect a tag to update priorities
         When I go to "/fr"
         And I press "menu-responsive"
         And I wait 1000
@@ -24,6 +24,6 @@ Feature:
         And I press "Buy"
         And I press "Sell"
         Then I should see "2/2 maximum sélectionnés" 
-        And I press "Find Industrial Partner" 
-        Then I should see "2/2 maximum sélectionnés"
-        And I should not see "2/3 maximum sélectionnés"    
+        And I press "Sell" 
+        Then I should see "1/2 maximum sélectionné"
+        And I should not see "2/2 maximum sélectionnés"    

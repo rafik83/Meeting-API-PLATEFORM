@@ -25,14 +25,16 @@
 
 <section class="md:flex h-full w-full">
   <div class="xl:fixed top-0 right-0 bottom-24 overflow-auto xl:w-2/3 w-full">
-    <div class="pl-10 p-5">
+    <div class="pl-12 p-5">
       <OnboardingHeader
         title="{$_('registration.hello')}."
         subtitle="{user.firstName} {user.lastName}"
       />
     </div>
     <div class="h-2 w-full bg-gray-200" />
-    <slot class="p-8" name="content" />
+    <div class="pt-10">
+      <slot name="content" />
+    </div>
   </div>
   <div class="md:fixed right-0 bottom-0 xl:w-2/3 w-full h-24 bg-gray-50 px-5">
     <slot name="button" />

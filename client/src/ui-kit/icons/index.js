@@ -13,6 +13,8 @@ export { IconLaunching } from './IconLaunching';
 export { IconArrowRight } from './IconArrowRight';
 export { IconArrowLeft } from './IconArrowLeft';
 export { IconSatellite } from './IconSatellite';
+export { IconSatellites } from './IconSatellites';
+export { IconTitle } from './IconTitle';
 export { IconChat } from './IconChat';
 export { IconAlert } from './IconAlert';
 export { IconFlecheLogo } from './IconFlecheLogo';

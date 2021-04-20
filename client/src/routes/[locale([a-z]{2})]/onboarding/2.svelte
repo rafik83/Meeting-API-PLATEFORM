@@ -89,11 +89,11 @@
     <IconLaunching width="90%" class="mx-auto" />
   </div>
 
-  <section slot="content" class="w-full p-8 h-full">
+  <section slot="content" class="w-fullh-full">
     <div class="md:w-5/12">
       <H3>{$_('validation.company_not_found')}.</H3>
     </div>
-    <div class="md:flex justify-between  flex-warp">
+    <div class="md:flex justify-between flex-warp pl-10">
       <div class="md:w-5/12">
         <CompanyForm
           selectOptions={countries}

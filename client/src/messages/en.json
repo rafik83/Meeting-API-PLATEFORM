@@ -17,13 +17,13 @@
     "invalid_email": "Invalid Email",
     "invalid_password": "the password must be at least {minPassword} characters long",
     "terms_and_conditions_not_selected": "Please accept the terms and conditions",
-    "not_enough_tag_selected": "Please accept min {value} tags more",
     "import_file_error": "Error(s):",
     "max_size_error": "File size is greater than 1MB",
     "mime_type_error": "The file format is not correct",
     "file_upload_succeed": "File uploading succeed",
     "maximum_characters": "Exceeds the limit of {value} characters",
     "wrong_url": "This must be a valid URL",
+    "not_enough_tag_selected": "{value, plural, =0{Select {value} tag} one{Select {value} tag} other{# Select {value} tags more}}",
     "one_language_required": "Please select one language",
     "company_not_found": "Sorry, we can not find your company"
   },
@@ -75,6 +75,7 @@
     "currentStep": "Step {currentStep}/{maxStep}",
     "selected": "{n, plural, =0{{n}/{priorities_number} maximum selected} one{{n}/{priorities_number} maximum selected} other{#/{priorities_number} maxium selected}}",
     "select_your_goals": "Select {n, plural, one {# objective} other {# objectives by priority}}",
+    "select": "select",
     "detail_another_objective": "Do you want to detail another objective?"
   },
   "account": {
@@ -102,6 +103,7 @@
   "cards": {
     "match": "{percent}% match",
     "view_profile": "View profile",
-    "meet": "Meet"
+    "meet": "Meet",
+    "select_items_of_your_main_objective": "Select 3 items of your main objective by order of priority"
   }
 }

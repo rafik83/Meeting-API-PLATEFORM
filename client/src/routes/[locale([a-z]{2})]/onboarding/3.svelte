@@ -39,7 +39,9 @@
   import { toHomePage, toOnboardingStep } from '../../../modules/routing';
   import Cookies from 'js-cookie';
   import { stores } from '@sapper/app';
+  import { setBaseUrl } from '../../../modules/axios';
   const { session } = stores();
+  setBaseUrl($session.apiUrl);
 
   export let user;
   export let tags;
@@ -63,11 +65,14 @@
 
     if (selectedTags.length >= min) {
       try {
+        const mainObjectiveTag = selectedTags.find((item) => {
+          return item.priority === 1;
+        });
         await saveCommunityGoal(currentUserMemberId, {
           goal: goalId,
           tags: selectedTags,
         });
-        await goto(toOnboardingStep('4-1'));
+        await goto(toOnboardingStep('4-2', mainObjectiveTag.id));
       } catch (e) {
         if (e.response.status === 401) {
           $session.userId = null;
