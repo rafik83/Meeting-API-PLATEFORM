@@ -4,9 +4,14 @@ import registrationSteps from '../constants';
 export const extractErrors = (
   err: ValidationError
 ): { [path: string]: string } => {
-  return err.inner.reduce((acc, err) => {
-    return { ...acc, [err.path]: err.message };
-  }, {});
+  if (err.inner) {
+    return err.inner.reduce((acc, err) => {
+      return { ...acc, [err.path]: err.message };
+    }, {});
+  } else {
+    console.error(err);
+    return {};
+  }
 };
 
 export const isValidRegistrationStep = (step: string): boolean => {
