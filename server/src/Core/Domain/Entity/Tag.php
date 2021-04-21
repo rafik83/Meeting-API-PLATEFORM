@@ -22,9 +22,9 @@ class Tag
     private ?int $id = null;
 
     /**
-     * @ORM\Column(nullable=true, unique=true)
+     * @ORM\Column(unique=true)
      */
-    private ?string $externalId;
+    private string $externalId;
 
     /**
      * @var ArrayCollection<string, TagTranslation>
@@ -34,10 +34,14 @@ class Tag
      */
     private Collection $translations;
 
-    public function __construct(?string $externalId = null)
+    public function __construct(?string $externalId = null, ?string $label = null)
     {
         $this->translations = new ArrayCollection();
-        $this->externalId = $externalId;
+        $this->externalId = $externalId ?? uniqid('t', false);
+
+        if ($label !== null) {
+            $this->setLabel($label);
+        }
     }
 
     public function getId(): ?int
@@ -45,7 +49,7 @@ class Tag
         return $this->id;
     }
 
-    public function getExternalId(): ?string
+    public function getExternalId(): string
     {
         return $this->externalId;
     }

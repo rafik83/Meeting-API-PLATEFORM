@@ -14,8 +14,8 @@ class NomenclatureTest extends TestCase
     {
         $nomenclature = new Nomenclature('My Nomenclature');
 
-        $rootTag = new Tag('My Tag');
-        $childTag = new Tag('My Tag');
+        $rootTag = new Tag(null, 'My Tag');
+        $childTag = new Tag(null, 'My Child Tag');
 
         $nomenclature->addTag($rootTag);
         $nomenclature->addTag($childTag, $rootTag);
@@ -33,8 +33,8 @@ class NomenclatureTest extends TestCase
     {
         $nomenclature = new Nomenclature('My Nomenclature');
 
-        $rootTag = new Tag('My Tag');
-        $childTag = new Tag('My Tag');
+        $rootTag = new Tag(null, 'My Tag');
+        $childTag = new Tag(null, 'My Child Tag');
 
         $nomenclature->addTag($rootTag);
         $nomenclature->addTag($childTag, $rootTag);
@@ -50,8 +50,8 @@ class NomenclatureTest extends TestCase
     {
         $nomenclature = new Nomenclature('My Nomenclature');
 
-        $rootTag = new Tag('My Tag');
-        $childTag = new Tag('My Tag');
+        $rootTag = new Tag(null, 'My Tag');
+        $childTag = new Tag(null, 'My Child Tag');
 
         $nomenclature->addTag($rootTag);
         $nomenclature->addTag($childTag, $rootTag);

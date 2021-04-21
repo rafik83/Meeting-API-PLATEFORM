@@ -49,11 +49,9 @@ class CommunityContext implements Context
     private function createJobPositionNomenclature()
     {
         $nomenclature = new Nomenclature('job_position');
-        $job1 = new Tag();
-        $job1->setLabel('Ministre');
+        $job1 = new Tag(null, 'Ministre');
 
-        $job2 = new Tag();
-        $job2->setLabel('Cultivateur de champignon');
+        $job2 = new Tag(null, 'Cultivateur de champignon');
 
         $nomenclature->addTag($job1);
         $nomenclature->addTag($job2);

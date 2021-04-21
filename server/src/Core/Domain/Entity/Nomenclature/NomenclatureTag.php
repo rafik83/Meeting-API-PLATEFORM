@@ -49,8 +49,8 @@ class NomenclatureTag
      */
     private Collection $children;
 
-    /** @ORM\Column(nullable=true) */
-    private ?string $externalId;
+    /** @ORM\Column() */
+    private string $externalId;
 
     /**
      * @var Collection<string, NomenclatureTagTranslation>
@@ -75,7 +75,7 @@ class NomenclatureTag
             $parent->addChild($this);
         }
 
-        $this->externalId = $externalId;
+        $this->externalId = $externalId ?? $tag->getExternalId();
 
         $this->translations = new ArrayCollection();
     }
@@ -117,12 +117,12 @@ class NomenclatureTag
         $this->children->add($nomenclatureTag);
     }
 
-    public function getExternalId(): ?string
+    public function getExternalId(): string
     {
         return $this->externalId;
     }
 
-    public function setExternalId(?string $externalId): void
+    public function setExternalId(string $externalId): void
     {
         $this->externalId = $externalId;
     }
