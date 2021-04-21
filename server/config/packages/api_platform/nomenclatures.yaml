@@ -1,12 +1,12 @@
-Proximum\Vimeet365\Domain\Entity\Nomenclature:
+Proximum\Vimeet365\Core\Domain\Entity\Nomenclature:
     attributes:
-        output: Proximum\Vimeet365\Application\View\NomenclatureView
+        output: Proximum\Vimeet365\Api\Application\View\NomenclatureView
     collectionOperations:
         get_job_position:
             method: get
             path: '/nomenclatures/job_position'
             read: false
-            controller: Proximum\Vimeet365\Infrastructure\Controller\NomenclatureController::getJobPosition
+            controller: Proximum\Vimeet365\Api\Infrastructure\Controller\NomenclatureController::getJobPosition
             openapi_context:
                 summary: Retrieve the job position nomenclature
     itemOperations:

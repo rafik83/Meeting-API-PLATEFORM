@@ -8,11 +8,11 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase as ApiPlatformApiTes
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Proximum\Vimeet365\Domain\Entity\Account;
-use Proximum\Vimeet365\Domain\Entity\Member;
-use Proximum\Vimeet365\Domain\Entity\Tag;
-use Proximum\Vimeet365\Infrastructure\Repository\AccountRepository;
-use Proximum\Vimeet365\Infrastructure\Security\User;
+use Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser;
+use Proximum\Vimeet365\Core\Domain\Entity\Account;
+use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Tag;
+use Proximum\Vimeet365\Core\Infrastructure\Repository\AccountRepository;
 
 abstract class ApiTestCase extends ApiPlatformApiTestCase
 {
@@ -27,7 +27,7 @@ abstract class ApiTestCase extends ApiPlatformApiTestCase
     {
         $account = $this->getAccount($username);
 
-        self::$client->getKernelBrowser()->loginUser(new User($account), 'main');
+        self::$client->getKernelBrowser()->loginUser(new SymfonyUser($account), 'main');
 
         return $account;
     }

@@ -1,4 +1,4 @@
 security:
     encoders:
-        Proximum\Vimeet365\Infrastructure\Security\User:
+        Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser:
             algorithm: 'plaintext'

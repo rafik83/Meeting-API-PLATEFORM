@@ -8,15 +8,15 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Proximum\Vimeet365\Domain\Entity\Community;
-use Proximum\Vimeet365\Domain\Entity\Community\Goal;
-use Proximum\Vimeet365\Domain\Entity\Member;
-use Proximum\Vimeet365\Domain\Entity\Nomenclature;
-use Proximum\Vimeet365\Domain\Entity\Tag;
-use Proximum\Vimeet365\Domain\Repository\AccountRepositoryInterface;
-use Proximum\Vimeet365\Domain\Repository\CommunityRepositoryInterface;
-use Proximum\Vimeet365\Domain\Repository\MemberRepositoryInterface;
-use Proximum\Vimeet365\Domain\Repository\TagRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Entity\Community;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature;
+use Proximum\Vimeet365\Core\Domain\Entity\Tag;
+use Proximum\Vimeet365\Core\Domain\Repository\AccountRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Repository\MemberRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Repository\TagRepositoryInterface;
 
 /**
  * This context class contains the definitions of the steps used by the demo
@@ -38,7 +38,7 @@ class CommunityContext implements Context
         MemberRepositoryInterface $memberRepository,
         AccountRepositoryInterface $accountRepository,
         TagRepositoryInterface $tagRepository
-        ) {
+    ) {
         $this->doctrine = $doctrine;
         $this->memberRepository = $memberRepository;
         $this->accountRepository = $accountRepository;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Behat;
 
 use Behat\Behat\Context\Context;
-use Proximum\Vimeet365\Application\Adapter\CommandBusInterface;
-use Proximum\Vimeet365\Application\Command\Account\RegistrationCommand;
+use Proximum\Vimeet365\Api\Application\Command\Account\RegistrationCommand;
+use Proximum\Vimeet365\Common\Messenger\CommandBusInterface;
 
 /**
  * This context class contains the definitions of the steps used by the demo

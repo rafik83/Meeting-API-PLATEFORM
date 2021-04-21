@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Domain\Entity\Account:
+Proximum\Vimeet365\Core\Domain\Entity\Account:
     user_1:
         __construct:
             email: 'user@example.com'

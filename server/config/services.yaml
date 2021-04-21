@@ -15,72 +15,68 @@ services:
     Proximum\Vimeet365\:
         resource: '../src/'
         exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Domain/Entity/'
-            - '../src/Application/Views/'
+            - '../src/Core/Domain/Entity/'
+            - '../src/Api/Application/Views/'
             - '../src/Vimeet/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    Proximum\Vimeet365\Infrastructure\Controller\:
-        resource: '../src/Infrastructure/Controller/'
+    Proximum\Vimeet365\Api\Infrastructure\Controller\:
+        resource: '../src/Api/Infrastructure/Controller/'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
-
-    query_handlers:
-        namespace: Proximum\Vimeet365\Application\Query\
-        resource: '../src/Application/Query/**/*QueryHandler.php'
+    api_query_handlers:
+        namespace: Proximum\Vimeet365\Api\Application\Query\
+        resource: '../src/Api/Application/Query/**/*QueryHandler.php'
         public: true
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.queries' }
 
-    command_handlers:
-        namespace: Proximum\Vimeet365\Application\Command\
-        resource: '../src/Application/Command/**/*CommandHandler.php'
+    api_command_handlers:
+        namespace: Proximum\Vimeet365\Api\Application\Command\
+        resource: '../src/Api/Application/Command/**/*CommandHandler.php'
         public: true
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
     query_bus:
-        class: Proximum\Vimeet365\Infrastructure\Adapter\BusAdapter
+        class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus
         arguments: ['@messenger.bus.queries']
 
     command_bus:
-        class: Proximum\Vimeet365\Infrastructure\Adapter\BusAdapter
+        class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus
         arguments: ['@messenger.bus.commands']
 
-    Proximum\Vimeet365\Application\Adapter\CommandBusInterface: '@command_bus'
-    Proximum\Vimeet365\Application\Adapter\QueryBusInterface: '@query_bus'
+    Proximum\Vimeet365\Common\Messenger\CommandBusInterface: '@command_bus'
+    Proximum\Vimeet365\Common\Messenger\QueryBusInterface: '@query_bus'
 
-    Proximum\Vimeet365\Infrastructure\Bridge\ApiPlatform\AcceptLanguageEventListener:
+    Proximum\Vimeet365\Api\Infrastructure\ApiPlatform\AcceptLanguageEventListener:
         bind:
             $supportedLanguages: '%supported_languages%'
 
-    Proximum\Vimeet365\Infrastructure\DataProvider\LanguageDataProvider:
+    Proximum\Vimeet365\Api\Infrastructure\DataProvider\LanguageDataProvider:
         bind:
             $languages: '%supported_spoken_languages%'
 
-    Proximum\Vimeet365\Infrastructure\Bridge\Vimeet\Nomenclature\Exporter:
+    Proximum\Vimeet365\Vimeet\Nomenclature\Exporter:
         bind:
             $defaultLanguages: '%supported_languages%'
 
-    Proximum\Vimeet365\Infrastructure\Nomenclature\Exporter:
+    Proximum\Vimeet365\Core\Application\Nomenclature\Exporter:
         bind:
             $defaultLanguages: '%supported_languages%'
 
-    Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\LoginDecorator:
+    Proximum\Vimeet365\Api\Infrastructure\OpenApi\LoginDecorator:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
-    Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\NomenclatureDecorator:
+    Proximum\Vimeet365\Api\Infrastructure\OpenApi\NomenclatureDecorator:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
-    Proximum\Vimeet365\Infrastructure\Bridge\OpenApi\CurrentAccountDecorator:
+    Proximum\Vimeet365\Api\Infrastructure\OpenApi\CurrentAccountDecorator:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 

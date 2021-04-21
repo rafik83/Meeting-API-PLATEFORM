@@ -1,7 +1,7 @@
-Proximum\Vimeet365\Domain\Entity\Community\Goal:
+Proximum\Vimeet365\Core\Domain\Entity\Community\Goal:
     shortName: CommunityGoal
     attributes:
-        output: 'Proximum\Vimeet365\Application\View\Goal\CommunityGoalView'
+        output: 'Proximum\Vimeet365\Api\Application\View\Goal\CommunityGoalView'
     collectionOperations:
         get:
             path: "/communityGoals"

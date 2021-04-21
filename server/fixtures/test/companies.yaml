@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Domain\Entity\Company:
+Proximum\Vimeet365\Core\Domain\Entity\Company:
     company_proximum:
         __construct:
             name: "Proximum"

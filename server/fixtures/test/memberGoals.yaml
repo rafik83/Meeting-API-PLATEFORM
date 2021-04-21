@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Domain\Entity\Member\Goal:
+Proximum\Vimeet365\Core\Domain\Entity\Member\Goal:
     member_1_goal_1:
         __construct:
             member: '@member_1'

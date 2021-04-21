@@ -1,17 +1,17 @@
-Proximum\Vimeet365\Domain\Entity\Company:
+Proximum\Vimeet365\Core\Domain\Entity\Company:
     attributes:
         pagination_items_per_page: 10
     collectionOperations:
         get: ~
         post:
             messenger: input
-            input: 'Proximum\Vimeet365\Application\Command\Account\Company\CreateCommand'
+            input: 'Proximum\Vimeet365\Api\Application\Command\Account\Company\CreateCommand'
     itemOperations:
         get: ~
         post_logo:
             method: post
             path: /companies/{id}/logo
-            controller: 'Proximum\Vimeet365\Infrastructure\Controller\CompanyController::uploadLogo'
+            controller: 'Proximum\Vimeet365\Api\Infrastructure\Controller\CompanyController::uploadLogo'
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
             deserialize: false
             openapi_context:

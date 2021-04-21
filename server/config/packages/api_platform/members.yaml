@@ -1,33 +1,33 @@
-Proximum\Vimeet365\Domain\Entity\Member:
+Proximum\Vimeet365\Core\Domain\Entity\Member:
     attributes:
-        output: 'Proximum\Vimeet365\Application\View\MemberView'
+        output: 'Proximum\Vimeet365\Api\Application\View\MemberView'
     collectionOperations:
         get: ~
         post:
             messenger: input
-            input: 'Proximum\Vimeet365\Application\Command\Member\JoinCommunityCommand'
+            input: 'Proximum\Vimeet365\Api\Application\Command\Member\JoinCommunityCommand'
             security: 'is_granted("ROLE_USER")'
     itemOperations:
         get: ~
         member_get_goals:
             method: get
             path: /members/{id}/goals.{_format}
-            controller: Proximum\Vimeet365\Infrastructure\Controller\MemberGoalController::getGoals
-            output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
+            controller: Proximum\Vimeet365\Api\Infrastructure\Controller\MemberGoalController::getGoals
+            output: 'Proximum\Vimeet365\Api\Application\View\Goal\MemberGoalsView'
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
         member_post_goals:
             method: post
             path: /members/{id}/goals
-            controller: Proximum\Vimeet365\Infrastructure\Controller\MemberGoalController::updateGoals
-            input: Proximum\Vimeet365\Application\Command\Member\SetGoalsCommand
-            output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
+            controller: Proximum\Vimeet365\Api\Infrastructure\Controller\MemberGoalController::updateGoals
+            input: Proximum\Vimeet365\Api\Application\Command\Member\SetGoalsCommand
+            output: 'Proximum\Vimeet365\Api\Application\View\Goal\MemberGoalsView'
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
         member_post_rank_goals:
             method: post
             path: /members/{id}/goals-ranking
-            controller: Proximum\Vimeet365\Infrastructure\Controller\MemberGoalController::rankGoals
-            input: 'Proximum\Vimeet365\Application\Command\Member\RankGoalsCommand'
-            output: 'Proximum\Vimeet365\Application\View\Goal\MemberGoalsView'
+            controller: Proximum\Vimeet365\Api\Infrastructure\Controller\MemberGoalController::rankGoals
+            input: 'Proximum\Vimeet365\Api\Application\Command\Member\RankGoalsCommand'
+            output: 'Proximum\Vimeet365\Api\Application\View\Goal\MemberGoalsView'
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object.getAccount())'
     properties:
         id: { identifier: true }
