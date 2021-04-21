@@ -3,14 +3,14 @@ help:
 
 install: ## Install API and client
 	$(MAKE) -C client install
-	$(MAKE) -C api install
+	$(MAKE) -C server install
 
 start: ## Start API and client server
-	$(MAKE) -C api start	
+	$(MAKE) -C server start
 	$(MAKE) -C client start
 
 lint: 
-	$(MAKE) -C api	lint.phpstan
+	$(MAKE) -C server	lint.phpstan
 	$(MAKE) -C client lint
 
 prettify: 
@@ -18,7 +18,7 @@ prettify:
 	$(MAKE) -C client prettify	
 
 test: 
-	$(MAKE) -C api	test-unit
+	$(MAKE) -C server	test-unit
 	$(MAKE) -C client test
 
 watch-css:
@@ -28,4 +28,4 @@ storybook:
 	$(MAKE) -C client storybook
 
 load-fixtures :
-	$(MAKE) -C api load-fixtures
+	$(MAKE) -C server load-fixtures

@@ -13,7 +13,7 @@ steps:
       - '--file=Dockerfile'
       - '--tag=eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$COMMIT_SHA'
       - '.'
-    dir: 'api/'
+    dir: 'server/'
     waitFor: ['-']
 
   # Create custom image tag and write to file /workspace/_TAG
