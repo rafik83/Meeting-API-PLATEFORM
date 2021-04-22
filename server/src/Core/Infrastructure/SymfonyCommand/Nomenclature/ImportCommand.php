@@ -45,7 +45,7 @@ class ImportCommand extends Command
         $nomenclatureRepository = $this->managerRegistry->getRepository(Nomenclature::class);
 
         /** @var int $nomenclatureId */
-        $nomenclatureId = $input->getArgument('nomenclature');
+        $nomenclatureId = \intval($input->getArgument('nomenclature'));
 
         /** @var Nomenclature|null $nomenclature */
         $nomenclature = $nomenclatureRepository->find($nomenclatureId);

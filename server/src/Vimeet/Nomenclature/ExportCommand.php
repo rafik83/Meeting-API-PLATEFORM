@@ -52,7 +52,7 @@ class ExportCommand extends Command
         $outputFile = new SplFileObject($outputFilename, 'w');
 
         /** @var int $nomenclatureId */
-        $nomenclatureId = $input->getArgument('nomenclature');
+        $nomenclatureId = \intval($input->getArgument('nomenclature'));
 
         $nomenclature = $this->nomenclatureRepository->findOneById($nomenclatureId);
 
