@@ -20,7 +20,7 @@ RUN set -eux \
 
 ## Configure PHP  dependencies
 
-RUN set -eux; \  
+RUN set -eux; \
     docker-php-ext-configure zip; \
     docker-php-ext-install -j$(nproc) \
       intl \
@@ -58,7 +58,7 @@ ARG PHP_VARIANT=apache
 
 
 # Timezone
-RUN echo "Europe/Paris" > /etc/timezone
+RUN echo "UTC" > /etc/timezone
 
 
 WORKDIR /var/www/vimeet365
