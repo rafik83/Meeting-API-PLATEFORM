@@ -1,10 +1,18 @@
 <script context="module">
   import { toHomePage, toOnboardingStep } from '../../../modules/routing';
-  export async function preload(page, { isAuthenticated }) {
+  import {
+    findById,
+    getUserMemberIdInCommunity,
+  } from '../../../repository/account';
+  export async function preload(
+    page,
+    { isAuthenticated, communityId, userId }
+  ) {
     if (!isAuthenticated) {
       this.redirect(302, toHomePage());
     }
 
+    const user = await findById(userId);
     const queryParam = page.query;
     const tagId = queryParam.tagId;
 
@@ -15,17 +23,170 @@
      */
 
     if (!tagId) {
-      this.redirect(302, toOnboardingStep('4'));
+      this.redirect(302, toOnboardingStep('3'));
     }
 
     return {
+      user,
       tagId,
+      communityId,
+      currentUserMemberId: getUserMemberIdInCommunity(user, communityId),
     };
   }
 </script>
 
 <script>
+  import { _ } from 'svelte-i18n';
+  import OnboardingContainer from '../../../components/OnboardingContainer.svelte';
+  import Button from '../../../components/Button.svelte';
+  import H3 from '../../../components/H3.svelte';
+  import MainObjectiveTagsNavigator from '../../../components/MainObjectiveTagsNavigator.svelte';
+  import IconSatellites from '../../../ui-kit/icons/IconSatellite/IconSatellite.svelte';
+  import { onMount } from 'svelte';
+  import SecondaryObjectiveSelect from '../../../components/SecondaryObjectiveSelect.svelte';
+  import {
+    buildTagTree,
+    getFirstLevelTreeItems,
+  } from '../../../modules/tagManagement';
+  import { setBaseUrl } from '../../../modules/axios';
+
+  import { stores } from '@sapper/app';
+  import Loader from '../../../components/Loader.svelte';
+  import { getCommunityGoals } from '../../../repository/community';
+
+  import { secondaryGoals } from '../../../stores/secondaryGoalsStore';
+  import { saveCommunityGoal } from '../../../repository/member';
+  import Cookies from 'js-cookie';
+  import { goto } from '@sapper/app';
+  import Error from '../../../components/Error.svelte';
+
+  const { session } = stores();
+  setBaseUrl($session.apiUrl);
+
+  export let user;
+  export let communityId;
   export let tagId;
+  export let currentUserMemberId;
+  let currentGoal;
+  let communityGoals;
+  let firstLevelTreeItems = [];
+  let loading = true;
+  let min;
+  let max;
+  let errorMessage;
+
+  onMount(async () => {
+    communityGoals = await getCommunityGoals(communityId);
+
+    currentGoal = communityGoals.find((goalItem) => {
+      return goalItem.tag && goalItem.tag.id == tagId;
+    });
+
+    min = currentGoal.min;
+    max = currentGoal.max;
+
+    if (currentGoal) {
+      const tree = buildTagTree(currentGoal.nomenclature.tags);
+
+      firstLevelTreeItems = getFirstLevelTreeItems(tree).filter(
+        (treeItem) => treeItem.children.length > 0
+      );
+    }
+
+    loading = false;
+  });
+
+  const handleSubmitGoals = async () => {
+    if ($secondaryGoals.length < min) {
+      errorMessage = $_('validation.not_enough_tag_selected', {
+        values: {
+          value: min - $secondaryGoals.length,
+        },
+      });
+
+      return;
+    }
+
+    const payload = {
+      goal: currentGoal.id,
+      tags: $secondaryGoals.map(({ id }) => {
+        return {
+          id,
+          priority: null,
+        };
+      }),
+    };
+
+    try {
+      await saveCommunityGoal(currentUserMemberId, payload);
+      await goto(toOnboardingStep('4-2', tagId));
+    } catch (e) {
+      if (e.response.status === 401) {
+        $session.userId = null;
+        Cookies.remove('userId');
+        await goto(toHomePage());
+      }
+      errorMessage = $_('messages.error_has_occured');
+    }
+  };
 </script>
 
-Le user détaille ce tag {tagId}
+<svelte:head>
+  <title>{$_('onboarding.title')}</title>
+</svelte:head>
+
+{#if loading}
+  <Loader />
+{:else}
+  <OnboardingContainer step="4" {user}>
+    <div slot="icon" class="w-10/12">
+      <IconSatellites width="90%" class="mx-auto" />
+    </div>
+
+    <section slot="content" class="w-full h-full">
+      <div class="w-full">
+        <H3>{$_('cards.select_items_of_your_main_objective')}.</H3>
+      </div>
+      <div class="md:flex justify-between flex-wrap">
+        <div class="w-full">
+          <MainObjectiveTagsNavigator
+            tags={firstLevelTreeItems.map((item) => item.tag)}
+          />
+        </div>
+      </div>
+
+      {#if errorMessage}
+        <Error message={errorMessage} />
+      {/if}
+
+      {#if max}
+        <div class="w-full flex justify-center">
+          <p
+            class="text-right mb-4 text-sm {$secondaryGoals.length === max
+              ? 'text-success'
+              : ''}"
+          >{$secondaryGoals.length}/{max} {$_('onboarding.select')}</p>
+        </div>
+      {/if}
+      {#each firstLevelTreeItems as goalTreeItem}
+        <a name={goalTreeItem.tag.id}><!-- intentionally blank --></a>
+        <SecondaryObjectiveSelect
+          {max}
+          titleTag={goalTreeItem.tag}
+          {goalTreeItem}
+        />
+      {/each}
+    </section>
+    <div class="flex justify-between w-1/2 m-auto" slot="button">
+      <Button
+        withMarging
+        on:click={async () => await goto(toOnboardingStep('3'))}
+      >
+        {$_('messages.previous')}
+      </Button>
+      <Button on:click={handleSubmitGoals}>
+        {$_('messages.next')}
+      </Button>
+    </div>
+  </OnboardingContainer>
+{/if}

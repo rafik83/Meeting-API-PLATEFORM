@@ -2,7 +2,7 @@ Feature:
     In order to prioritize my objectives
     As a member
     I want to give a priority to my goals
-    Background:
+Background:
     Given the database is purged
     And the user "john@doe.com" is created
     And as "john@doe.com" I want to join aerospacial community

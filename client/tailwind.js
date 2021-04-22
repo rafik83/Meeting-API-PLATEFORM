@@ -43,5 +43,8 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require('tailwindcss-break')(),
+    require('tailwindcss-multi-column')(),
+  ],
 };

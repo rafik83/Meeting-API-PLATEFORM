@@ -1,4 +1,5 @@
 export { IconBusiness } from './IconBusiness';
+export { IconCheckboxChecked, IconCheckboxEmpty } from './IconCheckBox';
 export { IconDropDown } from './IconDropDown';
 export { IconEdit } from './IconEdit';
 export { IconEye } from './IconEye';

@@ -72,7 +72,7 @@
           goal: goalId,
           tags: selectedTags,
         });
-        await goto(toOnboardingStep('4-2', mainObjectiveTag.id));
+        await goto(toOnboardingStep('4-1', mainObjectiveTag.id));
       } catch (e) {
         if (e.response.status === 401) {
           $session.userId = null;

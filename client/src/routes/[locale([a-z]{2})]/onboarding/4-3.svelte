@@ -53,6 +53,12 @@
     });
     tags = getTagsFromMemberGoal(goal);
 
+    if (tags.length === 1) {
+      // if there is only one tag that means the user has only selected one goal.
+      // in this case this goal has been already detailed. So we redirect the user to homepage
+      await goto(toHomePage());
+    }
+
     if (tags.length === 0) {
       // if there is no tag that means the user has'nt selected any tags at step 3
       await goto(toOnboardingStep('3'));
@@ -94,7 +100,10 @@
     </section>
 
     <div class="flex  justify-between w-1/2 m-auto" slot="button">
-      <Button on:click={async () => await goto(toOnboardingStep('4-1'))}>
+      <Button
+        withMarging
+        on:click={async () => await goto(toOnboardingStep('4-1'))}
+      >
         {$_('messages.previous')}
       </Button>
       <Button on:click={async () => await goto(toHomePage())}>

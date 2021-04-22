@@ -60,6 +60,7 @@
   import { goto, stores } from '@sapper/app';
   import { toHomePage, toOnboardingStep } from '../../../modules/routing';
   import Cookies from 'js-cookie';
+  import Error from '../../../components/Error.svelte';
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -83,6 +84,7 @@
   let selectedTags = [];
   let currentGoal;
   let firstLevelTreeItems = [];
+  let noDataToDisplay = false;
 
   const handleSelectedTag = (e) => {
     if (!max || selectedTagCount < max || e.detail.priority) {
@@ -115,8 +117,7 @@
           goal: currentGoal.id,
           tags: selectedTags,
         });
-
-        await goto(toOnboardingStep('4'));
+        await goto(toOnboardingStep('4-3'));
       } catch (e) {
         if (e.response.status === 401) {
           $session.userId = null;
@@ -158,6 +159,8 @@
         firstLevelTreeItems,
         memberGoalTags
       );
+    } else {
+      noDataToDisplay = true;
     }
 
     loading = false;
@@ -177,41 +180,53 @@
     </div>
 
     <section slot="content" class="w-full h-full">
-      <div class="w-full">
-        <H3>{$_('cards.select_items_of_your_main_objective')}.</H3>
-      </div>
-      <div class="md:flex justify-between flex-wrap">
+      {#if noDataToDisplay || groupedTreeItems.length === 0}
         <div class="w-full">
-          <MainObjectiveTagsNavigator tags={firstLevelTreeTags} />
+          <Error message={$_('messages.error_has_occured')} />
         </div>
-      </div>
+      {:else}
+        <div class="w-full">
+          <H3>{$_('cards.select_items_of_your_main_objective')}.</H3>
+        </div>
 
-      {#if max}
-        <div class="w-full flex justify-center">
-          <p
-            class="text-right mb-4 text-sm {selectedTagCount === max
-              ? 'text-success'
-              : ''}"
-          >{selectedTagCount}/{max} {$_('onboarding.select')}</p>
+        <div class="md:flex justify-between flex-wrap">
+          <div class="w-full">
+            <MainObjectiveTagsNavigator tags={firstLevelTreeTags} />
+          </div>
         </div>
+
+        {#if max}
+          <div class="w-full flex justify-center">
+            <p
+              class="text-right mb-4 text-sm {selectedTagCount === max
+                ? 'text-success'
+                : ''}"
+            >{selectedTagCount}/{max} {$_('onboarding.select')}</p>
+          </div>
+        {/if}
+        {#if errorMessage}
+          <Error message={errorMessage} />
+        {/if}
+
+        {#each groupedTreeItems as { children, parent }}
+          <MainObjectiveTags
+            titleTag={parent}
+            tags={children}
+            on:click={handleSelectedTag}
+          />
+        {/each}
       {/if}
-      {#if errorMessage}
-        <div class="w-full flex justify-center">
-          <p class="text-error my-5">{errorMessage}</p>
-        </div>
-      {/if}
-      {#each groupedTreeItems as { children, parent }}
-        <MainObjectiveTags
-          titleTag={parent}
-          tags={children}
-          on:click={handleSelectedTag}
-        />
-      {/each}
     </section>
 
-    <div slot="button">
+    <div class="flex  justify-between w-1/2 m-auto" slot="button">
+      <Button
+        withMarging
+        on:click={async () => await goto(toOnboardingStep('4-1', tagId))}
+      >
+        {$_('messages.previous')}
+      </Button>
       <Button on:click={handleSubmitGoals}>
-        {$_('registration.next')}
+        {$_('messages.next')}
       </Button>
     </div>
   </OnboardingContainer>

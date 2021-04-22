@@ -34,7 +34,7 @@ class Member
     private Community $community;
 
     /**
-     * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="member", cascade="persist")
+     * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="member", cascade="persist", orphanRemoval=true)
      *
      * @var Collection<int, Goal>
      */

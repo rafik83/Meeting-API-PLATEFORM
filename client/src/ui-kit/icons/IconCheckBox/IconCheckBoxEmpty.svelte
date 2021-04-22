@@ -1,0 +1,20 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 25 25"
+  {...$$restProps}
+  on:click
+  on:mouseover
+  on:mouseenter
+  on:mouseleave
+  on:keydown>
+  <rect
+    fill="none"
+    stroke="#8a98ba"
+    stroke-width="2px"
+    width="23"
+    height="23"
+    x="1"
+    y="1"
+    rx="4"
+  />
+</svg>
