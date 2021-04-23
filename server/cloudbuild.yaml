@@ -5,7 +5,7 @@ options:
 
 steps:
 
-  # Build API image 
+  # Build SERVER image 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Build API image'
     args:
@@ -21,15 +21,15 @@ steps:
     id: 'Prepare tag name'
     args: ['bash', '-c', "echo `echo $TAG_NAME$BRANCH_NAME | sed 's,/,-,g' | awk '{print tolower($0)}'`-$(date -u +%Y%m%dT%H%M)-$SHORT_SHA > _TAG; echo $(cat _TAG)"]
 
-  # Tag API image with custom tag
+  # Tag SERVER image with custom tag
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'Tag API image'
+    id: 'Tag SERVER image'
     entrypoint: '/bin/bash'
     args: ['-c', "docker tag eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$COMMIT_SHA eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$(cat _TAG)"]
 
 substitutions:
   _PROJECT_ID: "proximum-vimeet-staging"
-  _API_REPO_NAME: "vimeet365_api"
+  _API_REPO_NAME: "vimeet365_server"
 
 images: [
     'eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}'
