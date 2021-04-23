@@ -4,7 +4,7 @@ metadata:
   name: {{ template "vimeet365.fullname" . }}
   labels:
     app: "{{ template "vimeet365.name" . }}"
-    tier: api
+    tier: server
     chart: "{{ template "vimeet365.chart" . }}"
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
@@ -32,4 +32,4 @@ spec:
       {{- end }}
   selector:
     app: "{{ template "vimeet365.name" . }}"
-    tier: api
+    tier: server

@@ -9,7 +9,7 @@ keywords:
 maintainers:
 - email: info@synalabs.com
   name: Synalabs
-name: vimeet365-api
+name: vimeet365-server
 sources:
 - https://github.com/proximum/vimeet365
 version: 1.0.0

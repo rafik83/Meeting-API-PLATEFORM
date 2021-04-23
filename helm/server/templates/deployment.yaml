@@ -4,7 +4,7 @@ metadata:
   name: {{ template "vimeet365.fullname" . }}
   labels:
     app: "{{ template "vimeet365.name" . }}"
-    tier: api
+    tier: server
     chart: "{{ template "vimeet365.chart" . }}"
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
@@ -13,13 +13,13 @@ spec:
   selector:
     matchLabels:
       app: {{ template "vimeet365.name" . }}
-      tier: api
+      tier: server
       release: "{{ .Release.Name }}"
   template:
     metadata:
       labels:
         app: "{{ template "vimeet365.name" . }}"
-        tier: api
+        tier: server
         chart: "{{ template "vimeet365.chart" . }}"
         release: {{ .Release.Name | quote }}
 {{- if .Values.podAnnotations }}
@@ -90,12 +90,7 @@ spec:
 {{ toYaml .Values.extraVolumes | indent 6 }}
       {{- end }}
       - name: vimeet-data
-      {{- if .Values.persistence.enabled }}
-        persistentVolumeClaim:
-          claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "vimeet365.fullname" . }}-data{{- end }}
-      {{- else }}
         emptyDir: {}
-      {{- end }}
       {{- with .Values.affinity }}
       affinity:
 {{ toYaml . | indent 8 }}

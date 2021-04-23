@@ -1,0 +1,29 @@
+timeout: 1800s
+
+options:
+  machineType: N1_HIGHCPU_8
+  
+steps:
+  - name: 'alpine/helm:3.5.4'
+    args:
+      - package
+      - ./client
+      - ./server
+    dir: helm/
+    id: Package Helm Charts
+    waitFor:
+      - '-'
+    volumes:
+      - name: charts-tgz
+        path: /workspace/helm/charts-tgz
+
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      - cp
+      - ./*.tgz
+      - 'gs://vimeet-charts-staging'
+    dir: helm/
+    id: Copy Charts to GCS
+    volumes:
+      - name: charts-tgz
+        path: /workspace/helm/charts-tgz
