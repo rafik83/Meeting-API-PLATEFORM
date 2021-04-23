@@ -6,11 +6,13 @@ import {
   locales,
 } from 'svelte-i18n';
 
+import { currentLocale } from '../stores/localeStore';
+
 register('en', () => import('../messages/en.json'));
 register('fr', () => import('../messages/fr.json'));
 
-const getSupportedLocales = () => {
-  let supportedLocales;
+const getSupportedLocales = (): Array<string> => {
+  let supportedLocales: Array<string>;
   locales.subscribe((value) => {
     supportedLocales = value;
   });
@@ -31,7 +33,7 @@ const getLocaleFromRequestURL = (route) => {
   return localesFromURL[0].replace(/\//g, '');
 };
 
-const fallbackLocale = 'fr';
+const fallbackLocale = 'en';
 
 export const addLocaleToRequest = () => {
   let previousURLLocale = null;
@@ -42,6 +44,7 @@ export const addLocaleToRequest = () => {
     }
     const locale = localeFromRoute || previousURLLocale || fallbackLocale;
 
+    currentLocale.set(locale);
     req.locale = locale;
 
     next();
@@ -56,11 +59,11 @@ const INIT_OPTIONS = {
   warnOnMissingMessages: true,
 };
 
-export const initClienti18n = () => {
+export const initClientI18n = () => {
   init({
     ...INIT_OPTIONS,
     initialLocale: getLocaleFromPathname(/^\/([a-z]{2})\/?/),
-    fallbackLocale: 'fr',
+    fallbackLocale,
   });
 };
 

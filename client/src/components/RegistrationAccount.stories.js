@@ -6,8 +6,8 @@ import {
 } from '../__fixtures__/FakeTags';
 import RegistrationAccount from './RegistrationAccount.svelte';
 
-const jobPosition1 = buildFakeTag('Ministre');
-const jobPosition2 = buildFakeTag('Curé');
+const jobPosition1 = buildFakeTag('Minister');
+const jobPosition2 = buildFakeTag('Priest');
 
 export default {
   title: 'Vimeet365/RegistrationAccount',

@@ -1,4 +1,3 @@
-@debug
 Feature:
     In order to select my community goals objectives
     As a member
@@ -11,20 +10,19 @@ Feature:
     |tagId   | tagName  |
     |  3     | Buy      |
 
-    
-    When I go to "/fr"
+    When I go to "/en"
     And I press "menu-responsive"
     And I wait 1000
     And I sign in as "john@doe.com"
-    And I go to "/fr/onboarding/4-1?tagId=3"
+    And I go to "/en/onboarding/4-1?tagId=3"
     And I wait 3000
 
 Scenario: I can select maximum 3 goals
     When I follow "Satellites"
     And I click on "treeSelect-6-label"
     And I follow "SpaceApps"
-    Then I should see "3/3 sélectionnés"
-    And I press "Suivant"
+    Then I should see "3/3 selected"
+    And I press "Next"
     And I wait 2000
     Then I should see "Space R&D"
     And I should see "Satellites"
@@ -32,6 +30,6 @@ Scenario: I can select maximum 3 goals
 Scenario: I can  deselect my goals
     When I follow "Satellites"
     And I click on "treeSelect-6-label"
-    Then I should see "3/3 sélectionnés"
+    Then I should see "3/3 selected"
     And I click on "treeSelect-6-label"
-    Then I should see "0/3 sélectionnés"
+    Then I should see "0/3 selected"

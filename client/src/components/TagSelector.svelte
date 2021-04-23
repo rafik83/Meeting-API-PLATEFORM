@@ -39,7 +39,7 @@
         ? 'text-success'
         : ''}"
     >
-      {$_('onboarding.selected', {
+      {$_('onboarding.selected_by_priority', {
         values: { n: selectedTagCount, priorities_number: max },
       })}
     </p>

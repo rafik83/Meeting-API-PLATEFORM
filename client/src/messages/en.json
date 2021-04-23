@@ -13,8 +13,8 @@
     "next": "Next"
   },
   "validation": {
-    "field_required": "Field Required",
-    "invalid_email": "Invalid Email",
+    "field_required": "This field is required",
+    "invalid_email": "This email is not valid",
     "invalid_password": "the password must be at least {minPassword} characters long",
     "terms_and_conditions_not_selected": "Please accept the terms and conditions",
     "import_file_error": "Error(s):",
@@ -73,9 +73,9 @@
   "onboarding": {
     "title": "Vimeet365 - Onboarding",
     "currentStep": "Step {currentStep}/{maxStep}",
-    "selected": "{n, plural, =0{{n}/{priorities_number} maximum selected} one{{n}/{priorities_number} maximum selected} other{#/{priorities_number} maxium selected}}",
-    "select_your_goals": "Select {n, plural, one {# objective} other {# objectives by priority}}",
-    "select": "select",
+    "selected_by_priority": "{n, plural, =0{{n}/{priorities_number} maximum selected} one{{n}/{priorities_number} maximum selected} other{#/{priorities_number} maximum selected}}",
+    "select_your_goals": "Select {n, plural, one {# goal} other {# goals by priority}}",
+    "select": "selected",
     "detail_another_objective": "Do you want to detail another objective?"
   },
   "account": {

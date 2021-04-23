@@ -1,8 +1,8 @@
 import * as sapper from '@sapper/app';
 
-import { initClienti18n } from './modules/i18n';
+import { initClientI18n } from './modules/i18n';
 
-initClienti18n();
+initClientI18n();
 
 sapper.start({
   target: document.querySelector('#sapper'),

@@ -45,7 +45,7 @@ class FeatureContext extends MinkContext implements Context
         $this->pressButton('join-community');
         $this->fillField('loginUserName', $email);
         $this->fillField('loginPassword', 'password');
-        $this->pressButton('Se connecter');
+        $this->pressButton('Signin');
         $this->iWait(4000);
     }
 }

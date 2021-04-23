@@ -1,5 +1,13 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 
+import { currentLocale } from '../stores/localeStore';
+
+let locale: string;
+
+currentLocale.subscribe((value) => {
+  locale = value;
+});
+
 let apiUrl: string;
 
 const getClient = (): AxiosInstance => {
@@ -8,6 +16,7 @@ const getClient = (): AxiosInstance => {
     withCredentials: true,
     headers: {
       Accept: 'application/json',
+      'Accept-language': locale,
     },
   });
 };
