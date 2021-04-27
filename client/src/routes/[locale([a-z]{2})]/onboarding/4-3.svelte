@@ -9,7 +9,17 @@
     if (!isAuthenticated) {
       this.redirect(302, toHomePage());
     }
-    const user = await findById(userId);
+
+    let user;
+
+    try {
+      user = await findById(userId);
+    } catch (error) {
+      if (error.response && error.response.status > 201) {
+        console.error(error);
+        this.error(error.response.status);
+      }
+    }
 
     return {
       user,

@@ -7,7 +7,11 @@ export const authentificationMiddleWare = () => {
       next();
     }
 
-    if (Object.keys(req.cookies).length > 0 && req.cookies['userId']) {
+    if (
+      Object.keys(req.cookies).length > 0 &&
+      req.cookies['userId'] &&
+      req.cookies['PHPSESSID']
+    ) {
       req.userId = req.cookies['userId'];
     }
     next();

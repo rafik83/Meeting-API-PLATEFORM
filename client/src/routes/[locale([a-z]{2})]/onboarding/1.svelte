@@ -14,10 +14,22 @@
       this.redirect(302, toHomePage());
     }
 
-    const countries = await getCountries();
-    const timezones = await getTimeZones();
-    const jobPositions = await getAllJobPositions();
-    const user = await findById(userId);
+    let countries;
+    let timezones;
+    let jobPositions;
+    let user;
+
+    try {
+      countries = await getCountries();
+      timezones = await getTimeZones();
+      jobPositions = await getAllJobPositions();
+      user = await findById(userId);
+    } catch (error) {
+      if (error.response && error.response.status > 201) {
+        console.error(error);
+        this.error(error.response.status);
+      }
+    }
 
     return {
       user,

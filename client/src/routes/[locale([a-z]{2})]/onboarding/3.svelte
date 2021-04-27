@@ -12,18 +12,23 @@
     if (!isAuthenticated) {
       this.redirect(302, toHomePage());
     }
-    const user = await findById(userId);
-    const { tags, min, max, goalId } = await getCommunityMainObjectives(
-      communityId
-    );
+    let user;
+    let mainCommunityObjective;
+
+    try {
+      user = await findById(userId);
+      mainCommunityObjective = await getCommunityMainObjectives(communityId);
+    } catch (error) {
+      if (error.response && error.response.status > 201) {
+        console.error(error);
+        this.error(error.response.status);
+      }
+    }
 
     return {
-      goalId,
       user,
-      min,
-      max,
-      tags,
       currentUserMemberId: getUserMemberIdInCommunity(user, communityId),
+      ...mainCommunityObjective,
     };
   }
 </script>

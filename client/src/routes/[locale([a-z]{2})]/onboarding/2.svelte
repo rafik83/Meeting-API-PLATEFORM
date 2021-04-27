@@ -11,8 +11,18 @@
     if (!isAuthenticated) {
       this.redirect(302, toHomePage());
     }
-    const countries = await getCountries();
-    const user = await findById(userId);
+    let countries;
+    let user;
+
+    try {
+      countries = await getCountries();
+      user = await findById(userId);
+    } catch (error) {
+      if (error.response && error.response.status > 201) {
+        console.error(error);
+        this.error(error.response.status);
+      }
+    }
 
     return {
       user,

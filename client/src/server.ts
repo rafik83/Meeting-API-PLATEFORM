@@ -34,7 +34,7 @@ polka()
           locale: req.locale,
           communityId: req.communityId,
           userId: req.userId,
-          isAuthenticated: req.userId !== undefined,
+          isAuthenticated: !!req.userId,
           apiUrl: process.env.API_URL,
         };
       },

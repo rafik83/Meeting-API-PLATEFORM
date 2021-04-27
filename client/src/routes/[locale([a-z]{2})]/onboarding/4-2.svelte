@@ -20,7 +20,17 @@
       this.error(404, 'No Goal id found');
     }
 
-    const user = await findById(userId);
+    let user;
+
+    try {
+      user = await findById(userId);
+    } catch (error) {
+      if (error.response && error.response.status > 201) {
+        console.error(error);
+        this.error(error.response.status);
+      }
+    }
+
     return {
       communityId,
       user,

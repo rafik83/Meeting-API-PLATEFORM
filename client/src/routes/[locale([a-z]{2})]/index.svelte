@@ -2,14 +2,17 @@
   import { createMember } from '../../repository/member';
   import { register, findById, authenticate } from '../../repository/account';
 
-  export async function preload({ query }, { communityId, userId }) {
+  export async function preload(
+    { query },
+    { communityId, userId, isAuthenticated }
+  ) {
     let countryList = [];
 
     let errorMessage = '';
     let user;
     const target = query.target;
 
-    if (userId) {
+    if (userId && isAuthenticated) {
       user = await findById(userId);
     }
 
