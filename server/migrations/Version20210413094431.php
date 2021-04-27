@@ -19,6 +19,7 @@ final class Version20210413094431 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
+        $this->addSql('UPDATE nomenclature_tag SET external_id = id WHERE external_id IS NULL');
         $this->addSql('ALTER TABLE nomenclature_tag ALTER external_id SET NOT NULL');
         $this->addSql('ALTER TABLE tag ALTER external_id SET NOT NULL');
     }
