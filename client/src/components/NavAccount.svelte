@@ -11,9 +11,9 @@
   export let user;
 </script>
 
-<div class="h-full py-2 px-3 flex hover:bg-gray-100">
+<div class="h-full pt-2 pb-3 px-3 flex hover:bg-gray-100">
   {#if user}
-    <button id="join-community" class="w-80 h-full flex justify-between">
+    <button id="nav-button-account" class="w-80 h-full flex justify-between">
       <div class="h-full flex">
         <IconUser width="38" fill="#c4cbdc" />
         <div class="h-full flex items-end uppercase font-semibold text-sm ml-4">

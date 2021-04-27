@@ -6,7 +6,7 @@ export default {
   title: 'Vimeet365/CardSlider',
   component: CardSlider,
   args: {
-    memberDataForCards: buildFakeMemberCards(),
+    memberDataForCards: buildFakeMemberCards(5),
     title: 'Title of list',
   },
   decorators: [

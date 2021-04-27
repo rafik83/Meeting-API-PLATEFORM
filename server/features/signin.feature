@@ -2,6 +2,7 @@ Feature:
     In order to prove that a user can log in application
     As a user
     I want to login
+    
     Scenario: I can not log into the platform if no email provided
         When I go to "/en"
         And I press "menu-responsive"

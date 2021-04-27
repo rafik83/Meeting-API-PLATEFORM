@@ -3,7 +3,7 @@
 </script>
 
 <h3
-  class="md:text-l text-xl font-bold my-1 pl-12 {community
+  class="text-l md:text-xl font-bold my-1 {community
     ? 'text-community-300'
     : 'text-gray-500'}"
 >

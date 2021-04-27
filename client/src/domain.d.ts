@@ -84,3 +84,12 @@ export type TagTreeItem = {
   tag: Tag;
   parent: Tag | null;
 };
+
+export type Video = {
+  sources: Array<VideoSource>;
+};
+
+export type VideoSource = {
+  source: string;
+  type: string;
+};
