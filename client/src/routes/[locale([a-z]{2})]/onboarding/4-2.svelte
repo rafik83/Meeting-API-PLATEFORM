@@ -140,7 +140,7 @@
   };
 
   onMount(async () => {
-    memberObjectives = await getMemberGoals(communityId);
+    memberObjectives = await getMemberGoals(currentUserMemberId);
 
     communityGoals = await getCommunityGoals(communityId);
 
@@ -195,7 +195,7 @@
           <Error message={$_('messages.error_has_occured')} />
         </div>
       {:else}
-        <div class="w-full">
+        <div class="w-full pl-5">
           <H3>{$_('cards.select_items_of_your_main_objective')}.</H3>
         </div>
 
@@ -211,7 +211,10 @@
               class="text-right mb-4 text-sm {selectedTagCount === max
                 ? 'text-success'
                 : ''}"
-            >{selectedTagCount}/{max} {$_('onboarding.select')}</p>
+            >
+              {selectedTagCount}/{max}
+              {$_('onboarding.select')}
+            </p>
           </div>
         {/if}
         {#if errorMessage}

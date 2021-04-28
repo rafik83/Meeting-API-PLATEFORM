@@ -76,7 +76,9 @@
     "selected_by_priority": "{n, plural, =0{{n}/{priorities_number} maximum sélectionné} one{{n}/{priorities_number} maximum sélectionné} other{#/{priorities_number} maximum sélectionnés}}",
     "select_your_goals": "Selectionnez {n, plural, one {# objectif} other {# objectifs par priorité}}",
     "select": "sélectionnés",
-    "detail_another_objective": "Voulez-vous détailler un autre objectif ?"
+    "detail_another_objective": "Voulez-vous détailler un autre objectif ?",
+    "your_objective": "Votre objectif :",
+    "please_detail_your_goal": "Veuillez détailler l'objectif selectionné :"
   },
   "account": {
     "employment": "Fonction",

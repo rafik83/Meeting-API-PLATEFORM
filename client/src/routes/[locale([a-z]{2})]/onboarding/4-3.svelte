@@ -1,5 +1,8 @@
 <script context="module">
-  import { findById } from '../../../repository/account';
+  import {
+    findById,
+    getUserMemberIdInCommunity,
+  } from '../../../repository/account';
   import { toHomePage, toOnboardingStep } from '../../../modules/routing';
 
   export async function preload(
@@ -23,7 +26,7 @@
 
     return {
       user,
-      communityId,
+      currentUserMemberId: getUserMemberIdInCommunity(user, communityId),
     };
   }
 </script>
@@ -47,7 +50,7 @@
   setBaseUrl($session.apiUrl);
 
   export let user;
-  export let communityId;
+  export let currentUserMemberId;
   let tags;
   let isLoading = true;
 
@@ -56,25 +59,30 @@
   };
 
   onMount(async () => {
-    const goals = await getMemberGoals(communityId);
+    try {
+      const memberGoals = await getMemberGoals(currentUserMemberId);
 
-    const goal = goals.find((goal) => {
-      return !goal.parent;
-    });
-    tags = getTagsFromMemberGoal(goal);
+      const goal = memberGoals.find((goal) => {
+        return !goal.parent;
+      });
 
-    if (tags.length === 1) {
-      // if there is only one tag that means the user has only selected one goal.
-      // in this case this goal has been already detailed. So we redirect the user to homepage
-      await goto(toHomePage());
+      tags = getTagsFromMemberGoal(goal);
+
+      if (tags.length === 1) {
+        // if there is only one tag that means the user has only selected one goal.
+        // in this case this goal has been already detailed. So we redirect the user to homepage
+        await goto(toHomePage());
+      }
+
+      if (tags.length === 0) {
+        // if there is no tag that means the user has'nt selected any tags at step 3
+        await goto(toOnboardingStep('3'));
+      }
+    } catch (error) {
+      console.error(JSON.stringify(error));
+    } finally {
+      isLoading = false;
     }
-
-    if (tags.length === 0) {
-      // if there is no tag that means the user has'nt selected any tags at step 3
-      await goto(toOnboardingStep('3'));
-    }
-
-    isLoading = false;
   });
 </script>
 

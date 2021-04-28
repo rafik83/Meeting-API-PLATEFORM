@@ -49,7 +49,6 @@
   import { _ } from 'svelte-i18n';
   import OnboardingContainer from '../../../components/OnboardingContainer.svelte';
   import Button from '../../../components/Button.svelte';
-  import H3 from '../../../components/H3.svelte';
   import MainObjectiveTagsNavigator from '../../../components/MainObjectiveTagsNavigator.svelte';
   import IconSatellites from '../../../ui-kit/icons/IconSatellite/IconSatellite.svelte';
   import { onMount } from 'svelte';
@@ -69,6 +68,9 @@
   import Cookies from 'js-cookie';
   import { goto } from '@sapper/app';
   import Error from '../../../components/Error.svelte';
+  import H2 from '../../../components/H2.svelte';
+  import Tag from '../../../components/Tag.svelte';
+  import { sizes } from '../../../components/constants';
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -84,6 +86,7 @@
   let min;
   let max;
   let errorMessage;
+  let goalTagName;
 
   onMount(async () => {
     communityGoals = await getCommunityGoals(communityId);
@@ -94,6 +97,7 @@
 
     min = currentGoal.min;
     max = currentGoal.max;
+    goalTagName = currentGoal.tag.name;
 
     if (currentGoal) {
       const tree = buildTagTree(currentGoal.nomenclature.tags);
@@ -154,15 +158,19 @@
     </div>
 
     <section slot="content" class="w-full h-full">
-      <div class="w-full">
-        <H3>{$_('cards.select_items_of_your_main_objective')}.</H3>
+      <div class="w-full pl-5">
+        <div class="flex items-center" />
+        <H2 community>{$_('onboarding.your_objective')}</H2>
+        <Tag dark size={sizes.LARGE}>
+          {goalTagName.toUpperCase()}
+        </Tag>
+        <p>{$_('onboarding.please_detail_your_goal')}</p>
       </div>
-      <div class="md:flex justify-between flex-wrap">
-        <div class="w-full">
-          <MainObjectiveTagsNavigator
-            tags={firstLevelTreeItems.map((item) => item.tag)}
-          />
-        </div>
+
+      <div class="w-full">
+        <MainObjectiveTagsNavigator
+          tags={firstLevelTreeItems.map((item) => item.tag)}
+        />
       </div>
 
       {#if errorMessage}
@@ -175,7 +183,10 @@
             class="text-right mb-4 text-sm {$secondaryGoals.length === max
               ? 'text-success'
               : ''}"
-          >{$secondaryGoals.length}/{max} {$_('onboarding.select')}</p>
+          >
+            {$secondaryGoals.length}/{max}
+            {$_('onboarding.select')}
+          </p>
         </div>
       {/if}
       {#each firstLevelTreeItems as goalTreeItem}

@@ -54,9 +54,9 @@ export const saveCommunityGoal = async (
 };
 
 export const getMemberGoals = async (
-  communityId: number
+  memberId: number
 ): Promise<Array<MemberGoal>> => {
-  const result = (await get<Array<MemberGoal>>(`/members/${communityId}/goals`))
+  const result = (await get<Array<MemberGoal>>(`/members/${memberId}/goals`))
     .data;
 
   return result;

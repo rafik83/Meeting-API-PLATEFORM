@@ -76,7 +76,9 @@
     "selected_by_priority": "{n, plural, =0{{n}/{priorities_number} maximum selected} one{{n}/{priorities_number} maximum selected} other{#/{priorities_number} maximum selected}}",
     "select_your_goals": "Select {n, plural, one {# goal} other {# goals by priority}}",
     "select": "selected",
-    "detail_another_objective": "Do you want to detail another objective?"
+    "detail_another_objective": "Do you want to detail another objective?",
+    "your_objective": "Your objective :",
+    "please_detail_your_goal": "Please detail your goal :"
   },
   "account": {
     "employment": "Employment",

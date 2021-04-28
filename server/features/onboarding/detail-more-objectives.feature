@@ -12,7 +12,7 @@ Feature:
     |  4     | Sell     |
     When I go to "/en"
     And I press "menu-responsive"
-    And I wait 1000
+    And I wait 3000
     And I sign in as "john@doe.com"
 
 Scenario: I can select one more goal
