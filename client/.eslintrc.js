@@ -23,7 +23,7 @@ module.exports = {
     },
     {
       files: ['*.ts'],
-      extends: ['prettier/@typescript-eslint', 'plugin:prettier/recommended'],
+      extends: ['plugin:prettier/recommended'],
       env: { browser: true, node: false },
       rules: {
         'prettier/prettier': 'error',
