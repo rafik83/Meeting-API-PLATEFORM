@@ -34,3 +34,5 @@ data:
     PHP_NEWRELIC_APPNAME: {{ .Values.newrelic.appName | quote }}
     PHP_NEWRELIC_LICENSE: {{ .Values.newrelic.licenseKey | quote }}
     {{- end }}
+    GCS_PROJECT_ID: {{ .Values.gcs.projectId | quote }}
+    GCS_PUBLIC_BUCKET: {{ .Values.gcs.publicBucket | quote }}

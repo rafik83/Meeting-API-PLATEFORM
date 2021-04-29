@@ -230,7 +230,7 @@ ingress:
     users:
       proximum: $apr1$4ylzrpCV$Ap/JGx5tpCVh1njArKj9Q1
       synalabs: $apr1$gKk5P785$AKk5HpFnI.GRmfr0GNnBV0
-  
+
   # List of IP to whitelist
   whitelistIp:
     enabled: false
@@ -273,6 +273,37 @@ hpa:
   minReplicas: 1
   maxReplicas: 3
   targetAverageUtilization: 60
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  enabled: false
+  nfs:
+    enabled: false
+    server: fs-master.vimeet365.internal
+    path: /shared
+  ## Vimeet Data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  #existingClaim:
+
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+## Google Cloud Storage parameters
+gcs:
+  projectId: proximum-vimeet-staging
+  publicBucket: vimeet365-public-staging
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -345,7 +376,7 @@ initContainers:
 #      - mountPath: /var/www/proximum-vimeet365.project.local/htdocs/current/var/cache
 #        name: vimeet-var-cache
 
-## Add entries to a Pod's /etc/hosts file 
+## Add entries to a Pod's /etc/hosts file
 ## Provides Pod-level override of hostname
 ##
 hostAliases:

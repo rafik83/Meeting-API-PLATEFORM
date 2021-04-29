@@ -1,0 +1,21 @@
+flysystem:
+    storages:
+        companyLogos.storage:
+            adapter: 'gcloud'
+            options:
+                client: 'gcloud_client_service'
+                bucket: '%env(resolve:GCS_PUBLIC_BUCKET)%'
+                prefix: 'companyLogos/'
+        accountAvatar.storage:
+            adapter: 'gcloud'
+            options:
+                client: 'gcloud_client_service'
+                bucket: '%env(resolve:GCS_PUBLIC_BUCKET)%'
+                prefix: 'accountAvatar/'
+
+services:
+    gcloud_client_service:
+        class: Google\Cloud\Storage\StorageClient
+        arguments:
+            $config:
+                projectId: '%env(resolve:GCS_PROJECT_ID)%'
