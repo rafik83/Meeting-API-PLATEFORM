@@ -13,8 +13,9 @@ flysystem:
                 bucket: '%env(resolve:GCS_PUBLIC_BUCKET)%'
                 # prefix: ''
 
-service:
+services:
     gcloud_client_service:
         class: Google\Cloud\Storage\StorageClient
         arguments:
-            projectId: '%env(resolve:GCS_PROJECT_ID)%'
+            $config:
+                projectId: '%env(resolve:GCS_PROJECT_ID)%'
