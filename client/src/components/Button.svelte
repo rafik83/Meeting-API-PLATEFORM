@@ -64,7 +64,8 @@
   on:click|preventDefault
   {type}
   class="text-sm font-semibold my-5 px-3 rounded-lg {style}"
-  class:mx-5={withMarging}>
+  class:mx-5={withMarging}
+>
   {#if arrow}
     <div class="flex justify-center items-center mx-2">
       <slot />

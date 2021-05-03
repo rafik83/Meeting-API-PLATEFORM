@@ -26,7 +26,8 @@
     <button
       id="menu-responsive"
       class="h-full flex items-center px-5"
-      on:click={handleClick}>
+      on:click={handleClick}
+    >
       <MenuBurger {open} stroke="#2a2e43" />
     </button>
     <nav

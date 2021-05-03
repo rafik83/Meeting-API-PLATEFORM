@@ -38,7 +38,8 @@
     {#key uniq}
       <button
         class="w-28 h-full flex justify-center items-center"
-        in:fly={{ x: 200, duration: 500, delay: 0 }}>
+        in:fly={{ x: 200, duration: 500, delay: 0 }}
+      >
         <IconSearch fill="#2A2E43" width="70%" height="70%" />
       </button>
     {/key}

@@ -63,7 +63,8 @@
     class="flex flex-col h-full items-center w-full justify-center {loading
       ? 'cursor-not-allowed bg-gray-100'
       : 'cursor-pointer'}"
-    tabindex="0">
+    tabindex="0"
+  >
     {#if loading}
       <p class="text-sm italic">{$_('registration.loading')}</p>
     {:else}

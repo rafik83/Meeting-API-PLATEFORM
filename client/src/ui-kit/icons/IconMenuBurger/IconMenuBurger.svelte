@@ -21,7 +21,8 @@
   on:mouseover
   on:mouseenter
   on:mouseleave
-  on:keydown>
+  on:keydown
+>
   <line
     {stroke}
     stroke-width="3"

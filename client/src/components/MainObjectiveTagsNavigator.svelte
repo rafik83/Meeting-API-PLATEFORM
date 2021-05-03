@@ -16,7 +16,8 @@
       class="px-7 py-2 m-2 shadow-full max-w-sm font-semibold uppercase rounded-full truncate"
       on:click|preventDefault={() => handleClick(tag)}
       class:bg-community-300={selectedTagId === tag.id}
-      class:text-gray-50={selectedTagId === tag.id}>
+      class:text-gray-50={selectedTagId === tag.id}
+    >
       {tag.name}
     </a>
   {/each}

@@ -46,7 +46,8 @@
       ? 'border-error text-error'
       : 'border-gray-200'}"
     on:click|stopPropagation|preventDefault={handleClick}
-    {label}>
+    {label}
+  >
     {selectedLabel ? selectedLabel : label}
     <IconDropDown width={25} height={25} stroke={'rgba(42, 46, 67, .7)'} />
   </button>
@@ -74,13 +75,15 @@
         bind:value={selectedOption}
         on:click|stopPropagation|preventDefault={handleClickOption}
         class="w-full"
-        size="5">
+        size="5"
+      >
         {#each filterOptions as option, i}
           <option
             class="{i % 2 === 0
               ? 'bg-gray-50'
               : 'bg-gray-100'} px-4 py-2 cursor-pointer"
-            value={option}>
+            value={option}
+          >
             {option.name}
           </option>
         {/each}

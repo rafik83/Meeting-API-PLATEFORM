@@ -6,7 +6,8 @@
   on:mouseover
   on:mouseenter
   on:mouseleave
-  on:keydown>
+  on:keydown
+>
   <rect fill="#665eff" width="25" height="25" rx="4" />
   <path
     fill="#ffffff"

@@ -15,7 +15,8 @@
       y1="0.5"
       x2="1"
       y2="0.5"
-      gradientUnits="objectBoundingBox">
+      gradientUnits="objectBoundingBox"
+    >
       <stop offset="0" stop-color="#fff" />
       <stop offset="1" stop-color="#fff" stop-opacity="0.302" />
     </linearGradient>

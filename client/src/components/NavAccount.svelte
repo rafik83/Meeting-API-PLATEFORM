@@ -32,7 +32,8 @@
     <button
       id="join-community"
       class="w-80 h-full flex justify-between"
-      on:click={() => goto(toRegistrationStep(registrationSteps.SIGN_IN))}>
+      on:click={() => goto(toRegistrationStep(registrationSteps.SIGN_IN))}
+    >
       <div class="h-full flex">
         <IconUser width="38" fill="#c4cbdc" />
         <div class="h-full flex items-end uppercase font-semibold text-sm ml-4">

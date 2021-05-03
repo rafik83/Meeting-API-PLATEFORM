@@ -9,6 +9,7 @@
 </p>
 <a
   {href}
-  class="w-full flex justify-center mt-1 items-center font-semibold rounded-lg bg-community-300 h-12 text-gray-50">
+  class="w-full flex justify-center mt-1 items-center font-semibold rounded-lg bg-community-300 h-12 text-gray-50"
+>
   {content}
 </a>

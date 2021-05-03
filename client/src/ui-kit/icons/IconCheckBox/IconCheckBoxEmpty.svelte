@@ -6,7 +6,8 @@
   on:mouseover
   on:mouseenter
   on:mouseleave
-  on:keydown>
+  on:keydown
+>
   <rect
     fill="none"
     stroke="#8a98ba"

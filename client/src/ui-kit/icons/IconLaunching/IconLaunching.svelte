@@ -15,7 +15,8 @@
       y1="0.5"
       x2="1"
       y2="0.5"
-      gradientUnits="objectBoundingBox">
+      gradientUnits="objectBoundingBox"
+    >
       <stop offset="0" stop-color="#fff" />
       <stop offset="1" stop-color="#fff" stop-opacity="0.302" />
     </linearGradient>
@@ -113,7 +114,8 @@
       id="Groupe_4176"
       data-name="Groupe 4176"
       transform="translate(359.367 72.58)"
-      opacity="0.4">
+      opacity="0.4"
+    >
       <path
         id="Tracé_12374"
         data-name="Tracé 12374"

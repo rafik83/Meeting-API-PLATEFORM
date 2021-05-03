@@ -6,7 +6,8 @@
 </script>
 
 <button
-  class="w-28 mx-3 h-full flex items-center justify-center hover:bg-gray-100 cursor-pointer">
+  class="w-28 mx-3 h-full flex items-center justify-center hover:bg-gray-100 cursor-pointer"
+>
   <div class="relative h-full w-12 flex items-center">
     <IconChat width="34" height="34" />
     {#if messages > 0}

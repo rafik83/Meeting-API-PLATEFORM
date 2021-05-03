@@ -6,7 +6,8 @@
   on:mouseover
   on:mouseenter
   on:mouseleave
-  on:keydown>
+  on:keydown
+>
   <path
     d="M-3989-12174h17.363l-6.931,24.947,3.246,5.1-5.819,4.158L-3989-12111.5Z"
     transform="translate(3988.999 12174)"

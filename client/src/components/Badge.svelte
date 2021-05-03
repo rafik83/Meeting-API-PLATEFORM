@@ -22,6 +22,7 @@
 </script>
 
 <span
-  class="text-gray-50 font-semibold rounded-xl uppercase border border-gray-50 {color} {classList}">
+  class="text-gray-50 font-semibold rounded-xl uppercase border border-gray-50 {color} {classList}"
+>
   <slot />
 </span>

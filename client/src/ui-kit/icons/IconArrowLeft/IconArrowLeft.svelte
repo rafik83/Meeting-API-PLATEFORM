@@ -10,7 +10,8 @@
   on:mouseover
   on:mouseenter
   on:mouseleave
-  on:keydown>
+  on:keydown
+>
   <slot />
   <g fill="none" {stroke}>
     <path

@@ -71,14 +71,16 @@
       slot="prevButton"
       class={`${buttonStyle} md:left-16 left-1`}
       on:click={handlePreviousClick}
-      id={`${id}-prev`}>
+      id={`${id}-prev`}
+    >
       <IconArrowLeft width="13" />
     </button>
     <button
       slot="nextButton"
       class={`${buttonStyle} md:right-16 right-1`}
       on:click={handleNextClick}
-      id={`${id}-next`}>
+      id={`${id}-next`}
+    >
       <IconArrowRight width="13" />
     </button>
   </Slider>

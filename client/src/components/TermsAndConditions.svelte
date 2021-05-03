@@ -20,7 +20,8 @@
 
     <label
       for={name}
-      class="block {checked ? 'text-community-300' : 'text-gray-400'}">
+      class="block {checked ? 'text-community-300' : 'text-gray-400'}"
+    >
       {@html $_('registration.conditions', {
         values: {
           link:

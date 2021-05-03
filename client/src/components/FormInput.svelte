@@ -51,7 +51,8 @@
   >
     <label
       for={name}
-      class="block transition-all duration-250 italic absolute bg-gray-50 mf-2.5 ml-3 px-2 {labelErrorClasses} {labeClasses} ">
+      class="block transition-all duration-250 italic absolute bg-gray-50 mf-2.5 ml-3 px-2 {labelErrorClasses} {labeClasses} "
+    >
       {label}
     </label>
 
@@ -79,7 +80,8 @@
       <button
         on:click|preventDefault={toggle}
         tabindex="-1"
-        class="w-5 h-auto mx-2">
+        class="w-5 h-auto mx-2"
+      >
         <IconEye fill="#cccc" />
       </button>
     {/if}
