@@ -20,6 +20,12 @@ extraVolumeMounts:
 parameters:
   parameters_yml: |
 
+worker:
+  hpa:
+    minReplicas: 1
+    maxReplicas: 1
+  command: "php /var/www/vimeet365/bin/console messenger:consume -t 7200 events -vv"
+
 image:
   registry: ""
   repository: eu.gcr.io/proximum-vimeet-staging/vimeet365_api

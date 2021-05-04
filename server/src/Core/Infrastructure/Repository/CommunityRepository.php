@@ -9,6 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
 
+/**
+ * @template-extends ServiceEntityRepository<Community>
+ */
 class CommunityRepository extends ServiceEntityRepository implements CommunityRepositoryInterface
 {
     public function __construct(ManagerRegistry $managerRegistry)

@@ -9,6 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Proximum\Vimeet365\Core\Domain\Repository\TagRepositoryInterface;
 
+/**
+ * @template-extends ServiceEntityRepository<Tag>
+ */
 class TagRepository extends ServiceEntityRepository implements TagRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)

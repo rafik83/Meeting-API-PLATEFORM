@@ -211,6 +211,9 @@
             "fixtures/.gitignore"
         ]
     },
+    "hubspot/api-client": {
+        "version": "2.8.1"
+    },
     "instaclick/php-webdriver": {
         "version": "1.4.7"
     },

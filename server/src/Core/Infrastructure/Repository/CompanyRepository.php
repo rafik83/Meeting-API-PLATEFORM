@@ -9,6 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
 use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;
 
+/**
+ * @template-extends ServiceEntityRepository<Company>
+ */
 class CompanyRepository extends ServiceEntityRepository implements CompanyRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
@@ -24,5 +27,27 @@ class CompanyRepository extends ServiceEntityRepository implements CompanyReposi
     public function add(Company $company): void
     {
         $this->getEntityManager()->persist($company);
+    }
+
+    public function findOneByHubspotId(string $hubspotId): ?Company
+    {
+        return $this->findOneBy(['hubspotId' => $hubspotId]);
+    }
+
+    public function findOneByDomain(string $domain): ?Company
+    {
+        return $this->findOneBy(['domain' => $domain]);
+    }
+
+    public function findByHubspotIds(array $hubspotIds = []): array
+    {
+        $queryBuilder = $this->createQueryBuilder('company');
+
+        $queryBuilder
+            ->indexBy('company', 'company.hubspotId')
+            ->andWhere($queryBuilder->expr()->in('company.hubspotId', $hubspotIds))
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

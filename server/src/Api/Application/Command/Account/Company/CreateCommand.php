@@ -33,6 +33,8 @@ class CreateCommand implements ContextAwareMessageInterface
      */
     public string $activity = '';
 
+    public ?string $hubspotId = null;
+
     /** @Ignore */
     public Account $account;
 

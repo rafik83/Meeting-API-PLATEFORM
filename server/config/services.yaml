@@ -9,6 +9,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $hubspotEnabled: '%env(bool:HUBSPOT_ENABLED)%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -41,6 +43,13 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
+    core_event_handlers:
+        namespace: Proximum\Vimeet365\Core\Application\Event\
+        resource: '../src/Core/Application/Event/**/*EventHandler.php'
+        public: true
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.events' }
+
     query_bus:
         class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus
         arguments: ['@messenger.bus.queries']
@@ -49,8 +58,13 @@ services:
         class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus
         arguments: ['@messenger.bus.commands']
 
+    event_bus:
+        class: Proximum\Vimeet365\Common\Messenger\EventBus
+        arguments: [ '@messenger.bus.events' ]
+
     Proximum\Vimeet365\Common\Messenger\CommandBusInterface: '@command_bus'
     Proximum\Vimeet365\Common\Messenger\QueryBusInterface: '@query_bus'
+    Proximum\Vimeet365\Common\Messenger\EventBusInterface: '@event_bus'
 
     Proximum\Vimeet365\Api\Infrastructure\ApiPlatform\AcceptLanguageEventListener:
         bind:
@@ -88,3 +102,10 @@ services:
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
             - '@redis_session'
+
+    Proximum\Vimeet365\Core\Infrastructure\Hubspot\Client: ['@hubspot_client']
+
+    hubspot_client:
+        class: HubSpot\Discovery\Discovery
+        factory: ['HubSpot\Factory', 'createWithApiKey']
+        arguments: ['%env(HUBSPOT_API_KEY)%']

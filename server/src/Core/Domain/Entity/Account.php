@@ -94,6 +94,11 @@ class Account
      */
     private ?string $timezone = null;
 
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private ?string $hubspotId = null;
+
     public function __construct(
         string $email,
         string $password,
@@ -217,5 +222,15 @@ class Account
         $this->languages = $languages;
         $this->country = $country;
         $this->timezone = $timezone;
+    }
+
+    public function getHubspotId(): ?string
+    {
+        return $this->hubspotId;
+    }
+
+    public function setHubspotId(?string $hubspotId): void
+    {
+        $this->hubspotId = $hubspotId;
     }
 }

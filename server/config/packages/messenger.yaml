@@ -9,3 +9,38 @@ framework:
             messenger.bus.queries:
                 middleware:
                     - validation
+            messenger.bus.events:
+                default_middleware: true
+                middleware:
+                    # https://symfony.com/doc/current/messenger.html#middleware-for-doctrine
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+                    - doctrine_transaction
+
+        failure_transport: failed_events
+
+        transports:
+            events:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    auto_setup: false # Do not automatically create messenger DB tables
+                    queue_name: event
+                    table_name: messenger_messages
+                retry_strategy:
+                    max_retries: 3
+                    # milliseconds delay - 10 seconds
+                    delay: 10_000
+                    # causes the delay to be higher before each retry
+                    # e.g. 10 second delay, 20 seconds, 40 seconds, etc.
+                    multiplier: 2
+                    max_delay: 0
+            failed_events:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    auto_setup: false
+                    queue_name: failed_event
+                    table_name: messenger_messages
+
+        routing:
+            'Proximum\Vimeet365\Core\Application\Event\Hubspot\AccountRegisteredEvent': events
+            'Proximum\Vimeet365\Core\Application\Event\Hubspot\AccountCompanyLinkedEvent': events

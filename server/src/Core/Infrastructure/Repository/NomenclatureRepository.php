@@ -9,6 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature;
 use Proximum\Vimeet365\Core\Domain\Repository\NomenclatureRepositoryInterface;
 
+/**
+ * @template-extends ServiceEntityRepository<Nomenclature>
+ */
 class NomenclatureRepository extends ServiceEntityRepository implements NomenclatureRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)

@@ -11,4 +11,15 @@ interface CompanyRepositoryInterface
     public function findOneById(int $id): ?Company;
 
     public function add(Company $company): void;
+
+    public function findOneByHubspotId(string $hubspotId): ?Company;
+
+    public function findOneByDomain(string $domain): ?Company;
+
+    /**
+     * @param string[] $hubspotIds
+     *
+     * @return array<string, Company> indexed by hubspotId
+     */
+    public function findByHubspotIds(array $hubspotIds = []): array;
 }

@@ -34,6 +34,11 @@ class Company
     private string $website;
 
     /**
+     * @ORM\Column(unique=true)
+     */
+    private string $domain;
+
+    /**
      * @ORM\Column(length=300)
      */
     private string $activity;
@@ -42,6 +47,11 @@ class Company
      * @ORM\Column(nullable=true)
      */
     private ?string $logo;
+
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    private ?string $hubspotId = null;
 
     public function __construct(
         string $name,
@@ -53,6 +63,7 @@ class Company
         $this->name = $name;
         $this->countryCode = $countryCode;
         $this->website = $website;
+        $this->domain = (string) parse_url($this->website, PHP_URL_HOST);
         $this->activity = $activity;
         $this->logo = $logo;
     }
@@ -77,6 +88,11 @@ class Company
         return $this->website;
     }
 
+    public function getDomain(): string
+    {
+        return $this->domain;
+    }
+
     public function getActivity(): string
     {
         return $this->activity;
@@ -97,6 +113,17 @@ class Company
         $this->name = $name;
         $this->countryCode = $countryCode;
         $this->website = $website;
+        $this->domain = (string) parse_url($this->website, PHP_URL_HOST);
         $this->activity = $activity;
+    }
+
+    public function getHubspotId(): ?string
+    {
+        return $this->hubspotId;
+    }
+
+    public function setHubspotId(?string $hubspotId): void
+    {
+        $this->hubspotId = $hubspotId;
     }
 }

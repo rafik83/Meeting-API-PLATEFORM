@@ -9,6 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Member;
 use Proximum\Vimeet365\Core\Domain\Repository\MemberRepositoryInterface;
 
+/**
+ * @template-extends ServiceEntityRepository<Member>
+ */
 class MemberRepository extends ServiceEntityRepository implements MemberRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)

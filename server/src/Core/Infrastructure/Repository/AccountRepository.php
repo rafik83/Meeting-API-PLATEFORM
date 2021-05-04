@@ -10,6 +10,8 @@ use Proximum\Vimeet365\Core\Domain\Entity\Account;
 use Proximum\Vimeet365\Core\Domain\Repository\AccountRepositoryInterface;
 
 /**
+ * @template-extends ServiceEntityRepository<Account>
+ *
  * @method Account|null find($id, $lockMode = null, $lockVersion = null)
  * @method Account|null findOneBy(array $criteria, array $orderBy = null)
  * @method Account[]    findAll()

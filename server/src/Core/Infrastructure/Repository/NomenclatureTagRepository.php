@@ -9,6 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature\NomenclatureTag;
 use Proximum\Vimeet365\Core\Domain\Repository\NomenclatureTagRepositoryInterface;
 
+/**
+ * @template-extends ServiceEntityRepository<NomenclatureTag>
+ */
 class NomenclatureTagRepository extends ServiceEntityRepository implements NomenclatureTagRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
