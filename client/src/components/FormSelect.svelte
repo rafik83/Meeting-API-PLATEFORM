@@ -10,6 +10,7 @@
   import { fly } from 'svelte/transition';
   import { IconSearch } from '../ui-kit/icons/IconSearch';
   import { IconDropDown } from '../ui-kit/icons/IconDropDown';
+  import { clickOutside } from '../directives/clickOutside';
 
   // options must have a "name" key who is shown in the front for select
   export let options;
@@ -38,6 +39,10 @@
     displaySelect = !displaySelect;
     selectedLabel = selectedOption.name;
   };
+
+  const handleClickOutside = () => {
+    displaySelect = false;
+  };
 </script>
 
 <div class="relative">
@@ -54,6 +59,8 @@
 
   {#if displaySelect}
     <div
+      use:clickOutside
+      on:click_outside={handleClickOutside}
       transition:fly={{ y: -20, duration: 250, delay: 0 }}
       class="flex flex-col justify-start items-start border rounded overflow-hidden absolute z-50 w-full bg-gray-100"
     >

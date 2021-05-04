@@ -1,6 +1,6 @@
 import type { TimeZone } from '../domain';
 
-export const buldFakeTimeZone = (
+export const buildFakeTimeZone = (
   name?: string,
   code?: string
 ): Partial<TimeZone> => {
