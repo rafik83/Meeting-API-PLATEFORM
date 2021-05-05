@@ -311,6 +311,14 @@ gcs:
   projectId: proximum-vimeet-staging
   publicBucket: vimeet365-public-staging
 
+## Hubspot
+hubspot:
+  apiKey: ""
+  enabled: true
+
+## CDN
+cdnHost: "https://cdn.staging.vimeet365.com"
+
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##

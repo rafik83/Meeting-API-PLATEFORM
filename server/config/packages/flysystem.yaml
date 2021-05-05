@@ -4,8 +4,8 @@ flysystem:
         companyLogos.storage:
             adapter: 'local'
             options:
-                directory: '%kernel.project_dir%/var/storage/companyLogos'
+                directory: '%kernel.project_dir%/public/storage/companyLogos'
         accountAvatar.storage:
             adapter: 'local'
             options:
-                directory: '%kernel.project_dir%/var/storage/accountAvatar'
+                directory: '%kernel.project_dir%/public/storage/accountAvatar'
