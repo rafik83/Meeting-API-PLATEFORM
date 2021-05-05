@@ -25,7 +25,7 @@ class AccountAvatarTest extends ApiTestCase
             'image/png',
         );
 
-        $this->request(
+        $response = $this->request(
             'POST',
             sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
@@ -38,6 +38,7 @@ class AccountAvatarTest extends ApiTestCase
         );
 
         self::assertResponseIsSuccessful();
+        self::assertStringStartsWith($_SERVER['CDN_HOST'] . '/accountAvatar/', $response->toArray()['avatar']);
 
         self::assertNotNull($account->getAvatar());
         /** @var FilesystemOperator $storage */
@@ -51,7 +52,7 @@ class AccountAvatarTest extends ApiTestCase
     {
         $account = $this->login('user@example.com');
 
-        $this->request(
+        $response = $this->request(
             'POST',
             sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [
@@ -73,7 +74,7 @@ class AccountAvatarTest extends ApiTestCase
         $storage->write($avatar, file_get_contents(__DIR__ . '/../../../fixtures/test/assets/sample-logo.png'));
         self::assertTrue($storage->fileExists($avatar));
 
-        $this->request(
+        $response = $this->request(
             'POST',
             sprintf('/api/accounts/%d/avatar', $account->getId()),
             null, [

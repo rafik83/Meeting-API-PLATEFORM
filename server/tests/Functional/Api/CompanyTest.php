@@ -27,7 +27,7 @@ class CompanyTest extends ApiTestCase
             'image/png',
         );
 
-        $this->request(
+        $response = $this->request(
             'POST',
             sprintf('/api/companies/%d/logo', $company->getId()),
             null, [
@@ -40,6 +40,7 @@ class CompanyTest extends ApiTestCase
         );
 
         self::assertResponseIsSuccessful();
+        self::assertStringStartsWith($_SERVER['CDN_HOST'] . '/companyLogos/', $response->toArray()['logo']);
 
         self::assertNotNull($company->getLogo());
         /** @var FilesystemOperator $storage */
@@ -51,7 +52,7 @@ class CompanyTest extends ApiTestCase
 
     public function testRemovePreviousLogo(): void
     {
-        $account = $this->login('member@example.com');
+        $this->login('member@example.com');
         $company = $this->getCompany('Proximum');
 
         $previousLogo = $company->getLogo();

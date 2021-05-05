@@ -15,3 +15,10 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    assets:
+        packages:
+            companyLogos:
+                base_urls: '%env(CDN_HOST)%/companyLogos'
+            accountAvatar:
+                base_urls: '%env(CDN_HOST)%/accountAvatar'

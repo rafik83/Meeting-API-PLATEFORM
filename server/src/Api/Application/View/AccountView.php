@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Api\Application\View;
 
-use Proximum\Vimeet365\Core\Domain\Entity\Company;
-
 class AccountView
 {
     public int $id;
@@ -14,7 +12,7 @@ class AccountView
     public string $lastName;
     public ?\DateTimeImmutable $acceptedTermsAndConditionAt;
     public ?string $avatar;
-    public ?Company $company = null;
+    public ?CompanyView $company = null;
 
     /** @var MemberView[] */
     public array $members = [];
@@ -26,7 +24,7 @@ class AccountView
         string $lastName,
         ?\DateTimeImmutable $acceptedTermsAndConditionAt,
         ?string $avatar,
-        ?Company $company,
+        ?CompanyView $company,
         array $members = []
     ) {
         $this->id = $id;

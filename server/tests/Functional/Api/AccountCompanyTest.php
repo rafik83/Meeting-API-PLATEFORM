@@ -139,8 +139,7 @@ class AccountCompanyTest extends ApiTestCase
         self::assertJsonContains(
             [
                 'company' => [
-                    '@context' => '/api/contexts/Company',
-                    '@type' => 'Company',
+                    '@type' => 'CompanyView',
                     'name' => 'Proximum',
                     'countryCode' => 'FR',
                     'website' => 'http://proximum.events',
