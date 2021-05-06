@@ -47,7 +47,7 @@
 
 <div class="relative">
   <button
-    class="border bg-gray-50 rounded-3xl w-full mt-2 py-2 px-5 font-bold flex justify-between align-center {errorMessage
+    class="border bg-gray-50 rounded-3xl w-full mt-2 py-2 px-5 font-bold flex justify-between align-center focus:outline-none focus:ring-1 focus:ring-community-300 focus:border-transparent {errorMessage
       ? 'border-error text-error'
       : 'border-gray-200'}"
     on:click|stopPropagation|preventDefault={handleClick}
@@ -68,7 +68,7 @@
         <input
           type="search"
           name="{label.toLowerCase()}-searchinput"
-          class="border mt-3 mb-4 ml-4 mr-6 px-4 pt-3 pb-2"
+          class="border mt-3 mb-4 ml-4 mr-6 px-4 pt-3 pb-2 border focus:outline-none focus:ring-1 focus:ring-community-300 focus:border-transparent"
           on:input={handleInputSearch}
           placeholder={$_('messages.search')}
         />
