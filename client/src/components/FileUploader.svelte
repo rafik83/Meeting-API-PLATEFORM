@@ -19,6 +19,8 @@
 
   let fileInput;
 
+  let alt;
+
   const hasErrors = (errors) => {
     return errors.some((item) => item.hasErrors);
   };
@@ -39,6 +41,8 @@
     }
 
     let image = fileList[0];
+    alt = fileList[0].name;
+    console.log(image);
     let reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = e => {
@@ -60,18 +64,24 @@
     if (loading) {
       e.preventDefault();
     }
-    e.value = null;
   };
+
+  const deleteClick = () => {
+    avatar = '';
+  }
 </script>
 
-{#if avatar}
-  <div class="mb-5">
-    <img src="{avatar}" class="w-24 rounded-xl border-2 border-gray-50 right-5 bottom-0"/>
+{#if avatar && !hasErrors(validationRepport)}
+  <div class="mt-20 mb-5">
+    <div class="w-full flex justify-end">
+      <div class="bg-community-300 text-gray-50 rounded-xl cursor-pointer px-2" on:click={deleteClick}>X</div>
+    </div>
+    <img src="{avatar}" alt="{alt}" class="w-40 h-40 rounded-full border-2 border-gray-50 right-5 bottom-0 object-cover"/>
   </div>
 {/if}
 
 <div
-  class="md:h-full h-32 flex w-full border-dashed border-4"
+  class="md:h-52 h-32 flex w-full border-dashed border-4"
   on:drop|stopPropagation|preventDefault={handleDrop}
   on:dragenter|stopPropagation|preventDefault
   on:dragover|stopPropagation|preventDefault
@@ -91,7 +101,7 @@
       </slot>
     {/if}
 
-    {#if validationSucceed && !loading}
+    {#if validationSucceed && !loading && avatar}
       <p class="text-success text-sm italic">
         {$_('validation.file_upload_succeed')}
       </p>
