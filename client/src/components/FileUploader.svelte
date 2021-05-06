@@ -15,6 +15,10 @@
 
   let defaultText = $_('registration.upload_logo');
 
+  let avatar ;
+
+  let fileInput;
+
   const hasErrors = (errors) => {
     return errors.some((item) => item.hasErrors);
   };
@@ -33,6 +37,13 @@
       validationSucceed = true;
       dispatch('fileUploaded', fileList);
     }
+
+    let image = fileList[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = e => {
+      avatar = e.target.result;
+    };
   };
 
   const handleDrop = (event) => {
@@ -52,6 +63,12 @@
     e.value = null;
   };
 </script>
+
+{#if avatar}
+  <div class="mb-5">
+    <img src="{avatar}" class="w-24 rounded-xl border-2 border-gray-50 right-5 bottom-0"/>
+  </div>
+{/if}
 
 <div
   class="md:h-full h-32 flex w-full border-dashed border-4"
@@ -100,6 +117,7 @@
     <input
       on:change={handleInputChange}
       on:click={handleInputClick}
+      bind:this={fileInput}
       accept={accept.join(', ')}
       type="file"
       class="hidden"
