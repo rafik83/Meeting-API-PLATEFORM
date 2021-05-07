@@ -99,7 +99,7 @@
     <IconLaunching width="90%" class="mx-auto" />
   </div>
 
-  <section slot="content" class="w-full h-full pl-10">
+  <section slot="content" class="w-full h-full md:pl-10 px-5">
     <div class="md:w-5/12">
       <H3>{$_('validation.company_not_found')}.</H3>
     </div>
