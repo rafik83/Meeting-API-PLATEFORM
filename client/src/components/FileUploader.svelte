@@ -60,7 +60,7 @@
   on:dragover|stopPropagation|preventDefault
 >
   <label
-    class="flex flex-col h-full items-center w-full justify-center focus:outline-none focus:ring-1 focus:ring-community-300 focus:border-transparent {loading
+    class="flex flex-col h-full items-center w-full justify-center outlined {loading
       ? 'cursor-not-allowed bg-gray-100'
       : 'cursor-pointer'}"
     tabindex="0"

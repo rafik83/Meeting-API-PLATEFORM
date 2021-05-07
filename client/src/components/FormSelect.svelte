@@ -47,7 +47,7 @@
 
 <div class="relative">
   <button
-    class="border bg-gray-50 rounded-3xl w-full mt-2 py-2 px-5 font-bold flex justify-between align-center focus:outline-none focus:ring-1 focus:ring-community-300 focus:border-transparent {errorMessage
+    class="border bg-gray-50 rounded-3xl w-full mt-2 py-2 px-5 font-bold flex justify-between align-center outlined {errorMessage
       ? 'border-error text-error'
       : 'border-gray-200'}"
     on:click|stopPropagation|preventDefault={handleClick}
