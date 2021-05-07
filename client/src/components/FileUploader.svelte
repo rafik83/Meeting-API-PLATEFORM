@@ -1,7 +1,8 @@
 <script>
-  import { getFileUploadReport } from '../modules/fileManagement';
-  import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
+  import {getFileUploadReport} from '../modules/fileManagement';
+  import {_} from 'svelte-i18n';
+  import {createEventDispatcher} from 'svelte';
+  import IconClose from "../ui-kit/icons/IconClose/IconClose.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -15,7 +16,7 @@
 
   let defaultText = $_('registration.upload_logo');
 
-  let avatar ;
+  let avatar;
 
   let fileInput;
 
@@ -56,7 +57,7 @@
     handleUploadFile(dataTransfer.files);
   };
 
-  const handleInputChange = ({ target }) => {
+  const handleInputChange = ({target}) => {
     handleUploadFile(target.files);
   };
 
@@ -73,8 +74,8 @@
 
 {#if avatar && !hasErrors(validationRepport)}
   <div class="mt-20 mb-5">
-    <div class="w-full flex justify-end">
-      <div class="bg-community-300 text-gray-50 rounded-xl cursor-pointer px-2" on:click={deleteClick}>X</div>
+    <div class="flex justify-end items-end z-index-10">
+        <IconClose fill="#FFF" class="w-5 p-1 bg-community-300 rounded-xl cursor-pointer -mb-5" on:click={deleteClick}/>
     </div>
     <img src="{avatar}" alt="{alt}" class="w-40 h-40 rounded-full border-2 border-gray-50 right-5 bottom-0 object-cover"/>
   </div>

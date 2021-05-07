@@ -115,12 +115,12 @@
 
       <div class="md:w-5/12 mx-auto">
         <H3 community>{$_('registration.create_your_company')}.</H3>
-        <div class="md:h-3/6 mt-4">
-          <FileUploader
-            accept={['image/jpg', 'image/jpeg', 'image/png']}
-            fileMaxSize={1 * 1024 * 1024}
-            bind:uploadedFile={companyLogo}
-          />
+        <div class="md:h-3/6 mt-10 box-border flex text-center items-center justify-center flex-col">
+            <FileUploader
+              accept={['image/jpg', 'image/jpeg', 'image/png']}
+              fileMaxSize={1 * 1024 * 1024}
+              bind:uploadedFile={companyLogo}
+            />
         </div>
       </div>
     </div>
