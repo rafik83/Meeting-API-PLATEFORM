@@ -66,7 +66,7 @@
     }
   };
 
-  const deleteClick = () => {
+  const handleDeleteAvatar = () => {
     avatar = '';
   }
 </script>
@@ -74,7 +74,7 @@
 {#if avatar && !hasErrors(validationRepport)}
   <div class="mt-20 mb-5">
     <div class="flex justify-end items-end z-index-10">
-        <IconClose fill="#FFF" class="w-5 p-1 bg-community-300 rounded-xl cursor-pointer -mb-5" on:click={deleteClick}/>
+        <IconClose fill="#FFF" class="w-5 p-1 bg-community-300 rounded-xl cursor-pointer -mb-5" on:click={handleDeleteAvatar}/>
     </div>
     <img src="{avatar}" alt="{alt}" class="w-40 h-40 rounded-full border-2 border-gray-50 right-5 bottom-0 object-cover"/>
   </div>
