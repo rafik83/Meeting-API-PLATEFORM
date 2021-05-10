@@ -43,7 +43,6 @@
 
     let image = fileList[0];
     alt = fileList[0].name;
-    console.log(image);
     let reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = e => {
