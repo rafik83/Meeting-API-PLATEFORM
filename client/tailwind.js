@@ -1,4 +1,5 @@
 module.exports = {
+  purge: false,
   theme: {
     fontFamily: {
       sans: ['Poppins', 'Helvetica', 'Arial', 'sans-serif'],
@@ -38,7 +39,8 @@ module.exports = {
         '-13': '-3.3rem',
       },
       boxShadow: {
-        full: '0 0 15px 5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        full:
+          '0 0 15px 5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       },
     },
   },
