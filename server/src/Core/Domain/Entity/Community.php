@@ -131,4 +131,9 @@ class Community
 
         return $member;
     }
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
 }

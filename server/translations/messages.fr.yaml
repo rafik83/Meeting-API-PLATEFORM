@@ -1,0 +1,12 @@
+admin:
+    dashboard:
+        title: Dashboard
+    nomenclature:
+        list:
+            actions:
+                create: Créer
+                edit: Modifier
+                filter: Filtrer
+            table:
+                community: Communauté
+                reference: Référence

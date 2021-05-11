@@ -2,3 +2,5 @@ security:
     encoders:
         Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser:
             algorithm: 'plaintext'
+        Proximum\Vimeet365\Admin\Infrastructure\Security\SymfonyAdmin:
+            algorithm: 'plaintext'

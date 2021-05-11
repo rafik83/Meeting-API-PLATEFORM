@@ -3,6 +3,8 @@ help:
 
 install:
 	composer install
+	npm install
+	npm run build
 	docker-compose up -d
 	make setup-database
 	make migrate-database
@@ -10,6 +12,7 @@ install:
 start: # start the server
 	docker-compose up -d
 	symfony server:start --allow-http --port 8365 -d
+	npm run dev
 
 stop: # stop the server
 	symfony server:stop
@@ -34,6 +37,8 @@ install@integration:
 	composer install --ansi --verbose --no-interaction --no-progress --prefer-dist --optimize-autoloader --no-scripts --ignore-platform-reqs
 	bin/phpunit install
 	bin/console doctrine:migration:migrate --allow-no-migration -n
+	npm install
+	npm run build
 
 lint.php-cs-fixer:  ## api lint php-cs-fixer
 lint: lint.php-cs-fixer lint.phpstan ## api linting
@@ -48,7 +53,7 @@ lint.phpstan: ## api lint phpstan
 	vendor/bin/phpstan analyse
 
 lint.phpstan@integration:
-	vendor/bin/phpstan analyse
+	vendor/bin/phpstan analyse --memory-limit 512
 
 test@integration:
 	bin/phpunit
@@ -61,3 +66,6 @@ migrate-database :
 
 load-fixtures :
 	php bin/console hautelook:fixtures:load -n
+
+watch: # watch css & js changes
+	npm run watch

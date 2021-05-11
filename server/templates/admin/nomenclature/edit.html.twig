@@ -1,0 +1,63 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb__item">
+            <a href="{{ path('admin_nomenclature_list') }}">Retour à la liste</a>
+        </li>
+    </ul>
+
+    <div>
+        <div>
+            <div>
+                <h2>Modifier la nomenclature</h2>
+                {{ form_start(form) }}
+                    <div class="form">
+                        <label>Communauté</label>
+                        <input type="text" value="{{ nomenclature.community|default('~') }}"  disabled>
+                    </div>
+                    {{ form_row(form.reference) }}
+
+                    <button type="submit" class="button button--primary">Modifier</button>
+                {{ form_end(form) }}
+            </div>
+
+            <div>
+                <h3>Gestion des valeurs</h3>
+                {{ form_start(importForm) }}
+                    {{ form_row(importForm.file) }}
+                    <button type="submit" class="button button--primary">Importer</button>
+                    <a href="{{ path('admin_nomenclature_export', {id: nomenclature.id}) }}" class="button button--primary">Exporter</a>
+                {{ form_end(importForm) }}
+            </div>
+        </div>
+
+        <div>
+            <ol>
+                {% for rootNomenclatureTag in nomenclature.rootTags %}
+                    <li>
+                        {{ rootNomenclatureTag.tag.label('en') }}
+                        {% if rootNomenclatureTag.children|length %}
+                            <ol>
+                                {% for childNomenclatureTag in rootNomenclatureTag.children %}
+                                    <li>
+                                        {{ childNomenclatureTag.tag.label('en') }}
+                                        {% if childNomenclatureTag.children|length %}
+                                            <ol>
+                                                {% for leafNomenclatureTag in childNomenclatureTag.children %}
+                                                    <li>
+                                                        {{ leafNomenclatureTag.tag.label('en') }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ol>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+{% endblock %}

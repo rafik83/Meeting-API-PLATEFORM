@@ -2,14 +2,14 @@ Proximum\Vimeet365\Core\Domain\Entity\Account:
     user_1:
         __construct:
             email: 'user@example.com'
-            password: 'password'
+            password: <{password}>
             firstName: 'Macha'
             lastName: 'LaMatcha'
             vimeetId: null
     user_2:
         __construct:
             email: 'john@doe.com'
-            password: 'password'
+            password: <{password}>
             firstName: 'John'
             lastName: 'Doe'
             vimeetId: null
@@ -17,7 +17,7 @@ Proximum\Vimeet365\Core\Domain\Entity\Account:
     user_completed:
         __construct:
             email: 'member@example.com'
-            password: 'password'
+            password: <{password}>
             firstName: 'Member'
             lastName: 'Doe'
             vimeetId: null
@@ -27,7 +27,7 @@ Proximum\Vimeet365\Core\Domain\Entity\Account:
     user_joined:
         __construct:
             email: 'joined@example.com'
-            password: 'password'
+            password: <{password}>
             firstName: 'Member'
             lastName: 'Doe'
             vimeetId: null

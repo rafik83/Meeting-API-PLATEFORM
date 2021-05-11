@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Vimeet365{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">Vimeet365</a>
+        {% if app.user %}
+            <nav class="primary-nav">
+                <ul>
+                    <li class="primary-nav__item primary-nav__item--active">
+                        <a href="{{ path('admin_nomenclature_list') }}">Nomenclature</a>
+                    </li>
+                    <li class="primary-nav__item">
+                        <a href="#">Esse accusamus</a>
+                    </li>
+                    <li class="primary-nav__item">
+                        <a href="#">Dignissimos eligendi</a>
+                    </li>
+                    <li class="primary-nav__item">
+                        <a href="#">Minima</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="user-menu">
+                <div class="drop drop--down drop--show">
+                    <button class="user-menu__button drop__button">{{ app.user.username }}</button>
+                    <ul class="user-menu__content drop__menu">
+                        <li>
+                            <a href="{{ path('admin_logout') }}">Déconnexion</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        <button class="menu-button"></button> <!-- .menu-button--close -->
+    </header>
+    <main>
+        <div class="content">
+            {% block body %}{% endblock %}
+        </div>
+    </main>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    </body>
+</html>

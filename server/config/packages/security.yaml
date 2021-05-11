@@ -4,10 +4,14 @@ security:
     encoders:
         Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser:
             algorithm: 'auto'
+        Proximum\Vimeet365\Admin\Infrastructure\Security\SymfonyAdmin:
+            algorithm: 'auto'
 
     providers:
         user_provider:
             id: Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUserProvider
+        admin_provider:
+            id: Proximum\Vimeet365\Admin\Infrastructure\Security\SymfonyAdminProvider
 
     firewalls:
         dev:
@@ -19,8 +23,20 @@ security:
             json_login:
                 check_path: /api/login
             provider: user_provider
+        admin:
+            pattern: ^/admin/
+            form_login:
+                login_path: admin_login
+                check_path: admin_login_check
+                default_target_path: admin_dashboard
+            logout:
+                path: admin_logout
+                target: admin_dashboard
+            provider: admin_provider
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }

@@ -1,0 +1,20 @@
+{% macro sortLink(content, sort) %}
+    {% set currentSort = app.request.query.get('sort')|default(null) %}
+    {% set currentSortDirection = app.request.query.get('sortDirection')|default('ASC') %}
+
+    {% set route =  app.request.get('_route') %}
+    {% set sortRouteParams = app.request.query.all()|merge({page: 1}) %}
+    {% set sortDirection = 'ASC' %}
+    {% if sort == currentSort %}
+        {% set sortDirection = currentSortDirection == 'ASC' ? 'DESC' : 'ASC' %}
+    {% endif %}
+
+    <a href="{{ path(route, sortRouteParams|merge({sort: sort, sortDirection: sortDirection})) }}">{{ content }}</a>
+    {% if sort == currentSort %}
+        {% if currentSortDirection == 'ASC' %}
+            <i class="icon icon--arrow-up"></i>
+        {% else %}
+            <i class="icon icon--arrow-down"></i>
+        {% endif %}
+    {% endif %}
+{% endmacro %}

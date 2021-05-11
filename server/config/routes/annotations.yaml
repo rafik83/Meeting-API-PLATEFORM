@@ -2,3 +2,8 @@ api_controllers:
     resource: ../../src/Api/Infrastructure/Controller/
     type: annotation
     prefix: api
+
+admin_controllers:
+    resource: ../../src/Admin/Infrastructure/Controller/
+    type: annotation
+    prefix: admin

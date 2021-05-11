@@ -1,0 +1,50 @@
+{% with {
+    route: app.request.get('_route'),
+    route_params: app.request.query.all,
+    } %}
+
+    {% if pagination.hasToPaginate %}
+        {% set pages = range(max(1, pagination.currentPage - 3), min(pagination.lastPage, pagination.currentPage + 3)) %}
+
+        <ul class="pagination">
+            <li class="pagination__item pagination__item--previous {% if not pagination.getPreviousPage %}pagination__item--disabled{% endif %}">
+                <a href="{{ path(route, route_params|merge({page:  pagination.getPreviousPage})) }}">
+                    <i class="icon icon--chevron-left" aria-hidden="true"></i>
+                    <span>Précédent</span>
+                </a>
+            </li>
+            {% if 1 not in pages %}
+                <li class="pagination__item {% if not pagination.getPreviousPage %}pagination__item--disabled{% endif %}">
+                    <a href="{{ path(route, route_params|merge({page:  1})) }}" aria-label="First">
+                        1
+                    </a>
+                </li>
+                <li class="pagination__ellipsis">
+                    <i class="icon icon--bullets" aria-hidden="true"></i>
+                    <span class="sr-only">...</span>
+                </li>
+            {% endif %}
+            {% for page in pages %}
+                <li class="pagination__item {% if pagination.currentPage == page %}pagination__item--active{% endif %}"><a  href="{{ path(route, route_params|merge({page:  page})) }}">{{ page }}</a></li>
+            {% endfor %}
+            {% if pagination.getLastPage not in pages %}
+                <li class="pagination__ellipsis">
+                    <i class="icon icon--bullets" aria-hidden="true"></i>
+                    <span class="sr-only">...</span>
+                </li>
+                <li class="pagination__item {% if not pagination.getNextPage %}pagination__item--disabled{% endif %}">
+                    <a  href="{{ path(route, route_params|merge({page:  pagination.getLastPage})) }}" aria-label="Last">
+                        {{ pagination.getLastPage }}
+                    </a>
+                </li>
+            {% endif %}
+            <li class="pagination__item pagination__item--next {% if not pagination.getNextPage %}pagination__item--disabled{% endif %}">
+                <a  href="{{ path(route, route_params|merge({page:  pagination.getNextPage})) }}">
+                    <i class="icon icon--chevron-right" aria-hidden="true"></i>
+                    <span>Suivant</span>
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+
+{% endwith %}

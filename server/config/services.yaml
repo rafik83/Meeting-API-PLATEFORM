@@ -29,6 +29,10 @@ services:
         resource: '../src/Api/Infrastructure/Controller/'
         tags: ['controller.service_arguments']
 
+    Proximum\Vimeet365\Admin\Infrastructure\Controller\:
+        resource: '../src/Admin/Infrastructure/Controller/'
+        tags: [ 'controller.service_arguments' ]
+
     api_query_handlers:
         namespace: Proximum\Vimeet365\Api\Application\Query\
         resource: '../src/Api/Application/Query/**/*QueryHandler.php'
@@ -49,6 +53,19 @@ services:
         public: true
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.events' }
+    admin_query_handlers:
+        namespace: Proximum\Vimeet365\Admin\Application\Query\
+        resource: '../src/Admin/Application/Query/**/*QueryHandler.php'
+        public: true
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.queries' }
+
+    admin_command_handlers:
+        namespace: Proximum\Vimeet365\Admin\Application\Command\
+        resource: '../src/Admin/Application/Command/**/*CommandHandler.php'
+        public: true
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
     query_bus:
         class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus

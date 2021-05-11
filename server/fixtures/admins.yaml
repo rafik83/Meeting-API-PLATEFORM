@@ -1,0 +1,5 @@
+Proximum\Vimeet365\Core\Domain\Entity\Admin:
+    admin:
+        __construct:
+            email: admin@example.com
+            password: <{password}>

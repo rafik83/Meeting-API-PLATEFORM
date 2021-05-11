@@ -41,6 +41,10 @@ jobs:
                     keys:
                         - server-composer-deps-{{ checksum "server/composer.lock" }}
                         - server-composer-deps-
+            -   restore_cache: &restore-server-npm-cache
+                    keys:
+                        - npm-server-deps-{{ checksum "server/package-lock.json" }}
+                        - server-composer-deps-            
 
             -   run:
                     name: "Install Dependencies"
@@ -53,6 +57,10 @@ jobs:
                         - server/vendor
                         - server/bin/.phpunit
 
+            -   save_cache:  &save-server-npm-cache
+                    key: npm-server-deps-{{ checksum "server/package-lock.json" }}
+                    paths:
+                        - server/node_modules/
             -   run:
                     name: "Lint (php-cs-fixer)"
                     command: make -C server lint.php-cs-fixer@integration
@@ -83,6 +91,7 @@ jobs:
 
             -   restore_cache: *restore-npm-cache
             -   restore_cache: *restore-composer-cache
+            -   restore_cache: *restore-server-npm-cache
 
             -   run:
                     name: "Install Dependencies"
@@ -92,6 +101,7 @@ jobs:
 
             -   save_cache: *save-npm-cache
             -   save_cache: *save-composer-cache
+            -   save_cache: *save-server-npm-cache
 
             -   run:
                     environment:

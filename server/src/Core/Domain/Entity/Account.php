@@ -22,7 +22,7 @@ class Account
     private ?int $id = null;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(unique=true)
      */
     private string $email;
 

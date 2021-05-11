@@ -67,6 +67,11 @@ class Nomenclature
         return $this->reference;
     }
 
+    public function setReference(string $reference): void
+    {
+        $this->reference = $reference;
+    }
+
     /**
      * @return Collection<int, NomenclatureTag>
      */

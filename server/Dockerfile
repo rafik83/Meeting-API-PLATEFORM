@@ -63,11 +63,14 @@ RUN echo "UTC" > /etc/timezone
 
 WORKDIR /var/www/vimeet365
 
-# Create files required by symfony
+# Create files required by symfony and by node
 
-RUN mkdir -p ./var/cache  ./var/log ./vendor && chown www-data ./var/cache  ./var/log  ./vendor
+RUN mkdir -p ./var/cache  ./var/log ./vendor /var/www/.npm ./node_modules /var/www/.config  \
+  && chown www-data ./var/cache  ./var/log  ./vendor /var/www/.npm ./node_modules /var/www/.config
 
 ## Copy only specifically what we need
+
+## Symfony Specifics
 
 COPY --chown=www-data:www-data .env ./
 COPY --chown=www-data:www-data bin bin/
@@ -77,8 +80,18 @@ COPY --chown=www-data:www-data public public/
 COPY --chown=www-data:www-data src src/
 COPY --chown=www-data:www-data templates templates/
 
+## Node Specifics
+
+COPY --chown=www-data:www-data webpack.config.js ./
+COPY --chown=www-data:www-data assets assets/
+
 # Install and configure composer
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+
+#Install Node and NPM
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install nodejs -y --no-install-recommends
+
 
 USER www-data
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
@@ -87,11 +100,17 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 
 ## Install application dependencies
-
 ENV APP_ENV=prod
+
+# PHP Dependencies
 COPY composer.json composer.lock symfony.lock ./
 RUN set -eux; \
   composer install --prefer-dist --no-scripts --no-dev --no-progress; \
   composer clear-cache
+
+# Node Depenencies
+COPY package*.json ./
+RUN  set -eux; \ 
+  npm ci && npm run build
 
 USER root
