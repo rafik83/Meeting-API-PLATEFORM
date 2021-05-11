@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class SymfonyAdmin implements UserInterface, \Serializable
 {
-    private ?Admin $user;
+    private ?Admin $user = null;
 
     /**
      * Used for serialization and refreshing users
