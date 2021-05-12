@@ -4,8 +4,8 @@ Feature:
     I want to select my community interests
     Background:
     Given the database is purged
-    And the user "john@doe.com" is created
-    And as "john@doe.com" I want to join aerospacial community
+    And the user "john@example.com" is created
+    And as "john@example.com" I want to join aerospacial community
     And these are my main objectives:
     |tagId   | tagName  |
     |  3     | Buy      |
@@ -13,7 +13,7 @@ Feature:
     When I go to "/en"
     And I press "menu-responsive"
     And I wait 1000
-    And I sign in as "john@doe.com"
+    And I sign in as "john@example.com"
     And I go to "/en/onboarding/4-1?tagId=3"
     And I wait 3000
 

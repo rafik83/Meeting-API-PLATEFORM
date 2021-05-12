@@ -27,7 +27,7 @@ class ClientTest extends TestCase
                             'id' => '14970951',
                             'properties' => [
                                 'createdate' => '2021-02-09T08:41:54.070Z',
-                                'email' => 'john@doe.com',
+                                'email' => 'john@example.com',
                                 'firstname' => 'John',
                                 'hs_object_id' => '14970951',
                                 'lastmodifieddate' => '2021-04-29T09:00:25.899Z',
@@ -47,13 +47,13 @@ class ClientTest extends TestCase
         $guzzleClient = new \GuzzleHttp\Client(['handler' => $handlerStack]);
 
         $hubspot = new Client(Factory::create($guzzleClient));
-        $contact = $hubspot->findContact('john@doe.com');
+        $contact = $hubspot->findContact('john@example.com');
 
         self::assertEquals(
             new Contact(
                 '14970951',
                 [
-                    'email' => 'john@doe.com',
+                    'email' => 'john@example.com',
                     'firstname' => 'John',
                     'lastname' => 'Doe',
                 ]
@@ -70,7 +70,7 @@ class ClientTest extends TestCase
                     'id' => '14970951',
                     'properties' => [
                         'createdate' => '2021-02-09T08:41:54.070Z',
-                        'email' => 'john@doe.com',
+                        'email' => 'john@example.com',
                         'firstname' => 'John',
                         'hs_object_id' => '14970951',
                         'lastmodifieddate' => '2021-04-29T09:00:25.899Z',
@@ -89,13 +89,13 @@ class ClientTest extends TestCase
 
         $hubspot = new Client(Factory::create($guzzleClient));
         $contact = $hubspot->createContact(
-            new Contact(null, ['email' => 'john@doe.com', 'firstname' => 'John', 'lastname' => 'Doe'])
+            new Contact(null, ['email' => 'john@example.com', 'firstname' => 'John', 'lastname' => 'Doe'])
         );
 
         self::assertEquals(
             new Contact(
                 '14970951', [
-                    'email' => 'john@doe.com',
+                    'email' => 'john@example.com',
                     'firstname' => 'John',
                     'lastname' => 'Doe',
                 ]
@@ -127,7 +127,7 @@ class ClientTest extends TestCase
         $this->expectExceptionMessage('Contact already exists. Existing ID: 14970951');
 
         $hubspot->createContact(
-            new Contact(null, ['email' => 'john@doe.com', 'firstname' => 'John', 'lastname' => 'Doe'])
+            new Contact(null, ['email' => 'john@example.com', 'firstname' => 'John', 'lastname' => 'Doe'])
         );
     }
 

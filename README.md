@@ -99,7 +99,7 @@ Once you started the application you can log in with a previously stored user.
 
 Here are his credentials
 
-User name : john@doe.com
+User name : john@example.com
 Pasword : password
 
 ### Useful Command Summary

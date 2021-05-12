@@ -4,12 +4,12 @@ Feature:
     I want to save my company data
     Scenario: I can save my company if all required fields are filled
         Given the database is purged
-        And the user "john@doe.com" is created
+        And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
         And I wait 1000
-        And I sign in as "john@doe.com"
+        And I sign in as "john@example.com"
         And I go to "/en/onboarding/2"
         And I fill in "companyName" with "Best Company"
         And I press "Country"
@@ -22,12 +22,12 @@ Feature:
 
     Scenario: I can search countries from the country list
         Given the database is purged
-        And the user "john@doe.com" is created
+        And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
         And I wait 1000
-        And I sign in as "john@doe.com"
+        And I sign in as "john@example.com"
         And I go to "/en/onboarding/2"
 
         And I press "Country"
@@ -36,12 +36,12 @@ Feature:
 
     Scenario: I can't save my company fields are empty
         Given the database is purged
-        And the user "john@doe.com" is created
+        And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
         And I wait 1000
-        And I sign in as "john@doe.com"
+        And I sign in as "john@example.com"
 
         And I go to "/en/onboarding/2"
         And I press "Next"
@@ -50,12 +50,12 @@ Feature:
 
     Scenario: I can't save if company name fields are empty
         Given the database is purged
-        And the user "john@doe.com" is created
+        And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
         And I wait 1000
-        And I sign in as "john@doe.com"
+        And I sign in as "john@example.com"
 
         And I go to "/en/onboarding/2"
         And I press "Country"
@@ -68,12 +68,12 @@ Feature:
 
     Scenario: I can't save if company country is not selected
         Given the database is purged
-        And the user "john@doe.com" is created
+        And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
         And I wait 1000
-        And I sign in as "john@doe.com"
+        And I sign in as "john@example.com"
 
         And I go to "/en/onboarding/2"
         And I fill in "companyName" with "Best Company"
@@ -85,12 +85,12 @@ Feature:
 
     Scenario: I can't save if company website is not filled
         Given the database is purged
-        And the user "john@doe.com" is created
+        And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
         And I wait 1000
-        And I sign in as "john@doe.com"
+        And I sign in as "john@example.com"
 
         And I go to "/en/onboarding/2"
         And I fill in "companyName" with "Best Company"

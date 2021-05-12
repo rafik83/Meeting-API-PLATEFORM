@@ -20,7 +20,7 @@ Feature:
         And I press "join-community"
         And I follow "Signup"
         And I fill in "password" with "hello world"
-        And I fill in "email" with "john@doe.com"
+        And I fill in "email" with "john@example.com"
         And I press "Signup"
 
     Scenario: I can not sign up if I did'nt provide a valid email
@@ -51,7 +51,7 @@ Feature:
         And I wait 1000
         And I press "join-community"
         And I follow "Signup"
-        And I fill in "email" with "john@doe.com"
+        And I fill in "email" with "john@example.com"
         And I fill in "firstname" with "john"
         And I fill in "lastname" with "doe"
         And I fill in "password" with "password"

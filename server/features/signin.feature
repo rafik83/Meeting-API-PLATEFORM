@@ -23,10 +23,10 @@ Feature:
 
     Scenario: I can log into the platform
         Given the database is purged
-        And the user "john@doe.com" is created
+        And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
         And I wait 1000
-        And I sign in as "john@doe.com"
+        And I sign in as "john@example.com"
         Then I should see "John Doe"
