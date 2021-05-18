@@ -64,7 +64,7 @@
       on:focusout={handleFocusOut}
       on:focus={handleFocusInput}
       on:input={handleInput}
-      class="text-grey rounded-3xl px-4 py-2 border-none {inputWidthClasse}"
+      class="text-grey rounded-3xl px-4 py-2 outlined {inputWidthClasse}"
       autocomplete="on"
     />
 

@@ -28,7 +28,7 @@
   {/if}
 
   <button
-    class="shadow-full w-full font-semibold uppercase rounded-full {stickyStyle} {priority
+    class="shadow-full w-full font-semibold uppercase rounded-full outlined {stickyStyle} {priority
       ? 'bg-community-300 text-gray-50'
       : ''}"
     on:click={handleOnClick}>{name}</button

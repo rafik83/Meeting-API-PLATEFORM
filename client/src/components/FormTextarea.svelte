@@ -31,7 +31,7 @@
   >
   <textarea
     id={name}
-    class="border bg-gray-50 rounded-xl w-full h-40 mt-2 italic p-2 text-sm {errorMessage
+    class="border bg-gray-50 rounded-xl w-full h-40 mt-2 italic p-2 text-sm outlined {errorMessage
       ? 'border-error text-error'
       : 'border-gray-200'}"
     bind:value
