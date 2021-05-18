@@ -7,6 +7,7 @@
 </script>
 
 <button
+  type="button"
   class="w-28 mr-3 h-full flex items-center justify-center hover:bg-gray-100 cursor-pointer"
 >
   <div class="relative h-full w-12 flex items-center">

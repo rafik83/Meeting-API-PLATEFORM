@@ -80,6 +80,7 @@
 
     {#if type === 'password'}
       <button
+        type="button"
         on:click|preventDefault={toggle}
         tabindex="-1"
         class="w-5 h-auto mx-2"

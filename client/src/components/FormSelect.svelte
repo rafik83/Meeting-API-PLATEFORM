@@ -47,6 +47,7 @@
 
 <div class="relative">
   <button
+    type="button"
     class="border bg-gray-50 rounded-3xl w-full mt-2 py-2 px-5 font-bold flex justify-between align-center outlined {errorMessage
       ? 'border-error text-error'
       : 'border-gray-200'}"

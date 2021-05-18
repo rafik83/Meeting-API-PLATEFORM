@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-  <button on:click={handleClick}
+  <button type="button" on:click={handleClick}
     ><div
       class="labelTransition absolute transform -translate-y-1/2 top-1/2 -right-3 h-7 w-7 p-1.5 bg-gray-50 rounded-full flex items-center justify-center {openLabel
         ? ''

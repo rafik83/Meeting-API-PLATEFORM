@@ -24,6 +24,7 @@
   </a>
   <div class="xl:hidden block">
     <button
+      type="button"
       id="menu-responsive"
       class="h-full flex items-center px-5"
       on:click={handleClick}

@@ -68,6 +68,7 @@
     {/each}
 
     <button
+      type="button"
       slot="prevButton"
       class={`${buttonStyle} md:left-16 left-1`}
       on:click={handlePreviousClick}
@@ -76,6 +77,7 @@
       <IconArrowLeft width="13" />
     </button>
     <button
+      type="button"
       slot="nextButton"
       class={`${buttonStyle} md:right-16 right-1`}
       on:click={handleNextClick}

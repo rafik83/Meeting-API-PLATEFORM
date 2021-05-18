@@ -61,7 +61,7 @@
   {/if}
 
   <div class="flex flex-col items-center">
-    <form class="mt-2 w-full">
+    <form class="mt-2 w-full" on:submit|preventDefault>
       <FormInput
         errorMessage={errors.username}
         type={'text'}

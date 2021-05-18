@@ -2,7 +2,7 @@
   import IconArrowRight from '../ui-kit/icons/IconArrowRight/IconArrowRight.svelte';
   import { sizes } from './constants';
 
-  export let type = '';
+  export let type = 'button';
   export let kind = 'primary';
   export let withMarging = false;
   export let arrow = false;

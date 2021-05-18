@@ -43,6 +43,7 @@
       <VideoSlide {...slide} bind:videoHeight />
     {/each}
     <button
+      type="button"
       slot="nextButton"
       id={`${id}-next`}
       class="navButton absolute w-14 py-4 px-5 right-10 transform -translate-y-1/2"
@@ -51,6 +52,7 @@
       <IconArrowRightLight width="100%" />
     </button>
     <button
+      type="button"
       slot="prevButton"
       id={`${id}-prev`}
       class="navButton absolute w-14 py-4 px-5 left-10 transform -translate-y-1/2"

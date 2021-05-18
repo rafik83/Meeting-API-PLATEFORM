@@ -37,6 +37,7 @@
   >
     {#key uniq}
       <button
+        type="button"
         class="w-28 h-full flex justify-center items-center"
         in:fly={{ x: 200, duration: 500, delay: 0 }}
       >

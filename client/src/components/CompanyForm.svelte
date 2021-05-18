@@ -33,7 +33,7 @@
   };
 </script>
 
-<form class="w-full">
+<form class="w-full" on:submit|preventDefault>
   <FormInput
     type="text"
     label={$_('registration.company_name')}

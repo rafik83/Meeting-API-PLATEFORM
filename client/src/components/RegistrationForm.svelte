@@ -73,7 +73,7 @@
     <p class="text-error">{errorMessage}</p>
   {/if}
   <div class="flex flex-col items-center">
-    <form class="mt-2">
+    <form class="mt-2" on:submit|preventDefault>
       <FormInput
         errorMessage={errors.firstName}
         type={'text'}

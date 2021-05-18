@@ -28,6 +28,7 @@
   {/if}
 
   <button
+    type="button"
     class="shadow-full w-full font-semibold uppercase rounded-full outlined {stickyStyle} {priority
       ? 'bg-community-300 text-gray-50'
       : ''}"

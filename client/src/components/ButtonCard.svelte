@@ -1,5 +1,5 @@
 <script>
-  export let type = '';
+  export let type = 'button';
   export let kind = 'primary';
   let style;
 

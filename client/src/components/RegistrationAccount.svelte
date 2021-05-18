@@ -49,7 +49,7 @@
   };
 </script>
 
-<form class="w-full">
+<form class="w-full" on:submit|preventDefault>
   <H4 community withBackground>{$_('account.your_job')}</H4>
   <FormSelect
     options={jobPositions}
