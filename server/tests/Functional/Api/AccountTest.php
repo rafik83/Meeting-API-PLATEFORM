@@ -58,6 +58,7 @@ class AccountTest extends ApiTestCase
         ]);
 
         self::assertResponseIsSuccessful();
+        self::assertEmailCount(1);
     }
 
     public function testCreateNonUniqueEmailFields(): void

@@ -327,6 +327,9 @@ hubspot:
 ## CDN
 cdnHost: "https://cdn.staging.vimeet365.com"
 
+## Mailer
+mailerDSN : ""
+
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##

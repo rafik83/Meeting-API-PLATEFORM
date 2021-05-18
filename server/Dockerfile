@@ -14,6 +14,7 @@ RUN set -eux \
   libicu-dev \
   libzip-dev  \
   libpq-dev \
+  libxslt-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -26,6 +27,7 @@ RUN set -eux; \
       intl \
       pgsql \
       pdo_pgsql \
+      xsl \
       zip \
       && docker-php-ext-configure intl --enable-intl;
 

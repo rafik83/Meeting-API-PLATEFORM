@@ -6,6 +6,7 @@ namespace Proximum\Vimeet365\Api\Application\Command\Account;
 
 use Proximum\Vimeet365\Common\Messenger\EventBusInterface;
 use Proximum\Vimeet365\Core\Application\Event\Hubspot\AccountRegisteredEvent;
+use Proximum\Vimeet365\Core\Application\Mail\AccountRegistrationMailerInterface;
 use Proximum\Vimeet365\Core\Application\Security\PasswordEncoderInterface;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
 use Proximum\Vimeet365\Core\Domain\Repository\AccountRepositoryInterface;
@@ -15,14 +16,17 @@ class RegistrationCommandHandler
     private AccountRepositoryInterface $accountRepository;
     private PasswordEncoderInterface $passwordEncoder;
     private EventBusInterface $eventBus;
+    private AccountRegistrationMailerInterface $mailer;
 
     public function __construct(
         AccountRepositoryInterface $accountRepository,
         PasswordEncoderInterface $passwordEncoder,
-        EventBusInterface $eventBus
+        EventBusInterface $eventBus,
+        AccountRegistrationMailerInterface $mailer
     ) {
         $this->accountRepository = $accountRepository;
         $this->passwordEncoder = $passwordEncoder;
+        $this->mailer = $mailer;
         $this->eventBus = $eventBus;
     }
 
@@ -35,6 +39,7 @@ class RegistrationCommandHandler
         $this->accountRepository->add($account);
 
         $this->eventBus->dispatch(new AccountRegisteredEvent($account));
+        $this->mailer->send($account);
 
         return $account;
     }

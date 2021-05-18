@@ -33,8 +33,8 @@ jobs:
                     name: Install server dependencies
                     command: |
                         sudo apt update
-                        sudo apt install libpq-dev
-                        sudo docker-php-ext-install zip pdo pgsql pdo_pgsql
+                        sudo apt install libpq-dev libxslt-dev
+                        sudo docker-php-ext-install zip pdo pgsql pdo_pgsql xsl
 
             # Download and cache dependencies
             -   restore_cache: &restore-composer-cache

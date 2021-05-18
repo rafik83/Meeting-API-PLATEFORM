@@ -137,6 +137,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "egulias/email-validator": {
+        "version": "3.1.1"
+    },
     "fakerphp/faker": {
         "version": "v1.13.0"
     },
@@ -253,6 +256,9 @@
     },
     "league/mime-type-detection": {
         "version": "1.7.0"
+    },
+    "lorenzo/pinky": {
+        "version": "1.0.5"
     },
     "monolog/monolog": {
         "version": "2.2.0"
@@ -500,6 +506,18 @@
     "symfony/intl": {
         "version": "v5.2.3"
     },
+    "symfony/mailer": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "15658c2a0176cda2e7dba66276a2030b52bd81b2"
+        },
+        "files": [
+            "config/packages/mailer.yaml"
+        ]
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -643,6 +661,15 @@
     "symfony/security-http": {
         "version": "v5.2.1"
     },
+    "symfony/sendgrid-mailer": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.4",
+            "ref": "b46e4f8f1adb2864f0aa9c0ff57aea3324a07199"
+        }
+    },
     "symfony/serializer": {
         "version": "v5.2.1"
     },
@@ -766,6 +793,12 @@
             "version": "1.0",
             "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
         }
+    },
+    "twig/extra-bundle": {
+        "version": "v3.3.0"
+    },
+    "twig/inky-extra": {
+        "version": "v3.3.0"
     },
     "twig/twig": {
         "version": "v3.1.1"

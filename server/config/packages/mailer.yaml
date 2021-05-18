@@ -1,0 +1,7 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: 'no-reply@vimeet365.events'
+        headers:
+            from: 'No-Reply Vimeet 365 <no-reply@vimeet365.events>'
