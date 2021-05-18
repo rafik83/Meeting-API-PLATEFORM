@@ -1,7 +1,8 @@
 <script>
-  import { getFileUploadReport } from '../modules/fileManagement';
-  import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
+  import {getFileUploadReport} from '../modules/fileManagement';
+  import {_} from 'svelte-i18n';
+  import {createEventDispatcher} from 'svelte';
+  import IconClose from "../ui-kit/icons/IconClose/IconClose.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -14,6 +15,12 @@
   let validationSucceed = false;
 
   let defaultText = $_('registration.upload_logo');
+
+  let avatar;
+
+  let fileInput;
+
+  let alt;
 
   const hasErrors = (errors) => {
     return errors.some((item) => item.hasErrors);
@@ -33,6 +40,14 @@
       validationSucceed = true;
       dispatch('fileUploaded', fileList);
     }
+
+    let image = fileList[0];
+    alt = fileList[0].name;
+    let reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = e => {
+      avatar = e.target.result;
+    };
   };
 
   const handleDrop = (event) => {
@@ -41,7 +56,7 @@
     handleUploadFile(dataTransfer.files);
   };
 
-  const handleInputChange = ({ target }) => {
+  const handleInputChange = ({target}) => {
     handleUploadFile(target.files);
   };
 
@@ -49,12 +64,24 @@
     if (loading) {
       e.preventDefault();
     }
-    e.value = null;
   };
+
+  const handleDeleteAvatar = () => {
+    avatar = '';
+  }
 </script>
 
+{#if avatar && !hasErrors(validationRepport)}
+  <div class="mt-20 mb-5">
+    <div class="flex justify-end items-end z-index-10">
+        <IconClose fill="#FFF" class="w-5 p-1 bg-community-300 rounded-xl cursor-pointer -mb-5" on:click={handleDeleteAvatar}/>
+    </div>
+    <img src="{avatar}" alt="{alt}" class="w-40 h-40 rounded-full border-2 border-gray-50 right-5 bottom-0 object-cover"/>
+  </div>
+{/if}
+
 <div
-  class="md:h-full h-32 flex w-full border-dashed border-4"
+  class="md:h-52 h-32 flex w-full border-dashed border-4"
   on:drop|stopPropagation|preventDefault={handleDrop}
   on:dragenter|stopPropagation|preventDefault
   on:dragover|stopPropagation|preventDefault
@@ -74,7 +101,7 @@
       </slot>
     {/if}
 
-    {#if validationSucceed && !loading}
+    {#if validationSucceed && !loading && avatar}
       <p class="text-success text-sm italic">
         {$_('validation.file_upload_succeed')}
       </p>
@@ -100,6 +127,7 @@
     <input
       on:change={handleInputChange}
       on:click={handleInputClick}
+      bind:this={fileInput}
       accept={accept.join(', ')}
       type="file"
       class="hidden"

@@ -100,7 +100,7 @@
     <IconRocket />
   </div>
 
-  <div slot="content" class="flex justify-between pl-10">
+  <div slot="content" class="md:flex justify-between md:pl-10 px-5">
     <div class="md:w-1/2  md:pr-10">
       <RegistrationAccount
         {jobPositions}

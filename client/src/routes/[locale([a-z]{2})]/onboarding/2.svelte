@@ -99,7 +99,7 @@
     <IconLaunching width="90%" class="mx-auto" />
   </div>
 
-  <section slot="content" class="w-full h-full pl-10">
+  <section slot="content" class="w-full h-full md:pl-10 px-5">
     <div class="md:w-5/12">
       <H3>{$_('validation.company_not_found')}.</H3>
     </div>
@@ -115,12 +115,12 @@
 
       <div class="md:w-5/12 mx-auto">
         <H3 community>{$_('registration.create_your_company')}.</H3>
-        <div class="md:h-3/6 mt-4">
-          <FileUploader
-            accept={['image/jpg', 'image/jpeg', 'image/png']}
-            fileMaxSize={1 * 1024 * 1024}
-            bind:uploadedFile={companyLogo}
-          />
+        <div class="md:h-3/6 mt-10 box-border flex text-center items-center justify-center flex-col">
+            <FileUploader
+              accept={['image/jpg', 'image/jpeg', 'image/png']}
+              fileMaxSize={1 * 1024 * 1024}
+              bind:uploadedFile={companyLogo}
+            />
         </div>
       </div>
     </div>

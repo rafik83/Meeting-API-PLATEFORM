@@ -22,7 +22,7 @@
   >
     <FileUploader
       on:fileUploaded={handleUploadFile}
-      accept={['image/jpg', 'image/png']}
+      accept={['image/jpg', 'image/jpeg', 'image/png']}
       {loading}
       maxSize={fileMaxSize}
     />
