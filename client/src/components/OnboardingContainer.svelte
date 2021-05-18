@@ -1,6 +1,7 @@
 <script>
   import OnboardingHeader from './OnboardingHeader.svelte';
   import { _ } from 'svelte-i18n';
+  import { capitalize } from '../modules/textUtils';
 
   export let user;
   export let step;
@@ -28,7 +29,7 @@
     <div class="pl-12 p-5">
       <OnboardingHeader
         title="{$_('registration.hello')}."
-        subtitle="{user.firstName} {user.lastName}"
+        subtitle={capitalize(`${user.firstName} ${user.lastName}`)}
       />
     </div>
     <div class="h-2 w-full bg-gray-200" />

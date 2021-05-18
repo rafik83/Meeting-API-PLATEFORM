@@ -2,11 +2,11 @@
   import { _ } from 'svelte-i18n';
   import * as yup from 'yup';
   import { extractErrors } from '../modules/validator';
-
   import FileUploader from './FileUploader.svelte';
   import CompanyForm from './CompanyForm.svelte';
   import Button from './Button.svelte';
   import OnboardingHeader from './OnboardingHeader.svelte';
+  import { capitalize } from '../modules/textUtils';
 
   export let countryList;
   export let onCreateCompany;
@@ -56,8 +56,8 @@
 
 <div class="w-full px-8 py-2 mx-auto my-5 flex-col items-center">
   <OnboardingHeader
-    title={$_('registration.hello') + '.'}
-    subtitle={user.firstName + ' ' + user.lastName}
+    title="{$_('registration.hello')}."
+    subtitle={capitalize(`${user.firstName} ${user.lastName}`)}
   />
 
   <p class="text-community-300 font-semibold pb-4">

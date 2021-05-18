@@ -16,7 +16,9 @@
     <button id="nav-button-account" class="w-80 h-full flex justify-between">
       <div class="h-full flex">
         <IconUser width="38" fill="#c4cbdc" />
-        <div class="h-full flex items-end uppercase font-semibold text-sm ml-4">
+        <div
+          class="h-full flex items-end capitalize font-semibold text-sm ml-4"
+        >
           {user.firstName}
           {user.lastName}
         </div>
