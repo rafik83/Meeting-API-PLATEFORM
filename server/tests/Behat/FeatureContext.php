@@ -43,8 +43,8 @@ class FeatureContext extends MinkContext implements Context
     public function iSignInAs($email)
     {
         $this->pressButton('join-community');
-        $this->fillField('loginUserName', $email);
-        $this->fillField('loginPassword', 'password');
+        $this->fillField('username', $email);
+        $this->fillField('password', 'password');
         $this->pressButton('Signin');
         $this->iWait(4000);
     }

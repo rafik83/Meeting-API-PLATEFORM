@@ -8,7 +8,7 @@ Feature:
         And I press "menu-responsive"
         And I wait 1000
         And I press "join-community"
-        And I fill in "loginUserName" with "john"
+        And I fill in "username" with "john"
         And I press "Signin"
         Then I should see "This field is required"
 
@@ -17,7 +17,7 @@ Feature:
         And I press "menu-responsive"
         And I wait 1000
         And I press "join-community"
-        And I fill in "loginUserName" with "john"
+        And I fill in "username" with "john"
         And I press "Signin"
         Then I should see "This field is required"  
 

@@ -81,6 +81,8 @@
         {id}
         bind:value={selectedOption}
         on:click|stopPropagation|preventDefault={handleClickOption}
+        on:input
+        on:blur
         class="w-full"
         size="5"
       >

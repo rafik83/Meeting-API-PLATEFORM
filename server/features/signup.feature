@@ -1,4 +1,3 @@
-
 Feature:
     In order to prove that a user can sign up to the application
     As a user
@@ -9,7 +8,7 @@ Feature:
         And I press "menu-responsive"
         And I wait 1000
         And I press "join-community"
-        And I fill in "loginUserName" with "john"
+        And I fill in "username" with "john"
         And I follow "Signup"
         Then I should see "Register"
 
@@ -52,10 +51,10 @@ Feature:
         And I press "join-community"
         And I follow "Signup"
         And I fill in "email" with "john@example.com"
-        And I fill in "firstname" with "john"
-        And I fill in "lastname" with "doe"
+        And I fill in "firstName" with "john"
+        And I fill in "lastName" with "doe"
         And I fill in "password" with "password"
-        And I check "termsAndCondition"
+        And I check "acceptedTermsAndCondition"
         And I press "Signup"
         And I wait 2000
         Then I should see "Signin"

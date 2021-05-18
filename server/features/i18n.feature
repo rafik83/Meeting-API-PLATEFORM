@@ -1,4 +1,3 @@
-
 Feature:
     In order to prove that the app still supports i18n
     As a user
@@ -8,7 +7,7 @@ Feature:
         And I press "menu-responsive"
         And I wait 100
         And I press "join-community"
-        And I fill in "loginUserName" with "john"
+        And I fill in "username" with "john"
         And I press "Se connecter"
         Then I should see "Ce champs est requis"
 
@@ -17,6 +16,6 @@ Feature:
         And I press "menu-responsive"
         And I wait 1000
         And I press "join-community"
-        And I fill in "loginUserName" with "john"
+        And I fill in "username" with "john"
         And I press "Se connecter"
         Then I should see "Ce champs est requis"

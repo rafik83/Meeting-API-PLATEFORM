@@ -37,6 +37,7 @@
     bind:value
     on:focus={handleTextareaFocusIn}
     on:focusout={handleTextareaFocusOut}
+    on:input
   />
 
   {#if max}

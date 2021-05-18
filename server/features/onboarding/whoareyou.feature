@@ -1,4 +1,3 @@
-@debug
 Feature:
     In order to prove that I can save my personal data
     As a user
@@ -18,7 +17,7 @@ Feature:
         And I select "Minister" from "jobPosition"
         And I fill in "jobTitle" with "Roi du monde connu"
         And I press "Main language"
-        And I select "Français" from "mainLanguage"
+        And I select "French" from "mainLanguage"
         And I press "Country"
         And I select "Belgium" from "country"
         And I press "Timezone"
@@ -31,3 +30,17 @@ Feature:
         When I press "Employment"
         And I fill in "employment-searchinput" with "Mush"
         Then I should not see "Minister"
+
+    Scenario: I see the error message disappear when I fill in the field
+        And I press "Next"
+        And I press "Employment"
+        And I select "Minister" from "jobPosition"
+        And I fill in "jobTitle" with "Roi du monde connu"
+        And I press "Main language"
+        And I select "French" from "mainLanguage"
+        And I press "Country"
+        And I select "Belgium" from "country"
+        And I press "Timezone"
+        And I select "Acre Time (Eirunepe)" from "timezone"
+        And I wait 500
+        Then I should not see "This field is required"

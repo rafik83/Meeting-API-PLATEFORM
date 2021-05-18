@@ -41,6 +41,13 @@
       onSubmitForm(values);
     }
   };
+
+  const handleInput = (e) => {
+    errors = {
+      ...errors,
+      [e.target.name]: '',
+    };
+  };
 </script>
 
 <div class="w-full px-8 py-2 mx-auto my-5 flex-col items-center">
@@ -59,16 +66,18 @@
         errorMessage={errors.username}
         type={'text'}
         label={$_('registration.loginOrEmail')}
-        name="loginUserName"
+        name="username"
         bind:value={values.username}
+        on:input={handleInput}
       />
 
       <FormInput
         errorMessage={errors.password}
         type={'password'}
         label={$_('registration.password')}
-        name="loginPassword"
+        name="password"
         bind:value={values.password}
+        on:input={handleInput}
       />
 
       <CheckBox

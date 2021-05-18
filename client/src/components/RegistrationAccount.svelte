@@ -6,24 +6,10 @@
   import H4 from './H4.svelte';
 
   export let errorMessage;
-
   export let jobPositions;
-
-  export let languages = [
-    {
-      code: 'fr',
-      name: 'Français',
-    },
-    {
-      code: 'nl',
-      name: 'Néerlandais',
-    },
-  ];
-
+  export let languages = [];
   export let countries;
-
   export let timezones;
-
   export let validationErrors = {
     jobTitle: '',
     jobPosition: '',
@@ -31,6 +17,7 @@
     timezone: '',
     country: '',
   };
+  export let personalData;
 
   let formValues = {
     jobPosition: {},
@@ -42,8 +29,6 @@
     selectedTimezone: {},
   };
 
-  export let personalData;
-
   $: personalData = {
     jobPosition: formValues.jobPosition.id,
     languages: [
@@ -54,6 +39,13 @@
     jobTitle: formValues.jobTitle,
     country: formValues.selectedCountry.code,
     timezone: formValues.selectedTimezone.code,
+  };
+
+  const handleInput = (e) => {
+    validationErrors = {
+      ...validationErrors,
+      [e.target.name]: '',
+    };
   };
 </script>
 
@@ -67,6 +59,8 @@
     searchBar
     errorMessage={validationErrors.jobPosition}
     bind:selectedOption={formValues.jobPosition}
+    on:input={handleInput}
+    on:blur={handleInput}
   />
 
   <FormInput
@@ -74,8 +68,9 @@
     type="text"
     label={$_('account.jobTitle')}
     displayLabel={$_('account.jobTitle')}
-    bind:value={formValues.jobTitle}
     errorMessage={validationErrors.jobTitle}
+    bind:value={formValues.jobTitle}
+    on:input={handleInput}
   />
 
   <H4 community withBackground>
@@ -90,17 +85,19 @@
   {/if}
   <FormSelect
     options={languages}
-    name="main language"
+    name="languages"
     label={$_('account.main_language')}
     id="mainLanguage"
     searchBar
     {errorMessage}
     bind:selectedOption={formValues.selectedMainLanguage}
+    on:input={handleInput}
+    on:blur={handleInput}
   />
 
   <FormSelect
     options={languages}
-    name="second language"
+    name="second_language"
     label={$_('account.second_language')}
     id="secondLanguage"
     searchBar
@@ -109,7 +106,7 @@
 
   <FormSelect
     options={languages}
-    name={'third language'}
+    name="third_language"
     label={$_('account.third_language')}
     id="thirdLanguage"
     searchBar
@@ -125,6 +122,8 @@
     searchBar
     errorMessage={validationErrors.country}
     bind:selectedOption={formValues.selectedCountry}
+    on:input={handleInput}
+    on:blur={handleInput}
   />
 
   <FormSelect
@@ -135,5 +134,7 @@
     searchBar
     errorMessage={validationErrors.timezone}
     bind:selectedOption={formValues.selectedTimezone}
+    on:input={handleInput}
+    on:blur={handleInput}
   />
 </form>

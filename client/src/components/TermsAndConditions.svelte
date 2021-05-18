@@ -1,7 +1,7 @@
 <script>
   import { _ } from 'svelte-i18n';
 
-  export let name;
+  export let name = 'termsAndCondition';
   export let checked = false;
   export let errorMessage;
 </script>
@@ -12,7 +12,8 @@
       on:change
       type="checkbox"
       class="form-checkbox h-6 w-10 mr-2"
-      name="termsAndCondition"
+      {name}
+      id={name}
       bind:checked
     />
 

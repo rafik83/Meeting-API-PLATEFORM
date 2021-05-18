@@ -4,6 +4,7 @@
   export let name;
   export let type;
   export let value;
+  export let id = name;
   export let label = '';
   export let errorMessage = null;
   export let options = null;
@@ -50,7 +51,7 @@
       : 'border-gray-200'}"
   >
     <label
-      for={name}
+      for={id}
       class="block transition-all duration-250 italic absolute bg-gray-50 mf-2.5 ml-3 px-2 {labelErrorClasses} {labeClasses} "
     >
       {label}
@@ -58,14 +59,15 @@
 
     <input
       {type}
-      id={name}
+      {id}
       {value}
+      {name}
       list={datalistName}
       on:focusout={handleFocusOut}
       on:focus={handleFocusInput}
       on:input={handleInput}
+      on:input
       class="text-grey rounded-3xl px-4 py-2 outlined {inputWidthClasse}"
-      autocomplete="on"
     />
 
     {#if options}

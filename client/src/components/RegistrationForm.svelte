@@ -10,8 +10,8 @@
   import OnboardingHeader from './OnboardingHeader.svelte';
 
   export let signInUrl;
-
   export let errorMessage;
+  export let onSubmitForm;
 
   let values = {
     firstName: '',
@@ -22,8 +22,6 @@
   };
 
   let errors = {};
-  export let onSubmitForm;
-
   let hasErrors = false;
 
   const validationSchema = yup.object().shape({
@@ -56,6 +54,13 @@
       onSubmitForm(values);
     }
   };
+
+  const handleInput = (e) => {
+    errors = {
+      ...errors,
+      [e.target.name]: '',
+    };
+  };
 </script>
 
 <div class="w-full px-8 py-2 mx-auto my-5 flex-col items-center">
@@ -73,16 +78,18 @@
         errorMessage={errors.firstName}
         type={'text'}
         label={$_('registration.firstname')}
-        name="firstname"
+        name="firstName"
         bind:value={values.firstName}
+        on:input={handleInput}
       />
 
       <FormInput
         errorMessage={errors.lastName}
         type={'text'}
         label={$_('registration.lastname')}
-        name="lastname"
+        name="lastName"
         bind:value={values.lastName}
+        on:input={handleInput}
       />
 
       <FormInput
@@ -91,6 +98,7 @@
         label={$_('registration.email')}
         name="email"
         bind:value={values.email}
+        on:input={handleInput}
       />
 
       <FormInput
@@ -99,11 +107,14 @@
         label={$_('registration.password')}
         name="password"
         bind:value={values.password}
+        on:input={handleInput}
       />
 
       <TermsAndConditions
+        name="acceptedTermsAndCondition"
         errorMessage={errors.acceptedTermsAndCondition}
         bind:checked={values.acceptedTermsAndCondition}
+        on:change={handleInput}
       />
 
       <button

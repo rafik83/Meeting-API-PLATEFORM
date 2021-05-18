@@ -1,5 +1,6 @@
 <script context="module">
   import { getCountries } from '../../../repository/countries';
+  import { getLanguages } from '../../../repository/languages';
   import { getTimeZones } from '../../../repository/timezones';
   import { getAllJobPositions } from '../../../repository/nomenclatures';
   import { toHomePage, toOnboardingStep } from '../../../modules/routing';
@@ -17,12 +18,14 @@
     let countries;
     let timezones;
     let jobPositions;
+    let languages;
     let user;
 
     try {
       countries = await getCountries();
       timezones = await getTimeZones();
       jobPositions = await getAllJobPositions();
+      languages = await getLanguages();
       user = await findById(userId);
     } catch (error) {
       if (error.response && error.response.status > 201) {
@@ -36,6 +39,7 @@
       countries,
       timezones,
       jobPositions,
+      languages,
     };
   }
 </script>
@@ -58,6 +62,7 @@
   export let countries;
   export let timezones;
   export let jobPositions;
+  export let languages;
 
   let userAvatar;
   let personalData;
@@ -107,6 +112,7 @@
         {timezones}
         {validationErrors}
         {countries}
+        {languages}
         bind:personalData
       />
     </div>
