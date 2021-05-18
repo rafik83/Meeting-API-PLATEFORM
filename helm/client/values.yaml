@@ -250,3 +250,8 @@ extraEnvVars: {}
 ## List of secrets environment variables to add to the container
 ##
 extraSecretsEnvVars: {}
+
+# API URLS
+apiURL:
+  ssr: "changeMe"
+  csr: "changeMe"

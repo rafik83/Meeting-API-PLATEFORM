@@ -408,3 +408,5 @@ hostAliases:
   - ip: "10.11.0.95"
     hostnames:
       - "optaplanner"
+session:
+  cookieDomain : "changeMe"

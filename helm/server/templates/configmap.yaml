@@ -36,3 +36,4 @@ data:
     {{- end }}
     GCS_PROJECT_ID: {{ .Values.gcs.projectId | quote }}
     GCS_PUBLIC_BUCKET: {{ .Values.gcs.publicBucket | quote }}
+    SESSION_COOKIE_DOMAIN : {{ .Values.session.cookieDomain | quote }}

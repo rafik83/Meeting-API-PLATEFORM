@@ -18,3 +18,5 @@ data:
     PHP_NEWRELIC_APPNAME: {{ .Values.newrelic.appName | quote }}
     PHP_NEWRELIC_LICENSE: {{ .Values.newrelic.licenseKey | quote }}
     {{- end }}
+    API_URL: {{ .Values.apiURL.csr | quote }}
+    API_URL_SSR: {{ .Values.apiURL.ssr | quote }}
