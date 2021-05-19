@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Core\Application\Hubspot\Model;
 
 use Proximum\Vimeet365\Core\Domain\Entity\Company as CompanyEntity;
+use Symfony\Component\Intl\Countries;
 
 class Company
 {
@@ -26,7 +27,7 @@ class Company
                 'name' => $company->getName(),
                 'domain' => $company->getDomain(),
                 'description' => $company->getActivity(),
-                'country' => $company->getCountryCode(),
+                'country' => Countries::getName($company->getCountryCode(), 'en'),
             ]
         );
     }

@@ -30,6 +30,16 @@ class AccountCompanyTest extends ApiTestCase
         );
 
         self::assertResponseIsSuccessful();
+
+        self::assertJsonContains([
+            'company' => [
+                'name' => 'Proximum365',
+                'countryCode' => 'FR',
+                'country' => 'France',
+                'website' => 'http://vimeet356.events',
+                'activity' => 'Organizer events',
+            ],
+        ]);
     }
 
     public function testCreateNotLoggedIn(): void
