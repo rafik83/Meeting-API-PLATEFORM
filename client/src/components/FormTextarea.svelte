@@ -2,11 +2,11 @@
   import { _ } from 'svelte-i18n';
 
   export let max = null;
-  export let value;
+  export let value = '';
   export let name;
   export let label;
   export let errorMessage = null;
-  let displayLabel = value ? true : false;
+  $: displayLabel = value ? true : false;
 
   $: if (max && value.length > max) {
     value = value.substring(0, max);

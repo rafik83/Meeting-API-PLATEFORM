@@ -17,7 +17,9 @@ final class Version20210429121408 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE company ADD domain VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE company ADD domain VARCHAR(255)');
+        $this->addSql('UPDATE company SET domain = website WHERE domain IS NULL');
+        $this->addSql('ALTER table company ALTER COLUMN domain SET NOT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_4FBF094FA7A91E0B ON company (domain)');
     }
 

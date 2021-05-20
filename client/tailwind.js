@@ -28,11 +28,12 @@ module.exports = {
       sso: {
         vimeet: '#2D9BD8',
         linkedin: '#1582BB',
-      },
+      }
     },
     extend: {
       colors: {},
       spacing: {
+        94: '23rem',
         144: '36rem',
       },
       margin: {

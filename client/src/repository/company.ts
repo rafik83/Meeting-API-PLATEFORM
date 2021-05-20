@@ -1,5 +1,5 @@
 import type { Company, User } from '../domain';
-import { post } from '../modules/axios';
+import { post, get } from '../modules/axios';
 
 export const createCompany = async (
   company: Company,
@@ -16,4 +16,15 @@ export const uploadCompanyLogo = async (
   const formData = new FormData();
   formData.append('logo', companyLogo);
   await post<FormData, void>(`companies/${companyId}/logo`, formData);
+};
+
+export const getHubspotCompanies = async (
+  domain: string,
+  limit: number = 10
+): Promise<Array<Company>> => {
+  return (
+    await get<Array<Company>>(
+      `hubspot/companies?domain=${domain}&limit=${limit}`
+    )
+  ).data;
 };

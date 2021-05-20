@@ -22,4 +22,6 @@ export { IconFlecheLogo } from './IconFlecheLogo';
 export { IconVimeet365 } from './IconVimeet365';
 export { IconMenuBurger } from './IconMenuBurger';
 export { IconPlay } from './IconPlay';
-export { IconClose } from "./IconClose";
+export { IconQuestionMark } from './IconQuestionMark';
+export { IconCompany } from './IconCompany';
+export { IconClose } from './IconClose';

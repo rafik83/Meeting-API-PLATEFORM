@@ -1,5 +1,5 @@
 <script>
-  import { sizes } from './constants';
+  import { sizes } from '../constants';
 
   export let highlight = false;
   export let dark = true;

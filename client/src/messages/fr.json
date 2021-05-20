@@ -7,10 +7,12 @@
     "error_has_occured": "Oups une erreur est arrivée. Veuillez réessayer",
     "page_not_found": "Cette page n'existe pas ou à été deplacée",
     "search": "Rechercher",
+    "searching": "Recherche",
     "you_are_not_authorized": "Vous n'êtes pas autorisé",
     "later": "plus tard",
     "previous": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "loading": "Chargement..."
   },
   "validation": {
     "field_required": "Ce champs est requis",
@@ -52,6 +54,7 @@
     "register": "Créer un compte",
     "loginOrEmail": "Login ou email",
     "remember_me": "Se souvenir de moi",
+    "add_your_company_logo": "Ajouter un logo pour votre entreprise",
     "wrong_username_or_password": "Nom d'utilisateur ou mot de passe incorrect",
     "step-1-title": "Work in progress",
     "step-1-subtitle": "Work in progress ...",
@@ -68,7 +71,16 @@
     "create_your_company": "Créez votre entreprise.",
     "upload_avatar": "Téléchargez votre avatar",
     "attention_members": "Attirez 8 fois plus l'attention des membres!",
-    "add_photo": "Ajoutez une photo pour attirer l'attention des membres."
+    "add_photo": "Ajoutez une photo pour attirer l'attention des membres.",
+    "my_company": "C'est ma société",
+    "select": "Sélectionner",
+    "we_fond_results": "Nous avons trouvé {n, plural, =0{aucun résultat} one{1 résultat} other{{n} résultats}}",
+    "select_company": "Selectionnez votre société",
+    "your_company_is": "Votre société est :",
+    "cant_find_company_in_list": "Votre société n'est pas dans la liste ?",
+    "you_can_create_it": "Créez la.",
+    "register_my_company": "Enregistrer ma société",
+    "looking_for_companies": "Veuillez patienter, nous cherchons votre société."
   },
   "onboarding": {
     "title": "Vimeet365 - Onboarding",
@@ -78,7 +90,8 @@
     "select": "sélectionnés",
     "detail_another_objective": "Voulez-vous détailler un autre objectif ?",
     "your_objective": "Votre objectif :",
-    "please_detail_your_goal": "Veuillez détailler l'objectif selectionné :"
+    "please_detail_your_goal": "Veuillez détailler l'objectif selectionné :",
+    "please_update_company_data": "Merci de bien vouloir compléter les informations de votre entreprise"
   },
   "account": {
     "employment": "Fonction",

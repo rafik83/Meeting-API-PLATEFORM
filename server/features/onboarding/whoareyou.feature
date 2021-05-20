@@ -23,8 +23,8 @@ Feature:
         And I press "Timezone"
         And I select "Acre Time (Eirunepe)" from "timezone"
         And I press "Next"
-        And I wait 2000
-        Then I should see "Create your company."
+        And I wait 4000
+        Then I should see "Sorry, we can not find your company"
 
     Scenario: I can search my job position from the job position list
         When I press "Employment"

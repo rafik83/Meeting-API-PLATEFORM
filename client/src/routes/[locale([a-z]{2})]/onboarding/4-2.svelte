@@ -233,7 +233,7 @@
 
     <div class="flex  justify-between w-1/2 m-auto" slot="button">
       <Button
-        withMarging
+        withMargin
         on:click={async () => await goto(toOnboardingStep('4-1', tagId))}
       >
         {$_('messages.previous')}

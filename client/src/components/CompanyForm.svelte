@@ -4,26 +4,81 @@
   import FormInput from './FormInput.svelte';
   import FormTextarea from './FormTextarea.svelte';
   import FormSelect from './FormSelect.svelte';
+  import Search from './Search.svelte';
 
   export let max;
   export let errors;
-  export let selectOptions;
+  export let companiesOptions = [];
+  export let countryOptions = [];
+  export let loading = false;
+
   export let company = {
     name: '',
     countryCode: '',
+    country: '',
     website: '',
     activity: '',
   };
 
-  let seletecdOption = {
+  let selectedCountryOption = {
     name: '',
     code: '',
   };
 
-  $: company = {
-    ...company,
-    countryCode: seletecdOption.code,
+  const getCompanyCountryCode = (selectedCompany) => {
+    if (selectedCompany.countryCode) {
+      return company.countryCode;
+    }
+
+    if (selectedCountryOption.code) {
+      return selectedCountryOption;
+    }
+    return countryOptions.find((item) => {
+      return item.name == selectedCompany.country;
+    });
   };
+
+  const handleSelectCompany = (e) => {
+    const selectedCompany = e.detail;
+
+    const countryCode = getCompanyCountryCode(selectedCompany);
+
+    selectedCountryOption = {
+      name: selectedCompany.country,
+      code: selectedCompany.countryCode,
+    };
+
+    company = {
+      ...selectedCompany,
+    };
+
+    if (!selectedCompany.countryCode && countryCode) {
+      company = {
+        ...selectedCompany,
+        countryCode: countryCode.code,
+      };
+
+      selectedCountryOption = {
+        name: selectedCompany.country,
+        code: countryCode.code,
+      };
+    }
+
+    if (!selectedCompany.activity) {
+      company = {
+        ...selectedCompany,
+        activity: '',
+      };
+    }
+  };
+
+  $: if (selectedCountryOption.code) {
+    company = {
+      ...company,
+      country: selectedCountryOption.name,
+      countryCode: selectedCountryOption.code,
+    };
+  }
 
   const handleInput = (e) => {
     errors = {
@@ -33,24 +88,25 @@
   };
 </script>
 
-<form class="w-full" on:submit|preventDefault>
-  <FormInput
-    type="text"
+<form class="w-full">
+  <Search
+    {loading}
     label={$_('registration.company_name')}
     name="name"
+    options={companiesOptions}
     errorMessage={errors.name}
     bind:value={company.name}
     on:input={handleInput}
+    on:blur={handleInput}
+    on:item_selected={handleSelectCompany}
   />
   <FormSelect
-    options={selectOptions}
-    id="countryCode"
+    options={countryOptions}
     name="countryCode"
-    value=""
     searchBar
     label={$_('registration.country')}
+    bind:selectedOption={selectedCountryOption}
     errorMessage={errors.countryCode}
-    bind:selectedOption={seletecdOption}
     on:input={handleInput}
     on:blur={handleInput}
   />
@@ -61,6 +117,7 @@
     errorMessage={errors.website}
     bind:value={company.website}
     on:input={handleInput}
+    on:blur={handleInput}
   />
   <FormTextarea
     {max}
@@ -69,5 +126,6 @@
     errorMessage={errors.activity}
     bind:value={company.activity}
     on:input={handleInput}
+    on:blur={handleInput}
   />
 </form>

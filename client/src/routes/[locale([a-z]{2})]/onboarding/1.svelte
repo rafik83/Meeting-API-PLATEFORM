@@ -89,7 +89,7 @@
       if (userAvatar) {
         await uploadAvatar(userAvatar, user.id);
       }
-      await goto(toOnboardingStep(2));
+      await goto(toOnboardingStep('2-1'));
     } catch (error) {
       validationErrors = extractErrors(error);
     }

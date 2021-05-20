@@ -7,4 +7,14 @@ export const registrationSteps: RegistrationSteps = {
   SIGN_IN: 'signIn',
 };
 
-export default registrationSteps;
+type Sizes = {
+  SMALL: string;
+  MEDIUM: string;
+  LARGE: string;
+};
+
+export const sizes: Sizes = {
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large',
+};

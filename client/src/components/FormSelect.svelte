@@ -16,19 +16,17 @@
   export let options;
   export let name;
   export let label;
-  export let id;
+  export let id = '';
   export let errorMessage = null;
   export let searchBar = false;
+  export let selectedOption;
+
   let displaySelect = false;
   let filterOptions = options;
   let filteredCountries = [];
-  let selectedLabel = '';
-
   const handleClick = () => {
     displaySelect = !displaySelect;
   };
-
-  export let selectedOption;
 
   const handleInputSearch = (e) => {
     filteredCountries = filterCountriesByName(options, e.target.value);
@@ -37,7 +35,6 @@
 
   const handleClickOption = () => {
     displaySelect = !displaySelect;
-    selectedLabel = selectedOption.name;
   };
 
   const handleClickOutside = () => {
@@ -54,7 +51,7 @@
     on:click|stopPropagation|preventDefault={handleClick}
     {label}
   >
-    {selectedLabel ? selectedLabel : label}
+    {selectedOption.name ? selectedOption.name : label}
     <IconDropDown width={25} height={25} stroke={'rgba(42, 46, 67, .7)'} />
   </button>
 

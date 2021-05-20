@@ -70,7 +70,7 @@
   import Error from '../../../components/Error.svelte';
   import H2 from '../../../components/H2.svelte';
   import Tag from '../../../components/Tag.svelte';
-  import { sizes } from '../../../components/constants';
+  import { sizes } from '../../../constants';
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -200,7 +200,7 @@
     </section>
     <div class="flex justify-between w-1/2 m-auto" slot="button">
       <Button
-        withMarging
+        withMargin
         on:click={async () => await goto(toOnboardingStep('3'))}
       >
         {$_('messages.previous')}

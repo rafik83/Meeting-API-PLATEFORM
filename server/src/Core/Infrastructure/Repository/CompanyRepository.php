@@ -48,6 +48,10 @@ class CompanyRepository extends ServiceEntityRepository implements CompanyReposi
     {
         $queryBuilder = $this->createQueryBuilder('company');
 
+        if (\count($hubspotIds) === 0) {
+            return [];
+        }
+
         $queryBuilder
             ->indexBy('company', 'company.hubspotId')
             ->andWhere($queryBuilder->expr()->in('company.hubspotId', $hubspotIds))

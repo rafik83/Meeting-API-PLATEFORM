@@ -321,11 +321,11 @@ gcs:
 
 ## Hubspot
 hubspot:
-  apiKey: ""
+  apiKey: changeMe
   enabled: true
 
 ## CDN
-cdnHost: "https://cdn.staging.vimeet365.com"
+cdnHost: https://cdn.staging.vimeet365.com
 
 ## Mailer
 mailerDSN : ""

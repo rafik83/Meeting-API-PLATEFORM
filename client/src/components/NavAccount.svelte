@@ -6,7 +6,7 @@
   import IconUser from '../ui-kit/icons/IconUser/IconUser.svelte';
   import Badge from './Badge.svelte';
   import { toRegistrationStep } from '../modules/routing';
-  import registrationSteps from '../constants';
+  import { registrationSteps } from '../constants';
 
   export let user;
 </script>

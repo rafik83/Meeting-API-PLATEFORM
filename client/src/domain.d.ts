@@ -51,9 +51,11 @@ export type Company = {
   id?: number;
   name: string;
   logo?: string;
+  country?: string;
   countryCode: string;
   activity: string;
   website: string;
+  hubspotId?: string;
 };
 
 export type TimeZone = {

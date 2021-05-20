@@ -1,5 +1,6 @@
 <script>
   import { IconEye } from '../ui-kit/icons/IconEye';
+  import IconLoader from '../ui-kit/icons/IconLoader/IconLoader.svelte';
 
   export let name;
   export let type;
@@ -7,9 +8,10 @@
   export let id = name;
   export let label = '';
   export let errorMessage = null;
-  export let options = null;
-  export let datalistName = null;
-  let displayLabel = value ? true : false;
+  export let datalistName = '';
+  export let withMargin = true;
+  export let loading = false;
+  $: displayLabel = value ? true : false;
 
   const handleFocusInput = () => {
     displayLabel = true;
@@ -44,7 +46,7 @@
   $: labeClasses = displayLabel ? '-top-3 left-2 text-sm' : 'top-1.5 text-base';
 </script>
 
-<div class="my-5">
+<div class={withMargin ? 'my-5' : ''}>
   <div
     class="border flex rounded-3xl relative {errorMessage
       ? 'border-error'
@@ -67,16 +69,9 @@
       on:focus={handleFocusInput}
       on:input={handleInput}
       on:input
+      on:blur
       class="text-grey rounded-3xl px-4 py-2 outlined {inputWidthClasse}"
     />
-
-    {#if options}
-      <datalist id={datalistName}>
-        {#each options as option}
-          <option data-id={option.id} value={option.name} />
-        {/each}
-      </datalist>
-    {/if}
 
     {#if type === 'password'}
       <button
@@ -87,6 +82,12 @@
       >
         <IconEye fill="#cccc" />
       </button>
+    {/if}
+
+    {#if loading}
+      <div tabindex="-1" class="animate-spin w-5 h-auto my-auto mx-2">
+        <IconLoader fill="#cccc" />
+      </div>
     {/if}
   </div>
   {#if errorMessage}

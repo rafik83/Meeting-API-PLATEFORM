@@ -2,7 +2,7 @@
   import SlideLabel from './SlideLabel.svelte';
   import Button from './Button.svelte';
   import H2 from './H2.svelte';
-  import { sizes } from './constants';
+  import { sizes } from '../constants';
 
   export let data = {};
 </script>

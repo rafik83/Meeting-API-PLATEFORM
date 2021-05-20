@@ -36,22 +36,17 @@
   import RegistrationForm from '../../components/RegistrationForm.svelte';
   import { toOnboardingStep, toRegistrationStep } from '../../modules/routing';
   import { setBaseUrl } from '../../modules/axios';
-  import registrationSteps from '../../constants';
+  import { registrationSteps } from '../../constants';
   import Nav from '../../components/Nav.svelte';
   import { buildFakeFeaturingSlides } from '../../__fixtures__/FakeFeaturingSlide';
-
-  let CardsList;
-  onMount(async () => {
-    // See doc here: https://sapper.svelte.dev/docs/#Third-party_libraries_that_depend_on_window
-    const module = await import('../../components/CardSlider.svelte');
-    CardsList = module.default;
-  });
 
   let FeaturingSlider;
   onMount(async () => {
     // See doc here: https://sapper.svelte.dev/docs/#Third-party_libraries_that_depend_on_window
-    const module = await import('../../components/FeaturingSlider.svelte');
-    FeaturingSlider = module.default;
+    const featuringSliderModule = await import(
+      '../../components/FeaturingSlider.svelte'
+    );
+    FeaturingSlider = featuringSliderModule.default;
   });
 
   const { open, close } = getContext('simple-modal');

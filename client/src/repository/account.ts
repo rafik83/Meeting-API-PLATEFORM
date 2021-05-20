@@ -1,5 +1,5 @@
 import type { User, Credentials } from '../domain';
-import { get, post, patch } from '../modules/axios';
+import { get, post, patch, put } from '../modules/axios';
 
 export const getUserIdFromLocation = (
   locationHeader: string
@@ -72,4 +72,15 @@ export const updateProfile = async (
       },
     }
   );
+};
+
+export const updateUserCompany = async (
+  userId: number,
+  companyId: number
+): Promise<User> => {
+  return (
+    await put<{ company: number }>(`accounts/${userId}/company`, {
+      company: companyId,
+    })
+  ).data;
 };

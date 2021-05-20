@@ -70,7 +70,7 @@
   <CompanyForm
     {errors}
     max={maxDescriptionLength}
-    selectOptions={countryList}
+    countryOptions={countryList}
     bind:company={companyFormValues}
   />
   <Button type="submit" kind="primary" on:click={handleSubmit}>

@@ -116,14 +116,12 @@
 
   <div class="flex justify-between md:w-1/2 m-auto" slot="button">
     <Button
-      withMarging
-      on:click={async () => await goto(toOnboardingStep('2'))}
+      withMargin
+      on:click={async () => await goto(toOnboardingStep('2-1'))}
     >
       {$_('messages.previous')}
     </Button>
-    <Button
-      withMarging
-      on:click={handleSubmitGoals}>
+    <Button withMarging on:click={handleSubmitGoals}>
       {$_('messages.next')}
     </Button>
   </div>

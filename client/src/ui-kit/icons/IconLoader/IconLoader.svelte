@@ -1,3 +1,7 @@
+<script>
+  export let stroke = 'currentColor';
+</script>
+
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 33 33"
@@ -10,49 +14,49 @@
   ><slot /><g transform="translate(1.5 1.5)"
     ><g transform="translate(-3 33) rotate(-90)"
       ><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"
         d="M18,3V9"
       /><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"
         d="M18,27v6"
       /><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"
         d="M7.395,7.395,11.64,11.64"
       /><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"
         d="M24.36,24.36,28.6,28.6"
       /><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"
         d="M3,18H9"
       /><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"
         d="M27,18h6"
       /><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"
         d="M7.395,28.6,11.64,24.36"
       /><path
-        fill="none"
+        {stroke}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="3px"

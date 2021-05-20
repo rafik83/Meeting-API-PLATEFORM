@@ -1,7 +1,7 @@
 <script>
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
   import Button from './Button.svelte';
-  import { sizes } from './constants';
+  import { sizes } from '../constants';
   import SlideLabel from './SlideLabel.svelte';
 </script>
 

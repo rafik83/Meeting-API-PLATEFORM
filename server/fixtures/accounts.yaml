@@ -1,7 +1,7 @@
 Proximum\Vimeet365\Core\Domain\Entity\Account:
     account_1:
         __construct:
-            email: jane@example.com
+            email: jane@proximum365.com
             password: <{password}>
             firstName: <firstName()>
             lastName: <lastName()>

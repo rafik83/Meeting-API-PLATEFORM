@@ -25,6 +25,9 @@
       accept={['image/jpg', 'image/jpeg', 'image/png']}
       {loading}
       maxSize={fileMaxSize}
-    />
+    >
+      <p class="underline font-semibold">{$_('registration.upload_avatar')}</p>
+      <p class="text-community-300 text-sm">{$_('registration.png_jpg')}</p>
+    </FileUploader>
   </div>
 </div>
