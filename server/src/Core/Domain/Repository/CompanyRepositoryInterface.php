@@ -17,6 +17,11 @@ interface CompanyRepositoryInterface
     public function findOneByDomain(string $domain): ?Company;
 
     /**
+     * @return Company[]
+     */
+    public function findByDomain(string $domain, ?int $limit): array;
+
+    /**
      * @param string[] $hubspotIds
      *
      * @return array<string, Company> indexed by hubspotId

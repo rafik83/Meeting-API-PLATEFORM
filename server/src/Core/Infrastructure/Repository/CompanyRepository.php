@@ -39,6 +39,11 @@ class CompanyRepository extends ServiceEntityRepository implements CompanyReposi
         return $this->findOneBy(['domain' => $domain]);
     }
 
+    public function findByDomain(string $domain, ?int $limit): array
+    {
+        return $this->findBy(['domain' => $domain], null, $limit);
+    }
+
     public function findByHubspotIds(array $hubspotIds = []): array
     {
         $queryBuilder = $this->createQueryBuilder('company');
