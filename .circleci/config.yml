@@ -18,7 +18,7 @@ jobs:
                         - client/node_modules/
     server:
         docker:
-            -   image: circleci/php:7.4-node-browsers
+            -   image: circleci/php:8.0-node-browsers
                 environment: &server-env
                     VIMEET_365_DATABASE_URL: "postgresql://docker:docker@localhost:5432/proximum_vimeet365_test?serverVersion=13&charset=utf8"
             -   image: circleci/postgres:12.1-alpine
@@ -73,7 +73,7 @@ jobs:
                     command: make -C server test@integration
     e2e:
         docker:
-            -   image: circleci/php:7.4-node-browsers
+            -   image: circleci/php:8.0-node-browsers
                 environment: *server-env
             -   image: circleci/postgres:12.1-alpine
                 environment: *postgresql-env

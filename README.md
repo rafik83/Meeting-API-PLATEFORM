@@ -14,7 +14,7 @@ The client is built using Svelte and Sapper and the server is built with Symfony
 
 #### Install PHP
 
-First you will need to install PHP 7.4 on your local machine
+First you will need to install PHP 8.0 on your local machine
 
 #### Install Docker and docker-compose
 
@@ -26,12 +26,12 @@ Please see the official documentation [here](https://docs.docker.com/engine/inst
 
 After this step you may need to restart your machine.
 
-#### Install required dependencies for php 7.4
+#### Install required dependencies for php 8.0
 
 These dependencies are required to run the app
 
 ```
-php7.4-intl php7.4-gd php7.4-xml php7.4-curl php7.4-pgsql php7.4-mbstring php7.4-apcu
+php8.0-intl php8.0-gd php8.0-xml php8.0-curl php8.0-pgsql php8.0-mbstring php8.0-apcu
 ```
 
 #### Create your local env

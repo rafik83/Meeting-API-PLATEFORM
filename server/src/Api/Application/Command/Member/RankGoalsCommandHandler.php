@@ -15,7 +15,7 @@ class RankGoalsCommandHandler
         $member = $command->getMember();
 
         $tagIds = array_map(static fn (TagDto $tagDto) => $tagDto->id, $command->getTags());
-        $tags = (array) array_combine($tagIds, $command->getTags());
+        $tags = array_combine($tagIds, $command->getTags());
 
         [$goalsToRank, $goalsToUnrank] = $member->getGoals()
             ->filter(fn (Goal $memberGoal): bool => $memberGoal->getCommunityGoal()->getId() === $command->getGoal())
