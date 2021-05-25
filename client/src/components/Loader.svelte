@@ -3,12 +3,15 @@
   import IconLoader from '../ui-kit/icons/IconLoader/IconLoader.svelte';
   export let title = $_('messages.loading');
   export let message = '';
+  export let withTitle = true;
 </script>
 
 <div
   class="text-gray-400 w-full h-full flex flex-col items-center justify-center"
 >
-  <p class="text-l md:text-xl font-bold">{title}</p>
+  {#if withTitle}
+    <p class="text-l md:text-xl font-bold">{title}</p>
+  {/if}
 
   {#if message}
     <p class="mt-2">{message}</p>

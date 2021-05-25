@@ -10,11 +10,13 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Company;
 use Proximum\Vimeet365\Core\Domain\Entity\Member;
 use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Proximum\Vimeet365\Core\Domain\Repository\AccountRepositoryInterface;
 use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;
 use Proximum\Vimeet365\Core\Domain\Repository\MemberRepositoryInterface;
 use Proximum\Vimeet365\Core\Domain\Repository\TagRepositoryInterface;
 
@@ -31,19 +33,22 @@ class CommunityContext implements Context
     private AccountRepositoryInterface $accountRepository;
     private CommunityRepositoryInterface $communityRepository;
     private TagRepositoryInterface $tagRepository;
+    private CompanyRepositoryInterface $companyRepository;
 
     public function __construct(
         EntityManagerInterface $doctrine,
         CommunityRepositoryInterface $communityRepository,
         MemberRepositoryInterface $memberRepository,
         AccountRepositoryInterface $accountRepository,
-        TagRepositoryInterface $tagRepository
+        TagRepositoryInterface $tagRepository,
+        CompanyRepositoryInterface $companyRepository
     ) {
         $this->doctrine = $doctrine;
         $this->memberRepository = $memberRepository;
         $this->accountRepository = $accountRepository;
         $this->communityRepository = $communityRepository;
         $this->tagRepository = $tagRepository;
+        $this->companyRepository = $companyRepository;
     }
 
     private function createJobPositionNomenclature()
@@ -270,6 +275,17 @@ class CommunityContext implements Context
             $this->doctrine->persist(new Member\Goal($member, $mainGoal, $tag, null));
         }
 
+        $this->doctrine->flush();
+    }
+
+    /**
+     * @Given the company :companyName (:domain) has been already registered
+     */
+    public function theCompanyHasBeenAlreadyRegistered(string $companyName, string $domain)
+    {
+        $company = new Company($companyName, 'FR', $domain, 'A nice company');
+        $company->setHubspotId('2565911836');
+        $this->companyRepository->add($company);
         $this->doctrine->flush();
     }
 }

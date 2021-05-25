@@ -74,7 +74,7 @@
     "add_photo": "Add a photo to grab the attention of members.",
     "my_company": "It's my company",
     "select": "Select",
-    "we_fond_results": "{n, plural, =0{We don't found results} one{We found 1 matching result} other{We found {n} matching results}}",
+    "found_companies_matching_email": "{n, plural, =0{No company found} one{We found 1 company result} other{We found {n} company results}} matching your email",
     "select_company": "Select your company",
     "your_company_is": "Your company is:",
     "cant_find_company_in_list": "Can't find your company in the list?",
@@ -119,6 +119,7 @@
     "match": "{percent}% match",
     "view_profile": "View profile",
     "meet": "Meet",
+    "new_leads": "New leads",
     "select_items_of_your_main_objective": "Select 3 items of your main objective by order of priority"
   }
 }

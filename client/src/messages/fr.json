@@ -74,10 +74,10 @@
     "add_photo": "Ajoutez une photo pour attirer l'attention des membres.",
     "my_company": "C'est ma société",
     "select": "Sélectionner",
-    "we_fond_results": "Nous avons trouvé {n, plural, =0{aucun résultat} one{1 résultat} other{{n} résultats}}",
+    "found_companies_matching_email": "Nous avons trouvé {n, plural, =0{aucun résultat} one{1 résultat} other{{n} résultats}}",
     "select_company": "Selectionnez votre société",
     "your_company_is": "Votre société est :",
-    "cant_find_company_in_list": "Votre société n'est pas dans la liste ?",
+    "cant_find_company_in_list": "Votre société n'est pas été trouvée dans la liste ?",
     "you_can_create_it": "Créez la.",
     "register_my_company": "Enregistrer ma société",
     "looking_for_companies": "Veuillez patienter, nous cherchons votre société."

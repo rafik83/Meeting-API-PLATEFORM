@@ -26,6 +26,7 @@ class Company
             [
                 'name' => $company->getName(),
                 'domain' => $company->getDomain(),
+                'website' => $company->getDomain(),
                 'description' => $company->getActivity(),
                 'country' => Countries::getName($company->getCountryCode(), 'en'),
             ]
