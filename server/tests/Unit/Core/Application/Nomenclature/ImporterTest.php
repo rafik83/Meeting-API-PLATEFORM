@@ -6,6 +6,7 @@ namespace Proximum\Vimeet365\Tests\Unit\Core\Application\Nomenclature;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Proximum\Vimeet365\Core\Application\Nomenclature\Importer;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature;
@@ -15,6 +16,8 @@ use Proximum\Vimeet365\Core\Domain\Repository\TagRepositoryInterface;
 
 class ImporterTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testImportSimple(): void
     {
         $tagRepository = $this->prophesize(TagRepositoryInterface::class);

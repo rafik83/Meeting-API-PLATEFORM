@@ -31,7 +31,7 @@ class NomenclatureTag
     private Nomenclature $nomenclature;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tag::class, cascade="PERSIST")
+     * @ORM\ManyToOne(targetEntity=Tag::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private Tag $tag;
@@ -55,7 +55,7 @@ class NomenclatureTag
     /**
      * @var Collection<string, NomenclatureTagTranslation>
      *
-     * @ORM\OneToMany(targetEntity=NomenclatureTagTranslation::class, mappedBy="nomenclatureTag", indexBy="locale", cascade="ALL")
+     * @ORM\OneToMany(targetEntity=NomenclatureTagTranslation::class, mappedBy="nomenclatureTag", indexBy="locale", cascade={"all"})
      * @ORM\JoinColumn(nullable=false)
      */
     private Collection $translations;

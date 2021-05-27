@@ -6,6 +6,7 @@ namespace Proximum\Vimeet365\Tests\Unit\Vimeet\Nomenclature;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Proximum\Vimeet365\Core\Application\Nomenclature\Importer;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature;
@@ -15,6 +16,8 @@ use Proximum\Vimeet365\Vimeet\Nomenclature\Exporter;
 
 class ExporterTest extends TestCase
 {
+    use ProphecyTrait;
+
     private const FILES_DIRECTORY = __DIR__ . '/../../files/nomenclatures';
 
     public function testExport(): void

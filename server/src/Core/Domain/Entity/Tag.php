@@ -29,7 +29,7 @@ class Tag
     /**
      * @var ArrayCollection<string, TagTranslation>
      *
-     * @ORM\OneToMany(targetEntity=TagTranslation::class, mappedBy="tag", indexBy="locale", cascade="ALL")
+     * @ORM\OneToMany(targetEntity=TagTranslation::class, mappedBy="tag", indexBy="locale", cascade={"all"})
      * @ORM\JoinColumn(nullable=false)
      */
     private Collection $translations;

@@ -37,7 +37,7 @@ class Nomenclature
     /**
      * @var Collection<int, NomenclatureTag>
      *
-     * @ORM\OneToMany(targetEntity=NomenclatureTag::class, mappedBy="nomenclature", cascade="ALL")
+     * @ORM\OneToMany(targetEntity=NomenclatureTag::class, mappedBy="nomenclature", cascade={"all"})
      */
     private Collection $tags;
 

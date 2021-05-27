@@ -66,7 +66,7 @@
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "5.2.*",
         "symfony/maker-bundle": "^1.26",
-        "symfony/phpunit-bridge": "^5.2",
+        "symfony/phpunit-bridge": "^5.3@dev",
         "symfony/var-dumper": "5.2.*",
         "symfony/web-profiler-bundle": "5.2.*"
     },
