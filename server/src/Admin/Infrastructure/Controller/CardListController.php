@@ -39,12 +39,16 @@ class CardListController extends AbstractController
 
         $filtersForm->handleRequest($request);
 
+        if ($request->query->has('sort')) {
+            $sort = (string) $request->query->get('sort');
+        }
+
         $pagination = $this->queryBus->handle(
             new ListQuery(
                 $pagination,
                 array_merge($filtersForm->getData(), ['community' => $community]),
-                $request->query->get('sort'),
-                $request->query->get('sortDirection', 'ASC')
+                $sort ?? null,
+                (string) $request->query->get('sortDirection', 'ASC')
             )
         );
 

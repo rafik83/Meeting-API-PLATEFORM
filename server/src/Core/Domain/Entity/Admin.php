@@ -54,4 +54,9 @@ class Admin
     {
         $this->password = $password;
     }
+
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
 }

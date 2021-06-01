@@ -7,32 +7,32 @@ namespace Proximum\Vimeet365\Api\Application\Command\Account;
 use Proximum\Vimeet365\Common\Messenger\EventBusInterface;
 use Proximum\Vimeet365\Core\Application\Event\Hubspot\AccountRegisteredEvent;
 use Proximum\Vimeet365\Core\Application\Mail\AccountRegistrationMailerInterface;
-use Proximum\Vimeet365\Core\Application\Security\PasswordEncoderInterface;
+use Proximum\Vimeet365\Core\Application\Security\PasswordHasherInterface;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
 use Proximum\Vimeet365\Core\Domain\Repository\AccountRepositoryInterface;
 
 class RegistrationCommandHandler
 {
     private AccountRepositoryInterface $accountRepository;
-    private PasswordEncoderInterface $passwordEncoder;
+    private PasswordHasherInterface $passwordHasher;
     private EventBusInterface $eventBus;
     private AccountRegistrationMailerInterface $mailer;
 
     public function __construct(
         AccountRepositoryInterface $accountRepository,
-        PasswordEncoderInterface $passwordEncoder,
+        PasswordHasherInterface $passwordHasher,
         EventBusInterface $eventBus,
         AccountRegistrationMailerInterface $mailer
     ) {
         $this->accountRepository = $accountRepository;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->mailer = $mailer;
         $this->eventBus = $eventBus;
     }
 
     public function __invoke(RegistrationCommand $command): Account
     {
-        $encodedPassword = $this->passwordEncoder->encode($command->password);
+        $encodedPassword = $this->passwordHasher->hash($command->password);
 
         $account = new Account($command->email, $encodedPassword, $command->firstName, $command->lastName);
 

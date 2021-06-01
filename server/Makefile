@@ -35,6 +35,7 @@ lint: lint.php-cs-fixer lint.phpstan ## api linting
 install@integration: export APP_ENV=test
 install@integration:
 	composer install --ansi --verbose --no-interaction --no-progress --prefer-dist --optimize-autoloader --no-scripts --ignore-platform-reqs
+	composer dump-autoload
 	bin/phpunit install
 	bin/console doctrine:migration:migrate --allow-no-migration -n
 	npm install
