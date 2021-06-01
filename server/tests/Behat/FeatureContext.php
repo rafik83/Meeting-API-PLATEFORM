@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Behat;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Exception\ResponseTextException;
 use Behat\MinkExtension\Context\MinkContext;
 
 /**
@@ -42,10 +43,70 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iSignInAs($email)
     {
-        $this->pressButton('join-community');
+        $this->pressButton('menu-responsive');
+        $this->iWaitUntilIClick('#join-community');
         $this->fillField('username', $email);
         $this->fillField('password', 'password');
         $this->pressButton('Signin');
-        $this->iWait(4000);
+        $this->iWaitUntilISeeTextContent('John Doe', 'main h2');
+    }
+
+    /**
+     * @Then I wait until I see :cssSelector
+     */
+    public function iWaitUntilISee($cssSelector)
+    {
+        if (
+            $this->getSession()->wait(
+                4000,
+                "document.querySelector('$cssSelector')"
+            )
+        ) {
+            return true;
+        }
+
+        $message = "The css selector '$cssSelector' was not found after a 4 seconds timeout";
+        throw new ResponseTextException($message, $this->getSession());
+    }
+
+    /**
+     * @Then I wait until I can click on :cssSelector
+     */
+    public function iWaitUntilIClick($cssSelector)
+    {
+        if (
+            $this->getSession()->wait(
+                4000,
+                "document.querySelector('$cssSelector')"
+            )
+        ) {
+            $this->getSession()
+                ->getPage()
+                ->find('css', $cssSelector)
+                ->click();
+
+            return true;
+        }
+
+        $message = "Click on element '$cssSelector' was not be done after a 4 seconds timeout";
+        throw new ResponseTextException($message, $this->getSession());
+    }
+
+    /**
+     * @Then I wait until I see :textContent in :cssSelector
+     */
+    public function iWaitUntilISeeTextContent($textContent, $cssSelector)
+    {
+        if (
+            $this->getSession()->wait(
+                7000,
+                "document.querySelector('$cssSelector').textContent.match('$textContent') !== null"
+            )
+        ) {
+            return true;
+        }
+
+        $message = "The text '$textContent' was not found in '$cssSelector' after a 7 seconds timeout";
+        throw new ResponseTextException($message, $this->getSession());
     }
 }

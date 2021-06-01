@@ -2,7 +2,8 @@ Feature:
     In order to select my community goals objectives
     As a member
     I want to select my community interests
-    Background:
+
+Background:
     Given the database is purged
     And the user "john@example.com" is created
     And as "john@example.com" I want to join aerospacial community
@@ -11,11 +12,9 @@ Feature:
     |  3     | Buy      |
 
     When I go to "/en"
-    And I press "menu-responsive"
-    And I wait 1000
     And I sign in as "john@example.com"
     And I go to "/en/onboarding/4-1?tagId=3"
-    And I wait 3000
+    And I wait until I see "John Doe" in "main"
 
 Scenario: I can select maximum 3 goals
     When I follow "Satellites"
@@ -23,8 +22,7 @@ Scenario: I can select maximum 3 goals
     And I follow "SpaceApps"
     Then I should see "3/3 selected"
     And I press "Next"
-    And I wait 2000
-    Then I should see "Space R&D"
+    And I wait until I see "Space R&D" in "main"
     And I should see "Satellites"
 
 Scenario: I can  deselect my goals

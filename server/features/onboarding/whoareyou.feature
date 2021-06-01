@@ -8,10 +8,9 @@ Feature:
         And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
-        And I press "menu-responsive"
-        And I wait 1000
         And I sign in as "john@example.com"
- 
+        And I wait until I see "John Doe" in "h2"
+
     Scenario: I can reach the next step if I fill all the required fields
         When I press "Employment"
         And I select "Minister" from "jobPosition"
@@ -23,8 +22,7 @@ Feature:
         And I press "Timezone"
         And I select "Acre Time (Eirunepe)" from "timezone"
         And I press "Next"
-        And I wait 4000
-        Then I should see "Sorry, we can not find your company"
+        Then I wait until I see "Sorry, we can not find your company" in "main"
 
     Scenario: I can search my job position from the job position list
         When I press "Employment"

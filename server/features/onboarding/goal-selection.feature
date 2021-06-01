@@ -8,8 +8,6 @@ Feature:
         And the user "john@example.com" is created
         And I want to join aerospacial community
         When I go to "/en"
-        And I press "menu-responsive"
-        And I wait 1000
         And I sign in as "john@example.com"
         And I go to "/en/onboarding/3"
         And I press "Buy"
@@ -17,8 +15,6 @@ Feature:
 
     Scenario: I can deselect a tag to update priorities
         When I go to "/en"
-        And I press "menu-responsive"
-        And I wait 1000
         And I sign in as "john@example.com"
         And I go to "/en/onboarding/3"
         And I press "Buy"

@@ -5,8 +5,7 @@ Feature:
     Scenario: I can not log into the platform if no email provided
         When I go to "/fr"
         And I press "menu-responsive"
-        And I wait 100
-        And I press "join-community"
+        And I wait until I can click on "#join-community"
         And I fill in "username" with "john"
         And I press "Se connecter"
         Then I should see "Ce champs est requis"
@@ -14,8 +13,7 @@ Feature:
     Scenario: I can not log into the platform if no password provided
         When I go to "/fr"
         And I press "menu-responsive"
-        And I wait 1000
-        And I press "join-community"
+        And I wait until I can click on "#join-community"
         And I fill in "username" with "john"
         And I press "Se connecter"
         Then I should see "Ce champs est requis"

@@ -6,8 +6,7 @@ Feature:
     Scenario: I can see the sign up form
         When I go to "/en"
         And I press "menu-responsive"
-        And I wait 1000
-        And I press "join-community"
+        And I wait until I can click on "#join-community"
         And I fill in "username" with "john"
         And I follow "Signup"
         Then I should see "Register"
@@ -15,8 +14,7 @@ Feature:
     Scenario: I can not sign up if I miss to fill some field
         When I go to "/en"
         And I press "menu-responsive"
-        And I wait 1000
-        And I press "join-community"
+        And I wait until I can click on "#join-community"
         And I follow "Signup"
         And I fill in "password" with "hello world"
         And I fill in "email" with "john@example.com"
@@ -25,8 +23,7 @@ Feature:
     Scenario: I can not sign up if I did'nt provide a valid email
         When I go to "/en"
         And I press "menu-responsive"
-        And I wait 1000
-        And I press "join-community"
+        And I wait until I can click on "#join-community"
         And I follow "Signup"
         And I fill in "email" with "invalid email"
         And I press "Signup"
@@ -35,8 +32,7 @@ Feature:
     Scenario: I can not sign up if I did'nt provide a valid password
         When I go to "/en"
         And I press "menu-responsive"
-        And I wait 1000
-        And I press "join-community"
+        And I wait until I can click on "#join-community"
         And I follow "Signup"
         And I fill in "password" with "toto"
         And I press "Signup"
@@ -47,8 +43,7 @@ Feature:
         And I want to join aerospacial community
         When I go to "/en"
         And I press "menu-responsive"
-        And I wait 1000
-        And I press "join-community"
+        And I wait until I can click on "#join-community"
         And I follow "Signup"
         And I fill in "email" with "john@example.com"
         And I fill in "firstName" with "john"
@@ -56,6 +51,4 @@ Feature:
         And I fill in "password" with "password"
         And I check "acceptedTermsAndCondition"
         And I press "Signup"
-        And I wait 2000
-        Then I should see "Signin"
-        
+        Then I wait until I see "Signin" in "header h2"
