@@ -46,8 +46,8 @@ class Nomenclature
         $this->tags = new ArrayCollection();
         $this->reference = $reference;
 
-        if ($community !== null) {
-            $this->community = $community;
+        $this->community = $community;
+        if ($this->community !== null) {
             $this->community->getNomenclatures()->add($this);
         }
     }
@@ -131,5 +131,20 @@ class Nomenclature
         }
 
         return $nomenclatureTag;
+    }
+
+    public function hasTag(Tag $tag): bool
+    {
+        return $this->findTag($tag) !== null;
+    }
+
+    public function hasMoreThan1Level(): bool
+    {
+        return $this->getTags()->exists(fn (int $key, NomenclatureTag $tag): bool => $tag->getParent() !== null);
+    }
+
+    public function __toString(): string
+    {
+        return $this->getReference();
     }
 }

@@ -22,7 +22,7 @@ class Goal
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Community::class, inversedBy="goals")
@@ -50,7 +50,8 @@ class Goal
     /**
      * @var Collection<int, Goal>
      *
-     * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="parent")
+     * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="parent", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"position": "ASC"})
      */
     private Collection $children;
 
@@ -69,6 +70,14 @@ class Goal
      */
     private ?int $max;
 
+    /**
+     * @var Collection<int, GoalMatching>
+     *
+     * @ORM\OneToMany(targetEntity=GoalMatching::class, mappedBy="goal", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"from" = "ASC", "priority" = "ASC"})
+     */
+    private Collection $matching;
+
     public function __construct(
         Community $community,
         Nomenclature $nomenclature,
@@ -83,14 +92,18 @@ class Goal
         $this->tag = $tag;
         $this->parent = $parent;
         $this->children = new ArrayCollection();
+        $this->matching = new ArrayCollection();
         $this->position = $position;
         $this->min = $min;
         $this->max = $max;
 
         $this->community->getGoals()->add($this);
+        if ($this->parent !== null) {
+            $this->parent->getChildren()->add($this);
+        }
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -123,6 +136,14 @@ class Goal
         return $this->children;
     }
 
+    /**
+     * @return Collection<int, GoalMatching>
+     */
+    public function getMatching()
+    {
+        return $this->matching;
+    }
+
     public function getPosition(): ?int
     {
         return $this->position;
@@ -136,5 +157,47 @@ class Goal
     public function getMax(): ?int
     {
         return $this->max;
+    }
+
+    public function updateAsMain(
+        Nomenclature $nomenclature,
+        int $min,
+        ?int $max = null,
+        ?int $position = null
+    ): void {
+        $this->nomenclature = $nomenclature;
+        $this->min = $min;
+        $this->max = $max;
+        $this->position = $position;
+    }
+
+    public function updateAsChild(int $min, ?int $max = null, ?int $position = null): void
+    {
+        $this->min = $min;
+        $this->max = $max;
+        $this->position = $position;
+    }
+
+    public function createChild(Nomenclature $nomenclature, Tag $tag): Goal
+    {
+        return new Goal($this->community, $nomenclature, $tag, $this);
+    }
+
+    public function findChildrenWithNomenclatureAndTag(Nomenclature $nomenclature, Tag $tag): ?Goal
+    {
+        $found = $this->getChildren()->filter(
+            function (Goal $goal) use ($nomenclature, $tag): bool {
+                return $goal->getNomenclature()->getId() === $nomenclature->getId()
+                    && $goal->getTag() !== null
+                    && $goal->getTag()->getId() === $tag->getId()
+                ;
+            }
+        )->first();
+
+        if ($found === false) {
+            return null;
+        }
+
+        return $found;
     }
 }

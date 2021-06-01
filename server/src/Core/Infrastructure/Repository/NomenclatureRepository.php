@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Common\Pagination\DoctrineORMPaginator;
 use Proximum\Vimeet365\Common\Pagination\Pagination;
 use Proximum\Vimeet365\Common\Pagination\PaginatorInterface;
+use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature;
 use Proximum\Vimeet365\Core\Domain\Repository\NomenclatureRepositoryInterface;
 
@@ -88,5 +89,22 @@ class NomenclatureRepository extends ServiceEntityRepository implements Nomencla
         }
 
         $queryBuilder->addOrderBy("$alias.id", Criteria::DESC);
+    }
+
+    public function getFirstLevelNomenclatureQueryBuilder(Community $community): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('nomenclature');
+        $queryBuilder
+            ->andWhere('nomenclature.community = :community')
+            ->andWhere('nomenclature.id NOT IN (
+                            SELECT IDENTITY(nomenclatureTag.nomenclature)
+                            FROM ' . Nomenclature\NomenclatureTag::class . ' nomenclatureTag
+                            JOIN nomenclatureTag.nomenclature n
+                            WHERE nomenclatureTag.parent IS NOT NULL
+                              AND n.community = :community
+                        )')
+            ->setParameter('community', $community);
+
+        return $queryBuilder;
     }
 }

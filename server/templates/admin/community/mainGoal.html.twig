@@ -1,0 +1,20 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    {{ form(form) }}
+
+    {% if refineGoalForm is not null %}
+        <div>
+            <h3>Refine</h3>
+            {{ form(refineGoalForm) }}
+        </div>
+    {% endif %}
+
+    {% if matchingForm is not null %}
+        <div>
+            <h3>Matching</h3>
+
+            {{ form(matchingForm) }}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Core\Infrastructure\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature;
+use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature\NomenclatureTag;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Proximum\Vimeet365\Core\Domain\Repository\TagRepositoryInterface;
 
@@ -48,5 +51,24 @@ class TagRepository extends ServiceEntityRepository implements TagRepositoryInte
         ;
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getTagThatBelongToANomenclatureQueryBuilder(Nomenclature $nomenclature): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('tag');
+
+        $nomenclatureTag = NomenclatureTag::class;
+        $subQuery = <<<DQL
+            SELECT IDENTITY(nomenclatureTag.tag)
+            FROM {$nomenclatureTag} nomenclatureTag
+            WHERE nomenclatureTag.nomenclature = :nomenclature
+DQL;
+
+        $queryBuilder
+            ->andWhere($queryBuilder->expr()->in('tag.id', $subQuery))
+            ->setParameter('nomenclature', $nomenclature)
+        ;
+
+        return $queryBuilder;
     }
 }

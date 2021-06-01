@@ -55,7 +55,7 @@ class Community
     private Collection $members;
 
     /**
-     * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="community")
+     * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="community", cascade={"persist"}, orphanRemoval=true)
      *
      * @var Collection<int, Goal>
      */
@@ -115,6 +115,17 @@ class Community
     public function getGoals(): Collection
     {
         return $this->goals;
+    }
+
+    public function getMainGoal(): ?Goal
+    {
+        $mainGoal = $this->getGoals()->filter(fn (Goal $goal) => $goal->getParent() === null)->first();
+
+        if ($mainGoal === false) {
+            return null;
+        }
+
+        return $mainGoal;
     }
 
     public function join(Account $account): Member

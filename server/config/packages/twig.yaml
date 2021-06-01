@@ -2,3 +2,4 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes:
         - 'admin/common/form_theme.html.twig'
+        - 'admin/common/form/main_goal.html.twig'

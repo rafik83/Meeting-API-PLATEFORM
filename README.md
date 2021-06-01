@@ -292,4 +292,8 @@ Before converting your svg file into a svelte component you may need to clean it
 
 **E. Start storybook to see your icons under `Ui` section and check if it looks right.**
 
+## Glossary
+
+- **Refine main goals** : In this application when you choose a main goal you can add more information it (example: you want to buy satellite, the main goal is `buy` and your refined goal is `buy satellite`)
+
 ## Trounleshooting / FAQ

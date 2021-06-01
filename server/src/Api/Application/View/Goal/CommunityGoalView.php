@@ -20,7 +20,7 @@ class CommunityGoalView
 
     public function __construct(Goal $goal)
     {
-        $this->id = $goal->getId();
+        $this->id = (int) $goal->getId();
         $this->community = $goal->getCommunity()->getId();
         $this->nomenclature = NomenclatureView::create($goal->getNomenclature());
         $this->min = $goal->getMin();
