@@ -1,8 +1,8 @@
 <script>
-  import {getFileUploadReport} from '../modules/fileManagement';
-  import {_} from 'svelte-i18n';
-  import {createEventDispatcher} from 'svelte';
-  import IconClose from "../ui-kit/icons/IconClose/IconClose.svelte";
+  import { getFileUploadReport } from '../modules/fileManagement';
+  import { _ } from 'svelte-i18n';
+  import { createEventDispatcher } from 'svelte';
+  import IconClose from '../ui-kit/icons/IconClose/IconClose.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -45,7 +45,7 @@
     alt = fileList[0].name;
     let reader = new FileReader();
     reader.readAsDataURL(image);
-    reader.onload = e => {
+    reader.onload = (e) => {
       avatar = e.target.result;
     };
   };
@@ -56,7 +56,7 @@
     handleUploadFile(dataTransfer.files);
   };
 
-  const handleInputChange = ({target}) => {
+  const handleInputChange = ({ target }) => {
     handleUploadFile(target.files);
   };
 
@@ -68,15 +68,23 @@
 
   const handleDeleteAvatar = () => {
     avatar = '';
-  }
+  };
 </script>
 
 {#if avatar && !hasErrors(validationRepport)}
   <div class="mt-20 mb-5">
     <div class="flex justify-end items-end z-index-10">
-        <IconClose fill="#FFF" class="w-5 p-1 bg-community-300 rounded-xl cursor-pointer -mb-5" on:click={handleDeleteAvatar}/>
+      <IconClose
+        fill="#FFF"
+        class="w-5 p-1 bg-community-300 rounded-xl cursor-pointer -mb-5"
+        on:click={handleDeleteAvatar}
+      />
     </div>
-    <img src="{avatar}" alt="{alt}" class="w-40 h-40 rounded-full border-2 border-gray-50 right-5 bottom-0 object-cover"/>
+    <img
+      src={avatar}
+      {alt}
+      class="w-40 h-40 rounded-full border-2 border-gray-50 right-5 bottom-0 object-cover"
+    />
   </div>
 {/if}
 

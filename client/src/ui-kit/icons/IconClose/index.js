@@ -1,3 +1,3 @@
-import IconClose from "./IconClose.svelte";
+import IconClose from './IconClose.svelte';
 export { IconClose };
 export default IconClose;

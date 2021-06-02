@@ -4,7 +4,7 @@ import {
   GroupedTreeItem,
   groupTreeItemByParent,
   updatePrioritiesWithinGroupedTreeItems,
-} from '../modules/tagManagement';
+} from './tagManagement';
 import { buildFakeNomenclature, buildFakeTag } from '../__fixtures__/FakeTags';
 import { buildFakeTreeItem } from '../__fixtures__/TreeItem';
 

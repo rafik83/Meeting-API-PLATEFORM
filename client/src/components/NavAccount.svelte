@@ -13,7 +13,11 @@
 
 <div class="h-full pt-2 pb-3 px-3 flex hover:bg-gray-100">
   {#if user}
-    <button type="button" id="nav-button-account" class="w-80 h-full flex justify-between">
+    <button
+      type="button"
+      id="nav-button-account"
+      class="w-80 h-full flex justify-between"
+    >
       <div class="h-full flex">
         <IconUser width="38" fill="#c4cbdc" />
         <div

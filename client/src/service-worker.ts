@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 import { timestamp, files, shell } from '@sapper/service-worker';
 
 const ASSETS = `cache${timestamp}`;
@@ -47,6 +46,7 @@ async function fetchAndCache(request: Request) {
   } catch (err) {
     const response = await cache.match(request);
     if (response) return response;
+
     throw err;
   }
 }

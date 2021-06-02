@@ -1,6 +1,7 @@
 <script>
-  export let fill = "currentColor";
+  export let fill = 'currentColor';
 </script>
+
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 18.811 18.811"

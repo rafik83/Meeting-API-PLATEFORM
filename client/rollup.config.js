@@ -11,11 +11,9 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
-
 import dotenv from 'dotenv';
 
 dotenv.config();
-
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
@@ -33,12 +31,15 @@ export default {
     output: config.client.output(),
     plugins: [
       replace({
-        'process.browser': true,
-        'process.env.NODE_ENV': JSON.stringify(mode),
         preventAssignment: true,
+        values: {
+          'process.browser': true,
+          'process.env.NODE_ENV': JSON.stringify(mode),
+          'process.API_URL': process.env.API_URL,
+        },
       }),
       svelte({
-        preprocess: sveltePreprocess(),
+        preprocess: sveltePreprocess({ sourceMap: dev }),
         compilerOptions: {
           dev,
           hydratable: true,
@@ -50,7 +51,7 @@ export default {
       }),
       resolve({
         browser: true,
-        dedupe: ['svelte', 'svelte/transition', 'svelte/internal'],
+        dedupe: ['svelte'],
       }),
       commonjs(),
       typescript({ sourceMap: dev }),
@@ -95,14 +96,19 @@ export default {
     input: { server: config.server.input().server.replace(/\.js$/, '.ts') },
     output: config.server.output(),
     plugins: [
+      json({
+        compact: true,
+      }),
       replace({
-        'process.browser': false,
-        'process.env.NODE_ENV': JSON.stringify(mode),
-        'process.API_URL': process.env.API_URL,
         preventAssignment: true,
+        values: {
+          'process.browser': false,
+          'process.env.NODE_ENV': JSON.stringify(mode),
+          'process.API_URL': process.env.API_URL,
+        },
       }),
       svelte({
-        preprocess: sveltePreprocess(),
+        preprocess: sveltePreprocess({ sourceMap: dev }),
         compilerOptions: {
           dev,
           generate: 'ssr',
@@ -116,18 +122,14 @@ export default {
         emitFiles: false, // already emitted by client build
       }),
       resolve({
-        dedupe: ['svelte', 'svelte/transition', 'svelte/internal'],
+        dedupe: ['svelte'],
       }),
       commonjs(),
       typescript({ sourceMap: dev }),
-      json({
-        compact: true,
-      }),
     ],
     external: Object.keys(pkg.dependencies).concat(
       require('module').builtinModules
     ),
-
     preserveEntrySignatures: 'strict',
     onwarn,
   },
@@ -138,15 +140,16 @@ export default {
     plugins: [
       resolve(),
       replace({
-        'process.browser': true,
-        'process.env.NODE_ENV': JSON.stringify(mode),
         preventAssignment: true,
+        values: {
+          'process.browser': true,
+          'process.env.NODE_ENV': JSON.stringify(mode),
+        },
       }),
       commonjs(),
       typescript({ sourceMap: dev }),
       !dev && terser(),
     ],
-
     preserveEntrySignatures: false,
     onwarn,
   },
