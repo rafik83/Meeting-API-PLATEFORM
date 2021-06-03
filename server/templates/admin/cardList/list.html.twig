@@ -7,7 +7,7 @@
         <div class="collapse">
             <div class="data-table__header">
                 <div class="title">
-                    <h1>Community</h1>
+                    <h1>{{ 'admin.card-list.title'|trans }}</h1>
                 </div>
                 <div class="actions">
                     <button class="button button--neutral collapse__trigger animated-button animated-button--equalizer">
@@ -16,13 +16,15 @@
                             <div class="icon--equalizer__bar"></div>
                             <div class="icon--equalizer__bar"></div>
                         </div>
-                {{ 'admin.actions.filter'|trans }}
+                        Filtrer
                     </button>
+                    <a href="{{ path('admin_card_list_create', {communityId : community.id }) }}" class="button button--primary">{{ 'admin.actions.create'|trans }}</a>
                 </div>
             </div>
             <div class="data-table__filters collapse__menu">
                 <div class="filters">
                     {{ form_start(filtersForm) }}
+                        {{ form_row(filtersForm.community) }}
                         <button class="button button--primary">{{ 'admin.actions.filter'|trans }}</button>
                     {{ form_end(filtersForm) }}
                 </div>
@@ -33,19 +35,18 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>{{ macros.sortLink('admin.actions.sort_by_community'|trans, 'community.name') }}</th>
+                            <th>{{'admin.common.community_name' | trans}}</th>
+                            <th>{{'admin.card-list.list_name' | trans}}</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for community in pagination %}
+                        {% for cardList in pagination %}
                             <tr>
-                                <td>{{ community.name }}</td>
+                                <td>{{ cardList.community.name|default('') }}</td>
+                                <td>{{ cardList.title }}</td>
                                 <td class="action">
-                                    <a href="{{ path('admin_community_main_goal', {id: community.id}) }}">{{ 'admin.nomenclature.main_goal'|trans }}</a>
-                                </td>
-                                <td class="action">
-                                    <a href="{{ path('admin_card_list_list', {communityId: community.id}) }}">{{ 'admin.card-list.title'|trans }}</a>
+                                    <a href="{{ path('admin_card_list_edit', {communityId: cardList.community.id, id : cardList.id }) }}">{{ 'admin.actions.edit'|trans }}</a>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -1,12 +1,24 @@
 admin:
+    common:
+        community_name: Nom de la communauté
+        community: Communauté
+        log_out: Déconnexion
     dashboard:
         title: Dashboard
+    actions:
+            create: Créer
+            edit: Modifier
+            filter: Filtrer
+            sort_by_community: Trier par communauté
     nomenclature:
+        title: Nomenclature
+        main_goal: Objectif Principal
         list:
-            actions:
-                create: Créer
-                edit: Modifier
-                filter: Filtrer
             table:
                 community: Communauté
                 reference: Référence
+    card-list:
+        create-title: Créer des listes de cartes
+        edit-title: Modifier la liste de cartes
+        title: Card list
+        list_name: Nom de la liste

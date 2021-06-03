@@ -18,7 +18,7 @@
                         </div>
                         Filtrer
                     </button>
-                    <a href="{{ path('admin_nomenclature_create') }}" class="button button--primary">{{ 'admin.nomenclature.list.actions.create'|trans }}</a>
+                    <a href="{{ path('admin_nomenclature_create') }}" class="button button--primary">{{ 'admin.actions.create'|trans }}</a>
                 </div>
             </div>
             <div class="data-table__filters collapse__menu">
@@ -26,7 +26,7 @@
                     {{ form_start(filtersForm) }}
                         {{ form_row(filtersForm.community) }}
                         {{ form_row(filtersForm.reference) }}
-                        <button class="button button--primary">{{ 'admin.nomenclature.list.actions.filter'|trans }}</button>
+                        <button class="button button--primary">{{ 'admin.actions.filter'|trans }}</button>
                     {{ form_end(filtersForm) }}
                 </div>
             </div>
@@ -47,7 +47,7 @@
                                 <td>{{ nomenclature.community.name|default('') }}</td>
                                 <td>{{ nomenclature.reference }}</td>
                                 <td class="action">
-                                    <a href="{{ path('admin_nomenclature_edit', {id: nomenclature.id}) }}">{{ 'admin.nomenclature.list.actions.edit'|trans }}</a>
+                                    <a href="{{ path('admin_nomenclature_edit', {id: nomenclature.id}) }}">{{ 'admin.actions.edit'|trans }}</a>
                                 </td>
                             </tr>
                         {% endfor %}

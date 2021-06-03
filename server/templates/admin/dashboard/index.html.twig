@@ -4,6 +4,7 @@
     <h1>Dashboard</h1>
 
     <ul>
-        <li><a href="{{ path('admin_nomenclature_list') }}">Nomenclature</a></li>
+        <li><a href="{{ path('admin_nomenclature_list') }}">{{'admin.nomenclature.title'| trans}}</a></li>
+        <li><a href="{{ path('admin_card_list_list', {communityId : 1}) }}">{{'admin.card-list.title'| trans}}</a></li>
     </ul>
 {% endblock %}

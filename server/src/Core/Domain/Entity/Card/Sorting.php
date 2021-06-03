@@ -17,8 +17,8 @@ class Sorting extends ReadableEnum
     public static function readables(): array
     {
         return [
-            self::ALPHABETICAL => 'Ordre Alphabétique',
-            self::DATE => 'Date de création',
+            self::ALPHABETICAL => 'Alphabetical Order',
+            self::DATE => 'Date of creation',
         ];
     }
 }

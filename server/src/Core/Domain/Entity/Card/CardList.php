@@ -117,4 +117,15 @@ class CardList
     {
         return 10;
     }
+
+    /**
+     * @var CardType[]
+     */
+    public function update(int $position, Sorting $sorting, array $cardTypes, string $title): void
+    {
+        $this->position = $position;
+        $this->sorting = $sorting;
+        $this->cardTypes = $cardTypes;
+        $this->title = $title;
+    }
 }
