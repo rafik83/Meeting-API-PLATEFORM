@@ -7,6 +7,7 @@ namespace Proximum\Vimeet365\Core\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
 
 /**
@@ -61,6 +62,14 @@ class Community
      */
     private Collection $goals;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CardList::class, mappedBy="community")
+     * @ORM\OrderBy({"position" = "ASC"})
+     *
+     * @var Collection<int, CardList>
+     */
+    private Collection $cardLists;
+
     public function __construct(string $name, array $languages = ['en'], string $defaultLanguage = 'en')
     {
         $this->name = $name;
@@ -69,6 +78,7 @@ class Community
         $this->nomenclatures = new ArrayCollection();
         $this->members = new ArrayCollection();
         $this->goals = new ArrayCollection();
+        $this->cardLists = new ArrayCollection();
     }
 
     public function getId(): int
@@ -126,6 +136,22 @@ class Community
         }
 
         return $mainGoal;
+    }
+
+    /**
+     * @return Collection<int, CardList>
+     */
+    public function getCardLists(): Collection
+    {
+        return $this->cardLists;
+    }
+
+    /**
+     * @return Collection<int, CardList>
+     */
+    public function getPublishedCardLists(): Collection
+    {
+        return $this->getCardLists()->filter(fn (CardList $cardList): bool => $cardList->isPublished());
     }
 
     public function join(Account $account): Member

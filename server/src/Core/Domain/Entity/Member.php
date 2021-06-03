@@ -35,6 +35,7 @@ class Member
 
     /**
      * @ORM\OneToMany(targetEntity=Goal::class, mappedBy="member", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"priority" = "ASC"})
      *
      * @var Collection<int, Goal>
      */
@@ -89,5 +90,32 @@ class Member
     public function getJoinedAt(): \DateTimeImmutable
     {
         return $this->joinedAt;
+    }
+
+    /**
+     * @return Collection<int, Goal>
+     */
+    public function getMainGoals(): Collection
+    {
+        $data = $this->getGoals()
+            ->filter(fn (Goal $goal) => $goal->getCommunityGoal()->getParent() === null)
+            ->getValues()
+        ;
+
+        return new ArrayCollection($data);
+    }
+
+    /**
+     * @return Collection<int, Goal>
+     */
+    public function getRefinedGoals(Goal $mainGoal): Collection
+    {
+        $data = $this->getGoals()
+            ->filter(fn (Goal $goal) => $goal->getCommunityGoal()->getParent()?->getId() === $mainGoal->getCommunityGoal()->getId())
+            ->filter(fn (Goal $goal) => $goal->getPriority() !== null)
+            ->getValues()
+        ;
+
+        return new ArrayCollection($data);
     }
 }

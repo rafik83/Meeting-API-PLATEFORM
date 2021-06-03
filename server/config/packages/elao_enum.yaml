@@ -1,0 +1,9 @@
+elao_enum:
+    # Provide the enum classes for which you want to automatically generate & register Doctrine DBAL Types:
+    # https://github.com/Elao/PhpEnums#doctrine
+    doctrine:
+        types:
+            card_list_sorting: 'Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting'
+            card_list_card_types:
+                class: 'Proximum\Vimeet365\Core\Domain\Entity\Card\CardType'
+                type: csv_collection

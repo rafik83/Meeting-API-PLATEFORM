@@ -1,0 +1,33 @@
+Proximum\Vimeet365\Core\Domain\Entity\Card\Card:
+    attributes:
+        output: 'Proximum\Vimeet365\Api\Application\View\Card\CardView'
+    collectionOperations:
+        get:
+            path: "/card"
+        get_for_communities:
+            path: "/communities/{communityId}/lists/{id}"
+            method: get
+            controller: Proximum\Vimeet365\Api\Infrastructure\Controller\CardController::getCards
+    itemOperations:
+        get:
+            path: "/card/{id}"
+    properties:
+        id: { identifier: true }
+
+Proximum\Vimeet365\Core\Application\Card\MemberCard:
+    attributes:
+        output: 'Proximum\Vimeet365\Api\Application\View\Card\MemberCardView'
+    collectionOperations: []
+    itemOperations:
+        get: ~
+    properties:
+        id: { identifier: true }
+
+Proximum\Vimeet365\Core\Application\Card\CompanyCard:
+    attributes:
+        output: 'Proximum\Vimeet365\Api\Application\View\Card\CompanyCardView'
+    collectionOperations: [ ]
+    itemOperations:
+        get: ~
+    properties:
+        id: { identifier: true }

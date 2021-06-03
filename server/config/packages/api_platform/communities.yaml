@@ -18,3 +18,7 @@ Proximum\Vimeet365\Core\Domain\Entity\Community:
             subresource:
                 resourceClass: 'Proximum\Vimeet365\Core\Domain\Entity\Community\Goal'
                 collection: true
+        cardLists:
+            subresource:
+                resourceClass: 'Proximum\Vimeet365\Core\Domain\Entity\Card\CardList'
+                collection: true

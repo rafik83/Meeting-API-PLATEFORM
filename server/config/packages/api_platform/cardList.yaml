@@ -1,0 +1,11 @@
+Proximum\Vimeet365\Core\Domain\Entity\Card\CardList:
+    attributes:
+        output: 'Proximum\Vimeet365\Api\Application\View\CommunityCardListView'
+    collectionOperations:
+        get:
+            path: "/communityCardList"
+    itemOperations:
+        get:
+            path: "/communityCardList/{id}"
+    properties:
+        id: { identifier: true }

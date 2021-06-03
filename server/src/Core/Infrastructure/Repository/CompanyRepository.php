@@ -6,7 +6,9 @@ namespace Proximum\Vimeet365\Core\Infrastructure\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
+use Proximum\Vimeet365\Core\Domain\Entity\Member;
 use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;
 
 /**
@@ -55,6 +57,38 @@ class CompanyRepository extends ServiceEntityRepository implements CompanyReposi
         $queryBuilder
             ->indexBy('company', 'company.hubspotId')
             ->andWhere($queryBuilder->expr()->in('company.hubspotId', $hubspotIds))
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getSortedByName(Community $community, int $limit): array
+    {
+        $queryBuilder = $this->createQueryBuilder('company');
+        $queryBuilder
+            ->andWhere($queryBuilder->expr()->exists(
+                'SELECT m  FROM ' . Member::class . ' m JOIN m.account account 
+                WHERE m.community = :community AND account.company = company.id
+            '))
+            ->orderBy('company.name', 'ASC')
+            ->setParameter('community', $community)
+            ->setMaxResults($limit)
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getSortedByDate(Community $community, int $limit): array
+    {
+        $queryBuilder = $this->createQueryBuilder('company');
+        $queryBuilder
+            ->andWhere($queryBuilder->expr()->exists(
+                'SELECT m  FROM ' . Member::class . ' m JOIN m.account account 
+                WHERE m.community = :community AND account.company = company.id
+            '))
+            ->orderBy('company.createdAt', 'DESC')
+            ->setParameter('community', $community)
+            ->setMaxResults($limit)
         ;
 
         return $queryBuilder->getQuery()->getResult();

@@ -10,9 +10,11 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
+use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Member;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Proximum\Vimeet365\Core\Infrastructure\Repository\AccountRepository;
+use Proximum\Vimeet365\Core\Infrastructure\Repository\CommunityRepository;
 
 abstract class ApiTestCase extends ApiPlatformApiTestCase
 {
@@ -30,6 +32,17 @@ abstract class ApiTestCase extends ApiPlatformApiTestCase
         self::$client->getKernelBrowser()->loginUser(new SymfonyUser($account), 'main');
 
         return $account;
+    }
+
+    protected function getCommunity(string $name): Community
+    {
+        if (self::$container === null) {
+            self::$client = static::createClient();
+        }
+
+        $communityRepository = self::$container->get(CommunityRepository::class);
+
+        return $communityRepository->findOneByName($name);
     }
 
     protected function getAccount(string $email): Account

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Domain\Repository;
 
+use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
 
 interface CompanyRepositoryInterface
@@ -27,4 +28,14 @@ interface CompanyRepositoryInterface
      * @return array<string, Company> indexed by hubspotId
      */
     public function findByHubspotIds(array $hubspotIds = []): array;
+
+    /**
+     * @return Company[]
+     */
+    public function getSortedByName(Community $community, int $limit): array;
+
+    /**
+     * @return Company[]
+     */
+    public function getSortedByDate(Community $community, int $limit): array;
 }

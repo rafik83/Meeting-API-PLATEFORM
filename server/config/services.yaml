@@ -12,6 +12,10 @@ services:
         bind:
             $hubspotEnabled: '%env(bool:HUBSPOT_ENABLED)%'
 
+    _instanceof:
+        Proximum\Vimeet365\Core\Domain\Entity\Card\CardProviderInterface:
+            tags: [ 'app.card_provider' ]
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     Proximum\Vimeet365\:
@@ -111,6 +115,14 @@ services:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
+    Proximum\Vimeet365\Api\Infrastructure\OpenApi\RemoveEndpointDecorator:
+        decorates: 'api_platform.openapi.factory'
+        autoconfigure: false
+
+    Proximum\Vimeet365\Api\Infrastructure\OpenApi\CardEndpointDecorator:
+        decorates: 'api_platform.openapi.factory'
+        autoconfigure: false
+
     redis_session:
         class: \Predis\Client
         arguments:
@@ -126,3 +138,7 @@ services:
         class: HubSpot\Discovery\Discovery
         factory: ['HubSpot\Factory', 'createWithApiKey']
         arguments: ['%env(HUBSPOT_API_KEY)%']
+
+    Proximum\Vimeet365\Core\Application\Card\Provider\CardProvider:
+        arguments:
+            - !tagged_iterator app.card_provider

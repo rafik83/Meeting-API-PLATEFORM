@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Core\Domain\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Proximum\Vimeet365\Core\Infrastructure\Repository\CompanyRepository;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=CompanyRepository::class)
  */
 class Company
 {
@@ -53,6 +54,11 @@ class Company
      */
     private ?string $hubspotId = null;
 
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private \DateTimeImmutable $createdAt;
+
     public function __construct(
         string $name,
         string $countryCode,
@@ -66,6 +72,7 @@ class Company
         $this->domain = (string) parse_url($this->website, PHP_URL_HOST);
         $this->activity = $activity;
         $this->logo = $logo;
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -125,5 +132,10 @@ class Company
     public function setHubspotId(?string $hubspotId): void
     {
         $this->hubspotId = $hubspotId;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }

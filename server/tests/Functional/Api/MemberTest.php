@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Functional\Api;
 
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
-use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Infrastructure\Repository\CommunityRepository;
 use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 
 class MemberTest extends ApiTestCase
@@ -40,16 +38,5 @@ class MemberTest extends ApiTestCase
         self::assertJsonContains([
             '@type' => 'Member',
         ]);
-    }
-
-    protected function getCommunity(string $name): Community
-    {
-        if (self::$container === null) {
-            self::$client = static::createClient();
-        }
-
-        $communityRepository = self::$container->get(CommunityRepository::class);
-
-        return $communityRepository->findOneByName($name);
     }
 }

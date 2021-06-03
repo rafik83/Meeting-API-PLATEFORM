@@ -210,6 +210,19 @@ class Account
         $this->company = $company;
     }
 
+    public function getJobPosition(): ?Tag
+    {
+        return $this->jobPosition;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
+    }
+
     public function updateProfile(
         ?Tag $jobPosition,
         ?string $jobTitle,

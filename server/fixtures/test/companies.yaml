@@ -6,3 +6,9 @@ Proximum\Vimeet365\Core\Domain\Entity\Company:
             website: "http://proximum.events"
             activity: ""
         logo: "logo.png"
+    company_fairness:
+        __construct:
+            name: "Fairness"
+            countryCode: "FR"
+            website: "http://fairness.coop"
+            activity: ""
