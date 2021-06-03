@@ -37,7 +37,7 @@ class Nomenclature
     /**
      * @var Collection<int, NomenclatureTag>
      *
-     * @ORM\OneToMany(targetEntity=NomenclatureTag::class, mappedBy="nomenclature", cascade={"all"})
+     * @ORM\OneToMany(targetEntity=NomenclatureTag::class, mappedBy="nomenclature", cascade={"all"}, orphanRemoval=true)
      */
     private Collection $tags;
 
@@ -96,8 +96,15 @@ class Nomenclature
             $parentNomenclatureTag = $parentNomenclatureTag === false ? null : $parentNomenclatureTag;
         }
 
-        $nomenclatureTag = new NomenclatureTag($this, $tag, $parentNomenclatureTag, $externalId ?? $tag->getExternalId());
+        $nomenclatureTag = $this->tags->filter(fn (NomenclatureTag $nomenclatureTag): bool => $nomenclatureTag->getTag()->getExternalId() === $tag->getExternalId())->first();
 
+        if ($nomenclatureTag !== false) {
+            $nomenclatureTag->update($parentNomenclatureTag, $externalId);
+
+            return $nomenclatureTag;
+        }
+
+        $nomenclatureTag = new NomenclatureTag($this, $tag, $parentNomenclatureTag, $externalId ?? $tag->getExternalId());
         $this->tags->add($nomenclatureTag);
 
         return $nomenclatureTag;

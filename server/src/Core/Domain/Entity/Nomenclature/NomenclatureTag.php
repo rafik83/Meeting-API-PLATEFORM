@@ -182,4 +182,10 @@ class NomenclatureTag
 
         $this->translations->set($locale, new NomenclatureTagTranslation($this, $locale, $label));
     }
+
+    public function update(?NomenclatureTag $parent, ?string $externalId): void
+    {
+        $this->parent = $parent;
+        $this->externalId = $externalId ?? $this->tag->getExternalId();
+    }
 }

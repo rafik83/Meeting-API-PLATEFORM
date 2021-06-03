@@ -61,7 +61,11 @@ class Importer
             $this->data[] = ['id' => $id, 'tag' => $tag, 'parent' => $parent, 'translations' => $labels];
         }
 
-        $nomenclature->getTags()->clear();
+        $tagsId = array_map(fn (Tag $tag) => $tag->getId(), array_column($this->data, 'tag', 'id'));
+        $tagsToRemove = $nomenclature->getTags()->filter(fn (NomenclatureTag $nt) => !\in_array($nt->getTag()->getId(), $tagsId, true));
+        foreach ($tagsToRemove as $tagToRemove) {
+            $nomenclature->removeTag($tagToRemove->getTag());
+        }
 
         foreach ($this->data as $row) {
             $nomenclatureTag = $nomenclature->addTag($row['tag'], $row['parent'], $row['id']);

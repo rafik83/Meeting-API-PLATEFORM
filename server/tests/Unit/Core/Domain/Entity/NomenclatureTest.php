@@ -29,6 +29,20 @@ class NomenclatureTest extends TestCase
         self::assertNotNull($nomenclature->getTags()->getValues()[1]->getParent());
     }
 
+    public function testUpdateTags(): void
+    {
+        $nomenclature = new Nomenclature('My Nomenclature');
+
+        $rootTag = new Tag(null, 'My Tag');
+        $childTag = new Tag('2', 'My Tag');
+
+        $nomenclature->addTag($rootTag);
+        $nomenclature->addTag($childTag, $rootTag);
+        $nomenclature->addTag($childTag, $rootTag);
+
+        self::assertCount(2, $nomenclature->getTags());
+    }
+
     public function testRemoveTag(): void
     {
         $nomenclature = new Nomenclature('My Nomenclature');
