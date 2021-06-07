@@ -60,7 +60,7 @@ steps:
                      --data '{
                    "repository": "proximum/vimeet365",
                    "provider": "github",
-                   "job_name": "build",
+                   "job_name": "client",
                    "head_sha": "$COMMIT_SHA",
                    "state": "success"
                    }')"
