@@ -8,6 +8,9 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
+use Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
@@ -66,6 +69,15 @@ class CommunityContext implements Context
         $this->doctrine->flush();
     }
 
+    private function createCommunityCardList($community)
+    {
+        $cardList = new CardList($community, 'My nice card list', [CardType::get(CardType::MEMBER), CardType::get(CardType::COMPANY)], Sorting::get(Sorting::ALPHABETICAL));
+        $cardList->publish();
+
+        $this->doctrine->persist($cardList);
+        $this->doctrine->flush();
+    }
+
     /**
      * @Given the aerospace community is created
      */
@@ -74,6 +86,8 @@ class CommunityContext implements Context
         $community = new Community('aerospace');
         $this->doctrine->persist($community);
         $this->doctrine->flush();
+
+        $this->createCommunityCardList($community);
     }
 
     /**

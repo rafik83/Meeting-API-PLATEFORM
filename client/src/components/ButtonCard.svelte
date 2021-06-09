@@ -1,6 +1,7 @@
 <script>
   export let type = 'button';
   export let kind = 'primary';
+  export let id = '';
   let style;
 
   if (kind === 'primary') {
@@ -17,9 +18,10 @@
 </script>
 
 <button
+  {id}
   on:click|preventDefault
   {type}
-  class="w-auto text-sm font-semibold rounded-xl h-12 px-4 {style}"
+  class="w-auto cursor-pointer text-sm font-semibold rounded-xl h-12 px-4 {style}"
 >
   <slot>Button</slot>
 </button>

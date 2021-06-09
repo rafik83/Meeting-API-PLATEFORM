@@ -11,9 +11,11 @@
   import IconArrowRight from '../ui-kit/icons/IconArrowRight/IconArrowRight.svelte';
   import IconArrowLeft from '../ui-kit/icons/IconArrowLeft/IconArrowLeft.svelte';
   import { v4 as uuidv4 } from 'uuid';
+  import { CARD_KIND } from '../constants';
+  import CompanyCard from './CompanyCard.svelte';
 
   export let id = 'slider-' + uuidv4();
-  export let memberDataForCards = [];
+  export let cards = [];
   export let title;
   let slider;
   let sliderInfos;
@@ -48,7 +50,7 @@
 </script>
 
 <div class="w-full mt-10">
-  <div class="ml-28 flex items-center">
+  <div class="md:ml-28 ml-5 flex items-center">
     <H2>{title}</H2>
     <IconArrowRight width="7" class="ml-3" />
   </div>
@@ -61,10 +63,16 @@
     slidesToDisplay="4"
     bind:slider
   >
-    {#each memberDataForCards as data}
-      <div class="w-full flex items-center md:justify-start justify-center">
-        <MemberCard {...data} />
-      </div>
+    {#each cards as card}
+      {#if card.kind == CARD_KIND.member}
+        <div class="w-full flex items-center md:justify-start justify-center">
+          <MemberCard on:meet_member on:view_member_profile {...card} />
+        </div>
+      {:else}
+        <div class="w-full flex items-center md:justify-start justify-center">
+          <CompanyCard on:generate_new_leads {...card} />
+        </div>
+      {/if}
     {/each}
 
     <button

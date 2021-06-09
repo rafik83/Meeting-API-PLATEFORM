@@ -37,15 +37,27 @@ const callBack: ListenCallback = () => {};
 
 const app = polka();
 
+/*
+  Place here the middleware that must be configured first
+*/
 app.use(
   //@ts-ignore
-  cookieParser(),
+  cookieParser()
+);
+
+/*
+  Place here custom middleware (the middleware we've built ourselves)
+*/
+app.use(
   addLocaleToRequest(),
   i18nMiddleware(),
   communityMiddleWare(),
   authentificationMiddleWare()
 );
 
+/*
+  Those are middleware used by Sapper
+*/
 app.use(
   //@ts-ignore
   compression({ threshold: 0 }),

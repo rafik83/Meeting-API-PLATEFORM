@@ -34,7 +34,7 @@
     "hello": "Hello",
     "please_sign_in": "Please sign in",
     "no_account": "Still don't have an account ?",
-    "title": "Lets Start!",
+    "title": "Let's Start!",
     "create_account": "Create account",
     "subtitle": "Create account",
     "lastname": "Lastname",
@@ -78,6 +78,7 @@
     "select_company": "Select your company",
     "your_company_is": "Your company is:",
     "cant_find_company_in_list": "Can't find your company in the list?",
+    "cant_find_company": "Can't find your company ?",
     "you_can_create_it": "You can create it.",
     "register_my_company": "Register my company",
     "looking_for_companies": "Please wait, we are looking for your company."

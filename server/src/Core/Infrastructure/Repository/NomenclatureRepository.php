@@ -35,6 +35,11 @@ class NomenclatureRepository extends ServiceEntityRepository implements Nomencla
         return $this->findOneBy(['reference' => Nomenclature::JOB_POSITION_NOMENCLATURE, 'community' => null]);
     }
 
+    public function findGoalsAndObjectivesNomenclature(): ?Nomenclature
+    {
+        return $this->findOneBy(['reference' => Nomenclature::GOAL_AND_OBJECTIVES_NOMENCLATURE, 'community' => null]);
+    }
+
     public function add(Nomenclature $nomenclature): void
     {
         $this->getEntityManager()->persist($nomenclature);

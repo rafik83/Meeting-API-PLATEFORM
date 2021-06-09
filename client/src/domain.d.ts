@@ -3,6 +3,8 @@ export type Credentials = {
   password: string;
 };
 
+export type SupportedLanguages = 'fr' | 'en';
+
 export type User = {
   firstName: string;
   lastName: string;
@@ -94,4 +96,34 @@ export type Video = {
 export type VideoSource = {
   source: string;
   type: string;
+};
+
+export type CompanyCard = {
+  kind: string;
+  picture: string;
+  name: string;
+  activity: string;
+  id: number;
+};
+
+export type MemberCard = {
+  kind: string;
+  firstName: string;
+  lastName: string;
+  id: number;
+  picture: string;
+  companyName: string;
+  languageCodes: Array<string>;
+  mainGoal: Tag;
+  secondaryGoal: Tag;
+  jobPosition: string;
+  goals: Array<Tag>;
+};
+
+export type Card = CompanyCard | MemberCard;
+
+export type CommunityList = {
+  id: string;
+  position: number;
+  title: string;
 };

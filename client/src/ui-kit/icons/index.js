@@ -25,3 +25,4 @@ export { IconPlay } from './IconPlay';
 export { IconQuestionMark } from './IconQuestionMark';
 export { IconCompany } from './IconCompany';
 export { IconClose } from './IconClose';
+export { IconPicturePlaholder } from './IconPicturePlaholder';

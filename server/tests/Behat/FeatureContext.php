@@ -109,4 +109,18 @@ class FeatureContext extends MinkContext implements Context
         $message = "The text '$textContent' was not found in '$cssSelector' after a 7 seconds timeout";
         throw new ResponseTextException($message, $this->getSession());
     }
+
+    /**
+     * Presses button  with specified id|name|title|alt|value n times
+     * Example: Then I press "Log In" 3 times
+     * Example: And I press "Log In" 3 times
+     *
+     * @Then I press :button :timesCount times
+     */
+    public function iPressTimes(string $button, int $timesCount)
+    {
+        for ($i = 1; $i <= $timesCount; ++$i) {
+            $this->pressButton($button);
+        }
+    }
 }

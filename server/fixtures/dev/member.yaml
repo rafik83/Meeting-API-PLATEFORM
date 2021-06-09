@@ -1,0 +1,15 @@
+Proximum\Vimeet365\Core\Domain\Entity\Member:
+    member_1:
+        __construct:
+            community: '@community_1'
+            account: '@user_completed'
+
+    member_2:
+        __construct:
+            community: '@community_1'
+            account: '@user_joined'
+    
+    member_3:
+        __construct:
+            community: '@community_1'
+            account: '@user_fairness'

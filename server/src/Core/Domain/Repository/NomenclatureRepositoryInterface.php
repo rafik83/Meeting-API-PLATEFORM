@@ -14,6 +14,8 @@ interface NomenclatureRepositoryInterface
 
     public function findJobPositionNomenclature(): ?Nomenclature;
 
+    public function findGoalsAndObjectivesNomenclature(): ?Nomenclature;
+
     public function add(Nomenclature $nomenclature): void;
 
     /**

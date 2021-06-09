@@ -94,6 +94,7 @@
     "tailwindcss-break": "^1.0.0",
     "tailwindcss-multi-column": "^1.0.2",
     "tailwindcss": "^2.1.2",
+    "tailwindcss-gradients": "^3.0.0",
     "ts-jest": "^26.5.3"
   },
   "jest": {

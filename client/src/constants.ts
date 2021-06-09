@@ -4,7 +4,7 @@ type RegistrationSteps = {
 
 export const registrationSteps: RegistrationSteps = {
   SIGN_UP: 'signUp',
-  SIGN_IN: 'signIn',
+  SIGN_IN: 'Sign in',
 };
 
 type Sizes = {
@@ -17,4 +17,14 @@ export const sizes: Sizes = {
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
+};
+
+type CardKind = {
+  member: string;
+  company: string;
+};
+
+export const CARD_KIND: CardKind = {
+  member: 'member',
+  company: 'company',
 };

@@ -104,7 +104,9 @@ class Account
         string $password,
         string $firstName,
         string $lastName,
-        ?int $vimeetId = null
+        ?int $vimeetId = null,
+        array $languages = [],
+        ?Tag $jobPosition = null,
     ) {
         $this->email = $email;
         $this->password = $password;
@@ -113,6 +115,8 @@ class Account
         $this->vimeetId = $vimeetId;
 
         $this->members = new ArrayCollection();
+        $this->languages = $languages;
+        $this->jobPosition = $jobPosition;
 
         $this->acceptedTermsAndCondition();
     }

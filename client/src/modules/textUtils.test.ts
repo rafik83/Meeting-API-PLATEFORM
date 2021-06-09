@@ -1,6 +1,6 @@
-import { capitalize } from './textUtils';
+import { capitalize, ellipse, slugify } from './textUtils';
 
-describe('templateUtils', () => {
+describe('textUtils', () => {
   describe('capitalize', () => {
     it('should capitalize one letter', () => {
       const expectedResult = 'T';
@@ -15,6 +15,34 @@ describe('templateUtils', () => {
     it('should capitalize each words of sentence', () => {
       const expectedResult = 'Hello World Of Letters';
       const result = capitalize('hello world of letters');
+      expect(result).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe('slugify', () => {
+    it('should slugify a sentence', () => {
+      const expectedResult = 'my-generation';
+      const result = slugify('my generation ');
+      expect(result).toStrictEqual(expectedResult);
+    });
+
+    it('should slugify a sentence and replace spacial chars', () => {
+      const expectedResult = 'my-generation-dollar';
+      const result = slugify('my generation $');
+      expect(result).toStrictEqual(expectedResult);
+    });
+
+    it('should slugify a sentence and remove spacial chars', () => {
+      const expectedResult = 'my-generation';
+      const result = slugify('my gener``ation');
+      expect(result).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe('ellipse', () => {
+    it('should ellipse a long text', () => {
+      const expectedResult = 'a very [...]';
+      const result = ellipse('a very long text', 7);
       expect(result).toStrictEqual(expectedResult);
     });
   });

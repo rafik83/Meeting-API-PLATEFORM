@@ -28,7 +28,7 @@ module.exports = {
       sso: {
         vimeet: '#2D9BD8',
         linkedin: '#1582BB',
-      }
+      },
     },
     extend: {
       colors: {},
@@ -46,8 +46,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [
-    require('tailwindcss-break')(),
-    require('tailwindcss-multi-column')(),
-  ],
+  plugins: [require('tailwindcss-break'), require('tailwindcss-multi-column')],
 };

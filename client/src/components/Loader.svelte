@@ -1,9 +1,10 @@
 <script>
   import { _ } from 'svelte-i18n';
   import IconLoader from '../ui-kit/icons/IconLoader/IconLoader.svelte';
-  export let title = $_('messages.loading');
-  export let message = '';
+
   export let withTitle = true;
+  export let message = '';
+  export let title = $_('messages.loading');
 </script>
 
 <div

@@ -1,0 +1,63 @@
+Proximum\Vimeet365\Core\Domain\Entity\Account:
+    user_1:
+        __construct:
+            email: 'user@example.com'
+            password: <{password}>
+            firstName: 'Macha'
+            lastName: 'LaMatcha'
+            vimeetId: null
+            languages: 
+                    - 'EN'
+    user_2:
+        __construct:
+            email: 'john@example.com'
+            password: <{password}>
+            firstName: 'John'
+            lastName: 'Doe'
+            vimeetId: null
+            languages: 
+                    - 'EN'
+            
+
+    user_completed:
+        __construct:
+            email: 'jane@example.com'
+            password: <{password}>
+            firstName: 'Member'
+            lastName: 'Doe'
+            vimeetId: null
+            jobPosition: "@tag_job_system_engineer"
+            languages: 
+                    - 'EN'
+            
+        company: "@company_proximum"
+        avatar: 'https://i.picsum.photos/id/866/200/200.jpg?blur=5&hmac=GoCrTM0EMm1mdittEV9dQqn2hWjG0R7SNkXEPK8ErmE'
+
+    user_joined:
+        __construct:
+            email: 'joined@example.com'
+            password: <{password}>
+            firstName: 'Elon'
+            lastName: 'Musk'
+            vimeetId: null
+            languages: 
+                    - 'EN'
+                    - 'FR'
+            jobPosition : "@tag_job_system_engineer"
+        company: "@company_proximum"
+        avatar: 'https://i.picsum.photos/id/866/200/200.jpg?blur=5&hmac=GoCrTM0EMm1mdittEV9dQqn2hWjG0R7SNkXEPK8ErmE'
+
+            
+    user_fairness:
+        __construct:
+            email: 'user-fairness@example.com'
+            password: <{password}>
+            firstName: 'Jean'
+            lastName: 'de la Coop'
+            vimeetId: null
+            languages: 
+                - 'FR'
+            jobPosition : "@tag_job_system_engineer"
+        company: "@company_fairness"
+        avatar: 'https://i.picsum.photos/id/866/200/200.jpg?blur=5&hmac=GoCrTM0EMm1mdittEV9dQqn2hWjG0R7SNkXEPK8ErmE'
+

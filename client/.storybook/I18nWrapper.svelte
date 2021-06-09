@@ -7,13 +7,13 @@
   import { addMessages, init } from 'svelte-i18n';
 
   init({
-    fallbackLocale: 'fr',
-    initialLocale: 'fr',
+    fallbackLocale: 'en',
+    initialLocale: 'en',
   });
 
-  import fr from '../src/messages/fr.json';
+  import en from '../src/messages/en.json';
 
-  addMessages('fr', fr);
+  addMessages('en', en);
 </script>
 
 <svelte:component this={child} {...props} />

@@ -1,4 +1,10 @@
-import type { CommunityGoal, MemberGoal, Tag } from '../domain';
+import type {
+  Card,
+  CommunityGoal,
+  CommunityList as CommunityCardList,
+  MemberGoal,
+  Tag,
+} from '../domain';
 import { get } from '../modules/axios';
 import { getTagsFromNomenclature } from '../modules/tagManagement';
 
@@ -32,5 +38,27 @@ export const getCommunityGoals = async (
   const result = (
     await get<Array<MemberGoal>>(`/communities/${communityId}/goals`)
   ).data;
+  return result;
+};
+
+export const getCommunityLists = async (
+  communityId: number
+): Promise<Array<CommunityCardList>> => {
+  const result = (
+    await get<Array<CommunityCardList>>(
+      `/communities/${communityId}/card_lists`
+    )
+  ).data;
+  return result;
+};
+
+export const getCommunityCards = async (
+  communityId: number,
+  listId: number
+): Promise<Array<Card>> => {
+  const result = (
+    await get<Array<Card>>(`/communities/${communityId}/lists/${listId}`)
+  ).data;
+
   return result;
 };
