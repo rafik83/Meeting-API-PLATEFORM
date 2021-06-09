@@ -85,6 +85,7 @@
         label={$_('registration.remember_me')}
       />
       <button
+        id="sign_in_button"
         on:click|preventDefault={handleSubmitForm}
         type="submit"
         class="w-full text-sm text-gray-50 font-semi-bold my-5 rounded-lg h-12  bg-gray-400"

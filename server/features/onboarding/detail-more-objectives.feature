@@ -6,11 +6,13 @@ Feature:
 Background:
     Given the database is purged
     And the user "john@example.com" is created
-    And as "john@example.com" I want to join aerospacial community
+    And the aerospace community is created
+    And all the required nomenclature are created for the community "aerospace"
+    And as "john@example.com" I want to join aerospace community
     And these are my main objectives:
-    |tagId   | tagName                            |
-    |  3     | Buy      |
-    |  4     | Sell     |
+    | tagName  |
+    | Buy      |
+    | Sell     |
     When I go to "/en"
     And I sign in as "john@example.com"
 

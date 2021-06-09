@@ -6,6 +6,7 @@ default:
                 - Proximum\Vimeet365\Tests\Behat\DataBaseContext
                 - Proximum\Vimeet365\Tests\Behat\AccountContext
                 - Proximum\Vimeet365\Tests\Behat\CommunityContext
+                - Proximum\Vimeet365\Tests\Behat\NomenclatureContext
     extensions:
         FriendsOfBehat\SymfonyExtension:
             bootstrap: 'tests/bootstrap.php'

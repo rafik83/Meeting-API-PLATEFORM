@@ -5,8 +5,10 @@ Feature:
 
 Background: DB is empty and aerospatial user exists
         Given the database is purged
+        And the aerospace community is created
         And the user "jane@vimeet.events" is created
-        And I want to join aerospacial community
+        And all the required nomenclature are created for the community "aerospace"
+        And as "jane@vimeet.events" I want to join aerospace community
         And the company "Vimeet Events" ("http://vimeet.events") has been already registered
         When I go to "/en"
         And I sign in as "jane@vimeet.events"

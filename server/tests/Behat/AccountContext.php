@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Behat;
 
 use Behat\Behat\Context\Context;
-use Proximum\Vimeet365\Api\Application\Command\Account\RegistrationCommand;
-use Proximum\Vimeet365\Common\Messenger\CommandBusInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Proximum\Vimeet365\Core\Domain\Entity\Account;
+use Proximum\Vimeet365\Core\Domain\Repository\AccountRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;
+use Proximum\Vimeet365\Core\Domain\Repository\NomenclatureRepositoryInterface;
 
 /**
  * This context class contains the definitions of the steps used by the demo
@@ -16,11 +20,13 @@ use Proximum\Vimeet365\Common\Messenger\CommandBusInterface;
  */
 class AccountContext implements Context
 {
-    private CommandBusInterface $bus;
-
-    public function __construct(CommandBusInterface $bus)
+    public function __construct(
+        private AccountRepositoryInterface $accountRepository,
+        private NomenclatureRepositoryInterface $nomenclatureRepository,
+        private EntityManagerInterface $doctrine,
+        private CommunityRepositoryInterface $communityRepository,
+        private CompanyRepositoryInterface $companyRepository)
     {
-        $this->bus = $bus;
     }
 
     /**
@@ -28,13 +34,13 @@ class AccountContext implements Context
      */
     public function create(string $email)
     {
-        $command = new RegistrationCommand();
-        $command->firstName = 'John';
-        $command->lastName = 'Doe';
-        $command->email = $email;
-        $command->password = 'password';
-        $command->acceptedTermsAndCondition = true;
+        $company = $this->companyRepository->findOneByDomain('vimeet.events');
 
-        $this->bus->handle($command);
+        $account = new Account($email, 'password', 'John', 'Doe', null, ['FR', 'EN']);
+
+        if (!\is_null($company)) {
+            $account->setCompany($company);
+        }
+        $this->doctrine->persist($account);
     }
 }

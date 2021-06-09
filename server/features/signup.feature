@@ -40,7 +40,8 @@ Feature:
 
     Scenario: I can sign up as John Doe
         Given the database is purged
-        And I want to join aerospacial community
+        And the aerospace community is created
+        And all the required nomenclature are created for the community "aerospace"
         When I go to "/en"
         And I press "menu-responsive"
         And I wait until I can click on "#join-community"
@@ -51,4 +52,4 @@ Feature:
         And I fill in "password" with "password"
         And I check "acceptedTermsAndCondition"
         And I press "Signup"
-        Then I wait until I see "Signin" in "header h2"
+        Then I wait until I see "Sign in" in "header h2"

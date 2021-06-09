@@ -16,6 +16,7 @@ use Proximum\Vimeet365\Core\Infrastructure\Repository\NomenclatureRepository;
 class Nomenclature
 {
     public const JOB_POSITION_NOMENCLATURE = 'job_position';
+    public const GOAL_AND_OBJECTIVES_NOMENCLATURE = 'goal_and_objectives';
 
     /**
      * @ORM\Id

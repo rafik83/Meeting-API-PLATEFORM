@@ -5,8 +5,10 @@ Feature:
 
     Background: DB is empty and aerospatial user exists
         Given the database is purged
+        And the aerospace community is created
         And the user "john@example.com" is created
-        And I want to join aerospacial community
+        And all the required nomenclature are created for the community "aerospace"
+        And as "john@example.com" I want to join aerospace community
         When I go to "/en"
         And I sign in as "john@example.com"
         And I wait until I see "John Doe" in "h2"
