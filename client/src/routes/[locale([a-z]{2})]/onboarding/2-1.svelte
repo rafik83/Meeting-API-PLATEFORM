@@ -46,6 +46,7 @@
   import { onMount } from 'svelte';
 
   export let user;
+  let errorMessage;
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -78,12 +79,15 @@
   const handleCompanyData = async () => {
     try {
       if (!selectedCompany) {
+        errorMessage = $_(`registration.please_create_your_company`);
         return;
       }
-      const validationErrors = await isCompanyValid(selectedCompany);
+
       selectedCompanyStore.updateCompanyData(selectedCompany);
+      const validationErrors = await isCompanyValid(selectedCompany);
+
       if (validationErrors) {
-        // if there are validation errors that means the comany was not fullyfilled
+        // if there are validation errors that means the company was not fullyfilled
         // So we redirect the user to company form page so that he can complete the company information
         selectedCompanyStore.updateStatus(false);
         await goto(toOnboardingStep('2-2'));
@@ -125,6 +129,7 @@
       </div>
     {:else}
       <CompanySelector
+        {errorMessage}
         on:create_company={createNewCompany}
         bind:selectedCompany
         {companies}

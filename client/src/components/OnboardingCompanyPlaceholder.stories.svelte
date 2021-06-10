@@ -13,3 +13,10 @@
 </Template>
 
 <Story name="Basic" />
+
+<Story
+  name="Errored"
+  args={{
+    errrored: true,
+  }}
+/>

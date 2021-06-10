@@ -27,7 +27,8 @@
     "wrong_url": "Ce doit être une URL valide",
     "not_enough_tag_selected": "{value, plural, =0{Veuillez sélectionner {value} tag} one{Veuillez sélectionner {value} tag} other{# Veuillez sélectionner encore {value} tags}}",
     "one_language_required": "Veuillez sélectionner au moins une langue",
-    "company_not_found": "Désolé, nous n'avons pas trouvé votre entreprise"
+    "company_not_found": "Désolé, nous n'avons pas trouvé votre entreprise",
+    "please_create_your_company": "Veuillez créer votre entreprise avant de continuer"
   },
   "registration": {
     "welcome": "Bienvenue !",

@@ -17,10 +17,12 @@ const createSelectedCompany = () => {
   return {
     subscribe,
     updateCompanyData: (company: Company) => {
-      update((companyStoreData) => ({
-        ...companyStoreData,
-        companyData: company,
-      }));
+      if (company) {
+        update((companyStoreData) => ({
+          ...companyStoreData,
+          companyData: company,
+        }));
+      }
     },
     resetCompanyData: () => {
       update((companyStoreData) => ({

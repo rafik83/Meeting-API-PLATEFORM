@@ -81,7 +81,8 @@
     "cant_find_company": "Can't find your company ?",
     "you_can_create_it": "You can create it.",
     "register_my_company": "Register my company",
-    "looking_for_companies": "Please wait, we are looking for your company."
+    "looking_for_companies": "Please wait, we are looking for your company.",
+    "please_create_your_company": "Please create you company before continue"
   },
   "onboarding": {
     "title": "Vimeet365 - Onboarding",
