@@ -31,7 +31,7 @@ After this step you may need to restart your machine.
 These dependencies are required to run the app
 
 ```
-php8.0-intl php8.0-gd php8.0-xml php8.0-curl php8.0-pgsql php8.0-mbstring php8.0-apcu
+php8.0-intl php8.0-gd php8.0-xml php8.0-curl php8.0-pgsql php8.0-mbstring php8.0-apcu php8.0-cli
 ```
 
 #### Create your local env
