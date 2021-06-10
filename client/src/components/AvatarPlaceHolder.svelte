@@ -1,11 +1,14 @@
 <script>
+  import { toMemberPage } from '../modules/routing';
+
   export let isOnline = null;
   export let firstName;
   export let lastName;
+  export let id;
 </script>
 
 <div class="relative">
-  <a href="http://"
+  <a href={toMemberPage(id)}
     ><div
       class="rounded-full flex  justify-center font-black items-center text-gray-50  bg-community-100 text-3xl w-32 h-32"
     >

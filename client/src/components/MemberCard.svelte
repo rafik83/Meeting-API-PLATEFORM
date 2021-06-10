@@ -44,7 +44,7 @@
             {id}
           />
         {:else}
-          <AvatarPlaceHolder {firstName} {lastName} />
+          <AvatarPlaceHolder {id} {firstName} {lastName} />
         {/if}
       </div>
       <div class="w-2/4 pl-4">
