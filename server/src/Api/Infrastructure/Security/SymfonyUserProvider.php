@@ -21,6 +21,11 @@ class SymfonyUserProvider implements UserProviderInterface, PasswordUpgraderInte
 
     public function loadUserByUsername(string $username): SymfonyUser
     {
+        return $this->loadUserByIdentifier($username);
+    }
+
+    public function loadUserByIdentifier(string $username): SymfonyUser
+    {
         $account = $this->accountRepository->findOneBy(['email' => $username]);
 
         if ($account === null) {
@@ -32,7 +37,7 @@ class SymfonyUserProvider implements UserProviderInterface, PasswordUpgraderInte
 
     public function refreshUser(UserInterface $user)
     {
-        return $this->loadUserByUsername($user->getUsername());
+        return $this->loadUserByIdentifier($user->getUserIdentifier());
     }
 
     public function supportsClass(string $class): bool

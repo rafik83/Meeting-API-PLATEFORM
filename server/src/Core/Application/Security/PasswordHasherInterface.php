@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Application\Security;
 
-interface PasswordEncoderInterface
+interface PasswordHasherInterface
 {
-    public function encode(string $password): string;
+    public function hash(string $password): string;
 }

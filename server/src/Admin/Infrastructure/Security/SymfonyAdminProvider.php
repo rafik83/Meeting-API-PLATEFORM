@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Admin\Infrastructure\Security;
 
 use Proximum\Vimeet365\Core\Infrastructure\Repository\AdminRepository;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -21,10 +21,15 @@ class SymfonyAdminProvider implements UserProviderInterface, PasswordUpgraderInt
 
     public function loadUserByUsername(string $username): SymfonyAdmin
     {
+        return $this->loadUserByIdentifier($username);
+    }
+
+    public function loadUserByIdentifier(string $username): SymfonyAdmin
+    {
         $admin = $this->adminRepository->findOneBy(['email' => $username]);
 
         if ($admin === null) {
-            throw new UsernameNotFoundException(sprintf('Unable to find the user %s', $username));
+            throw new UserNotFoundException(sprintf('Unable to find the user %s', $username));
         }
 
         return new SymfonyAdmin($admin);
@@ -32,7 +37,7 @@ class SymfonyAdminProvider implements UserProviderInterface, PasswordUpgraderInt
 
     public function refreshUser(UserInterface $user)
     {
-        return $this->loadUserByUsername($user->getUsername());
+        return $this->loadUserByIdentifier($user->getUserIdentifier());
     }
 
     public function supportsClass(string $class): bool

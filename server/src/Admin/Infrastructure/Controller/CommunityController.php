@@ -44,12 +44,16 @@ class CommunityController extends AbstractController
 
         $filtersForm->handleRequest($request);
 
+        if ($request->query->has('sort')) {
+            $sort = (string) $request->query->get('sort');
+        }
+
         $pagination = $this->queryBus->handle(
             new ListQuery(
                 $pagination,
                 $filtersForm->getData(),
-                $request->query->get('sort'),
-                $request->query->get('sortDirection', 'ASC')
+                $sort ?? null,
+                (string) $request->query->get('sortDirection', 'ASC')
             )
         );
 

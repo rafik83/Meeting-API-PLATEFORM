@@ -33,7 +33,7 @@ class CompanyDataProvider implements ContextAwareCollectionDataProviderInterface
             return [];
         }
 
-        $domain = $request->query->get('domain', '');
+        $domain = (string) $request->query->get('domain', '');
         $limit = $request->query->getInt('limit', 10);
 
         if (\strlen($domain) < 3) {

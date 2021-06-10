@@ -1,0 +1,8 @@
+doctrine:
+    dbal:
+        # "TEST_TOKEN" is typically set by ParaTest
+        connections:
+            default:
+                dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+            vimeet:
+                dbname_suffix: '_test%env(default::TEST_TOKEN)%'

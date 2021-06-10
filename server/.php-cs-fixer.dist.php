@@ -27,4 +27,4 @@ return PhpCsFixer\Config::create()
         'simplified_null_return' => false,
         'yoda_style' => ['equal' => null, 'identical' => null, 'less_and_greater' => null],
     ])
-;
+    ;

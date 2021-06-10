@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Api\Infrastructure\Security;
 
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class SymfonyUser implements UserInterface, \Serializable
+class SymfonyUser implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     private ?Account $account = null;
 
@@ -52,6 +53,11 @@ class SymfonyUser implements UserInterface, \Serializable
 
     public function getUsername(): string
     {
+        return $this->getUserIdentifier();
+    }
+
+    public function getUserIdentifier(): string
+    {
         return $this->account !== null ? $this->account->getEmail() : $this->username;
     }
 
@@ -65,7 +71,7 @@ class SymfonyUser implements UserInterface, \Serializable
      */
     public function serialize(): string
     {
-        return serialize([$this->getUsername(), $this->getPassword()]);
+        return serialize([$this->getUserIdentifier(), $this->getPassword()]);
     }
 
     /**
