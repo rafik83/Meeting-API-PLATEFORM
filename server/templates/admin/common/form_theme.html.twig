@@ -1,46 +1,85 @@
-{% extends "form_div_layout.html.twig" %}
+{% use 'tailwind_2_layout.html.twig' %}
 
-{%- block form_widget -%}
-    {% if compound %}
-        {{- block('form_widget_compound') -}}
-    {% else %}
-        {{- block('form_widget_simple') -}}
-    {% endif %}
-{%- endblock form_widget -%}
+{%- block form_row -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('block text-sm')) }) -%}
+    {{- parent() -}}
+{%- endblock form_row -%}
 
-{%- block form_widget_simple -%}
-    {%- set type = type|default('text') -%}
-    {%- if type == 'range' or type == 'color' -%}
-        {# Attribute "required" is not supported #}
-        {%- set required = false -%}
+{%- block widget_attributes -%}
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border-gray-200 border rounded py-2 px-3')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red appearance-none bg-white border-gray-200 border rounded py-2 px-3')) }) -%}
+    {{- parent() -}}
+{%- endblock widget_attributes -%}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('text-gray-700 dark:text-gray-400')) }) -%}
+    {{- parent() -}}
+{%- endblock form_label -%}
+
+{%- block form_help -%}
+    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('text-xs text-gray-600 dark:text-gray-400')) }) -%}
+    {{- parent() -}}
+{%- endblock form_help -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul>
+            {%- for error in errors -%}
+            <li class="{{ error_item_class|default('text-xs text-red-600 dark:text-red-400') }}">{{ error.message }}</li>
+            {%- endfor -%}
+        </ul>
     {%- endif -%}
-    <div class="form">
-        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-    </div>
-{%- endblock form_widget_simple -%}
+{%- endblock form_errors -%}
 
-{%- block choice_widget -%}
-    <div class="form">
-        {% if expanded %}
-            {{- block('choice_widget_expanded') -}}
-        {% else %}
-            {{- block('choice_widget_collapsed') -}}
-        {% endif %}
+{%- block choice_widget_expanded -%}
+    {%- set attr = attr|merge({ class: attr.class|default('mt-2') }) -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <div class="flex items-center">
+                {{- form_widget(child) -}}
+                {{- form_label(child, null, { translation_domain: choice_translation_domain }) -}}
+            </div>
+        {% endfor -%}
     </div>
-{%- endblock choice_widget -%}
+{%- endblock choice_widget_expanded -%}
+
+{%- block checkbox_row -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('flex items-center dark:text-gray-400')) }) -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_errors(form) -}}
+        <div class="inline-flex items-center text-sm">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_label(form) -}}
+        </div>
+        {{- form_help(form) -}}
+    </div>
+{%- endblock checkbox_row -%}
+
+{%- block checkbox_widget -%}
+    {%- set widget_class = widget_class|default('mx-2 border rounded text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray') -%}
+    {{- parent() -}}
+{%- endblock checkbox_widget -%}
+
+{%- block radio_widget -%}
+    {%- set widget_class = widget_class|default('mx-2 border rounded text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray') -%}
+    {{- parent() -}}
+{%- endblock radio_widget -%}
 
 {%- block button_widget -%}
     {%- if label is empty -%}
         {%- if label_format is not empty -%}
             {% set label = label_format|replace({
-                '%name%': name,
-                '%id%': id,
-            }) %}
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
         {%- elseif label is not same as(false) -%}
             {% set label = name|humanize %}
         {%- endif -%}
     {%- endif -%}
-    <button class="button button--primary" type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }} class="btn-medium">
         {%- if translation_domain is same as(false) -%}
             {%- if label_html is same as(false) -%}
                 {{- label -}}
@@ -57,28 +96,7 @@
     </button>
 {%- endblock button_widget -%}
 
-{% block checkbox_row -%}
-    <div class="form checkbox">
-        {{ form_widget(form) }}
-        {{- form_label(form) -}}
-        {{- form_help(form) -}}
-        {{ form_errors(form) }}
-    </div>
-{%- endblock checkbox_row %}
-
-{%- block choice_widget_expanded -%}
-    <div {{ block('widget_container_attributes') }}>
-        {%- for child in form %}
-            <div class="form checkbox">
-                {{- form_widget(child) -}}
-                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
-            </div>
-        {% endfor -%}
-    </div>
-{%- endblock choice_widget_expanded -%}
-
 {%- block choice_widget_collapsed -%}
-    <div class="select">
-        {{ parent() }}
-    </div>
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border-gray-200 border rounded py-2 px-3')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red appearance-none bg-white border-gray-200 border rounded py-2 px-3')) }) -%}
+    {{ parent() }}
 {%- endblock choice_widget_collapsed -%}

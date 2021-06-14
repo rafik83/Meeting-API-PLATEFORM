@@ -1,17 +1,16 @@
 {% extends "admin/base.html.twig" %}
 
 {% block body %}
-    <ul class="breadcrumb">
-        <li class="breadcrumb__item">
-            <a href="{{ path('admin_nomenclature_list') }}">Retour à la liste</a>
-        </li>
-    </ul>
+    <div class="container grid px-6 mx-auto">
+        {% include 'admin/common/return_button.html.twig' with { link: path('admin_nomenclature_list') } %}
 
-    <h2>Créer une nomenclature</h2>
-    {{ form_start(form) }}
-        {{ form_row(form.community) }}
-        {{ form_row(form.reference) }}
-
-        <button type="submit" class="button button--primary">Créer</button>
-    {{ form_end(form) }}
+        <h2 class="part-title">{{ 'admin.nomenclature.create'|trans }}</h2>
+        <div class="main-rounded-block">
+            {{ form_start(form) }}
+            {{ form_row(form.community) }}
+            {{ form_row(form.reference) }}
+            <button type="submit" class="btn-medium">{{ 'admin.actions.create'|trans }}</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

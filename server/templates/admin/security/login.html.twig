@@ -1,31 +1,39 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{{ 'admin.common.log_in'|trans }}{% endblock %}
 
 {% block body %}
-    <form method="post" action="{{ path('admin_login_check') }}">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+        <div class="flex-1 h-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
+            <div class="flex flex-col justify-center p-6 sm:p-12">
+                <h1 class="title">{{ 'admin.common.please_log_in'|trans }}</h1>
+                <form method="post" action="{{ path('admin_login_check') }}">
+                    {% if error %}
+                        <div class="text-xs text-red-600 dark:text-red-400">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.user }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    {% if app.user %}
+                        <div class="mb-3">
+                            {{ 'admin.common.you_are_logged_as'|trans }}
+                            {{ app.user.user }},
+                            <a href="{{ path('app_logout') }}">{{ "admin.common.log_out"|trans }}</a>
+                        </div>
+                    {% endif %}
+
+                    <label class="block text-sm" for="inputEmail">
+                        <span class="form-label">{{'admin.common.email'|trans}}</span>
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border-gray-200 border rounded py-2 px-3" type="email" value="{{ last_username }}" name="_username" id="inputEmail" required autofocus>
+                    </label>
+                    <label class="block mt-4 text-sm" for="inputPassword">
+                        <span class="form-label">{{'admin.common.password'|trans}}</span>
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border-gray-200 border rounded py-2 px-3" type="password" name="_password" id="inputPassword" required>
+                    </label>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button class="btn-medium" type="submit">
+                        {{'admin.common.log_in'|trans}}
+                    </button>
+                </form>
             </div>
-        {% endif %}
-
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" required autofocus>
-        <label for="inputPassword">Password</label>
-        <input type="password" name="_password" id="inputPassword" class="form-control" required>
-
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+        </div>
+    </div>
 {% endblock %}

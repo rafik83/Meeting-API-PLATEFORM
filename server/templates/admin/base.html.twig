@@ -1,47 +1,92 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{% block title %}Vimeet365{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
-</head>
-<body>
-    <header class="header">
-        <a href="{{ path('admin_dashboard') }}" class="logo">Vimeet365</a>
-        {% if app.user %}
-            <nav class="primary-nav">
-                <ul>
-                    <li class="primary-nav__item primary-nav__item--active">
-                        <a href="{{ path('admin_nomenclature_list') }}">{{'admin.nomenclature.title'| trans}}</a>
-                    </li>
-                    <li class="primary-nav__item">
-                        <a href="{{ path('admin_community_list') }}">{{'admin.common.community'| trans}}</a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="user-menu">
-                <div class="drop drop--down drop--show">
-                    <button class="user-menu__button drop__button">{{ app.user.user }}</button>
-                    <ul class="user-menu__content drop__menu">
-                        <li>
-                            <a href="{{ path('admin_logout') }}">{{'admin.common.log_out'| trans}}</a>
-                        </li>
-                    </ul>
-                </div>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Vimeet365 Dashboard</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {{ encore_entry_script_tags('init-alpine') }}
+        <script>
+            function data() {
+                function getThemeFromLocalStorage() { // if user already changed the theme, use it
+                    if (window.localStorage.getItem('dark')) {
+                        return JSON.parse(window.localStorage.getItem('dark'));
+                    }
+
+                    // else return their preferences
+                    return(!!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                }
+
+                function setThemeToLocalStorage(value) {
+                    window.localStorage.setItem('dark', value);
+                }
+
+                return {
+                    dark: getThemeFromLocalStorage(),
+                    toggleTheme() {
+                        this.dark = !this.dark;
+                        setThemeToLocalStorage(this.dark);
+                    },
+                    isSideMenuOpen: false,
+                    toggleSideMenu() {
+                        this.isSideMenuOpen = !this.isSideMenuOpen;
+                    },
+                    closeSideMenu() {
+                        this.isSideMenuOpen = false;
+                    },
+                    isNotificationsMenuOpen: false,
+                    toggleNotificationsMenu() {
+                        this.isNotificationsMenuOpen = !this.isNotificationsMenuOpen;
+                    },
+                    closeNotificationsMenu() {
+                        this.isNotificationsMenuOpen = false;
+                    },
+                    isProfileMenuOpen: false,
+                    toggleProfileMenu() {
+                        this.isProfileMenuOpen = !this.isProfileMenuOpen;
+                    },
+                    closeProfileMenu() {
+                        this.isProfileMenuOpen = false;
+                    },
+                    isPagesMenuOpen: false,
+                    togglePagesMenu() {
+                        this.isPagesMenuOpen = !this.isPagesMenuOpen;
+                    },
+                    // Modal
+                    isModalOpen: false,
+                    trapCleanup: null,
+                    openModal() {
+                        this.isModalOpen = true;
+                        this.trapCleanup = focusTrap(document.querySelector('#modal'));
+                    },
+                    closeModal() {
+                        this.isModalOpen = false;
+                        this.trapCleanup();
+                    }
+                };
+            }
+        </script>
+    </head>
+    <body>
+        <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+            {% if app.user %}
+                {% include 'admin/sidebar.html.twig' %}
+            {% endif %}
+            <div class="flex flex-col flex-1 w-full">
+                {% if app.user %}
+                    {% include 'admin/nav.html.twig' %}
+                {% endif %}
+                <main class="h-full pb-16 overflow-y-auto">
+                    <div class="content">{% block body %}{% endblock %}</div>
+                </main>
             </div>
-        {% endif %}
-        <button class="menu-button"></button> <!-- .menu-button--close -->
-    </header>
-    <main>
-        <div class="content">
-            {% block body %}{% endblock %}
         </div>
-    </main>
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
 </html>

@@ -1,6 +1,19 @@
 {% extends "admin/base.html.twig" %}
 
 {% block body %}
-    <h2>{{ 'admin.card-list.create-title'|trans }}</h2>
-            {{ form(form) }}
+    <div class="container grid px-6 mx-auto">
+        {% include 'admin/common/return_button.html.twig' with { link:  path('admin_card_list_list', {communityId: community.id}) } %}
+
+        <h2 class="title">{{ 'admin.card-list.create-title'|trans }}</h2>
+        <div class="main-rounded-block">
+        {{form_start(form)}}
+            {{form_row(form.title, {row_class: 'mt-4'})}}
+            {{form_row(form.sorting, {row_class: 'mt-4'})}}
+            {{form_row(form.position, {row_class: 'my-4'})}}
+            {{form_row(form.cardTypes, {label_class: 'text-base'}) }}
+            {{form_row(form.published)}}
+            {{form_row(form.save)}}
+        {{form_end(form)}}
+        </div>
+    </diV>
 {% endblock %}

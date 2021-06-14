@@ -1,15 +1,8 @@
-import './styles/app.scss';
-
+import './styles/app.css';
 import './bootstrap';
 
-import { Collapsible, Drop, Tree, MobileSidebar } from '@elao/admin';
 import RefineGoals from "./components/RefineGoals";
 import MatchingBetweenGoals from "./components/MatchingBetweenGoals";
-
-Collapsible.init();
-Drop.init();
-Tree.init();
-MobileSidebar.init();
 
 const refineGoalsContainer = document.querySelector('#refine_goal_refinedGoals');
 if (refineGoalsContainer) {

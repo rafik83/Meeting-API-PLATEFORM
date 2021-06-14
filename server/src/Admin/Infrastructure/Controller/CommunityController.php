@@ -108,6 +108,7 @@ class CommunityController extends AbstractController
             'form' => $form->createView(),
             'refineGoalForm' => isset($refineGoalForm) ? $refineGoalForm->createView() : null,
             'matchingForm' => isset($matchingForm) ? $matchingForm->createView() : null,
+            'community' => $community,
         ]);
     }
 }

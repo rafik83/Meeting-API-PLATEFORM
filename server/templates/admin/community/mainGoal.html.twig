@@ -1,20 +1,27 @@
 {% extends "admin/base.html.twig" %}
 
 {% block body %}
-    {{ form(form) }}
+    <div class="container grid px-6 mx-auto">
+        {% include 'admin/common/return_button.html.twig' with { link: path('admin_community_list') } %}
 
-    {% if refineGoalForm is not null %}
-        <div>
-            <h3>Refine</h3>
-            {{ form(refineGoalForm) }}
+        <h1 class="title">{{'admin.community.main-goals'|trans }}</h1>
+        <div class="main-rounded-block">
+            {{ form(form) }}
         </div>
-    {% endif %}
-
-    {% if matchingForm is not null %}
-        <div>
-            <h3>Matching</h3>
-
-            {{ form(matchingForm) }}
-        </div>
-    {% endif %}
+        {% if refineGoalForm is not null %}
+            <h3 class="part-title">{{ 'admin.community.refine'|trans }}</h3>
+            <div class="main-rounded-block">
+                {{ form(refineGoalForm) }}
+            </div>
+        {% endif %}
+        {% if matchingForm is not null %}
+            <h3 class="part-title">{{ 'admin.community.matching'|trans }}</h3>
+            <div class="main-rounded-block">
+                {{ form(matchingForm) }}
+            </div>
+        {% endif %}
+        <a href="{{ path('admin_card_list_list', { communityId: community.id }) }}" class="btn-medium-icon">
+            {{ 'admin.card-list.title'|trans }}
+        </a>
+    </div>
 {% endblock %}

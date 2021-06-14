@@ -2,11 +2,19 @@
     "devDependencies": {
         "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/webpack-encore": "^1.0.0",
+        "@tailwindcss/custom-forms": "^0.2.1",
+        "autoprefixer": "^10.2.6",
         "core-js": "^3.0.0",
+        "glob-all": "^3.2.1",
+        "path": "^0.12.7",
+        "postcss-loader": "^5.3.0",
+        "purgecss-webpack-plugin": "^4.0.3",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.32.8",
         "sass-loader": "^11.0.1",
         "stimulus": "^2.0.0",
+        "tailwindcss": "^2.1.2",
+        "tailwindcss-multi-theme": "^1.0.4",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -18,6 +26,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@elao/admin": "^0.1.3"
+        "alpinejs": "^2.8.2"
     }
 }

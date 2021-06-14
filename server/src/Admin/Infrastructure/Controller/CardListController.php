@@ -76,6 +76,7 @@ class CardListController extends AbstractController
 
         return $this->render('admin/cardList/create.html.twig', [
             'form' => $form->createView(),
+            'community' => $community,
         ]);
     }
 
@@ -97,6 +98,7 @@ class CardListController extends AbstractController
 
         return $this->render('admin/cardList/edit.html.twig', [
             'form' => $form->createView(),
+            'community' => $community,
         ]);
     }
 }

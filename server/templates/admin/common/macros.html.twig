@@ -9,12 +9,18 @@
         {% set sortDirection = currentSortDirection == 'ASC' ? 'DESC' : 'ASC' %}
     {% endif %}
 
-    <a href="{{ path(route, sortRouteParams|merge({sort: sort, sortDirection: sortDirection})) }}">{{ content }}</a>
-    {% if sort == currentSort %}
-        {% if currentSortDirection == 'ASC' %}
-            <i class="icon icon--arrow-up"></i>
-        {% else %}
-            <i class="icon icon--arrow-down"></i>
+    <a href="{{ path(route, sortRouteParams|merge({sort: sort, sortDirection: sortDirection})) }}" class="flex">
+        {{ content }}
+        {% if sort == currentSort %}
+            {% if currentSortDirection == 'ASC' %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                </svg>
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"/>
+                </svg>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </a>
 {% endmacro %}

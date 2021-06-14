@@ -1,0 +1,15 @@
+<div class="w-full mb-8 overflow-hidden rounded-lg shadow-md">
+    <div class="w-full overflow-x-auto">
+        {% if pagination|length %}
+            <table class="w-full whitespace-no-wrap">
+                <thead>
+                    {% block table_head %}{% endblock %}
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        {% block table_data %}{% endblock %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    {{ include('admin/common/pagination.html.twig', {pagination: pagination}) }}
+</div>

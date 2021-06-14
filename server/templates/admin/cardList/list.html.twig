@@ -3,57 +3,48 @@
 {% import "admin/common/macros.html.twig" as macros %}
 
 {% block body %}
-    <div class="data-table">
-        <div class="collapse">
-            <div class="data-table__header">
-                <div class="title">
-                    <h1>{{ 'admin.card-list.title'|trans }}</h1>
-                </div>
-                <div class="actions">
-                    <button class="button button--neutral collapse__trigger animated-button animated-button--equalizer">
-                        <div class="icon icon--animated icon--equalizer">
-                            <div class="icon--equalizer__bar"></div>
-                            <div class="icon--equalizer__bar"></div>
-                            <div class="icon--equalizer__bar"></div>
-                        </div>
-                        Filtrer
-                    </button>
-                    <a href="{{ path('admin_card_list_create', {communityId : community.id }) }}" class="button button--primary">{{ 'admin.actions.create'|trans }}</a>
-                </div>
+    <div class='container grid px-6 mx-auto'>
+        <div>
+            <div class='flex items-center justify-between w-full'>
+                <h1 class='title'>{{ 'admin.card-list.title'|trans }}</h1>
+                <a href="{{ path('admin_card_list_create', { communityId : community.id }) }}" class='btn-medium'>{{ 'admin.actions.create'|trans }}</a>
             </div>
-            <div class="data-table__filters collapse__menu">
-                <div class="filters">
+
+            {% embed 'admin/common/filter.html.twig' %}
+                {% block filterForm %}
                     {{ form_start(filtersForm) }}
-                        {{ form_row(filtersForm.community) }}
-                        <button class="button button--primary">{{ 'admin.actions.filter'|trans }}</button>
+                    {{ form_row(filtersForm.community) }}
+                    {{ form_row(filtersForm.reference) }}
+                    <button class='btn-medium'>{{ 'admin.actions.filter'|trans }}</button>
                     {{ form_end(filtersForm) }}
-                </div>
-            </div>
+                {% endblock %}
+            {% endembed %}
         </div>
-        <div class="data-table__content">
-            {% if pagination|length %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>{{'admin.common.community_name' | trans}}</th>
-                            <th>{{'admin.card-list.list_name' | trans}}</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for cardList in pagination %}
-                            <tr>
-                                <td>{{ cardList.community.name|default('') }}</td>
-                                <td>{{ cardList.title }}</td>
-                                <td class="action">
-                                    <a href="{{ path('admin_card_list_edit', {communityId: cardList.community.id, id : cardList.id }) }}">{{ 'admin.actions.edit'|trans }}</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-        </div>
-    </div>
-    {{ include('admin/common/pagination.html.twig', {pagination: pagination}) }}
-{% endblock %}
+
+        {% embed 'admin/common/spreadsheet.html.twig' with { pagination: pagination } %}
+            {% import 'admin/common/macros.html.twig' as macros %}
+            {% block table_head %}
+                <tr class='table-row-head'>
+                    <th class='px-4 py-3'>{{'admin.common.community_name' | trans}}</th>
+                    <th class='px-4 py-3'>{{'admin.card-list.list_name' | trans}}</th>
+                    <th></th>
+                </tr>
+            {% endblock %}
+
+            {% block table_data %}
+                {% for cardList in pagination %}
+                    <tr class='table-row-data'>
+                        <td class='px-4 py-3'>{{ cardList.community.name|default('') }}</td>
+                        <td class='px-4 py-3'>{{ cardList.title }}</td>
+                        <td class='px-4 py-3'>
+                            <a class="btn-white" href="{{ path('admin_card_list_edit', {communityId: cardList.community.id, id : cardList.id }) }}">
+                                <svg class='w-5 h-5' aria-hidden='true' fill='currentColor' viewbox='0 0 20 20'>
+                                    <path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z'></path>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+        {% endembed %}
+    {% endblock %}

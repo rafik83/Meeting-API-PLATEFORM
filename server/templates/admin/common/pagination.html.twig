@@ -3,48 +3,54 @@
     route_params: app.request.query.all,
     } %}
 
-    {% if pagination.hasToPaginate %}
-        {% set pages = range(max(1, pagination.currentPage - 3), min(pagination.lastPage, pagination.currentPage + 3)) %}
-
-        <ul class="pagination">
-            <li class="pagination__item pagination__item--previous {% if not pagination.getPreviousPage %}pagination__item--disabled{% endif %}">
-                <a href="{{ path(route, route_params|merge({page:  pagination.getPreviousPage})) }}">
-                    <i class="icon icon--chevron-left" aria-hidden="true"></i>
-                    <span>Précédent</span>
-                </a>
-            </li>
-            {% if 1 not in pages %}
-                <li class="pagination__item {% if not pagination.getPreviousPage %}pagination__item--disabled{% endif %}">
-                    <a href="{{ path(route, route_params|merge({page:  1})) }}" aria-label="First">
-                        1
+{% if pagination.hasToPaginate %}
+    {% set pages = range(max(1, pagination.currentPage - 3), min(pagination.lastPage, pagination.currentPage + 3)) %}
+    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+        <span class="flex items-center col-span-3">{{pagination.currentPage}} of {{ pagination.lastPage }}</span>
+        <span class="col-span-2"></span>
+        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <ul class="inline-flex items-center">
+                <li class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple {% if not pagination.getPreviousPage %}hidden{% endif %}">
+                    <a href="{{ path(route, route_params|merge({page: pagination.getPreviousPage})) }}">
+                        <svg aria-hidden="true" class="w-4 h-4 fill-current" viewbox="0 0 20 20">
+                            <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                        </svg>
                     </a>
                 </li>
-                <li class="pagination__ellipsis">
-                    <i class="icon icon--bullets" aria-hidden="true"></i>
-                    <span class="sr-only">...</span>
-                </li>
-            {% endif %}
-            {% for page in pages %}
-                <li class="pagination__item {% if pagination.currentPage == page %}pagination__item--active{% endif %}"><a  href="{{ path(route, route_params|merge({page:  page})) }}">{{ page }}</a></li>
-            {% endfor %}
-            {% if pagination.getLastPage not in pages %}
-                <li class="pagination__ellipsis">
-                    <i class="icon icon--bullets" aria-hidden="true"></i>
-                    <span class="sr-only">...</span>
-                </li>
-                <li class="pagination__item {% if not pagination.getNextPage %}pagination__item--disabled{% endif %}">
-                    <a  href="{{ path(route, route_params|merge({page:  pagination.getLastPage})) }}" aria-label="Last">
-                        {{ pagination.getLastPage }}
+                {% if 1 not in pages %}
+                    <li class="{% if not pagination.getPreviousPage %}hidden{% endif %}">
+                        <a class=" px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" href="{{ path(route, route_params|merge({page: 1} )) }}" aria-label=" first">
+                            1
+                        </a>
+                    </li>
+                    <li>
+                        <span class="px-3 py-1">...</span>
+                    </li>
+                {% endif %}
+                {% for page in pages %}
+                    <li>
+                        <a class="{% if pagination.currentPage == page %} px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple {% else %} px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple {% endif %}" href="{{ path(route, route_params|merge({page: page})) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+                {% if pagination.getLastPage not in pages %}
+                    <li>
+                        <span class="px-3 py-1">...</span>
+                    </li>
+                    <li class="{% if not pagination.getNextPage %}hidden{% endif %}">
+                        <a href="{{ path(route, route_params|merge({page: pagination.getLastPage})) }}" aria-label="Last">
+                            {{ pagination.getLastPage }}
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="{% if not pagination.getNextPage %}hidden{% endif %}">
+                    <a class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" href="{{ path(route, route_params|merge({page: pagination.getNextPage})) }}">
+                        <svg class="w-4 h-4 fill-current" aria-hidden="true" viewbox="0 0 20 20">
+                            <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                        </svg>
                     </a>
                 </li>
-            {% endif %}
-            <li class="pagination__item pagination__item--next {% if not pagination.getNextPage %}pagination__item--disabled{% endif %}">
-                <a  href="{{ path(route, route_params|merge({page:  pagination.getNextPage})) }}">
-                    <i class="icon icon--chevron-right" aria-hidden="true"></i>
-                    <span>Suivant</span>
-                </a>
-            </li>
-        </ul>
-    {% endif %}
-
+            </ul>
+        </span>
+    </div>
+{% endif %}
 {% endwith %}

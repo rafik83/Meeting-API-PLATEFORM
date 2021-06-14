@@ -1,60 +1,51 @@
 {% extends "admin/base.html.twig" %}
 
-{% import "admin/common/macros.html.twig" as macros %}
-
 {% block body %}
-    <div class="data-table">
-        <div class="collapse">
-            <div class="data-table__header">
-                <div class="title">
-                    <h1>Nomenclature</h1>
-                </div>
-                <div class="actions">
-                    <button class="button button--neutral collapse__trigger animated-button animated-button--equalizer">
-                        <div class="icon icon--animated icon--equalizer">
-                            <div class="icon--equalizer__bar"></div>
-                            <div class="icon--equalizer__bar"></div>
-                            <div class="icon--equalizer__bar"></div>
-                        </div>
-                        Filtrer
-                    </button>
-                    <a href="{{ path('admin_nomenclature_create') }}" class="button button--primary">{{ 'admin.actions.create'|trans }}</a>
-                </div>
+    <div class="container grid px-6 mx-auto">
+        <div>
+            <div class="w-full flex justify-between items-center">
+                <h1 class="title">{{ 'admin.nomenclature.title'|trans }}</h1>
+                <a href="{{ path('admin_nomenclature_create') }}" class="btn-medium">{{ 'admin.actions.create'|trans }}</a>
             </div>
-            <div class="data-table__filters collapse__menu">
-                <div class="filters">
+            {% embed 'admin/common/filter.html.twig' %}
+                {% block filterForm %}
                     {{ form_start(filtersForm) }}
-                        {{ form_row(filtersForm.community) }}
-                        {{ form_row(filtersForm.reference) }}
-                        <button class="button button--primary">{{ 'admin.actions.filter'|trans }}</button>
+                    {{ form_row(filtersForm.community, { 'label': 'admin.nomenclature.title' }) }}
+                    {{ form_row(filtersForm.reference, { 'label': 'admin.nomenclature.list.table.reference' }) }}
+                    <button class="btn-medium">{{ 'admin.actions.filter'|trans }}</button>
                     {{ form_end(filtersForm) }}
-                </div>
-            </div>
+                {% endblock %}
+            {% endembed %}
         </div>
-        <div class="data-table__content">
-            {% if pagination|length %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>{{ macros.sortLink('admin.nomenclature.list.table.community'|trans, 'community.name') }}</th>
-                            <th>{{ macros.sortLink('admin.nomenclature.list.table.reference'|trans, 'nomenclature.reference') }}</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for nomenclature in pagination %}
-                            <tr>
-                                <td>{{ nomenclature.community.name|default('') }}</td>
-                                <td>{{ nomenclature.reference }}</td>
-                                <td class="action">
-                                    <a href="{{ path('admin_nomenclature_edit', {id: nomenclature.id}) }}">{{ 'admin.actions.edit'|trans }}</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-        </div>
+
+        {% embed 'admin/common/spreadsheet.html.twig' with { pagination: pagination } %}
+            {% import 'admin/common/macros.html.twig' as macros %}
+            {% block table_head %}
+                <tr class="table-row-head">
+                    <th class="px-4 py-3">{{ macros.sortLink('admin.nomenclature.list.table.community'|trans, 'community.name') }}</th>
+                    <th class="px-4 py-3">{{ macros.sortLink('admin.nomenclature.list.table.reference'|trans, 'nomenclature.reference') }}</th>
+                    <th class="px-4 py-3"></th>
+                </tr>
+            {% endblock %}
+
+            {% block table_data %}
+                {% for row in pagination %}
+                    <tr class="table-row-data">
+                        <td class="px-4 py-3">{{ row.community.name|default('') }}</td>
+                        <td class="px-4 py-3">{{ row.reference }}</td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center space-x-4 text-sm">
+                                <a class="btn-white" href="{{ path('admin_nomenclature_edit', {id: row.id}) }}">
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+        {% endembed %}
+
     </div>
-    {{ include('admin/common/pagination.html.twig', {pagination: pagination}) }}
 {% endblock %}
