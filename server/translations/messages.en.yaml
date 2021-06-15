@@ -14,11 +14,11 @@ admin:
     dashboard:
         title: Dashboard
     actions:
-            create: Create
-            edit: Edit
-            filter: Filter
-            sort_by_community: Sort by community
-            back_to_list: Back to the list
+        create: Create
+        edit: Edit
+        filter: Filter
+        sort_by_community: Sort by community
+        back_to_list: Back to the list
     nomenclature:
         title: Nomenclature
         main_goal: Main Goal

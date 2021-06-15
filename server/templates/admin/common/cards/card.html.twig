@@ -1,6 +1,6 @@
 <li class="bg-white rounded-lg shadow-sm dark:bg-gray-800 border border-gray-200">
     <a href="{{ link }}" class="p-4 flex items-center">
-        <div class="p-3 mr-4 text-{{ color }}-500 bg-{{ color }}-100 rounded-full dark:text-{{ color }}-100 dark:bg-{{ color }}-500">
+        <div class="p-3 mr-4 rounded-full {{ colorList }}">
             {% block logo %}{% endblock %}
         </div>
         <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ title }}</span>
