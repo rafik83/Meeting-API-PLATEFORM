@@ -110,6 +110,7 @@ ENV APP_ENV=prod
 COPY composer.json composer.lock symfony.lock ./
 RUN set -eux; \
   composer install --prefer-dist --no-scripts --no-dev --no-progress; \
+  composer dump-autoload; \
   composer clear-cache
 
 # Node Depenencies
