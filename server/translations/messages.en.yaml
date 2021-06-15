@@ -3,6 +3,14 @@ admin:
         community_name: Community Name
         community: Community
         log_out: Log out
+        log_in: Log in
+        please_log_in: Please log in
+        you_are_logged_as: You are logged in as
+        sign_in: Sign in
+        email: Email
+        password: Password
+        import: Import
+        export: Export
     dashboard:
         title: Dashboard
     actions:
@@ -10,9 +18,13 @@ admin:
             edit: Edit
             filter: Filter
             sort_by_community: Sort by community
+            back_to_list: Back to the list
     nomenclature:
         title: Nomenclature
         main_goal: Main Goal
+        update_values: Update values
+        update: Update a nomenclature
+        create: Create a nomenclature
         list:
             table:
                 community: Community
@@ -22,3 +34,11 @@ admin:
         edit-title: Edit card list
         title: Card list
         list_name: List Name
+    community:
+        title: community
+        list:
+            table:
+                reference: reference
+        main-goals: Main goals
+        refine: Refine
+        matching: Matching

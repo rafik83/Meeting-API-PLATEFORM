@@ -5,7 +5,7 @@ admin:
         log_out: Déconnexion
         log_in: Connexion
         please_log_in: Veuillez vous connecter
-        you_are_logged_as: You are logged in as
+        you_are_logged_as: Vous êtes connecté en tant que
         sign_in: S'enregistrer
         email: Email
         password: Mot de passe
