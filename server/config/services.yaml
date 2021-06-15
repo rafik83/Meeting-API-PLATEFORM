@@ -22,6 +22,7 @@ services:
         resource: '../src/'
         exclude:
             - '../src/Core/Domain/Entity/'
+            - '../src/Core/Infrastructure/DataFixtures/'
             - '../src/Api/Application/Views/'
             - '../src/Vimeet/Entity/'
             - '../src/Kernel.php'

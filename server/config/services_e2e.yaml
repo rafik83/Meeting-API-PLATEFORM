@@ -15,3 +15,11 @@ services:
     app.symfony.property_access.property_accessor:
         class: Symfony\Component\PropertyAccess\PropertyAccessor
         public: false
+
+    Proximum\Vimeet365\Core\Infrastructure\DataFixtures\EnumProvider:
+        autowire: true
+        autoconfigure: true
+
+    Proximum\Vimeet365\Core\Infrastructure\DataFixtures\ImmutableDateProvider:
+        autowire: true
+        autoconfigure: true
