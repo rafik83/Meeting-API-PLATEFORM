@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByDate\CompanyCardProvider;
+use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByDate\EventCardProvider;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByDate\MemberCardProvider;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByDate\MixedCardProvider;
 use Proximum\Vimeet365\Core\Domain\Entity\Card\Card;
@@ -24,9 +25,14 @@ class MixedCardProviderTest extends TestCase
     {
         $memberCardProvider = $this->prophesize(MemberCardProvider::class);
         $companyCardProvider = $this->prophesize(CompanyCardProvider::class);
+        $eventCardProvider = $this->prophesize(EventCardProvider::class);
         $community = $this->prophesize(Community::class);
         $community->getCardLists()->willReturn(new ArrayCollection());
-        $provider = new MixedCardProvider($memberCardProvider->reveal(), $companyCardProvider->reveal());
+        $provider = new MixedCardProvider(
+            $memberCardProvider->reveal(),
+            $companyCardProvider->reveal(),
+            $eventCardProvider->reveal()
+        );
 
         $cardList = new CardList(
             $community->reveal(),
@@ -65,8 +71,13 @@ class MixedCardProviderTest extends TestCase
     {
         $memberCardProvider = $this->prophesize(MemberCardProvider::class);
         $companyCardProvider = $this->prophesize(CompanyCardProvider::class);
+        $eventCardProvider = $this->prophesize(EventCardProvider::class);
 
-        $provider = new MixedCardProvider($memberCardProvider->reveal(), $companyCardProvider->reveal());
+        $provider = new MixedCardProvider(
+            $memberCardProvider->reveal(),
+            $companyCardProvider->reveal(),
+            $eventCardProvider->reveal()
+        );
 
         self::assertEquals($expectedResult, $provider->supports($cardList));
     }
@@ -96,11 +107,21 @@ class MixedCardProviderTest extends TestCase
             false,
         ];
 
-        yield 'valid' => [
+        yield 'valid partial' => [
             new CardList(
                 $community->reveal(),
                 'Title',
                 [CardType::get(CardType::COMPANY), CardType::get(CardType::MEMBER)],
+                Sorting::get(Sorting::DATE)
+            ),
+            true,
+        ];
+
+        yield 'valid with all' => [
+            new CardList(
+                $community->reveal(),
+                'Title',
+                [CardType::get(CardType::COMPANY), CardType::get(CardType::MEMBER), CardType::get(CardType::EVENT)],
                 Sorting::get(Sorting::DATE)
             ),
             true,

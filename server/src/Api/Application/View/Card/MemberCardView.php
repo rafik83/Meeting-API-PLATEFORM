@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Api\Application\View\Card;
 
 use Proximum\Vimeet365\Api\Application\View\TagView;
+use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
 
 class MemberCardView extends CardView
 {
@@ -24,6 +25,6 @@ class MemberCardView extends CardView
         public ?TagView $secondaryGoal,
         public array $goals
     ) {
-        parent::__construct('member', $id);
+        parent::__construct(CardType::get(CardType::MEMBER), $id);
     }
 }

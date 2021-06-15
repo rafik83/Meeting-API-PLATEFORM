@@ -36,3 +36,12 @@ Proximum\Vimeet365\Core\Domain\Entity\Card\CardList:
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting', 'alphabetical')>
         published: false
         position: 3
+    community_1.card_list_5:
+        __construct:
+            community: '@community_1'
+            title: 'Last published events'
+            cardTypes:
+                - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Card\CardType', 'community_event')>
+            sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting', 'date')>
+        published: true
+        position: 3

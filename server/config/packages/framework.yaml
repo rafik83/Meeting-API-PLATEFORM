@@ -23,6 +23,8 @@ framework:
                 base_urls: '%env(CDN_HOST)%/companyLogos'
             accountAvatar:
                 base_urls: '%env(CDN_HOST)%/accountAvatar'
+            eventPictures:
+                base_urls: '%env(CDN_HOST)%/eventPictures'
 
 when@test:
     framework:

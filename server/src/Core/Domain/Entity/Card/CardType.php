@@ -13,12 +13,14 @@ class CardType extends ReadableEnum
 
     public const MEMBER = 'member';
     public const COMPANY = 'company';
+    public const EVENT = 'community_event';
 
     public static function readables(): array
     {
         return [
             self::MEMBER => 'Membre',
             self::COMPANY => 'Société',
+            self::EVENT => 'Évènement',
         ];
     }
 }

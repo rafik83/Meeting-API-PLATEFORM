@@ -45,6 +45,7 @@ class CardEndpointDecorator implements OpenApiFactoryInterface
                 'oneOf' => [
                     ['$ref' => '#/components/schemas/CompanyCard.CompanyCardView' . $suffix],
                     ['$ref' => '#/components/schemas/MemberCard.MemberCardView' . $suffix],
+                    ['$ref' => '#/components/schemas/EventCard.EventCardView' . $suffix],
                 ],
             ];
 

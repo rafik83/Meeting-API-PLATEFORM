@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Api\Application\View\Card;
 
+use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
+
 class CompanyCardView extends CardView
 {
     public function __construct(
@@ -12,6 +14,6 @@ class CompanyCardView extends CardView
         public string $name,
         public string $activity,
     ) {
-        parent::__construct('company', $id);
+        parent::__construct(CardType::get(CardType::COMPANY), $id);
     }
 }

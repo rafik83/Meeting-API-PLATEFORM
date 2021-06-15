@@ -7,3 +7,4 @@ elao_enum:
             card_list_card_types:
                 class: 'Proximum\Vimeet365\Core\Domain\Entity\Card\CardType'
                 type: csv_collection
+            community_event_type: 'Proximum\Vimeet365\Core\Domain\Entity\Community\EventType'

@@ -22,7 +22,7 @@ class CardTest extends ApiTestCase
             [
                 '@context' => '/api/contexts/CardList',
                 '@type' => 'hydra:Collection',
-                'hydra:totalItems' => 3,
+                'hydra:totalItems' => 4,
                 'hydra:member' => [
                     [
                         'position' => 0,
@@ -35,6 +35,10 @@ class CardTest extends ApiTestCase
                     [
                         'position' => 2,
                         'title' => 'Last cardTypes registered',
+                    ],
+                    [
+                        'position' => 3,
+                        'title' => 'Last published events',
                     ],
                 ],
             ]
@@ -101,6 +105,41 @@ class CardTest extends ApiTestCase
                         'name' => 'Proximum',
                         'activity' => '',
                         'kind' => 'company',
+                    ],
+                ],
+            ]
+        );
+    }
+
+    public function testGetCardsEvent(): void
+    {
+        $community = $this->getCommunity('Space industry');
+        $communityId = $community->getId();
+
+        $cardList = $community->getPublishedCardLists()->filter(
+            fn (CardList $cardList) => $cardList->getTitle() === 'Last published events'
+        )->first();
+
+        self::$client->request('GET', sprintf('/api/communities/%d/lists/%d', $communityId, $cardList->getId()));
+
+        self::assertJsonContains(
+            [
+                '@context' => '/api/contexts/Card',
+                '@type' => 'hydra:Collection',
+                'hydra:totalItems' => 1,
+                'hydra:member' => [
+                    [
+                        '@type' => 'EventCard',
+                        'picture' => 'http://localhost/storage/test/eventPictures/picture1.jpg',
+                        'name' => 'Published event',
+                        'eventType' => 'online',
+                        'registerUrl' => 'http://localhost/register-1',
+                        'findOutMoreUrl' => 'http://localhost/find-out-more-1',
+                        'kind' => 'community_event',
+                        'tags' => [
+                            ['name' => 'Satellites'],
+                            ['name' => 'Ground'],
+                        ],
                     ],
                 ],
             ]

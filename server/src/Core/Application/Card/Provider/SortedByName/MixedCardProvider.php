@@ -17,11 +17,13 @@ class MixedCardProvider implements CardProviderInterface
 
     public function __construct(
         MemberCardProvider $memberCardProvider,
-        CompanyCardProvider $companyCardProvider
+        CompanyCardProvider $companyCardProvider,
+        EventCardProvider $eventCardProvider,
     ) {
         $this->cardProviders = [
             CardType::MEMBER => $memberCardProvider,
             CardType::COMPANY => $companyCardProvider,
+            CardType::EVENT => $eventCardProvider,
         ];
     }
 

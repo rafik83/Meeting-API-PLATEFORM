@@ -31,3 +31,12 @@ Proximum\Vimeet365\Core\Application\Card\CompanyCard:
         get: ~
     properties:
         id: { identifier: true }
+
+Proximum\Vimeet365\Core\Application\Card\EventCard:
+    attributes:
+        output: 'Proximum\Vimeet365\Api\Application\View\Card\EventCardView'
+    collectionOperations: [ ]
+    itemOperations:
+        get: ~
+    properties:
+        id: { identifier: true }

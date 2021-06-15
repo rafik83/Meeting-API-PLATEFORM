@@ -4,6 +4,8 @@ Proximum\Vimeet365\Core\Domain\Entity\Community:
             name: Space industry
             languages: ['en', 'fr']
             defaultLanguage: 'en'
+        skillNomenclature: '@nomenclature_goals'
+        eventNomenclature: '@nomenclature_activity_fields'
     community_2:
         __construct:
             name: Green tech

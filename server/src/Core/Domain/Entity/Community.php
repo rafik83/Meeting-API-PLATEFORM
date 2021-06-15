@@ -70,6 +70,18 @@ class Community
      */
     private Collection $cardLists;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Nomenclature::class)
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private ?Nomenclature $skillNomenclature = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Nomenclature::class)
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private ?Nomenclature $eventNomenclature = null;
+
     public function __construct(string $name, array $languages = ['en'], string $defaultLanguage = 'en')
     {
         $this->name = $name;
@@ -152,6 +164,26 @@ class Community
     public function getPublishedCardLists(): Collection
     {
         return $this->getCardLists()->filter(fn (CardList $cardList): bool => $cardList->isPublished());
+    }
+
+    public function getSkillNomenclature(): ?Nomenclature
+    {
+        return $this->skillNomenclature;
+    }
+
+    public function setSkillNomenclature(?Nomenclature $skillNomenclature): void
+    {
+        $this->skillNomenclature = $skillNomenclature;
+    }
+
+    public function getEventNomenclature(): ?Nomenclature
+    {
+        return $this->eventNomenclature;
+    }
+
+    public function setEventNomenclature(?Nomenclature $eventNomenclature): void
+    {
+        $this->eventNomenclature = $eventNomenclature;
     }
 
     public function join(Account $account): Member
