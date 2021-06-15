@@ -85,6 +85,8 @@ COPY --chown=www-data:www-data templates templates/
 ## Node Specifics
 
 COPY --chown=www-data:www-data webpack.config.js ./
+COPY --chown=www-data:www-data postcss.config.js ./
+COPY --chown=www-data:www-data tailwind.config.js ./
 COPY --chown=www-data:www-data assets assets/
 
 # Install and configure composer
