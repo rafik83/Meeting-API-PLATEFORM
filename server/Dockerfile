@@ -67,8 +67,8 @@ WORKDIR /var/www/vimeet365
 
 # Create files required by symfony and by node
 
-RUN mkdir -p ./var/cache  ./var/log ./vendor /var/www/.npm ./node_modules /var/www/.config  \
-  && chown www-data ./var/cache  ./var/log  ./vendor /var/www/.npm ./node_modules /var/www/.config
+RUN mkdir -p ./var/cache  ./var/log ./vendor /var/www/.npm ./node_modules /var/www/.config /var/www/.composer  \
+  && chown www-data ./var/cache  ./var/log  ./vendor /var/www/.npm ./node_modules /var/www/.config /var/www/.composer
 
 ## Copy only specifically what we need
 
@@ -81,6 +81,7 @@ COPY --chown=www-data:www-data migrations migrations/
 COPY --chown=www-data:www-data public public/
 COPY --chown=www-data:www-data src src/
 COPY --chown=www-data:www-data templates templates/
+COPY --chown=www-data:www-data translations translations/
 
 ## Node Specifics
 
