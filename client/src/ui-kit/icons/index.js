@@ -26,3 +26,5 @@ export { IconQuestionMark } from './IconQuestionMark';
 export { IconCompany } from './IconCompany';
 export { IconClose } from './IconClose';
 export { IconPicturePlaholder } from './IconPicturePlaholder';
+export { IconCalendar } from './IconCalendar';
+export { IconMore } from './IconMore';

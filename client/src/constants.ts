@@ -22,9 +22,11 @@ export const sizes: Sizes = {
 type CardKind = {
   member: string;
   company: string;
+  event: string;
 };
 
 export const CARD_KIND: CardKind = {
   member: 'member',
   company: 'company',
+  event: 'community_event',
 };

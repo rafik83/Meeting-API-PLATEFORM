@@ -18,6 +18,7 @@ module.exports = {
         100: '#3497FD',
         200: '#5773FF',
         300: '#665EFF',
+        400: '#4438A2',
       },
       error: {
         DEFAULT: '#CB002E',

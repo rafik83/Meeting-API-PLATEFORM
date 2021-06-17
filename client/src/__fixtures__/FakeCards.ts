@@ -1,5 +1,5 @@
 import { CARD_KIND } from '../constants';
-import type { CompanyCard, MemberCard } from '../domain';
+import type { CompanyCard, MemberCard, EventCard } from '../domain';
 import { buildFakeTag } from './FakeTags';
 
 export const buildFakeMemberCard = (): MemberCard => {
@@ -43,5 +43,25 @@ export const buildFakeCompanyCard = (): CompanyCard => {
       'https://vivrelibredotblog.files.wordpress.com/2018/01/le-fond-et-la-forme.png',
     name: 'SpaceX',
     activity: 'Un joli texte de description',
+  };
+};
+
+export const buildFakeEventCard = (): EventCard => {
+  return {
+    picture:
+      'https://vivrelibredotblog.files.wordpress.com/2018/01/le-fond-et-la-forme.png',
+    name: 'World Event',
+    startDate: '2021-06-11T12:38:39.755Z',
+    endDate: '2021-06-13T12:38:39.755Z',
+    eventType: 'online',
+    registerUrl: 'https://hello.world',
+    findOutMoreUrl: 'https://find_out_more.com',
+    tags: [
+      buildFakeTag({ name: '2 000 000 participants' }),
+      buildFakeTag({ name: '10 stands' }),
+      buildFakeTag({ name: '2 toilets' }),
+    ],
+    kind: CARD_KIND.event,
+    id: 1,
   };
 };

@@ -27,7 +27,7 @@
 </script>
 
 <span
-  class="inline-block font-semibold rounded-full py-2 px-5 my-2 mr-3 {sizeClass}  {style} max-w-full"
+  class="inline-block font-semibold rounded-full py-2 px-5 my-2 mr-3 {sizeClass} {style} max-w-full"
 >
   <slot />
 </span>

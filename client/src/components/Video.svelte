@@ -8,6 +8,7 @@
   import IconPlay from '../ui-kit/icons/IconPlay/IconPlay.svelte';
 
   export let sources = [];
+  export let playOnHover = true;
 
   let video;
   const handleVideo = (videoElement) => {
@@ -24,9 +25,28 @@
       video.pause();
     }
   };
+
+  const handleMouseEnter = () => {
+    if (playOnHover) {
+      isPlaying = true;
+      video.play();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (playOnHover) {
+      isPlaying = false;
+      video.pause();
+    }
+  };
 </script>
 
-<div on:click={handleClick} class="relative">
+<div
+  on:click={handleClick}
+  on:mouseenter={handleMouseEnter}
+  on:mouseleave={handleMouseLeave}
+  class="relative"
+>
   <video width="100%" class="object-cover overflow-hidden" use:handleVideo>
     {#each sources as { source, type }}
       <source src={source} {type} />

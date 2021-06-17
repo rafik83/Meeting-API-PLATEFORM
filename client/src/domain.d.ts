@@ -120,10 +120,29 @@ export type MemberCard = {
   goals: Array<Tag>;
 };
 
-export type Card = CompanyCard | MemberCard;
+export type EventCard = {
+  picture: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  eventType: string;
+  registerUrl: string;
+  findOutMoreUrl: string;
+  tags: Array<Tag>;
+  kind: string;
+  id: number;
+};
+
+export type Card = CompanyCard | MemberCard | EventCard;
 
 export type CommunityList = {
   id: string;
   position: number;
   title: string;
+};
+
+export type DateObject = {
+  day: string;
+  month: string;
+  year: string;
 };

@@ -19,7 +19,7 @@
 
 <div class="relative h-full">
   <div class="relative h-full overflow-hidden" use:handleVideoContainer>
-    <Video sources={video.sources} />
+    <Video playOnHover={false} sources={video.sources} />
     <div
       class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-gray-50 to-transparent"
     />

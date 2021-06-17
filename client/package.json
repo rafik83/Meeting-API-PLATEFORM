@@ -111,9 +111,6 @@
       "js",
       "ts",
       "svelte"
-    ],
-    "setupFilesAfterEnv": [
-      "./jest.setup.ts"
     ]
   }
 }

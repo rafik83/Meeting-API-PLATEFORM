@@ -13,6 +13,7 @@
   import { v4 as uuidv4 } from 'uuid';
   import { CARD_KIND } from '../constants';
   import CompanyCard from './CompanyCard.svelte';
+  import EventCard from './EventCard.svelte';
 
   export let id = 'slider-' + uuidv4();
   export let cards = [];
@@ -64,13 +65,17 @@
     bind:slider
   >
     {#each cards as card}
-      {#if card.kind == CARD_KIND.member}
+      {#if card.kind === CARD_KIND.member}
         <div class="w-full flex items-center md:justify-start justify-center">
           <MemberCard on:meet_member on:view_member_profile {...card} />
         </div>
-      {:else}
+      {:else if card.kind === CARD_KIND.company}
         <div class="w-full flex items-center md:justify-start justify-center">
           <CompanyCard on:generate_new_leads {...card} />
+        </div>
+      {:else if card.kind === CARD_KIND.event}
+        <div class="w-full flex items-center md:justify-start justify-center">
+          <EventCard event={card} />
         </div>
       {/if}
     {/each}

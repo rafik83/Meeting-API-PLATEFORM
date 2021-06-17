@@ -2,6 +2,7 @@
   import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
   import {
     buildFakeCompanyCard,
+    buildFakeEventCard,
     buildFakeMemberCard,
   } from '../__fixtures__/FakeCards';
   import PreviewDecorator from './PreviewDecorator.svelte';
@@ -9,7 +10,9 @@
 
   const defaultProps = {
     cards: [
+      buildFakeEventCard(),
       buildFakeMemberCard(),
+      buildFakeEventCard(),
       buildFakeMemberCard(),
       buildFakeCompanyCard(),
       buildFakeMemberCard(),

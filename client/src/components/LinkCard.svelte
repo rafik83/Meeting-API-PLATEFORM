@@ -1,7 +1,7 @@
 <script>
-  export let type = 'button';
   export let kind = 'primary';
   export let id = '';
+  export let href = '';
 
   let style;
 
@@ -18,11 +18,11 @@
   }
 </script>
 
-<button
+<a
   {id}
   on:click|preventDefault
-  {type}
+  {href}
   class="w-auto cursor-pointer text-sm font-semibold rounded-xl h-12 px-4 {style}"
 >
   <slot>Button</slot>
-</button>
+</a>
