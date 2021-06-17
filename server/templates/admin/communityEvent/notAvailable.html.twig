@@ -1,0 +1,14 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <div class="container grid px-6 mx-auto">
+        {{ include('admin/common/return_button.html.twig', {
+            link: path('admin_community_edit', {id: community.id}),
+            label: 'admin.actions.back_to_community'|trans
+        }) }}
+
+
+        <h1 class="title">{{'admin.community_event.unavailable.title'|trans }}</h1>
+        <p>{{'admin.community_event.unavailable.description'|trans }}</p>
+    </div>
+{% endblock %}

@@ -4,10 +4,15 @@
 
 {% block body %}
     <div class='container grid px-6 mx-auto'>
+        {{ include('admin/common/return_button.html.twig', {
+            link: path('admin_community_edit', {id: community.id}),
+            label: 'admin.actions.back_to_community'|trans
+        }) }}
+
         <div>
             <div class='flex items-center justify-between w-full'>
                 <h1 class='title'>{{ 'admin.card-list.title'|trans }}</h1>
-                <a href="{{ path('admin_card_list_create', { communityId : community.id }) }}" class='btn-medium'>{{ 'admin.actions.create'|trans }}</a>
+                <a href="{{ path('admin_card_list_create', { communityId : community.id }) }}" class="btn-medium">{{ 'admin.actions.create'|trans }}</a>
             </div>
 
             {% embed 'admin/common/filter.html.twig' %}
@@ -47,4 +52,5 @@
                 {% endfor %}
             {% endblock %}
         {% endembed %}
-    {% endblock %}
+    </div>
+{% endblock %}

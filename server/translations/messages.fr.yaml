@@ -19,6 +19,7 @@ admin:
         filter: Filtrer
         sort_by_community: Trier par communauté
         back_to_list: Retour à la liste
+        back_to_community: Retour à la Communauté
     nomenclature:
         title: Nomenclature
         main_goal: Objectif Principal
@@ -42,3 +43,68 @@ admin:
         main-goals: Objectifs principaux
         refine: Affiner
         matching: Correspondances
+        edit:
+            title: Modifier la communauté
+        form:
+            name:
+                label: Nom
+            languages:
+                label: Langues supportés
+            default_language:
+                label: Langue par défaut
+                help: Doit être une des langues supportés
+            skill_nomenclature:
+                label: Nomenclature Skill
+                help: Utilisé pour définir les caractérisation des événement
+            event_nomenclature:
+                label: Nomenclature des evenements
+                help: utilisé pour définir les tags d'un evenement
+
+    community_event:
+        unavailable:
+            title: Fonctionnalité non disponible
+            description: Pour utiliser cette fonctionnalité, vous devez renseigné les 2 nomenclatures Skill & Evenement au niveau de votre communauté
+        list:
+            title: Événements
+            table:
+                name: Nom
+                date: Date
+                type: Type
+                published: Publié?
+            actions:
+                create: Créer
+                edit: Modifier
+                delete: Supprimer
+        create:
+            title: Créer un événement
+            flash:
+                success: L'événement a été créé
+        edit:
+            title: Modifier un événement
+            success: L'événement a été mis à jour
+        delete:
+            flash:
+                success: L'événement a bien été supprimé
+        form:
+            name:
+                label: Nom
+            type:
+                label: Type
+            start_date:
+                label: Date de début
+            end_date:
+                label: Date de fin
+            register_url:
+                label: Url d'inscription
+            find_out_more_url:
+                label: Url plus de détail
+            picture:
+                label: Image
+                help: Doit être une image au format jpeg ou png de 1Mo max
+            tags:
+                label: Tags
+                help: Choisissez 4 tags max
+            characterization_tags:
+                label: Tags caractérisation
+            published:
+                label: Publié ?

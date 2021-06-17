@@ -35,7 +35,10 @@ class EventCardViewDataTransformer implements DataTransformerInterface
 
         $event = $object->getEvent();
 
-        $picture = $this->assetPackages->getUrl($event->getPicture(), Assets::EVENT_PICTURES);
+        $picture = null;
+        if ($event->getPicture() !== null) {
+            $picture = $this->assetPackages->getUrl($event->getPicture(), Assets::EVENT_PICTURES);
+        }
 
         return new EventCardView(
             $object->getId(),

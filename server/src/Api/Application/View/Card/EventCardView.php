@@ -15,7 +15,7 @@ class EventCardView extends CardView
      */
     public function __construct(
         int $id,
-        public string $picture,
+        public ?string $picture,
         public string $name,
         public \DateTimeImmutable $startDate,
         public \DateTimeImmutable $endDate,

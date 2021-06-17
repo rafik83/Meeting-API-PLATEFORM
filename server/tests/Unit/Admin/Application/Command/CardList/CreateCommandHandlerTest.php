@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Proximum\Vimeet365\Tests\Unit\Admin\Application\CardList\Command;
+namespace Proximum\Vimeet365\Tests\Unit\Admin\Application\Command\CardList;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

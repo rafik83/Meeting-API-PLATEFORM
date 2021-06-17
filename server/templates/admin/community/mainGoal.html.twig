@@ -2,7 +2,10 @@
 
 {% block body %}
     <div class="container grid px-6 mx-auto">
-        {% include 'admin/common/return_button.html.twig' with { link: path('admin_community_list') } %}
+        {{ include('admin/common/return_button.html.twig', {
+            link: path('admin_community_edit', {id: community.id}),
+            label: 'admin.actions.back_to_community'|trans
+        }) }}
 
         <h1 class="title">{{'admin.community.main-goals'|trans }}</h1>
         <div class="main-rounded-block">
@@ -20,8 +23,5 @@
                 {{ form(matchingForm) }}
             </div>
         {% endif %}
-        <a href="{{ path('admin_card_list_list', { communityId: community.id }) }}" class="btn-medium-icon">
-            {{ 'admin.card-list.title'|trans }}
-        </a>
     </div>
 {% endblock %}

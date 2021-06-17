@@ -9,9 +9,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
+use Proximum\Vimeet365\Core\Infrastructure\Repository\CommunityEventRepository;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=CommunityEventRepository::class)
  * @ORM\Table(name="community_event")
  */
 class Event
@@ -60,14 +61,14 @@ class Event
     private string $findOutMoreUrl;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(nullable=true)
      */
-    private string $picture;
+    private ?string $picture;
 
     /**
      * @var Collection<int, Tag>
      *
-     * @ORM\ManyToMany(targetEntity=Tag::class)
+     * @ORM\ManyToMany(targetEntity=Tag::class, orphanRemoval=true)
      * @ORM\JoinTable(name="community_event_tag")
      */
     private Collection $tags;
@@ -75,7 +76,7 @@ class Event
     /**
      * @var Collection<int, Tag>
      *
-     * @ORM\ManyToMany(targetEntity=Tag::class)
+     * @ORM\ManyToMany(targetEntity=Tag::class, orphanRemoval=true)
      * @ORM\JoinTable(name="community_event_characterization_tag")
      */
     private Collection $characterizationTags;
@@ -97,10 +98,8 @@ class Event
         \DateTimeImmutable $endDate,
         string $registerUrl,
         string $findOutMoreUrl,
-        string $picture,
         array $tags,
-        array $characterizationTags,
-        bool $published,
+        array $characterizationTags
     ) {
         $this->community = $community;
         $this->name = $name;
@@ -109,10 +108,10 @@ class Event
         $this->endDate = $endDate;
         $this->registerUrl = $registerUrl;
         $this->findOutMoreUrl = $findOutMoreUrl;
-        $this->picture = $picture;
         $this->tags = new ArrayCollection($tags);
         $this->characterizationTags = new ArrayCollection($characterizationTags);
-        $this->published = $published;
+
+        $community->getEvents()->add($this);
     }
 
     public function getId(): ?int
@@ -155,9 +154,14 @@ class Event
         return $this->findOutMoreUrl;
     }
 
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
+    }
+
+    public function setPicture(string $picture): void
+    {
+        $this->picture = $picture;
     }
 
     /**
@@ -179,5 +183,28 @@ class Event
     public function isPublished(): bool
     {
         return $this->published;
+    }
+
+    public function setPublished(bool $published): void
+    {
+        $this->published = $published;
+    }
+
+    public function update(
+        string $name,
+        EventType $eventType,
+        \DateTimeImmutable $startDate,
+        \DateTimeImmutable $endDate,
+        string $registerUrl,
+        string $findOutMoreUrl,
+        array $tags,
+        array $characterizationTags,
+    ): void {
+        $this->name = $name;
+        $this->eventType = $eventType;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->registerUrl = $registerUrl;
+        $this->findOutMoreUrl = $findOutMoreUrl;
     }
 }

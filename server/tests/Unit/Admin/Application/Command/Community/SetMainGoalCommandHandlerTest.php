@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Proximum\Vimeet365\Tests\Unit\Admin\Command\Community;
+namespace Proximum\Vimeet365\Tests\Unit\Admin\Application\Command\Community;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

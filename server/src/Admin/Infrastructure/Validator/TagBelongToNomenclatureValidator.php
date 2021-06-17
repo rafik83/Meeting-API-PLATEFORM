@@ -47,6 +47,7 @@ class TagBelongToNomenclatureValidator extends ConstraintValidator
 
         $this->context
             ->buildViolation($constraint->message)
+            ->setCode(TagBelongToNomenclature::INVALID_ERROR)
             ->addViolation()
         ;
     }

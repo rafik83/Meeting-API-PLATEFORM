@@ -19,6 +19,7 @@ admin:
         filter: Filter
         sort_by_community: Sort by community
         back_to_list: Back to the list
+        back_to_community: Back to the community
     nomenclature:
         title: Nomenclature
         main_goal: Main Goal
@@ -42,3 +43,62 @@ admin:
         main-goals: Main goals
         refine: Refine
         matching: Matching
+        edit:
+            title: Edit a Community
+        form:
+            name:
+                label: Name
+            languages:
+                label: Supported languages
+            default_language:
+                label: Default language
+                help: Must be one of the supported languages
+            skill_nomenclature:
+                label: Skill Nomenclature
+                help: Nomenclature used to specify which characterization tags are available on an event
+            event_nomenclature:
+                label: Event Nomenclature
+                help: Nomenclature used to specify which tags will appear on an event
+
+    community_event:
+        unavailable:
+            title: Feature not available
+            description: To use this feature, you need to fill both Skill and Event Nomenclature field in your community
+        list:
+            title: Events
+            table:
+                name: Name
+                date: Date
+                type: Type
+                published: Published?
+            actions:
+                create: Create
+                edit: Edit
+                delete: Delete
+        create:
+            title: Create a new Event
+        edit:
+            title: Edit an Event
+        form:
+            name:
+                label: Name
+            type:
+                label: Type
+            start_date:
+                label: Start Date
+            end_date:
+                label: End Date
+            register_url:
+                label: Register Url
+            find_out_more_url:
+                label: Find out more Url
+            picture:
+                label: Picture
+                help: Must be a jpeg or png file, with a max size of 1M
+            tags:
+                label: Tags
+                help: Choose 4 tags max
+            characterization_tags:
+                label: Characterization Tags
+            published:
+                label: Published ?

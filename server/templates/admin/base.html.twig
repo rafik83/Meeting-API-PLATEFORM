@@ -81,7 +81,10 @@
                     {% include 'admin/nav.html.twig' %}
                 {% endif %}
                 <main class="h-full pb-16 overflow-y-auto">
-                    <div class="content">{% block body %}{% endblock %}</div>
+                    <div class="content">
+                        {{ include('admin/common/flash.html.twig') }}
+                        {% block body %}{% endblock %}
+                    </div>
                 </main>
             </div>
         </div>

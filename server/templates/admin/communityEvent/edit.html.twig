@@ -1,0 +1,12 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <div class="container grid px-6 mx-auto">
+        {% include 'admin/common/return_button.html.twig' with { link:  path('admin_community_event_list', {communityId: community.id}) } %}
+
+        <h2 class="part-title">{{ 'admin.community_event.create.title'|trans }}</h2>
+        <div class="main-rounded-block">
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

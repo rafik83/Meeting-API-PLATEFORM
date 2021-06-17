@@ -1,0 +1,30 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <div class="container grid px-6 mx-auto">
+
+        {% include 'admin/common/return_button.html.twig' with { link: path('admin_community_list') } %}
+
+
+        <h1 class="title">{{'admin.community.edit.title'|trans }}</h1>
+        <div class="main-rounded-block">
+            {{ form(form) }}
+        </div>
+
+        <div class="flex">
+            <a href="{{ path('admin_community_main_goal', { id: community.id }) }}" class="btn-medium-icon mx-2">
+                {{ 'admin.community.main-goals'|trans }}
+            </a>
+
+            <a href="{{ path('admin_card_list_list', { communityId: community.id }) }}" class="btn-medium-icon mx-2">
+                {{ 'admin.card-list.title'|trans }}
+            </a>
+            <a href="{{ path('admin_community_event_list', { communityId: community.id }) }}" class="btn-medium-icon mx-2">
+                {{ 'admin.community_event.list.title'|trans }}
+            </a>
+            <a href="{{ path('admin_nomenclature_list', { filter: {community: community.id}}) }}" class="btn-medium-icon mx-2">
+                {{ 'admin.nomenclature.title'|trans }}
+            </a>
+        </div>
+    </div>
+{% endblock %}

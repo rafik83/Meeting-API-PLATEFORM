@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Event;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
 
 /**
@@ -82,6 +83,13 @@ class Community
      */
     private ?Nomenclature $eventNomenclature = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="community")
+     *
+     * @var Collection<int, Event>
+     */
+    private Collection $events;
+
     public function __construct(string $name, array $languages = ['en'], string $defaultLanguage = 'en')
     {
         $this->name = $name;
@@ -91,6 +99,7 @@ class Community
         $this->members = new ArrayCollection();
         $this->goals = new ArrayCollection();
         $this->cardLists = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): int
@@ -186,6 +195,14 @@ class Community
         $this->eventNomenclature = $eventNomenclature;
     }
 
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
     public function join(Account $account): Member
     {
         $member = $account->getMemberFor($this);
@@ -204,5 +221,24 @@ class Community
     public function __toString(): string
     {
         return $this->getName();
+    }
+
+    public function update(
+        string $name,
+        string $defaultLanguage,
+        array $languages,
+        ?Nomenclature $skillNomenclature,
+        ?Nomenclature $eventNomenclature
+    ): void {
+        $this->name = $name;
+        $this->defaultLanguage = $defaultLanguage;
+        $this->languages = $languages;
+        $this->skillNomenclature = $skillNomenclature;
+        $this->eventNomenclature = $eventNomenclature;
+    }
+
+    public function isEventFeatureAvailable(): bool
+    {
+        return $this->eventNomenclature !== null && $this->skillNomenclature !== null;
     }
 }
