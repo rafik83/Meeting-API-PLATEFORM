@@ -6,7 +6,7 @@ install:
 	npm install
 	npm run build
 	docker-compose up -d
-	make setup-database
+	make create-database
 	make migrate-database
 
 start: # start the server
