@@ -13,5 +13,6 @@ export const buildFakeUser = ({
     lastName: lastName || 'Doe',
     acceptedTermsAndConditions: acceptedTermsAndConditions || Date.now(),
     members,
+    validated: true,
   };
 };

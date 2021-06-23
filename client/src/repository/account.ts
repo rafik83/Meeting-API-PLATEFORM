@@ -1,5 +1,5 @@
-import type { User, Credentials } from '../domain';
-import { get, post, patch, put } from '../modules/axios';
+import type { Credentials, User } from '../domain';
+import { get, patch, post, put } from '../modules/axios';
 
 export const getUserIdFromLocation = (
   locationHeader: string
@@ -83,4 +83,34 @@ export const updateUserCompany = async (
       company: companyId,
     })
   ).data;
+};
+
+export const requestAccountValidationEmail = async (
+  userId: number
+): Promise<void> => {
+  await get<void>(`/accounts/${userId}/validation`, {
+    headers: {
+      origin: window.location.hostname,
+    },
+  });
+};
+
+export const checkToken = async (
+  userId: number,
+  token: string
+): Promise<void> => {
+  await post<
+    {
+      token: string;
+    },
+    void
+  >(
+    `/accounts/${userId}/validation`,
+    { token },
+    {
+      headers: {
+        origin: window.location.hostname,
+      },
+    }
+  );
 };

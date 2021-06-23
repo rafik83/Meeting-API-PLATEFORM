@@ -71,6 +71,7 @@
   import { toHomePage, toOnboardingStep } from '../../../modules/routing';
   import Cookies from 'js-cookie';
   import Error from '../../../components/Error.svelte';
+  import { capitalize } from '../../../modules/textUtils';
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -95,6 +96,9 @@
   let currentGoal;
   let firstLevelTreeItems = [];
   let noDataToDisplay = false;
+
+  const title = $_('registration.hello');
+  const subtitle = capitalize(`${user.firstName} ${user.lastName}`);
 
   const handleSelectedTag = (e) => {
     if (!max || selectedTagCount < max || e.detail.priority) {
@@ -184,7 +188,7 @@
 {#if loading}
   <Loader />
 {:else}
-  <OnboardingContainer step="4" {user}>
+  <OnboardingContainer step="4" {title} {subtitle}>
     <div slot="icon" class="w-10/12">
       <IconSatellites width="90%" class="mx-auto" />
     </div>

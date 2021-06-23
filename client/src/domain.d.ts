@@ -14,6 +14,7 @@ export type User = {
   acceptedTermsAndConditions?: number | Date;
   company?: Company;
   members: Array<Member>;
+  validated: boolean;
 };
 
 export type Community = {

@@ -45,6 +45,7 @@
   import { debounce } from 'debounce';
   import { selectedCompanyStore } from '../../../stores/companyStore';
   import { getHubspotCompanies } from '../../../repository/company';
+  import { capitalize } from '../../../modules/textUtils';
 
   export let user;
   export let countries;
@@ -67,6 +68,9 @@
     website: '',
     activity: '',
   };
+
+  const title = $_('registration.hello');
+  const subtitle = capitalize(`${user.firstName} ${user.lastName}`);
 
   let companiesOptions;
   const searchHubspotCompanies = async (companyName) => {
@@ -148,7 +152,7 @@
   <title>{$_('onboarding.title')}</title>
 </svelte:head>
 
-<OnboardingContainer step="2" {user}>
+<OnboardingContainer step="2" {title} {subtitle}>
   <div slot="icon" class="w-10/12">
     <IconLaunching width="90%" class="mx-auto" />
   </div>

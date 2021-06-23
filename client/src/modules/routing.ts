@@ -25,6 +25,10 @@ export const toOnboardingStep = (step: string, tagId?: number) => {
   return `${currentLocale}/onboarding/${step}?tagId=${tagId}`;
 };
 
+export const toCongratsPage = () => {
+  return `${currentLocale}/onboarding/welcome`;
+};
+
 export const toRegistrationStep = (step: string) => {
   return `${currentLocale}?target=${step}`;
 };

@@ -71,6 +71,7 @@
   import H2 from '../../../components/H2.svelte';
   import Tag from '../../../components/Tag.svelte';
   import { sizes } from '../../../constants';
+  import { capitalize } from '../../../modules/textUtils';
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -87,6 +88,9 @@
   let max;
   let errorMessage;
   let goalTagName;
+
+  const title = $_('registration.hello');
+  const subtitle = capitalize(`${user.firstName} ${user.lastName}`);
 
   onMount(async () => {
     communityGoals = await getCommunityGoals(communityId);
@@ -152,7 +156,7 @@
 {#if loading}
   <Loader />
 {:else}
-  <OnboardingContainer step="4" {user}>
+  <OnboardingContainer step="4" {title} {subtitle}>
     <div slot="icon" class="w-10/12">
       <IconSatellites width="90%" class="mx-auto" />
     </div>

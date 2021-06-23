@@ -12,7 +12,9 @@
     "later": "plus tard",
     "previous": "Précédent",
     "next": "Suivant",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "vimeet_365": "Vimeet 365",
+    "back_to_home": "Retour à la page d'acceuil"
   },
   "validation": {
     "field_required": "Ce champs est requis",
@@ -32,7 +34,7 @@
   },
   "registration": {
     "welcome": "Bienvenue !",
-    "hello": "Bonjour",
+    "hello": "Bonjour.",
     "please_sign_in": "Veuillez vous enregistrer",
     "create_account": "Create account",
     "no_account": "Vous n'avez pas encore de compte ?",
@@ -92,7 +94,18 @@
     "detail_another_objective": "Voulez-vous détailler un autre objectif ?",
     "your_objective": "Votre objectif :",
     "please_detail_your_goal": "Veuillez détailler l'objectif selectionné :",
-    "please_update_company_data": "Merci de bien vouloir compléter les informations de votre entreprise"
+    "please_update_company_data": "Merci de bien vouloir compléter les informations de votre entreprise",
+    "almost_done": "Presque fini !",
+    "last_step": "Dernière étape",
+    "validation_mail_sent": "Nous vous avons envoyé un email pour valider ce dernier.\nVous devez cliquer sur le lien pour valider votre inscription dans notre communauté.",
+    "resend_validation_email": "Cliquez ici pour envoyer un nouvel email de confirmation.",
+    "get_new_validation_email": "Cliquez ici pour recevoir un nouvel email de validation",
+    "bad_token_provided": "Le token que vous avez fourni ne semble plus être valide",
+    "succeed": "Votre inscription a été validée !",
+    "join_your_community": "Rejoignez-votre communauté",
+    "welcome_aboard": "Bienvenue",
+    "finish": "C'est fini!",
+    "congrats": "Merci d'avoir rejoint notre communauté!"
   },
   "account": {
     "employment": "Fonction",

@@ -56,7 +56,7 @@
 
 <div class="w-full px-8 py-2 mx-auto my-5 flex-col items-center">
   <OnboardingHeader
-    title="{$_('registration.hello')}."
+    title={$_('registration.hello')}
     subtitle={capitalize(`${user.firstName} ${user.lastName}`)}
   />
 

@@ -124,14 +124,16 @@ services:
         decorates: 'api_platform.openapi.factory'
         autoconfigure: false
 
-    redis_session:
+    Proximum\Vimeet365\Core\Infrastructure\Security\AccountValidationTokenStorage: ['@redis']
+    Proximum\Vimeet365\Core\Domain\SecurityAccountValidationTokenStorageInterface: '@Proximum\Vimeet365\Core\Infrastructure\Security\AccountValidationTokenStorage'
+    redis:
         class: \Predis\Client
         arguments:
             $parameters: { host: '%env(resolve:VIMEET365_REDIS_HOST)%', port: '%env(int:VIMEET365_REDIS_PORT)%', database: 1}
 
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
-            - '@redis_session'
+            - '@redis'
 
     Proximum\Vimeet365\Core\Infrastructure\Hubspot\Client: ['@hubspot_client']
 

@@ -13,6 +13,7 @@ class AccountView
     public ?\DateTimeImmutable $acceptedTermsAndConditionAt;
     public ?string $avatar;
     public ?CompanyView $company = null;
+    public ?bool $validated = false;
 
     /** @var MemberView[] */
     public array $members = [];
@@ -25,7 +26,8 @@ class AccountView
         ?\DateTimeImmutable $acceptedTermsAndConditionAt,
         ?string $avatar,
         ?CompanyView $company,
-        array $members = []
+        array $members = [],
+        bool $validated = false,
     ) {
         $this->id = $id;
         $this->email = $email;
@@ -35,5 +37,6 @@ class AccountView
         $this->avatar = $avatar;
         $this->company = $company;
         $this->members = $members;
+        $this->validated = $validated;
     }
 }

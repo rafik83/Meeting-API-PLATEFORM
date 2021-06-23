@@ -53,7 +53,8 @@ class AccountOutputDataTransformer implements DataTransformerInterface
             $data->getAcceptedTermsAndConditionAt(),
             $avatar,
             $company,
-            $data->getMembers()->map(fn (Member $member) => new MemberView((int) $member->getId(), $member->getJoinedAt(), $member->getCommunity()->getId()))->getValues()
+            $data->getMembers()->map(fn (Member $member) => new MemberView((int) $member->getId(), $member->getJoinedAt(), $member->getCommunity()->getId()))->getValues(),
+            $data->hasBeenValidated()
         );
     }
 

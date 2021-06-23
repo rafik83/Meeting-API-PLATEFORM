@@ -57,12 +57,16 @@
 
   import RegistrationAccount from '../../../components/RegistrationAccount.svelte';
   import AvatarUploader from '../../../components/AvatarUploader.svelte';
+  import { capitalize } from '../../../modules/textUtils';
 
   export let user;
   export let countries;
   export let timezones;
   export let jobPositions;
   export let languages;
+
+  const title = $_('registration.hello');
+  const subtitle = capitalize(`${user.firstName} ${user.lastName}`);
 
   let userAvatar;
   let personalData;
@@ -100,7 +104,7 @@
   <title>{$_('onboarding.title')}</title>
 </svelte:head>
 
-<OnboardingContainer step="1" {user}>
+<OnboardingContainer step="1" {title} {subtitle}>
   <div slot="icon" class="w-11/12">
     <IconRocket />
   </div>

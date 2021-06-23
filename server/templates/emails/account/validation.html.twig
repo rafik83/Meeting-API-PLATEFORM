@@ -1,0 +1,18 @@
+{% apply inky_to_html %}
+<container>
+    <row class="header">
+        <columns>
+            <h1 class="text-center">Validate your account</h1>
+            <a href="{{accountValidationUrl|raw}}">
+                Click here to validate your account
+            </a>
+
+            <p>
+                Or paste this link into your browser
+                {{accountValidationUrl|raw}}
+            </p>
+        </span>
+        </columns>
+    </row>
+</container>
+{% endapply %}

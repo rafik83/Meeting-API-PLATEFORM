@@ -5,22 +5,6 @@
     margin: 0 auto;
     box-sizing: border-box;
   }
-
-  .loading {
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    font-family: monospace;
-    font-size: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 </style>
 
 <script context="module">
@@ -32,10 +16,18 @@
 
 <script>
   import Modal from 'svelte-simple-modal';
+  import Loader from '../components/Loader.svelte';
+  import { _ } from 'svelte-i18n';
 </script>
 
+<svelte:head>
+  <title>{$_('messages.vimeet_365')}</title>
+</svelte:head>
+
 {#if $isLoading}
-  <div class="loading">Loading...</div>
+  <div class="w-full h-full flex justify-center items-center z-10">
+    <Loader />
+  </div>
 {:else}
   <Modal>
     <main class="bg-gray-50 flex h-full flex-col overflow-auto items-center">

@@ -6,3 +6,6 @@ services:
     Proximum\Vimeet365\Core\Infrastructure\DataFixtures\ImmutableDateProvider:
         autowire: true
         autoconfigure: true
+
+    Proximum\Vimeet365\Core\Domain\Security\AccountValidationTokenStorageInterface:
+        class: Proximum\Vimeet365\Tests\AccountValidationTokenStorage

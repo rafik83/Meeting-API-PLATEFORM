@@ -28,8 +28,15 @@ export const setBaseUrl = (url: string) => {
   }
 };
 
-export const post = <T, R>(url: string, payload: T) => {
-  return getClient().post<R>(url, payload, { withCredentials: true });
+export const post = <T, R>(
+  url: string,
+  payload: T,
+  config?: AxiosRequestConfig
+) => {
+  return getClient().post<R>(url, payload, {
+    ...config,
+    withCredentials: true,
+  });
 };
 
 export const put = <T>(url: string, payload: T) => {
@@ -48,6 +55,6 @@ export const del = (url: string) => {
   return getClient().delete(url);
 };
 
-export const get = async <T>(url: string) => {
-  return getClient().get<T>(url);
+export const get = async <T>(url: string, config?: AxiosRequestConfig) => {
+  return getClient().get<T>(url, config);
 };

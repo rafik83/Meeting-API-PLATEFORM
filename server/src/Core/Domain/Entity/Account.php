@@ -99,6 +99,11 @@ class Account
      */
     private ?string $hubspotId = null;
 
+    /**
+     * @ORM\Column()
+     */
+    private bool $validated = false;
+
     public function __construct(
         string $email,
         string $password,
@@ -192,6 +197,16 @@ class Account
         }
 
         return $member;
+    }
+
+    public function hasBeenValidated(): bool
+    {
+        return $this->validated;
+    }
+
+    public function validate(): void
+    {
+        $this->validated = true;
     }
 
     public function acceptedTermsAndCondition(): void

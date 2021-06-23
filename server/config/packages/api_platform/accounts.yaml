@@ -6,7 +6,7 @@ Proximum\Vimeet365\Core\Domain\Entity\Account:
         get: ~
         post:
             input: 'Proximum\Vimeet365\Api\Application\Command\Account\RegistrationCommand'
-            messenger: 'input'
+            messenger: "input"
     itemOperations:
         get:
             requirements:
@@ -49,6 +49,20 @@ Proximum\Vimeet365\Core\Domain\Entity\Account:
             security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
             openapi_context:
                 summary: Update the existing company of the account
+        account_validate:
+            method: get
+            path: /accounts/{id}/validation
+            controller: Proximum\Vimeet365\Api\Infrastructure\Controller\AccountController::validate
+            security: 'is_granted("ROLE_USER") and is_granted("OWNER", object)'
+            openapi_context:
+                summary: Validate a user account
+        account_check_token:
+            method: post
+            path: /accounts/{id}/validation
+            controller: Proximum\Vimeet365\Api\Infrastructure\Controller\AccountController::checkValidationToken
+            input: Proximum\Vimeet365\Api\Application\Command\Account\CheckValidationTokenCommand
+            openapi_context:
+                summary: Check if the account validation token is valid
 
         account_post_avatar:
             method: post

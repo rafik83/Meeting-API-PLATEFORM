@@ -191,4 +191,47 @@ class AccountTest extends ApiTestCase
 
         self::assertResponseStatusCodeSame(401);
     }
+
+    public function testValidateAccount(): void
+    {
+        $account = $this->login('user@example.com');
+
+        self::$client->request('GET', '/api/accounts/' . $account->getId() . '/validation', [
+            'headers' => [
+                'content-type' => 'application/ld+json',
+                'origin' => 'http://hello.world',
+            ],
+        ]);
+
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testCheckValidationToken(): void
+    {
+        $account = $this->login('user@example.com');
+
+        self::$client->request('GET', '/api/accounts/' . $account->getId() . '/validation', [
+            'headers' => [
+                'content-type' => 'application/ld+json',
+                'origin' => 'http://hello.world',
+            ],
+        ]);
+
+        self::assertResponseIsSuccessful();
+
+        self::$client->request('POST', '/api/accounts/' . $account->getId() . '/validation', [
+            'headers' => [
+                'content-type' => 'application/ld+json',
+            ],
+            'body' => \json_encode([
+                'token' => '15e29216-2cd3-4dc1-8205-3fe4ca8af72f',
+            ]),
+        ]);
+
+        self::assertResponseIsSuccessful();
+
+        $account = $this->getAccount('user@example.com');
+
+        self::assertTrue($account->hasBeenValidated());
+    }
 }

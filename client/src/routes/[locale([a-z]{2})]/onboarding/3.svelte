@@ -45,6 +45,7 @@
   import Cookies from 'js-cookie';
   import { stores } from '@sapper/app';
   import { setBaseUrl } from '../../../modules/axios';
+  import { capitalize } from '../../../modules/textUtils';
   const { session } = stores();
   setBaseUrl($session.apiUrl);
 
@@ -56,6 +57,8 @@
   export let goalId;
   let selectedTags = [];
   let errorMessage;
+  const title = $_('registration.hello');
+  const subtitle = capitalize(`${user.firstName} ${user.lastName}`);
 
   const handleSubmitGoals = async () => {
     errorMessage = '';
@@ -94,7 +97,7 @@
   <title>{$_('onboarding.title')}</title>
 </svelte:head>
 
-<OnboardingContainer step="3" {user}>
+<OnboardingContainer step="3" {title} {subtitle}>
   <div slot="icon" class="w-10/12">
     <IconSatellite width="90%" class="mx-auto" />
   </div>

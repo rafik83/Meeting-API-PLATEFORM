@@ -37,14 +37,14 @@
   import { getMemberGoals } from '../../../repository/member';
   import OnboardingContainer from '../../../components/OnboardingContainer.svelte';
   import IconSatellite from '../../../ui-kit/icons/IconSatellite/IconSatellite.svelte';
-  import { goto } from '@sapper/app';
-  import { stores } from '@sapper/app';
+  import { goto, stores } from '@sapper/app';
   import { onMount } from 'svelte';
   import { getTagsFromMemberGoal } from '../../../modules/tagManagement';
   import TagButton from '../../../components/TagButton.svelte';
   import { setBaseUrl } from '../../../modules/axios';
   import Loader from '../../../components/Loader.svelte';
   import Button from '../../../components/Button.svelte';
+  import { capitalize } from '../../../modules/textUtils';
 
   const { session } = stores();
   setBaseUrl($session.apiUrl);
@@ -84,6 +84,9 @@
       isLoading = false;
     }
   });
+
+  const title = $_('registration.hello');
+  const subtitle = capitalize(`${user.firstName} ${user.lastName}`);
 </script>
 
 <svelte:head>
@@ -93,7 +96,7 @@
 {#if isLoading}
   <Loader />
 {:else}
-  <OnboardingContainer step="4" {user}>
+  <OnboardingContainer step="4" {title} {subtitle}>
     <div slot="icon" class="w-10/12">
       <IconSatellite width="90%" class="mx-auto" />
     </div>

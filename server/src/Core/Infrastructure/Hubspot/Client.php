@@ -155,7 +155,8 @@ class Client implements ClientInterface
                     static fn ($key) => \in_array($key, self::COMPANIES_PROPERTIES, true),
                     ARRAY_FILTER_USE_KEY
                 )
-            ), $response->getResults()
+            ),
+            $response->getResults()
         );
     }
 

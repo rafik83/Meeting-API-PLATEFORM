@@ -12,7 +12,9 @@
     "later": "later",
     "previous": "Previous step",
     "next": "Next",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "vimeet_365": "Vimeet 365",
+    "back_to_home": "Back to home page"
   },
   "validation": {
     "field_required": "This field is required",
@@ -31,7 +33,7 @@
   },
   "registration": {
     "welcome": "Welcome !",
-    "hello": "Hello",
+    "hello": "Hello.",
     "please_sign_in": "Please sign in",
     "no_account": "Still don't have an account ?",
     "title": "Let's Start!",
@@ -93,7 +95,18 @@
     "detail_another_objective": "Do you want to detail another objective?",
     "your_objective": "Your objective :",
     "please_detail_your_goal": "Please detail your goal :",
-    "please_update_company_data": "Please fill in your company details"
+    "please_update_company_data": "Please fill in your company details",
+    "almost_done": "Almost done!",
+    "last_step": "Last step",
+    "validation_mail_sent": "We sent you an email to validate it.\nYou must click on the link to validate your registration in our community.",
+    "resend_validation_email": "Click here to resend the validation email.",
+    "get_new_validation_email": "Click here to receive a new validation email",
+    "bad_token_provided": "The token you provided seems to be invalid",
+    "succeed": "Your registration has been validated!",
+    "join_your_community": "Join your community",
+    "welcome_aboard": "Welcome aboard!",
+    "finish": "It's finish",
+    "congrats": "Congratulations for joining the members of our Community!"
   },
   "account": {
     "employment": "Employment",
