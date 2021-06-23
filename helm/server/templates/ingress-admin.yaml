@@ -33,9 +33,12 @@ spec:
     http:
       paths:
       - path: {{ default "/" .Values.ingressAdmin.path }}
+        pathType: Prefix
         backend:
-          serviceName: "{{ template "vimeet365.fullname" $ }}"
-          servicePort: http
+          service:
+            name: "{{ template "vimeet365.fullname" $ }}"
+            port:
+              number: http
   {{- if .Values.ingress.tls }}
   tls:
   - hosts:

@@ -31,13 +31,17 @@ spec:
     http:
       paths:
       - path: {{ default "/" .path }}
+        pathType: Prefix
         backend:
+          service:
             {{- if .varnish.enabled }}
-          serviceName: "{{ template "vimeet365.fullname" $ }}-varnish"
-          servicePort: {{ .varnish.port }}
+            name: "{{ template "vimeet365.fullname" $ }}-varnish"
+            port:
+              number: {{ .varnish.port }}
             {{- else }}
-          serviceName: "{{ template "vimeet365.fullname" $ }}"
-          servicePort: http
+            name: "{{ template "vimeet365.fullname" $ }}"
+            port:
+              number: http
             {{- end }}
   {{- end }}
   {{- if .Values.ingress.tls }}
