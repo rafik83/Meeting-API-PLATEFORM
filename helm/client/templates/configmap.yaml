@@ -1,16 +1,17 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: {{ template "vimeet365.fullname" . }}
-    labels:
-        app: "{{ template "vimeet365.name" . }}"
-        chart: "{{ template "vimeet365.chart" . }}"
-        release: {{ .Release.Name | quote }}
-        heritage: {{ .Release.Service | quote }}
-    annotations:
-      strategy.spinnaker.io/versioned: 'false'
+  name: {{ template "vimeet365.fullname" . }}
+  labels:
+    {{- include "vimeet365.labels" . | nindent 4 }}
+    app: "{{ template "vimeet365.name" . }}"
+    chart: "{{ template "vimeet365.chart" . }}"
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+  annotations:
+    strategy.spinnaker.io/versioned: 'false'
 data:
-    {{- range $key, $value := .Values.extraEnvVars }}
+  {{- range $key, $value := .Values.extraEnvVars }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
     {{- if .Values.newrelic.enabled }}

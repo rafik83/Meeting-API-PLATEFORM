@@ -1,9 +1,10 @@
 {{- if .Values.ingress.enabled }}
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ template "vimeet365.fullname" . }}
   labels:
+    {{- include "vimeet365.labels" . | nindent 4 }}
     app: "{{ template "vimeet365.name" . }}"
     chart: "{{ template "vimeet365.chart" . }}"
     release: {{ .Release.Name | quote }}

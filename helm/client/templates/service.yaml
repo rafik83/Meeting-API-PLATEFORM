@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: {{ template "vimeet365.fullname" . }}
   labels:
+    {{- include "vimeet365.labels" . | nindent 4 }}
     app: "{{ template "vimeet365.name" . }}"
     tier: client
     chart: "{{ template "vimeet365.chart" . }}"

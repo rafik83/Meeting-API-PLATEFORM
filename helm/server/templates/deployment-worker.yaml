@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: worker-events
   labels:
+    {{- include "vimeet365.labels" . | nindent 4 }}
     app: "{{ template "vimeet365.name" . }}"
     tier: worker
     chart: "{{ template "vimeet365.chart" . }}"

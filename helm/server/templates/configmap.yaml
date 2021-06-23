@@ -1,39 +1,40 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: {{ template "vimeet365.fullname" . }}
-    labels:
-        app: "{{ template "vimeet365.name" . }}"
-        chart: "{{ template "vimeet365.chart" . }}"
-        release: {{ .Release.Name | quote }}
-        heritage: {{ .Release.Service | quote }}
-    annotations:
-      strategy.spinnaker.io/versioned: 'false'
+  name: {{ template "vimeet365.fullname" . }}
+  labels:
+    {{- include "vimeet365.labels" . | nindent 4 }}
+    app: "{{ template "vimeet365.name" . }}"
+    chart: "{{ template "vimeet365.chart" . }}"
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+  annotations:
+    strategy.spinnaker.io/versioned: 'false'
 data:
-    APP_ENV: {{ default "dev" .Values.environment }}
-    {{- if .Values.redis.enabled }}
-    VIMEET365_REDIS_HOST: {{ template "vimeet365.redis.fullname" . }}
-    VIMEET365_REDIS_PORT: {{ .Values.redis.redisPort | quote }}
-    {{- else }}
-    VIMEET365_REDIS_HOST: {{ .Values.externalRedis.host }}
-    VIMEET365_REDIS_PORT: {{ .Values.externalRedis.port | quote }}
-    {{- end }}
-    {{- if .Values.proxyCache.enabled }}
-    PROXYCACHE_HOST: {{ .Values.proxyCache.host }}
-    {{- end }}
-    {{- if .Values.redis.enabled }}
-    REDIS_ENABLED: "true"
-    {{- else }}
-    REDIS_ENABLED: "false"
-    {{- end }}
-    {{- range $key, $value := .Values.extraEnvVars }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
-    {{- if .Values.newrelic.enabled }}
-    PHP_NEWRELIC_ENABLED: "true"
-    PHP_NEWRELIC_APPNAME: {{ .Values.newrelic.appName | quote }}
-    PHP_NEWRELIC_LICENSE: {{ .Values.newrelic.licenseKey | quote }}
-    {{- end }}
-    GCS_PROJECT_ID: {{ .Values.gcs.projectId | quote }}
-    GCS_PUBLIC_BUCKET: {{ .Values.gcs.publicBucket | quote }}
-    SESSION_COOKIE_DOMAIN : {{ .Values.session.cookieDomain | quote }}
+  APP_ENV: {{ default "dev" .Values.environment }}
+  {{- if .Values.redis.enabled }}
+  VIMEET365_REDIS_HOST: {{ template "vimeet365.redis.fullname" . }}
+  VIMEET365_REDIS_PORT: {{ .Values.redis.redisPort | quote }}
+  {{- else }}
+  VIMEET365_REDIS_HOST: {{ .Values.externalRedis.host }}
+  VIMEET365_REDIS_PORT: {{ .Values.externalRedis.port | quote }}
+  {{- end }}
+  {{- if .Values.proxyCache.enabled }}
+  PROXYCACHE_HOST: {{ .Values.proxyCache.host }}
+  {{- end }}
+  {{- if .Values.redis.enabled }}
+  REDIS_ENABLED: "true"
+  {{- else }}
+  REDIS_ENABLED: "false"
+  {{- end }}
+  {{- range $key, $value := .Values.extraEnvVars }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  {{- if .Values.newrelic.enabled }}
+  PHP_NEWRELIC_ENABLED: "true"
+  PHP_NEWRELIC_APPNAME: {{ .Values.newrelic.appName | quote }}
+  PHP_NEWRELIC_LICENSE: {{ .Values.newrelic.licenseKey | quote }}
+  {{- end }}
+  GCS_PROJECT_ID: {{ .Values.gcs.projectId | quote }}
+  GCS_PUBLIC_BUCKET: {{ .Values.gcs.publicBucket | quote }}
+  SESSION_COOKIE_DOMAIN : {{ .Values.session.cookieDomain | quote }}
