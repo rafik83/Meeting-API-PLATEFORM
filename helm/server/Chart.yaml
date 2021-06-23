@@ -12,4 +12,4 @@ maintainers:
 name: vimeet365-server
 sources:
 - https://github.com/proximum/vimeet365
-version: 1.0.0
+version: 1.0.1

@@ -4,6 +4,7 @@ apiVersion: v1
 metadata:
   name: {{ template "vimeet365.fullname" . }}-varnish
   labels:
+    {{- include "vimeet365.labels" . | nindent 4 }}
     app: "{{ template "vimeet365.name" . }}"
     tier: varnish
     chart: "{{ template "vimeet365.chart" . }}"

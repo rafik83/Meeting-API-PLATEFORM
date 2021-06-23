@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "vimeet365.fullname" . }}
   labels:
+    {{- include "vimeet365.labels" . | nindent 4 }}
     app: "{{ template "vimeet365.name" . }}"
     tier: server
     chart: "{{ template "vimeet365.chart" . }}"
@@ -18,6 +19,7 @@ spec:
   template:
     metadata:
       labels:
+        {{- include "vimeet365.labels" . | nindent 8 }}
         app: "{{ template "vimeet365.name" . }}"
         tier: server
         chart: "{{ template "vimeet365.chart" . }}"
