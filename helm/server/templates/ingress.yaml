@@ -41,7 +41,7 @@ spec:
             {{- else }}
             name: "{{ template "vimeet365.fullname" $ }}"
             port:
-              number: http
+              number: 80
             {{- end }}
   {{- end }}
   {{- if .Values.ingress.tls }}
