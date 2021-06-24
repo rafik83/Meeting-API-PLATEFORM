@@ -33,6 +33,7 @@ test: test-unit test-func ## api tests
 lint: lint.php-cs-fixer lint.phpstan ## api linting
 
 install@integration: export APP_ENV=test
+install@integration: export COMPOSER_NO_INTERACTION=1
 install@integration:
 	composer install --ansi --verbose --no-interaction --no-progress --prefer-dist --optimize-autoloader --no-scripts --ignore-platform-reqs
 	composer dump-autoload
