@@ -130,7 +130,7 @@ jobs:
                     name: run behat tests
                     command: |
                         sleep 10
-                        cd server && APP_ENV=e2e vendor/bin/behat
+                        cd server && APP_ENV=e2e vendor/bin/behat --profile ci
 workflows:
     integration:
         jobs:

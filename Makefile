@@ -9,6 +9,10 @@ start: ## Start API and client server
 	$(MAKE) -C server start
 	$(MAKE) -C client start
 
+test-e2e: export APP_ENV=e2e
+test-e2e:
+	$(MAKE) -C server test-e2e
+
 lint: 
 	$(MAKE) -C server	lint.phpstan
 	$(MAKE) -C client lint
@@ -29,3 +33,5 @@ storybook:
 
 load-fixtures :
 	$(MAKE) -C server load-fixtures
+stop:
+	$(MAKE) -C server stop

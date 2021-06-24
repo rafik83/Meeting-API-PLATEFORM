@@ -40,11 +40,9 @@ During the dev process, you may want to use a different environment configuratio
 
 You can override the production configuriation by creating a `.env.local` file and overriding the existing variables.
 
-
 Exemple :
 
 You can override the current `CORS_ALLOW_ORIGIN` variable by replacing it with `CORS_ALLOW_ORIGIN='*'`
-
 
 ### Frontend
 
@@ -72,6 +70,7 @@ All you have to do is create a `.env` file containing this value
 ```
 API_URL=http://localhost:8365/api
 ```
+
 #### Install the dependencies
 
 Run this make command
@@ -113,6 +112,7 @@ Pasword : password
 | `make help`      | List all available commands                                   |
 | `make watch-css` | Watch css changes                                             |
 | `make storybook` | start a storybook server development                          |
+| `make test-e2e`  | start behat and launch e2e tests                              |
 
 ### Routes to know
 
@@ -127,15 +127,57 @@ Note that the server's port may change if not available on server start.
 
 To do so please read the documentation [here](https://symfony.com/doc/current/setup/symfony_server.html#defining-the-local-domain)
 
+### E2E test
 
+To enforce resilience and code quality, testing the code is one of our main priority.
 
- ## Team Agreement 
+Both backend and frontend are covered by different kind of test. It goes from unit test to test that covers a whole set of functionality. (end to end tests)
+
+Those tests are built using (Behat Framwork)[https://docs.behat.org/en/latest/]
+
+#### How to launch those test ?
+
+Check if the e2e docker container is running.
+
+To achieve this run `docker-compose images` and you should see something like this.
+
+```
+vimeet365_e2e_1 selenium/standalone-chrome 87.0 6d93b6e3ff77 1.062 GB
+```
+
+If not restart the containers by running `docker-compose up -d`
+
+If everything is running, you can start the test sequence using `make test-e2e`
+
+#### How to debug a test ?
+
+Sometimes a test can fail. To debug the test you'd might like to have a look on what's Behat is currently trying to do.
+
+But Behat is running in its own docker container so you first need to connect to the container.
+
+The container could be seen like a distant computer running tests in its web browser.
+
+In order to connect to this computer you can une the [VNC protocole](http://web.mit.edu/cdsdev/src/howitworks.html) (this is the protocol we use to connect with a distant computer).
+
+The best and easiest way to work with VNC is to use [Remina](https://remmina.org/)
+
+You can setup remina you can create a new configuration with those values.
+
+```
+protocol: VNC
+server: localhost
+password: docker
+```
+
+#### Start
+
+## Team Agreement
 
 In all projects built at Proximum, we encourage shared code practices by the entire team.
 
 Here are some examples of shared practices
 
- ### 1. Conventional Commit
+### 1. Conventional Commit
 
 We use the naming convention called ["conventional commit".](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
 
@@ -149,12 +191,12 @@ According to this convention, each commit that we want to integrate into the mai
 [optional footer]
 ```
 
-`<type>` must be one of those values : 
+`<type>` must be one of those values :
 
-1. **fix:** a commit of the *type* `fix` patches a bug in your codebase (this correlates with [`PATCH`](http://semver.org/#summary) in semantic versioning).
-2. **feat:** a commit of the *type* `feat` introduces a new feature to the codebase (this correlates with [`MINOR`](http://semver.org/#summary) in semantic versioning).
-3. **BREAKING CHANGE:** a commit that has the text `BREAKING CHANGE:` at the beginning of its optional body or footer section introduces a breaking API change (correlating with [`MAJOR`](http://semver.org/#summary) in semantic versioning). A breaking change can be part of commits of any *type*. e.g., a `fix:`, `feat:` & `chore:` types would all be valid, in addition to any other *type*.
-4. Others: commit *types* other than `fix:` and `feat:` are allowed, for example [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional) (based on the [the Angular convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)) recommends `chore:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, and others. We also recommend `improvement` for commits that improve a current implementation without adding a new  feature or fixing a bug. Notice these types are not mandated by the  conventional commits specification, and have no implicit effect in  semantic versioning (unless they include a BREAKING CHANGE, which is NOT recommended). A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., `feat(parser): add ability to parse arrays`.
+1. **fix:** a commit of the _type_ `fix` patches a bug in your codebase (this correlates with [`PATCH`](http://semver.org/#summary) in semantic versioning).
+2. **feat:** a commit of the _type_ `feat` introduces a new feature to the codebase (this correlates with [`MINOR`](http://semver.org/#summary) in semantic versioning).
+3. **BREAKING CHANGE:** a commit that has the text `BREAKING CHANGE:` at the beginning of its optional body or footer section introduces a breaking API change (correlating with [`MAJOR`](http://semver.org/#summary) in semantic versioning). A breaking change can be part of commits of any _type_. e.g., a `fix:`, `feat:` & `chore:` types would all be valid, in addition to any other _type_.
+4. Others: commit _types_ other than `fix:` and `feat:` are allowed, for example [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional) (based on the [the Angular convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)) recommends `chore:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, and others. We also recommend `improvement` for commits that improve a current implementation without adding a new feature or fixing a bug. Notice these types are not mandated by the conventional commits specification, and have no implicit effect in semantic versioning (unless they include a BREAKING CHANGE, which is NOT recommended). A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., `feat(parser): add ability to parse arrays`.
 
 ** Examples of conventional commits**
 
@@ -220,13 +262,13 @@ Example of usage :
   import { IconBusiness } from "./ui-kit/icons/IconBusiness";
 </script>
 
-// Change component width and height
+/* Change component width and height*/
 
-<IconBusiness width={30} height={45} />
+<IconBusiness width="{30}" height="{45}" />
 
-// Change component fill
-
-<IconEye fill={"blue"} />
+/* Change component width and height*/
+ 
+ <IconEye fill={"blue"} />
 ```
 
 ##### I need to add a new icon
@@ -246,7 +288,6 @@ Before converting your svg file into a svelte component you may need to clean it
    We would like to keep file name consistency. Each svg file must be in [PascalCase](https://techterms.com/definition/pascalcase) and starting by `Icon`
 
    Exemple : IconEye, IconBusiness
-
 
 2. Remove global styles
 
@@ -282,7 +323,7 @@ Before converting your svg file into a svelte component you may need to clean it
 
    We also want to be able to set the icon color dynamicaly. Sometimes, it is required to remove hard coded `fill` and `stroke` property.
 
-   **BUT BE CAREFULL** This will work only with monochromatic icons. If your svg file has many different fill and stroke property with different values it is advised to not remove those  properties.
+   **BUT BE CAREFULL** This will work only with monochromatic icons. If your svg file has many different fill and stroke property with different values it is advised to not remove those properties.
 
    Please see `IconFlagEN` or `IconFlagFR` for an example of mutli chromatic icons
 

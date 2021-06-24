@@ -18,7 +18,7 @@ Feature:
         |Piotr      |Kropot   |Minister    |p@proximum.com   |www.proximum.com  |
         |Emma       |Goldman  |Minister    |e@fairness.coop  |www.fairness.coop |
         When I go to "/en"
-
+        
 Scenario: If I am not logged in, it is suggested that I log in to meet a member
     Then I should see "Loading"
     And I wait until I see "#homepage-slider-1"

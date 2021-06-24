@@ -29,6 +29,10 @@ test-func: ## api functionnal tests
 	bin/console doctrine:schema:create
 	bin/phpunit --testsuite Functional
 
+test-e2e: export APP_ENV=e2e
+test-e2e: ## launch e2e test
+	make restart
+	vendor/bin/behat
 test: test-unit test-func ## api tests
 lint: lint.php-cs-fixer lint.phpstan ## api linting
 

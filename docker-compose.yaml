@@ -11,10 +11,17 @@ services:
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: proximum_vimeet365
     volumes:
-      - 'database:/var/lib/postgresql/data'
+      - "database:/var/lib/postgresql/data"
     ports:
       - 15432:5432
   redis:
-      image: redis:6-alpine
-      ports:
-            - "6379:6379"
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+  e2e:
+    image: selenium/standalone-chrome:87.0
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - 4444:4444
+      - 5900:5900
