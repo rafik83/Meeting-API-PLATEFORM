@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Api\Application\Query\Community;
 
 use Proximum\Vimeet365\Api\Application\Exception\CardListNotFound;
 use Proximum\Vimeet365\Core\Application\Card\Provider\CardProvider;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Card;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card;
 use Proximum\Vimeet365\Core\Domain\Repository\CardListRepositoryInterface;
 
 class GetCardsQueryHandler

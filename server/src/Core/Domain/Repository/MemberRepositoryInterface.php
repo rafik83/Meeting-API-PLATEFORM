@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Core\Domain\Repository;
 
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 interface MemberRepositoryInterface
 {

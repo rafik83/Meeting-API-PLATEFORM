@@ -7,9 +7,10 @@ namespace Proximum\Vimeet365\Core\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Event;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 /**
  * @ORM\Entity()

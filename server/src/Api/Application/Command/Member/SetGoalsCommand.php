@@ -12,7 +12,7 @@ use Proximum\Vimeet365\Api\Infrastructure\Validator\Constraints\MemberGoal\HasPa
 use Proximum\Vimeet365\Api\Infrastructure\Validator\Constraints\MemberGoal\TagBelongToGoal;
 use Proximum\Vimeet365\Common\Validator\Constraints\EntityReferenceExists;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 

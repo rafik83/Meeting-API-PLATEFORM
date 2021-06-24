@@ -3,8 +3,8 @@ elao_enum:
     # https://github.com/Elao/PhpEnums#doctrine
     doctrine:
         types:
-            card_list_sorting: 'Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting'
+            card_list_sorting: 'Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting'
             card_list_card_types:
-                class: 'Proximum\Vimeet365\Core\Domain\Entity\Card\CardType'
+                class: 'Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType'
                 type: csv_collection
-            community_event_type: 'Proximum\Vimeet365\Core\Domain\Entity\Community\EventType'
+            community_event_type: 'Proximum\Vimeet365\Core\Domain\Entity\Community\Event\EventType'

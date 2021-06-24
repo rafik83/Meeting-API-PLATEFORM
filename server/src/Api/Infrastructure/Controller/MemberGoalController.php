@@ -7,11 +7,11 @@ namespace Proximum\Vimeet365\Api\Infrastructure\Controller;
 use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use Proximum\Vimeet365\Api\Application\Command\Member\RankGoalsCommand;
 use Proximum\Vimeet365\Api\Application\Command\Member\SetGoalsCommand;
-use Proximum\Vimeet365\Api\Application\Query\Member\GetGoalsQuery;
+use Proximum\Vimeet365\Api\Application\Query\CommunityMember\GetGoalsQuery;
 use Proximum\Vimeet365\Api\Application\View\Goal\MemberGoalView;
 use Proximum\Vimeet365\Common\Messenger\CommandBusInterface;
 use Proximum\Vimeet365\Common\Messenger\QueryBusInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 class MemberGoalController

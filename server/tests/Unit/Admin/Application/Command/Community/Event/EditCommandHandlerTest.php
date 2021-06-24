@@ -29,7 +29,7 @@ class EditCommandHandlerTest extends TestCase
 
         $event = $this->prophesize(Event::class);
         $event->getName()->willReturn('Event name');
-        $event->getEventType()->willReturn(Community\EventType::get(Community\EventType::FACE_TO_FACE));
+        $event->getEventType()->willReturn(Event\EventType::get(Event\EventType::FACE_TO_FACE));
         $event->getStartDate()->willReturn(new \DateTimeImmutable('2021-01-01'));
         $event->getEndDate()->willReturn(new \DateTimeImmutable('2021-01-01'));
         $event->getRegisterUrl()->willReturn('http:///');
@@ -43,7 +43,7 @@ class EditCommandHandlerTest extends TestCase
 
         $event->update(
             'Event name',
-            Community\EventType::get(Community\EventType::FACE_TO_FACE),
+            Event\EventType::get(Event\EventType::FACE_TO_FACE),
             new \DateTimeImmutable('2021-01-01'),
             new \DateTimeImmutable('2021-01-01'),
             'http:///',
@@ -67,7 +67,7 @@ class EditCommandHandlerTest extends TestCase
 
         $event = $this->prophesize(Event::class);
         $event->getName()->willReturn('Event name');
-        $event->getEventType()->willReturn(Community\EventType::get(Community\EventType::FACE_TO_FACE));
+        $event->getEventType()->willReturn(Event\EventType::get(Event\EventType::FACE_TO_FACE));
         $event->getStartDate()->willReturn(new \DateTimeImmutable('2021-01-01'));
         $event->getEndDate()->willReturn(new \DateTimeImmutable('2021-01-01'));
         $event->getRegisterUrl()->willReturn('http:///');
@@ -83,7 +83,7 @@ class EditCommandHandlerTest extends TestCase
 
         $event->update(
             'Event name',
-            Community\EventType::get(Community\EventType::FACE_TO_FACE),
+            Event\EventType::get(Event\EventType::FACE_TO_FACE),
             new \DateTimeImmutable('2021-01-01'),
             new \DateTimeImmutable('2021-01-01'),
             'http:///',
@@ -111,7 +111,7 @@ class EditCommandHandlerTest extends TestCase
         $event = new Event(
             $community,
             'Name',
-            Community\EventType::get(Community\EventType::FACE_TO_FACE),
+            Event\EventType::get(Event\EventType::FACE_TO_FACE),
             new \DateTimeImmutable('now'),
             new \DateTimeImmutable('now'),
             'http://register-url/',

@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Api\Infrastructure\Validator\Constraints\MemberGoal
 
 use Proximum\Vimeet365\Api\Application\Command\Member\RankGoalsCommand;
 use Proximum\Vimeet365\Api\Application\Dto\Member\TagDto;
-use Proximum\Vimeet365\Core\Domain\Entity\Member\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member\Goal;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

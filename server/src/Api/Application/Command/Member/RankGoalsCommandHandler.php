@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Api\Application\Command\Member;
 
 use Proximum\Vimeet365\Api\Application\Dto\Member\TagDto;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
-use Proximum\Vimeet365\Core\Domain\Entity\Member\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 class RankGoalsCommandHandler
 {
@@ -18,8 +17,8 @@ class RankGoalsCommandHandler
         $tags = array_combine($tagIds, $command->getTags());
 
         [$goalsToRank, $goalsToUnrank] = $member->getGoals()
-            ->filter(fn (Goal $memberGoal): bool => $memberGoal->getCommunityGoal()->getId() === $command->getGoal())
-            ->partition(fn (int $index, Goal $memberGoal): bool => \in_array($memberGoal->getTag()->getId(), $tagIds, true))
+            ->filter(fn (Member\Goal $memberGoal): bool => $memberGoal->getCommunityGoal()->getId() === $command->getGoal())
+            ->partition(fn (int $index, Member\Goal $memberGoal): bool => \in_array($memberGoal->getTag()->getId(), $tagIds, true))
         ;
 
         foreach ($goalsToRank as $goal) {

@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Core\Domain\Entity\Member:
+Proximum\Vimeet365\Core\Domain\Entity\Community\Member:
     member_1:
         __construct:
             community: '@community_1'

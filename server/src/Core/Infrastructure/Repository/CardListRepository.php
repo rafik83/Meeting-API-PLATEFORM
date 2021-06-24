@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Common\Pagination\DoctrineORMPaginator;
 use Proximum\Vimeet365\Common\Pagination\Pagination;
 use Proximum\Vimeet365\Common\Pagination\PaginatorInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Repository\CardListRepositoryInterface;
 
 /**

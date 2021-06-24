@@ -21,7 +21,7 @@ class CreateCommand
     /**
      * @Assert\NotNull
      */
-    public ?Community\EventType $eventType = null;
+    public ?Community\Event\EventType $eventType = null;
 
     /**
      * @Assert\NotNull

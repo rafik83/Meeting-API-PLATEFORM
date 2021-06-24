@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Functional\Api;
 
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 
 class CardTest extends ApiTestCase

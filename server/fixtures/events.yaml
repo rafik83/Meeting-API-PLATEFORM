@@ -3,7 +3,7 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\Event:
         __construct:
             community: '@community_1'
             name: 'Published event'
-            eventType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\EventType', 'online')>
+            eventType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\Event\EventType', 'online')>
             startDate: <immutableDateTimeBetween('now', 'next month')>
             endDate: <immutableDateTimeBetween('next month', '+ 2 month')>
             registerUrl: 'http://localhost/register-1'
@@ -16,7 +16,7 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\Event:
         __construct:
             community: '@community_1'
             name: 'Not Published event'
-            eventType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\EventType', 'online')>
+            eventType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\Event\EventType', 'online')>
             startDate: <immutableDateTimeBetween('now', 'next month')>
             endDate: <immutableDateTimeBetween('next month', '+ 2 month')>
             registerUrl: 'http://localhost/register-2'
@@ -29,7 +29,7 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\Event:
         __construct:
             community: '@community_2'
             name: 'Published event'
-            eventType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\EventType', 'online')>
+            eventType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\Event\EventType', 'online')>
             startDate: <immutableDateTimeBetween('now', 'next month')>
             endDate: <immutableDateTimeBetween('next month', '+ 2 month')>
             registerUrl: 'http://localhost/register-3'

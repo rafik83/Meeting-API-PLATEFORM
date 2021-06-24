@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Api\Infrastructure\DataTransformer;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use Proximum\Vimeet365\Api\Application\View\CommunityCardListView;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 
 class CardListViewDataTransformer implements DataTransformerInterface
 {

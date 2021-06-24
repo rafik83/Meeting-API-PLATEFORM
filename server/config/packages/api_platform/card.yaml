@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Core\Domain\Entity\Card\Card:
+Proximum\Vimeet365\Core\Domain\Entity\Community\Card:
     attributes:
         output: 'Proximum\Vimeet365\Api\Application\View\Card\CardView'
     collectionOperations:

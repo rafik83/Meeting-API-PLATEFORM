@@ -11,7 +11,7 @@ use Proximum\Vimeet365\Api\Application\View\Goal\MemberGoalTagView;
 use Proximum\Vimeet365\Api\Application\View\TagView;
 use Proximum\Vimeet365\Core\Application\Card\MemberCard;
 use Proximum\Vimeet365\Core\Application\Filesystem\Assets;
-use Proximum\Vimeet365\Core\Domain\Entity\Member\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member\Goal;
 use Symfony\Component\Asset\Packages;
 
 class MemberCardViewDataTransformer implements DataTransformerInterface

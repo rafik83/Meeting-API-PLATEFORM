@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Tests\Functional\Api;
 
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal as CommunityGoal;
-use Proximum\Vimeet365\Core\Domain\Entity\Member\Goal as MemberGoal;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member\Goal as MemberGoal;
 use Proximum\Vimeet365\Core\Domain\Entity\Nomenclature\NomenclatureTag;
 use Proximum\Vimeet365\Tests\Util\ApiTestCase;
 

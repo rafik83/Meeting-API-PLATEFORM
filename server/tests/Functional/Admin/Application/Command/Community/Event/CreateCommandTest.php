@@ -43,7 +43,7 @@ class CreateCommandTest extends KernelTestCase
 
         $command = new CreateCommand($community);
         $command->name = 'Event Name';
-        $command->eventType = Community\EventType::get(Community\EventType::FACE_TO_FACE);
+        $command->eventType = Community\Event\EventType::get(Community\Event\EventType::FACE_TO_FACE);
         $command->startDate = new \DateTimeImmutable('2021-01-01T00:00:00.000000Z');
         $command->endDate = new \DateTimeImmutable('2021-01-02T00:00:00.000000Z');
         $command->registerUrl = 'https://vimeet365.events';
@@ -92,7 +92,7 @@ class CreateCommandTest extends KernelTestCase
 
         $command = new CreateCommand($community);
         $command->name = str_repeat('a', 256);
-        $command->eventType = Community\EventType::get(Community\EventType::FACE_TO_FACE);
+        $command->eventType = Community\Event\EventType::get(Community\Event\EventType::FACE_TO_FACE);
         $command->startDate = new \DateTimeImmutable('2021-01-02T00:00:00.000000Z');
         $command->endDate = new \DateTimeImmutable('2021-01-01T00:00:00.000000Z');
         $command->registerUrl = 'not an url';
