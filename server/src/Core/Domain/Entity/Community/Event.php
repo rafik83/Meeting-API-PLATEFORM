@@ -84,7 +84,7 @@ class Event
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $published;
+    private bool $published = false;
 
     /**
      * @param Tag[] $tags
@@ -206,5 +206,16 @@ class Event
         $this->endDate = $endDate;
         $this->registerUrl = $registerUrl;
         $this->findOutMoreUrl = $findOutMoreUrl;
+
+        $this->tags->clear();
+        $this->characterizationTags->clear();
+
+        foreach ($tags as $tag) {
+            $this->getTags()->add($tag);
+        }
+
+        foreach ($characterizationTags as $tag) {
+            $this->getCharacterizationTags()->add($tag);
+        }
     }
 }

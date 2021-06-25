@@ -13,6 +13,7 @@ use Proximum\Vimeet365\Admin\Application\Command\Community\Event\EditCommandHand
 use Proximum\Vimeet365\Core\Application\Filesystem\EventPictureFilesystemInterface;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Event;
+use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class EditCommandHandlerTest extends TestCase
@@ -98,5 +99,44 @@ class EditCommandHandlerTest extends TestCase
         $event->setPublished(true)->shouldBeCalled();
 
         $handler($command);
+    }
+
+    public function testEditTags(): void
+    {
+        $community = new Community('name');
+
+        $tag1 = new Tag('tag-1');
+        $tag2 = new Tag('tag-2');
+
+        $event = new Event(
+            $community,
+            'Name',
+            Community\EventType::get(Community\EventType::FACE_TO_FACE),
+            new \DateTimeImmutable('now'),
+            new \DateTimeImmutable('now'),
+            'http://register-url/',
+            'http://found-out-more/',
+            [$tag1],
+            [$tag2]
+        );
+
+        $filesystem = $this->prophesize(EventPictureFilesystemInterface::class);
+        $handler = new EditCommandHandler($filesystem->reveal());
+
+        $command = new EditCommand($event);
+        $command->tags = [$tag2];
+        $command->characterizationTags = [$tag1];
+
+        self::assertCount(1, $event->getTags());
+        self::assertCount(1, $event->getCharacterizationTags());
+        self::assertEquals('tag-1', $event->getTags()->first()->getExternalId());
+        self::assertEquals('tag-2', $event->getCharacterizationTags()->first()->getExternalId());
+
+        $handler($command);
+
+        self::assertCount(1, $event->getTags());
+        self::assertCount(1, $event->getCharacterizationTags());
+        self::assertEquals('tag-2', $event->getTags()->first()->getExternalId());
+        self::assertEquals('tag-1', $event->getCharacterizationTags()->first()->getExternalId());
     }
 }
