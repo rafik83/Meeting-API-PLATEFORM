@@ -7,7 +7,7 @@ namespace Proximum\Vimeet365\Admin\Infrastructure\Form\Type\CommunityEvent;
 use Elao\Enum\Bridge\Symfony\Form\Type\EnumType;
 use Proximum\Vimeet365\Admin\Infrastructure\Form\Type\Community\NomenclatureTagType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\EventType;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Event\EventType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

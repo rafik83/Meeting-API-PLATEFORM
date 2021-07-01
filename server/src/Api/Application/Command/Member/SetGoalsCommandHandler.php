@@ -6,8 +6,8 @@ namespace Proximum\Vimeet365\Api\Application\Command\Member;
 
 use Proximum\Vimeet365\Api\Application\Dto\Member\TagDto;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal as CommunityGoal;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
-use Proximum\Vimeet365\Core\Domain\Entity\Member\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member\Goal;
 use Proximum\Vimeet365\Core\Domain\Repository\TagRepositoryInterface;
 
 class SetGoalsCommandHandler
@@ -37,7 +37,7 @@ class SetGoalsCommandHandler
         $tags = $this->tagRepository->findByIds($tagsId);
 
         foreach ($command->getTags() as $tagDto) {
-            new Goal($member, $goal, $tags[$tagDto->id], $tagDto->priority);
+            new Member\Goal($member, $goal, $tags[$tagDto->id], $tagDto->priority);
         }
 
         return $member;

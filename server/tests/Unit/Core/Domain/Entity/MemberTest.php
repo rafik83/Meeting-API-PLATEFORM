@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 
 class MemberTest extends TestCase
@@ -53,7 +53,7 @@ class MemberTest extends TestCase
         $account = $this->prophesize(Account::class);
         $account->getMembers()->willReturn(new ArrayCollection());
 
-        $member = new Member(
+        $member = new Community\Member(
             $community->reveal(),
             $account->reveal(),
         );

@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Proximum\Vimeet365\Core\Infrastructure\Repository\AccountRepository;
 use Proximum\Vimeet365\Core\Infrastructure\Repository\CommunityRepository;

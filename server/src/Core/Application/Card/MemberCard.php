@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Application\Card;
 
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Card;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 class MemberCard extends Card
 {

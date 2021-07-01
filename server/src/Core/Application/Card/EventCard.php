@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Application\Card;
 
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Card;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Event;
 
 class EventCard extends Card

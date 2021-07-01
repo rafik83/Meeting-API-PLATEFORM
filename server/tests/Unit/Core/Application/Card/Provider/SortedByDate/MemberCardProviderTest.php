@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Proximum\Vimeet365\Core\Application\Card\MemberCard;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByDate\MemberCardProvider;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Domain\Repository\MemberRepositoryInterface;
 
 class MemberCardProviderTest extends TestCase

@@ -7,6 +7,7 @@ namespace Proximum\Vimeet365\Core\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Infrastructure\Repository\AccountRepository;
 
 /**

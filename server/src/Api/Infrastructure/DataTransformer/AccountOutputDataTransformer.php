@@ -10,7 +10,7 @@ use Proximum\Vimeet365\Api\Application\View\CompanyView;
 use Proximum\Vimeet365\Api\Application\View\MemberView;
 use Proximum\Vimeet365\Core\Application\Filesystem\Assets;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Symfony\Component\Asset\Packages;
 
 class AccountOutputDataTransformer implements DataTransformerInterface

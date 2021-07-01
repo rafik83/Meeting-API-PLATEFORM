@@ -1,4 +1,4 @@
-Proximum\Vimeet365\Core\Domain\Entity\Member:
+Proximum\Vimeet365\Core\Domain\Entity\Community\Member:
     attributes:
         output: 'Proximum\Vimeet365\Api\Application\View\MemberView'
     collectionOperations:

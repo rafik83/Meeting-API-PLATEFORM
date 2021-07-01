@@ -11,11 +11,11 @@ use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\CompanyCardPr
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\EventCardProvider;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\MemberCardProvider;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\MixedCardProvider;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Card;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 
 class MixedCardProviderTest extends TestCase
 {

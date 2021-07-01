@@ -7,8 +7,8 @@ namespace Proximum\Vimeet365\Core\Infrastructure\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
 use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;
 
 /**

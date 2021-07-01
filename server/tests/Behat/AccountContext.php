@@ -9,7 +9,7 @@ use Behat\Gherkin\Node\TableNode;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Domain\Repository\AccountRepositoryInterface;
 use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
 use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;

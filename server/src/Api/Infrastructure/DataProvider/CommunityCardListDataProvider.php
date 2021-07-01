@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Api\Infrastructure\DataProvider;
 
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use ApiPlatform\Core\DataProvider\SubresourceDataProviderInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

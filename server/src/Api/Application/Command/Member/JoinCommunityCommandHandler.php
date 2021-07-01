@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Api\Application\Command\Member;
 
 use Proximum\Vimeet365\Api\Application\Security\CurrentAccountProviderInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
 use Proximum\Vimeet365\Core\Domain\Repository\MemberRepositoryInterface;
 

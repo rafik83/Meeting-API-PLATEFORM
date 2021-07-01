@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Api\Infrastructure\DataTransformer;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use Proximum\Vimeet365\Api\Application\View\MemberView;
-use Proximum\Vimeet365\Core\Domain\Entity\Member;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 class MemberOutputDataTransformer implements DataTransformerInterface
 {

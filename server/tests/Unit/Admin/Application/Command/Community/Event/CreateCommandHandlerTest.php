@@ -37,7 +37,7 @@ class CreateCommandHandlerTest extends TestCase
 
         $command = new CreateCommand($community->reveal());
         $command->name = 'Event name';
-        $command->eventType = Community\EventType::get(Community\EventType::FACE_TO_FACE);
+        $command->eventType = Event\EventType::get(Event\EventType::FACE_TO_FACE);
         $command->startDate = new \DateTimeImmutable('2021-01-01');
         $command->endDate = new \DateTimeImmutable('2021-01-01');
         $command->picture = $picture;

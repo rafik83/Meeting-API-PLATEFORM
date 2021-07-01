@@ -7,7 +7,7 @@ namespace Proximum\Vimeet365\Api\Infrastructure\Controller;
 use Proximum\Vimeet365\Api\Application\Exception\CardListNotFound;
 use Proximum\Vimeet365\Api\Application\Query\Community\GetCardsQuery;
 use Proximum\Vimeet365\Common\Messenger\QueryBusInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Card;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CardController

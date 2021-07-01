@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Api\Application\View\Card;
 
 use Proximum\Vimeet365\Api\Application\View\TagView;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\EventType;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Event\EventType;
 
 class EventCardView extends CardView
 {

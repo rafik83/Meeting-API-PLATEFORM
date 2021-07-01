@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Api\Application\View\Card;
 
 use Proximum\Vimeet365\Api\Application\View\TagView;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 
 class MemberCardView extends CardView
 {

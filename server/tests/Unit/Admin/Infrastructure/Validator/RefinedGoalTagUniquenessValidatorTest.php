@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Unit\Admin\Infrastructure\Validator;
 
 use Prophecy\PhpUnit\ProphecyTrait;
-use Proximum\Vimeet365\Admin\Application\Dto\Community\RefinedGoalDto;
+use Proximum\Vimeet365\Admin\Application\Dto\Community\Goal\RefinedGoalDto;
 use Proximum\Vimeet365\Admin\Infrastructure\Validator\RefinedGoalTagUniqueness;
 use Proximum\Vimeet365\Admin\Infrastructure\Validator\RefinedGoalTagUniquenessValidator;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;

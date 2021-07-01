@@ -6,7 +6,7 @@ namespace Proximum\Vimeet365\Core\Domain\Repository;
 
 use Proximum\Vimeet365\Common\Pagination\Pagination;
 use Proximum\Vimeet365\Common\Pagination\PaginatorInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 
 interface CardListRepositoryInterface
 {

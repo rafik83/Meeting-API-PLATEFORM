@@ -18,7 +18,7 @@ class EditCommand
      */
     public string $name;
 
-    public Community\EventType $eventType;
+    public Community\Event\EventType $eventType;
 
     /**
      * @Assert\NotNull

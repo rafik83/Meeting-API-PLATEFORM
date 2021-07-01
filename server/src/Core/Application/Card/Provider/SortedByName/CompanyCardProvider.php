@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName;
 
 use Proximum\Vimeet365\Core\Application\Card\CompanyCard;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardList;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardProviderInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\CardType;
-use Proximum\Vimeet365\Core\Domain\Entity\Card\Sorting;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardProviderInterface;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
 use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;
 
