@@ -64,12 +64,16 @@ class CommunityCardListController extends AbstractController
      */
     public function create(Request $request, Community $community): Response
     {
-        $form = $this->createForm(CardListType::class, new CreateCommand($community));
+        if (!$community->isCardListFeatureAvailable()) {
+            return $this->render('admin/cardList/notAvailable.html.twig', ['community' => $community]);
+        }
+
+        $form = $this->createForm(CardListType::class, new CreateCommand($community), ['community' => $community]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($form->getData());
 
-            $this->addFlash('success', 'admin.nomenclature.create.success');
+            $this->addFlash('success', 'admin.card_list.create.success');
 
             return $this->redirectToRoute('admin_card_list_list', ['communityId' => $community->getId()]);
         }
@@ -86,14 +90,18 @@ class CommunityCardListController extends AbstractController
      */
     public function edit(Request $request, Community $community, CardList $cardList): Response
     {
-        $form = $this->createForm(CardListType::class, new EditCommand($cardList));
+        if (!$community->isCardListFeatureAvailable()) {
+            return $this->render('admin/cardList/notAvailable.html.twig', ['community' => $community]);
+        }
+
+        $form = $this->createForm(CardListType::class, new EditCommand($cardList), ['community' => $community]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $cardList = $this->commandBus->handle($form->getData());
 
-            $this->addFlash('success', 'admin.nomenclature.create.success');
+            $this->addFlash('success', 'admin.card_list.edit.success');
 
-            return $this->redirectToRoute('admin_card_list_list', ['communityId' => $community->getId()]);
+            return $this->redirectToRoute('admin_card_list_edit', ['communityId' => $community->getId(), 'id' => $cardList->getId()]);
         }
 
         return $this->render('admin/communityCardList/edit.html.twig', [

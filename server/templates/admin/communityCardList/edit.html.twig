@@ -4,7 +4,7 @@
     <div class="container grid px-6 mx-auto">
         {% include 'admin/common/return_button.html.twig' with { link:  path('admin_card_list_list', {communityId: community.id}) } %}
 
-        <h2 class="part-title">{{ 'admin.card-list.edit-title'|trans }}</h2>
+        <h2 class="part-title">{{ 'admin.card_list.edit_title'|trans }}</h2>
         <div class="main-rounded-block">
             {{ form(form) }}
         </div>

@@ -45,3 +45,14 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
         published: true
         position: 3
+
+    community_1.card_list_6:
+        __construct:
+            community: '@community_1'
+            title: 'Very last published events'
+            cardTypes:
+                - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'community_event')>
+            sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
+            tags: [ '@tag_goals_buy', '@tag_goals_sell' ]
+        published: false
+        position: 3

@@ -1,0 +1,17 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <div class='container grid px-6 mx-auto'>
+        {{ include('admin/common/return_button.html.twig', {
+            link: path('admin_community_edit', {id: community.id}),
+            label: 'admin.actions.back_to_community'|trans
+        }) }}
+
+        <h1 class='title'>{{'admin.card_list.unavailable.title'|trans }}</h1>
+        <p>{{'admin.card_list.unavailable.description'|trans }}</p>
+        
+        <a href="{{ path('admin_community_main_goal', { id: community.id }) }}" class='btn-medium-icon mx-2'>
+            {{ 'admin.community.main-goals'|trans }}
+        </a>
+    </div>
+{% endblock %}

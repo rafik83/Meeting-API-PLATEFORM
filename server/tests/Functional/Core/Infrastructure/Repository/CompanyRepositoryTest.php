@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Tests\Functional\Core\Infrastructure\Repository;
 
 use Doctrine\ORM\EntityManager;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
 use Proximum\Vimeet365\Core\Infrastructure\Repository\CompanyRepository;
@@ -12,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CompanyRepositoryTest extends KernelTestCase
 {
+    use RefreshDatabaseTrait;
+
     private ?EntityManager $entityManager;
 
     protected function setUp(): void

@@ -30,11 +30,21 @@ admin:
             table:
                 community: Communauté
                 reference: Référence
-    card-list:
-        create-title: Créer des listes de cartes
-        edit-title: Modifier la liste de cartes
+    card_list:
+        create:
+            success: La liste des cards a été crée
+        edit:
+            success: La liste des cards a été modifiée
+        unavailable:
+            title: Fonctionnalité non disponible
+            description: Pour utiliser cette fonctionnalité, vous devez renseigner les objectifs principaux de votre communauté
+        create_title: Créer des listes de cartes
+        edit_title: Modifier la liste de cartes
         title: Card list
         list_name: Nom de la liste
+        form:
+            tags:
+                label: Tags
     community:
         title: Communauté
         list:
@@ -63,7 +73,7 @@ admin:
     community_event:
         unavailable:
             title: Fonctionnalité non disponible
-            description: Pour utiliser cette fonctionnalité, vous devez renseigné les 2 nomenclatures Skill & Evenement au niveau de votre communauté
+            description: Pour utiliser cette fonctionnalité, vous devez renseigner les 2 nomenclatures Skill & Evenement au niveau de votre communauté
         list:
             title: Événements
             table:

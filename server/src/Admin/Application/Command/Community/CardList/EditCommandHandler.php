@@ -12,7 +12,7 @@ class EditCommandHandler
     {
         $cardList = $command->cardList;
 
-        $cardList->update($command->position, $command->sorting, $command->cardTypes, $command->title);
+        $cardList->update($command->position, $command->sorting, $command->cardTypes, $command->title, $command->tags);
 
         if ($cardList->isPublished() && !$command->published) {
             $cardList->unpublish();

@@ -11,7 +11,7 @@
 
         <div>
             <div class='flex items-center justify-between w-full'>
-                <h1 class='title'>{{ 'admin.card-list.title'|trans }}</h1>
+                <h1 class='title'>{{ 'admin.card_list.title'|trans }}</h1>
                 <a href="{{ path('admin_card_list_create', { communityId : community.id }) }}" class="btn-medium">{{ 'admin.actions.create'|trans }}</a>
             </div>
 
@@ -31,7 +31,7 @@
             {% block table_head %}
                 <tr class='table-row-head'>
                     <th class='px-4 py-3'>{{'admin.common.community_name' | trans}}</th>
-                    <th class='px-4 py-3'>{{'admin.card-list.list_name' | trans}}</th>
+                    <th class='px-4 py-3'>{{'admin.card_list.list_name' | trans}}</th>
                     <th></th>
                 </tr>
             {% endblock %}

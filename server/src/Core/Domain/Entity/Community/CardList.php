@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Domain\Entity\Community;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
+use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 
 /**
  * @ORM\Entity()
@@ -55,14 +58,24 @@ class CardList
     public bool $published = false;
 
     /**
-     * @param CardType[] $cardTypes
+     * @var Collection<int, Tag>
+     *
+     * @ORM\ManyToMany(targetEntity=Tag::class, orphanRemoval=true)
+     * @ORM\JoinTable(name="community_card_list_tag")
      */
-    public function __construct(Community $community, string $title, array $cardTypes, Sorting $sorting)
+    private Collection $tags;
+
+    /**
+     * @param CardType[] $cardTypes
+     * @param Tag[]      $tags
+     */
+    public function __construct(Community $community, string $title, array $cardTypes, Sorting $sorting, array $tags = [])
     {
         $this->community = $community;
         $this->title = $title;
         $this->cardTypes = $cardTypes;
         $this->sorting = $sorting;
+        $this->tags = new ArrayCollection($tags);
 
         $this->community->getCardLists()->add($this);
     }
@@ -121,13 +134,37 @@ class CardList
     }
 
     /**
-     * @var CardType[]
+     * @return Collection<int, Tag>
      */
-    public function update(int $position, Sorting $sorting, array $cardTypes, string $title): void
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @var CardType[]
+     * @var Tag[]
+     */
+    public function update(int $position, Sorting $sorting, array $cardTypes, string $title, array $tags = []): void
     {
         $this->position = $position;
         $this->sorting = $sorting;
         $this->cardTypes = $cardTypes;
         $this->title = $title;
+        $this->tags = new ArrayCollection($tags);
+    }
+
+    public function match(?Member $member = null): bool
+    {
+        if ($member === null || $this->tags->isEmpty()) {
+            return $this->tags->isEmpty();
+        }
+
+        $mainGoal = $member->getMainGoals()->first();
+        if ($mainGoal === false) {
+            return false;
+        }
+
+        return $this->tags->exists(fn (int $key, Tag $tag): bool => $tag->getId() === $mainGoal->getTag()->getId());
     }
 }

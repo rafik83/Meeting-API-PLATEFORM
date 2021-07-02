@@ -6,14 +6,17 @@ namespace Proximum\Vimeet365\Api\Infrastructure\DataProvider;
 
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use ApiPlatform\Core\DataProvider\SubresourceDataProviderInterface;
+use Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Repository\CommunityRepositoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Security;
 
 class CommunityCardListDataProvider implements SubresourceDataProviderInterface, RestrictedDataProviderInterface
 {
     public function __construct(
-        private CommunityRepositoryInterface $communityRepository
+        private CommunityRepositoryInterface $communityRepository,
+        private Security $security
     ) {
     }
 
@@ -31,7 +34,11 @@ class CommunityCardListDataProvider implements SubresourceDataProviderInterface,
             throw new NotFoundHttpException(sprintf('Community "%s" not found.', $identifiers['id']['id']));
         }
 
-        return $community->getPublishedCardLists()->getValues();
+        /** @var SymfonyUser|null $user */
+        $user = $this->security->getUser();
+        $member = $user?->getAccount()->getMemberFor($community);
+
+        return $community->getPublishedCardLists($member)->getValues();
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool

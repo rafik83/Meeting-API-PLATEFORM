@@ -30,11 +30,21 @@ admin:
             table:
                 community: Community
                 reference: Reference
-    card-list:
-        create-title: Create card list
-        edit-title: Edit card list
+    card_list:
+        create:
+            success: Card list has been created
+        edit:
+            success: Card list has been edited
+        unavailable:
+            title: Feature not available
+            description: To use this feature, you need to fill the main goals of your community
+        create_title: Create card list
+        edit_title: Edit card list
         title: Card list
         list_name: List Name
+        form:
+            tags:
+                label: Tags
     community:
         title: community
         list:

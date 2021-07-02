@@ -11,13 +11,14 @@ use Proximum\Vimeet365\Admin\Application\Command\Community\CardList\CreateComman
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
+use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Proximum\Vimeet365\Core\Domain\Repository\CardListRepositoryInterface;
 
 class CreateCommandHandlerTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testEmpty(): void
+    public function testEmptyTagsArray(): void
     {
         $cardListTitle = 'Dummy Title';
         $community = new Community('Dummy Community');
@@ -48,6 +49,30 @@ class CreateCommandHandlerTest extends TestCase
         $command->sorting = null;
         $command->cardTypes = [];
         $command->title = $cardListTitle;
+
+        $handler = new CreateCommandHandler($cardListRepository->reveal());
+        $handler($command);
+    }
+
+    public function testWithTags(): void
+    {
+        $tagA = $this->prophesize(Tag::class);
+        $tagA->getId()->willReturn(1);
+        $tagB = $this->prophesize(Tag::class);
+        $tagB->getId()->willReturn(2);
+        $tags = [$tagA->reveal(), $tagB->reveal()];
+
+        $cardListTitle = 'Dummy Title';
+        $community = new Community('Dummy Community');
+        $cardList = new CardList($community, $cardListTitle, [], Sorting::get(Sorting::ALPHABETICAL), $tags);
+        $cardListRepository = $this->prophesize(CardListRepositoryInterface::class);
+        $cardListRepository->add($cardList)->shouldBeCalledOnce();
+
+        $command = new CreateCommand($community);
+        $command->sorting = Sorting::get(Sorting::ALPHABETICAL);
+        $command->cardTypes = [];
+        $command->title = $cardListTitle;
+        $command->tags = $tags;
 
         $handler = new CreateCommandHandler($cardListRepository->reveal());
         $handler($command);

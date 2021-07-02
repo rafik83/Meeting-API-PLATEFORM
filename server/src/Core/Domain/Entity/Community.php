@@ -171,9 +171,11 @@ class Community
     /**
      * @return Collection<int, CardList>
      */
-    public function getPublishedCardLists(): Collection
+    public function getPublishedCardLists(?Member $member = null): Collection
     {
-        return $this->getCardLists()->filter(fn (CardList $cardList): bool => $cardList->isPublished());
+        return $this->getCardLists()
+            ->filter(fn (CardList $cardList): bool => $cardList->isPublished())
+            ->filter(fn (CardList $cardList): bool => $cardList->match($member));
     }
 
     public function getSkillNomenclature(): ?Nomenclature
@@ -241,5 +243,10 @@ class Community
     public function isEventFeatureAvailable(): bool
     {
         return $this->eventNomenclature !== null && $this->skillNomenclature !== null;
+    }
+
+    public function isCardListFeatureAvailable(): bool
+    {
+        return $this->getMainGoal() !== null;
     }
 }
