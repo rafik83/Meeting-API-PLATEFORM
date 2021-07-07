@@ -1,2 +1,2 @@
 parameters:
-    password: '$argon2id$v=19$m=65536,t=4,p=1$17DQD9GEwGVNdKesMPJq2w$Ib4pKVBEKPZ+ivBkvJdrLuCMHnSxndbQNenIpQLDB2k' # password
+    password: "$argon2id$v=19$m=65536,t=4,p=1$17DQD9GEwGVNdKesMPJq2w$Ib4pKVBEKPZ+ivBkvJdrLuCMHnSxndbQNenIpQLDB2k" # password

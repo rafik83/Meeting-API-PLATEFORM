@@ -1,27 +1,27 @@
 flysystem:
     storages:
         companyLogos.storage:
-            adapter: 'gcloud'
+            adapter: "gcloud"
             options:
-                client: 'gcloud_client_service'
-                bucket: '%env(resolve:GCS_PUBLIC_BUCKET)%'
-                prefix: 'companyLogos/'
+                client: "gcloud_client_service"
+                bucket: "%env(resolve:GCS_PUBLIC_BUCKET)%"
+                prefix: "companyLogos/"
         accountAvatar.storage:
-            adapter: 'gcloud'
+            adapter: "gcloud"
             options:
-                client: 'gcloud_client_service'
-                bucket: '%env(resolve:GCS_PUBLIC_BUCKET)%'
-                prefix: 'accountAvatar/'
+                client: "gcloud_client_service"
+                bucket: "%env(resolve:GCS_PUBLIC_BUCKET)%"
+                prefix: "accountAvatar/"
         eventPictures.storage:
-            adapter: 'gcloud'
+            adapter: "gcloud"
             options:
-                client: 'gcloud_client_service'
-                bucket: '%env(resolve:GCS_PUBLIC_BUCKET)%'
-                prefix: 'eventPictures/'
+                client: "gcloud_client_service"
+                bucket: "%env(resolve:GCS_PUBLIC_BUCKET)%"
+                prefix: "eventPictures/"
 
 services:
     gcloud_client_service:
         class: Google\Cloud\Storage\StorageClient
         arguments:
             $config:
-                projectId: '%env(resolve:GCS_PROJECT_ID)%'
+                projectId: "%env(resolve:GCS_PROJECT_ID)%"

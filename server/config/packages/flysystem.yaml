@@ -2,14 +2,14 @@
 flysystem:
     storages:
         companyLogos.storage:
-            adapter: 'local'
+            adapter: "local"
             options:
-                directory: '%kernel.project_dir%/public/storage/companyLogos'
+                directory: "%kernel.project_dir%/public/storage/companyLogos"
         accountAvatar.storage:
-            adapter: 'local'
+            adapter: "local"
             options:
-                directory: '%kernel.project_dir%/public/storage/accountAvatar'
+                directory: "%kernel.project_dir%/public/storage/accountAvatar"
         eventPictures.storage:
-            adapter: 'local'
+            adapter: "local"
             options:
-                directory: '%kernel.project_dir%/public/storage/eventPictures'
+                directory: "%kernel.project_dir%/public/storage/eventPictures"

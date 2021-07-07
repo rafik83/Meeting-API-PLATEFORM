@@ -5,14 +5,13 @@ Proximum\Vimeet365\Api\Application\View\HubSpot\CompanyView:
             path: "/hubspot/companies"
             openapi_context:
                 parameters:
-                    -
-                        name: domain
-                        in: query
-                        required: true
-                        type: string
-                    -   name: limit
-                        in: query
-                        type: int
+                    - name: domain
+                      in: query
+                      required: true
+                      type: string
+                    - name: limit
+                      in: query
+                      type: int
     itemOperations:
         get:
             path: "/hubspot/companies/{hubspotId}"

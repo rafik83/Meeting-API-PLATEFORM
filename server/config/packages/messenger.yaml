@@ -21,7 +21,7 @@ framework:
 
         transports:
             events:
-                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
                 options:
                     auto_setup: false # Do not automatically create messenger DB tables
                     queue_name: event
@@ -35,7 +35,7 @@ framework:
                     multiplier: 2
                     max_delay: 0
             failed_events:
-                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
                 options:
                     auto_setup: false
                     queue_name: failed_event

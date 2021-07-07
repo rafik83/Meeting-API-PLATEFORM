@@ -3,8 +3,8 @@ Proximum\Vimeet365\Api\Application\View\TimezoneView:
         get:
             path: "/timezones"
     itemOperations:
-        get: 
+        get:
             path: "/timezones/{code}"
-            requirements: { code: '.+' }
+            requirements: { code: ".+" }
     properties:
         code: { identifier: true }

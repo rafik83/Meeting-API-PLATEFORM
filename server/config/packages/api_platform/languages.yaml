@@ -3,7 +3,7 @@ Proximum\Vimeet365\Api\Application\View\LanguageView:
         get:
             path: "/languages"
     itemOperations:
-        get: 
+        get:
             path: "/languages/{code}"
     properties:
         code: { identifier: true }

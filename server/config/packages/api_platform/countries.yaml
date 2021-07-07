@@ -3,7 +3,7 @@ Proximum\Vimeet365\Api\Application\View\CountryView:
         get:
             path: "/countries"
     itemOperations:
-        get: 
+        get:
             path: "/countries/{code}"
     properties:
         code: { identifier: true }

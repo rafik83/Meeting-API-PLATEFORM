@@ -1,13 +1,18 @@
 {
     "devDependencies": {
-        "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/webpack-encore": "^1.0.0",
         "@tailwindcss/custom-forms": "^0.2.1",
         "autoprefixer": "^10.2.6",
         "core-js": "^3.0.0",
+        "eslint": "^7.28.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.23.4",
+        "eslint-plugin-prettier": "^3.4.0",
         "glob-all": "^3.2.1",
         "path": "^0.12.7",
         "postcss-loader": "^5.3.0",
+        "prettier": "^2.3.1",
         "purgecss-webpack-plugin": "^4.0.3",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.32.8",
@@ -23,9 +28,14 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "format": "prettier --write './assets/**/*js' './**/*.yaml'",
+        "lint": "eslint './assets/**/*.{js,yml}'",
+        "lint:fix": "eslint './assets/**/*.{js,yml}' --fix",
+        "prelint": "npm run format"
     },
     "dependencies": {
+        "@symfony/stimulus-bridge": "^2.0.0",
         "alpinejs": "^2.8.2"
     }
 }

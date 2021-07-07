@@ -2,10 +2,10 @@
 flysystem:
     storages:
         companyLogos.storage:
-            adapter: 'local'
+            adapter: "local"
             options:
-                directory: '%kernel.project_dir%/public/storage/test/companyLogos'
+                directory: "%kernel.project_dir%/public/storage/test/companyLogos"
         accountAvatar.storage:
-            adapter: 'local'
+            adapter: "local"
             options:
-                directory: '%kernel.project_dir%/public/storage/test/accountAvatar'
+                directory: "%kernel.project_dir%/public/storage/test/accountAvatar"

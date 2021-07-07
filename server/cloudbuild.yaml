@@ -1,63 +1,73 @@
 timeout: 1800s
 
 options:
-  machineType: 'N1_HIGHCPU_8'
+    machineType: "N1_HIGHCPU_8"
 
 steps:
+    # Build SERVER image
+    - name: "gcr.io/cloud-builders/docker"
+      id: "Build API image"
+      args:
+          - "build"
+          - "--file=Dockerfile"
+          - "--tag=eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$COMMIT_SHA"
+          - "."
+      dir: "server/"
+      waitFor: ["-"]
 
-  # Build SERVER image 
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'Build API image'
-    args:
-      - 'build'
-      - '--file=Dockerfile'
-      - '--tag=eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$COMMIT_SHA'
-      - '.'
-    dir: 'server/'
-    waitFor: ['-']
+    # Create custom image tag and write to file /workspace/_TAG
+    - name: "ubuntu"
+      id: "Prepare tag name"
+      args:
+          [
+              "bash",
+              "-c",
+              "echo `echo $TAG_NAME$BRANCH_NAME | sed 's,/,-,g' | awk '{print tolower($0)}'`-$(date -u +%Y%m%dT%H%M)-$SHORT_SHA > _TAG; echo $(cat _TAG)",
+          ]
 
-  # Create custom image tag and write to file /workspace/_TAG
-  - name: 'ubuntu'
-    id: 'Prepare tag name'
-    args: ['bash', '-c', "echo `echo $TAG_NAME$BRANCH_NAME | sed 's,/,-,g' | awk '{print tolower($0)}'`-$(date -u +%Y%m%dT%H%M)-$SHORT_SHA > _TAG; echo $(cat _TAG)"]
+    # Tag SERVER image with custom tag
+    - name: "gcr.io/cloud-builders/docker"
+      id: "Tag SERVER image"
+      entrypoint: "/bin/bash"
+      args:
+          [
+              "-c",
+              "docker tag eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$COMMIT_SHA eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$(cat _TAG)",
+          ]
 
-  # Tag SERVER image with custom tag
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'Tag SERVER image'
-    entrypoint: '/bin/bash'
-    args: ['-c', "docker tag eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$COMMIT_SHA eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}:$(cat _TAG)"]
+    # Fetch Strio OAuth token from Secrets Manager
+    - name: gcr.io/cloud-builders/gcloud
+      id: "Fetch Strio OAuth token from Secrets Manager"
+      entrypoint: "bash"
+      args:
+          [
+              "-c",
+              "gcloud secrets versions access latest --secret=strio-oauth-token-proximum --format='get(payload.data)' | tr '_-' '/+' | base64 -d > strio-oauth-token.txt",
+          ]
 
-  # Fetch Strio OAuth token from Secrets Manager
-  - name: gcr.io/cloud-builders/gcloud
-    id: 'Fetch Strio OAuth token from Secrets Manager'
-    entrypoint: 'bash'
-    args: [ '-c', "gcloud secrets versions access latest --secret=strio-oauth-token-proximum --format='get(payload.data)' | tr '_-' '/+' | base64 -d > strio-oauth-token.txt" ]
-
-  # Notify Strio about the completed build
-  - name: 'gcr.io/cloud-builders/curl'
-    id: 'Notify Strio'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        TOKEN="$$(<strio-oauth-token.txt)"
-        RESULT="$$(curl --request POST \
-                     --url https://strio-api.synalabs.cloud/events/external \
-                     --header "Authorization: Bearer $$TOKEN" \
-                     --header 'Content-Type: application/json' \
-                     --data '{
-                   "repository": "proximum/vimeet365",
-                   "provider": "github",
-                   "job_name": "server",
-                   "head_sha": "$COMMIT_SHA",
-                   "state": "success"
-                   }')"
-        echo "Strio is notified: $${RESULT}"
+    # Notify Strio about the completed build
+    - name: "gcr.io/cloud-builders/curl"
+      id: "Notify Strio"
+      entrypoint: "bash"
+      args:
+          - "-c"
+          - |
+              TOKEN="$$(<strio-oauth-token.txt)"
+              RESULT="$$(curl --request POST \
+                           --url https://strio-api.synalabs.cloud/events/external \
+                           --header "Authorization: Bearer $$TOKEN" \
+                           --header 'Content-Type: application/json' \
+                           --data '{
+                         "repository": "proximum/vimeet365",
+                         "provider": "github",
+                         "job_name": "server",
+                         "head_sha": "$COMMIT_SHA",
+                         "state": "success"
+                         }')"
+              echo "Strio is notified: $${RESULT}"
 
 substitutions:
-  _PROJECT_ID: "proximum-vimeet-staging"
-  _API_REPO_NAME: "vimeet365_server"
+    _PROJECT_ID: "proximum-vimeet-staging"
+    _API_REPO_NAME: "vimeet365_server"
 
-images: [
-    'eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}'
-]
+images: ["eu.gcr.io/${_PROJECT_ID}/${_API_REPO_NAME}"]

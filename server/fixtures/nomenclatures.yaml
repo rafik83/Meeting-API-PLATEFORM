@@ -6,24 +6,24 @@ Proximum\Vimeet365\Core\Domain\Entity\Tag:
 
     tag_goals_buy:
         __calls:
-            -   setLabel: [ 'buy', 'en' ]
-            -   setLabel: [ 'acheter', 'fr' ]
+            - setLabel: ["buy", "en"]
+            - setLabel: ["acheter", "fr"]
     tag_goals_sell:
         __calls:
-            -   setLabel: [ 'sell', 'en' ]
-            -   setLabel: [ 'vendre', 'fr' ]
+            - setLabel: ["sell", "en"]
+            - setLabel: ["vendre", "fr"]
     tag_goals_find_industrial_partners:
         __calls:
-            -   setLabel: [ 'find industrial partners', 'en' ]
-            -   setLabel: [ 'trouver des partenaires industriel', 'fr' ]
+            - setLabel: ["find industrial partners", "en"]
+            - setLabel: ["trouver des partenaires industriel", "fr"]
     tag_goals_find_financial_partners:
         __calls:
-            -   setLabel: [ 'find financial partners', 'en' ]
-            -   setLabel: [ 'trouver des partenaires financier', 'fr' ]
+            - setLabel: ["find financial partners", "en"]
+            - setLabel: ["trouver des partenaires financier", "fr"]
     tag_goals_access_targeted_content:
         __calls:
-            -   setLabel: [ 'access targeted content', 'en' ]
-            -   setLabel: [ 'acceder aux contenus ciblés', 'fr' ]
+            - setLabel: ["access targeted content", "en"]
+            - setLabel: ["acceder aux contenus ciblés", "fr"]
     tag_satellites:
         label: Satellites
     tag_space_apps:
@@ -61,53 +61,63 @@ Proximum\Vimeet365\Core\Domain\Entity\Nomenclature:
     nomenclature_iam:
         __construct:
             reference: I am
-            community: '@community_1'
+            community: "@community_1"
         __calls:
-            -   'addTag': [ '@tag_iam_supplier' ]
-            -   'addTag': [ '@tag_iam_keyaccount' ]
+            - "addTag": ["@tag_iam_supplier"]
+            - "addTag": ["@tag_iam_keyaccount"]
 
     nomenclature_goals:
         __construct:
             reference: Goals and objectives
-            community: '@community_1'
+            community: "@community_1"
         __calls:
-            -   'addTag': [ '@tag_goals_buy' ]
-            -   'addTag': [ '@tag_goals_sell' ]
-            -   'addTag': [ '@tag_goals_find_industrial_partners' ]
-            -   'addTag': [ '@tag_goals_find_financial_partners' ]
-            -   'addTag': [ '@tag_goals_access_targeted_content' ]
+            - "addTag": ["@tag_goals_buy"]
+            - "addTag": ["@tag_goals_sell"]
+            - "addTag": ["@tag_goals_find_industrial_partners"]
+            - "addTag": ["@tag_goals_find_financial_partners"]
+            - "addTag": ["@tag_goals_access_targeted_content"]
 
     nomenclature_activity_fields:
         __construct:
             reference: Activity Fields
-            community: '@community_1'
+            community: "@community_1"
         __calls:
-            -   'addTag': [ '@tag_satellites' ]
-            -   'addTag': [ '@tag_ground' ]
-            -   'addTag': [ '@tag_electromagnetic_technologies_and_techniques', '@tag_ground' ]
-            -   'addTag': [ '@tag_ground_station_system_and_networks',  '@tag_ground' ]
-            -   'addTag': [ '@tag_optics',  '@tag_ground' ]
-            -   'addTag': [ '@tag_optoelectronics',  '@tag_ground' ]
-            -   'addTag': [ '@tag_mission_operation_and_ground_data_systems', '@tag_ground' ]
-            -   'addTag': [ '@tag_rf_systems_payloads_and_technologies',  '@tag_ground' ]
-            -   'addTag': [ '@tag_space_debris',  '@tag_ground' ]
-            -   'addTag': [ '@tag_space_rd',  '@tag_ground' ]
-            -   'addTag': [ '@tag_spacecraft_electrical_power', '@tag_ground' ]
-            -   'addTag': [ '@tag_space_apps' ]
-            -   'addTag': [ '@tag_life_in_space' ]
-            -   'addTag': [ '@tag_launcher' ]
+            - "addTag": ["@tag_satellites"]
+            - "addTag": ["@tag_ground"]
+            - "addTag":
+                  [
+                      "@tag_electromagnetic_technologies_and_techniques",
+                      "@tag_ground",
+                  ]
+            - "addTag":
+                  ["@tag_ground_station_system_and_networks", "@tag_ground"]
+            - "addTag": ["@tag_optics", "@tag_ground"]
+            - "addTag": ["@tag_optoelectronics", "@tag_ground"]
+            - "addTag":
+                  [
+                      "@tag_mission_operation_and_ground_data_systems",
+                      "@tag_ground",
+                  ]
+            - "addTag":
+                  ["@tag_rf_systems_payloads_and_technologies", "@tag_ground"]
+            - "addTag": ["@tag_space_debris", "@tag_ground"]
+            - "addTag": ["@tag_space_rd", "@tag_ground"]
+            - "addTag": ["@tag_spacecraft_electrical_power", "@tag_ground"]
+            - "addTag": ["@tag_space_apps"]
+            - "addTag": ["@tag_life_in_space"]
+            - "addTag": ["@tag_launcher"]
 
     nomenclature_iam2:
         __construct:
             reference: I am
-            community: '@community_2'
+            community: "@community_2"
         __calls:
-            -   'addTag': [ '@tag_iam_supplier' ]
-            -   'addTag': [ '@tag_iam_keyaccount' ]
+            - "addTag": ["@tag_iam_supplier"]
+            - "addTag": ["@tag_iam_keyaccount"]
 
     nomenclature_job_position:
         __construct:
             reference: job_position
         __calls:
-            -   'addTag': [ '@tag_job_system_engineer' ]
-            -   'addTag': [ '@tag_job_network_engineer' ]
+            - "addTag": ["@tag_job_system_engineer"]
+            - "addTag": ["@tag_job_network_engineer"]

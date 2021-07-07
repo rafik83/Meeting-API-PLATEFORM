@@ -1,6 +1,6 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
-    secret: '%env(APP_SECRET)%'
+    secret: "%env(APP_SECRET)%"
     #csrf_protection: true
     http_method_override: false
 
@@ -10,7 +10,7 @@ framework:
         handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
         cookie_secure: auto
         cookie_samesite: lax
-        cookie_domain : '%env(SESSION_COOKIE_DOMAIN)%'
+        cookie_domain: "%env(SESSION_COOKIE_DOMAIN)%"
 
     #esi: true
     #fragments: true
@@ -20,11 +20,11 @@ framework:
     assets:
         packages:
             companyLogos:
-                base_urls: '%env(CDN_HOST)%/companyLogos'
+                base_urls: "%env(CDN_HOST)%/companyLogos"
             accountAvatar:
-                base_urls: '%env(CDN_HOST)%/accountAvatar'
+                base_urls: "%env(CDN_HOST)%/accountAvatar"
             eventPictures:
-                base_urls: '%env(CDN_HOST)%/eventPictures'
+                base_urls: "%env(CDN_HOST)%/eventPictures"
 
 when@test:
     framework:

@@ -1,33 +1,33 @@
 Proximum\Vimeet365\Core\Domain\Entity\Account:
     user_1:
         __construct:
-            email: 'user@example.com'
+            email: "user@example.com"
             password: <{password}>
-            firstName: 'Macha'
-            lastName: 'LaMatcha'
+            firstName: "Macha"
+            lastName: "LaMatcha"
             vimeetId: null
     user_2:
         __construct:
-            email: 'john@example.com'
+            email: "john@example.com"
             password: <{password}>
-            firstName: 'John'
-            lastName: 'Doe'
+            firstName: "John"
+            lastName: "Doe"
             vimeetId: null
 
     user_completed:
         __construct:
-            email: 'member@example.com'
+            email: "member@example.com"
             password: <{password}>
-            firstName: 'Member'
-            lastName: 'Doe'
+            firstName: "Member"
+            lastName: "Doe"
             vimeetId: null
         company: "@company_proximum"
         avatar: avatar.png
 
     user_joined:
         __construct:
-            email: 'joined@example.com'
+            email: "joined@example.com"
             password: <{password}>
-            firstName: 'Member'
-            lastName: 'Doe'
+            firstName: "Member"
+            lastName: "Doe"
             vimeetId: null

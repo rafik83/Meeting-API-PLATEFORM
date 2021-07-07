@@ -1,8 +1,8 @@
 Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
     community_1.card_list_1:
         __construct:
-            community: '@community_1'
-            title: 'Last users registered'
+            community: "@community_1"
+            title: "Last users registered"
             cardTypes:
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'member')>
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
@@ -10,8 +10,8 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
         position: 0
     community_1.card_list_2:
         __construct:
-            community: '@community_1'
-            title: 'Last company registered'
+            community: "@community_1"
+            title: "Last company registered"
             cardTypes:
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'company')>
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
@@ -19,8 +19,8 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
         position: 1
     community_1.card_list_3:
         __construct:
-            community: '@community_1'
-            title: 'Last cardTypes registered'
+            community: "@community_1"
+            title: "Last cardTypes registered"
             cardTypes:
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'member')>
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'company')>
@@ -29,8 +29,8 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
         position: 2
     community_1.card_list_4:
         __construct:
-            community: '@community_1'
-            title: 'Users by name'
+            community: "@community_1"
+            title: "Users by name"
             cardTypes:
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'member')>
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'alphabetical')>
@@ -38,8 +38,8 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
         position: 3
     community_1.card_list_5:
         __construct:
-            community: '@community_1'
-            title: 'Last published events'
+            community: "@community_1"
+            title: "Last published events"
             cardTypes:
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'community_event')>
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
@@ -48,11 +48,11 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
 
     community_1.card_list_6:
         __construct:
-            community: '@community_1'
-            title: 'Very last published events'
+            community: "@community_1"
+            title: "Very last published events"
             cardTypes:
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'community_event')>
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
-            tags: [ '@tag_goals_buy', '@tag_goals_sell' ]
+            tags: ["@tag_goals_buy", "@tag_goals_sell"]
         published: false
         position: 3

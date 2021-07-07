@@ -34,7 +34,6 @@ test-e2e: ## launch e2e test
 	make restart
 	vendor/bin/behat
 test: test-unit test-func ## api tests
-lint: lint.php-cs-fixer lint.phpstan ## api linting
 
 install@integration: export APP_ENV=test
 install@integration: export COMPOSER_NO_INTERACTION=1
@@ -47,7 +46,9 @@ install@integration:
 	npm run build
 
 lint.php-cs-fixer:  ## api lint php-cs-fixer
-lint: lint.php-cs-fixer lint.phpstan ## api linting
+lint: lint.php-cs-fixer  lint.phpstan  lint.js  ## lint server project
+lint.js : ## lint js files
+	npm run lint 
 
 lint.php-cs-fixer:
 	vendor/bin/php-cs-fixer fix

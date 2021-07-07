@@ -4,7 +4,7 @@ services:
         public: false
         decorates: nelmio_alice.property_accessor
         decoration_priority: -10
-        arguments: ['@app.symfony.property_access.property_accessor']
+        arguments: ["@app.symfony.property_access.property_accessor"]
 
     app.symfony.property_access.property_accessor:
         class: Symfony\Component\PropertyAccess\PropertyAccessor

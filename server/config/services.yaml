@@ -2,145 +2,163 @@
 # Files in the packages/ subdirectory configure your dependencies.
 
 imports:
-    - { resource: 'parameters.yaml' }
+    - { resource: "parameters.yaml" }
 
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
+        autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            $hubspotEnabled: '%env(bool:HUBSPOT_ENABLED)%'
+            $hubspotEnabled: "%env(bool:HUBSPOT_ENABLED)%"
 
     _instanceof:
         Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardProviderInterface:
-            tags: [ 'app.card_provider' ]
+            tags: ["app.card_provider"]
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     Proximum\Vimeet365\:
-        resource: '../src/'
+        resource: "../src/"
         exclude:
-            - '../src/Core/Domain/Entity/'
-            - '../src/Core/Infrastructure/DataFixtures/'
-            - '../src/Api/Application/Views/'
-            - '../src/Vimeet/Entity/'
-            - '../src/Kernel.php'
-            - '../src/Tests/'
+            - "../src/Core/Domain/Entity/"
+            - "../src/Core/Infrastructure/DataFixtures/"
+            - "../src/Api/Application/Views/"
+            - "../src/Vimeet/Entity/"
+            - "../src/Kernel.php"
+            - "../src/Tests/"
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     Proximum\Vimeet365\Api\Infrastructure\Controller\:
-        resource: '../src/Api/Infrastructure/Controller/'
-        tags: ['controller.service_arguments']
+        resource: "../src/Api/Infrastructure/Controller/"
+        tags: ["controller.service_arguments"]
 
     Proximum\Vimeet365\Admin\Infrastructure\Controller\:
-        resource: '../src/Admin/Infrastructure/Controller/'
-        tags: [ 'controller.service_arguments' ]
+        resource: "../src/Admin/Infrastructure/Controller/"
+        tags: ["controller.service_arguments"]
 
     api_query_handlers:
         namespace: Proximum\Vimeet365\Api\Application\Query\
-        resource: '../src/Api/Application/Query/**/*QueryHandler.php'
+        resource: "../src/Api/Application/Query/**/*QueryHandler.php"
         public: true
         tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.queries' }
+            - {
+                  name: "messenger.message_handler",
+                  bus: "messenger.bus.queries",
+              }
 
     api_command_handlers:
         namespace: Proximum\Vimeet365\Api\Application\Command\
-        resource: '../src/Api/Application/Command/**/*CommandHandler.php'
+        resource: "../src/Api/Application/Command/**/*CommandHandler.php"
         public: true
         tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+            - {
+                  name: "messenger.message_handler",
+                  bus: "messenger.bus.commands",
+              }
 
     core_event_handlers:
         namespace: Proximum\Vimeet365\Core\Application\Event\
-        resource: '../src/Core/Application/Event/**/*EventHandler.php'
+        resource: "../src/Core/Application/Event/**/*EventHandler.php"
         public: true
         tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.events' }
+            - { name: "messenger.message_handler", bus: "messenger.bus.events" }
     admin_query_handlers:
         namespace: Proximum\Vimeet365\Admin\Application\Query\
-        resource: '../src/Admin/Application/Query/**/*QueryHandler.php'
+        resource: "../src/Admin/Application/Query/**/*QueryHandler.php"
         public: true
         tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.queries' }
+            - {
+                  name: "messenger.message_handler",
+                  bus: "messenger.bus.queries",
+              }
 
     admin_command_handlers:
         namespace: Proximum\Vimeet365\Admin\Application\Command\
-        resource: '../src/Admin/Application/Command/**/*CommandHandler.php'
+        resource: "../src/Admin/Application/Command/**/*CommandHandler.php"
         public: true
         tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+            - {
+                  name: "messenger.message_handler",
+                  bus: "messenger.bus.commands",
+              }
 
     query_bus:
         class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus
-        arguments: ['@messenger.bus.queries']
+        arguments: ["@messenger.bus.queries"]
 
     command_bus:
         class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus
-        arguments: ['@messenger.bus.commands']
+        arguments: ["@messenger.bus.commands"]
 
     event_bus:
         class: Proximum\Vimeet365\Common\Messenger\EventBus
-        arguments: [ '@messenger.bus.events' ]
+        arguments: ["@messenger.bus.events"]
 
-    Proximum\Vimeet365\Common\Messenger\CommandBusInterface: '@command_bus'
-    Proximum\Vimeet365\Common\Messenger\QueryBusInterface: '@query_bus'
-    Proximum\Vimeet365\Common\Messenger\EventBusInterface: '@event_bus'
+    Proximum\Vimeet365\Common\Messenger\CommandBusInterface: "@command_bus"
+    Proximum\Vimeet365\Common\Messenger\QueryBusInterface: "@query_bus"
+    Proximum\Vimeet365\Common\Messenger\EventBusInterface: "@event_bus"
 
     Proximum\Vimeet365\Api\Infrastructure\ApiPlatform\AcceptLanguageEventListener:
         bind:
-            $supportedLanguages: '%supported_languages%'
+            $supportedLanguages: "%supported_languages%"
 
     Proximum\Vimeet365\Api\Infrastructure\DataProvider\LanguageDataProvider:
         bind:
-            $languages: '%supported_spoken_languages%'
+            $languages: "%supported_spoken_languages%"
 
     Proximum\Vimeet365\Vimeet\Nomenclature\Exporter:
         bind:
-            $defaultLanguages: '%supported_languages%'
+            $defaultLanguages: "%supported_languages%"
 
     Proximum\Vimeet365\Core\Application\Nomenclature\Exporter:
         bind:
-            $defaultLanguages: '%supported_languages%'
+            $defaultLanguages: "%supported_languages%"
 
     Proximum\Vimeet365\Api\Infrastructure\OpenApi\LoginDecorator:
-        decorates: 'api_platform.openapi.factory'
+        decorates: "api_platform.openapi.factory"
         autoconfigure: false
 
     Proximum\Vimeet365\Api\Infrastructure\OpenApi\NomenclatureDecorator:
-        decorates: 'api_platform.openapi.factory'
+        decorates: "api_platform.openapi.factory"
         autoconfigure: false
 
     Proximum\Vimeet365\Api\Infrastructure\OpenApi\CurrentAccountDecorator:
-        decorates: 'api_platform.openapi.factory'
+        decorates: "api_platform.openapi.factory"
         autoconfigure: false
 
     Proximum\Vimeet365\Api\Infrastructure\OpenApi\RemoveEndpointDecorator:
-        decorates: 'api_platform.openapi.factory'
+        decorates: "api_platform.openapi.factory"
         autoconfigure: false
 
     Proximum\Vimeet365\Api\Infrastructure\OpenApi\CardEndpointDecorator:
-        decorates: 'api_platform.openapi.factory'
+        decorates: "api_platform.openapi.factory"
         autoconfigure: false
 
-    Proximum\Vimeet365\Core\Infrastructure\Security\AccountValidationTokenStorage: ['@redis']
+    Proximum\Vimeet365\Core\Infrastructure\Security\AccountValidationTokenStorage:
+        ["@redis"]
     Proximum\Vimeet365\Core\Domain\SecurityAccountValidationTokenStorageInterface: '@Proximum\Vimeet365\Core\Infrastructure\Security\AccountValidationTokenStorage'
     redis:
         class: \Predis\Client
         arguments:
-            $parameters: { host: '%env(resolve:VIMEET365_REDIS_HOST)%', port: '%env(int:VIMEET365_REDIS_PORT)%', database: 1}
+            $parameters:
+                {
+                    host: "%env(resolve:VIMEET365_REDIS_HOST)%",
+                    port: "%env(int:VIMEET365_REDIS_PORT)%",
+                    database: 1,
+                }
 
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
-            - '@redis'
+            - "@redis"
 
-    Proximum\Vimeet365\Core\Infrastructure\Hubspot\Client: ['@hubspot_client']
+    Proximum\Vimeet365\Core\Infrastructure\Hubspot\Client: ["@hubspot_client"]
 
     hubspot_client:
         class: HubSpot\Discovery\Discovery
-        factory: ['HubSpot\Factory', 'createWithApiKey']
-        arguments: ['%env(HUBSPOT_API_KEY)%']
+        factory: ['HubSpot\Factory', "createWithApiKey"]
+        arguments: ["%env(HUBSPOT_API_KEY)%"]
 
     Proximum\Vimeet365\Core\Application\Card\Provider\CardProvider:
         arguments:

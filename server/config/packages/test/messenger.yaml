@@ -2,6 +2,6 @@ framework:
     messenger:
         transports:
             events:
-                dsn: 'in-memory://'
+                dsn: "in-memory://"
                 retry_strategy:
                     max_retries: 0 # No retry in tests
