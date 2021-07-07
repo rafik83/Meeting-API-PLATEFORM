@@ -1,9 +1,43 @@
-<style>
-  main {
-    position: relative;
-    max-width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
+<style global lang="postcss">
+  @font-face {
+    font-family: Poppins;
+    font-weight: 400;
+    font-style: normal;
+    src: url(/fonts/poppins-regular.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: Poppins;
+    font-weight: 600;
+    font-style: normal;
+    src: url(/fonts/poppins-600.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: Poppins;
+    font-weight: 800;
+    font-style: normal;
+    src: url(/fonts/poppins-800.woff2) format('woff2');
+  }
+
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  /* Custom classe */
+
+  .outlined:focus {
+    @apply outline-none ring-1 ring-community-300;
+  }
+
+  .stripped {
+    background: repeating-linear-gradient(
+      -45deg,
+      white,
+      white 5px,
+      #e8eaf1 5px,
+      #e8eaf1 10px
+    );
   }
 </style>
 

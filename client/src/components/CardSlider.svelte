@@ -1,6 +1,22 @@
-<style>
+<style lang="postcss">
   button:disabled {
-    display: none;
+    @apply hidden;
+  }
+
+  .slider-button {
+    @apply absolute w-14 h-14 top-1/2 transform -translate-y-1/2 pr-1 py-3 cursor-pointer flex justify-center items-center rounded-full bg-gray-50 shadow-md;
+  }
+
+  .slider-button-right {
+    @apply slider-button  md:right-16 right-1;
+  }
+
+  .slider-button-left {
+    @apply slider-button  md:left-16 left-1;
+  }
+
+  .card-container {
+    @apply w-full flex items-center md:justify-start justify-center;
   }
 </style>
 
@@ -45,9 +61,6 @@
       isLastCard = false;
     }
   };
-
-  const buttonStyle =
-    'absolute w-14 h-14 top-1/2 transform -translate-y-1/2 pr-1 py-3 cursor-pointer flex justify-center items-center rounded-full bg-gray-50 shadow-md';
 </script>
 
 <div class="w-full mt-10">
@@ -65,25 +78,21 @@
     bind:slider
   >
     {#each cards as card}
-      {#if card.kind === CARD_KIND.member}
-        <div class="w-full flex items-center md:justify-start justify-center">
+      <div class="card-container">
+        {#if card.kind === CARD_KIND.member}
           <MemberCard on:meet_member on:view_member_profile {...card} />
-        </div>
-      {:else if card.kind === CARD_KIND.company}
-        <div class="w-full flex items-center md:justify-start justify-center">
+        {:else if card.kind === CARD_KIND.company}
           <CompanyCard on:generate_new_leads {...card} />
-        </div>
-      {:else if card.kind === CARD_KIND.event}
-        <div class="w-full flex items-center md:justify-start justify-center">
+        {:else if card.kind === CARD_KIND.event}
           <EventCard event={card} />
-        </div>
-      {/if}
+        {/if}
+      </div>
     {/each}
 
     <button
       type="button"
       slot="prevButton"
-      class={`${buttonStyle} md:left-16 left-1`}
+      class={`slider-button-left`}
       on:click={handlePreviousClick}
       id={`${id}-prev`}
     >
@@ -92,7 +101,7 @@
     <button
       type="button"
       slot="nextButton"
-      class={`${buttonStyle} md:right-16 right-1`}
+      class={`slider-button-right`}
       on:click={handleNextClick}
       id={`${id}-next`}
     >

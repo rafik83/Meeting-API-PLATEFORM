@@ -3,7 +3,6 @@ help:
 
 install: ## Install dependencies
 	npm install
-	npm run build:tailwind
 
 start: ## Start development server
 	npm run dev
@@ -13,9 +12,6 @@ lint: ## lint the project using eslint
 
 test: # Run lint, test unit and a coverage rapport
 	npm run test
-
-watch-css: ## watch css changes
-	npm run watch:tailwind
 
 storybook: ## Start storybook server for development
 	npm run storybook

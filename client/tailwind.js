@@ -1,5 +1,5 @@
 module.exports = {
-  purge: false,
+  purge: ['./src/components/**/*.svelte', './src/routes/**/*.svelte'],
   theme: {
     fontFamily: {
       sans: ['Poppins', 'Helvetica', 'Arial', 'sans-serif'],

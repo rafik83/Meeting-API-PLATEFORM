@@ -6,7 +6,7 @@ ARG NODE_ENV=production
 
 COPY . .
 
-RUN npm install --prod && npm run build:tailwind && npm run build 
+RUN npm install --prod && npm run build 
 
 FROM node:14-alpine3.10 AS app
 

@@ -59,7 +59,7 @@ lint.phpstan: ## api lint phpstan
 	vendor/bin/phpstan analyse
 
 lint.phpstan@integration:
-	vendor/bin/phpstan analyse --memory-limit 512
+	vendor/bin/phpstan analyse --memory-limit 512M
 
 test@integration:
 	bin/phpunit
