@@ -14,21 +14,21 @@ export default class MatchingBetweenGoals {
         event.target.matches('button.remove-btn') ||
         event.target.closest('button.remove-btn')
       ) {
-        this.remove(event.target.closest('tr'));
+        MatchingBetweenGoals.remove(event.target.closest('tr'));
       }
 
       if (
         event.target.matches('button.move-up-btn') ||
         event.target.closest('button.move-up-btn')
       ) {
-        this.moveUp(event.target.closest('tr'));
+        MatchingBetweenGoals.moveUp(event.target.closest('tr'));
       }
 
       if (
         event.target.matches('button.move-down-btn') ||
         event.target.closest('button.move-down-btn')
       ) {
-        this.moveDown(event.target.closest('tr'));
+        MatchingBetweenGoals.moveDown(event.target.closest('tr'));
       }
     });
   }
@@ -40,15 +40,19 @@ export default class MatchingBetweenGoals {
     this.containerBody.insertAdjacentHTML('beforeend', content);
   }
 
-  moveUp(item) {
-    this.swap(item, item.previousElementSibling);
+  static moveUp(item) {
+    MatchingBetweenGoals.swap(item, item.previousElementSibling);
   }
 
-  moveDown(item) {
-    this.swap(item, item.nextElementSibling);
+  static moveDown(item) {
+    MatchingBetweenGoals.swap(item, item.nextElementSibling);
   }
 
   static swap(itemA, itemB) {
+    if (!itemB) {
+      return;
+    }
+
     const itemAFromValue = itemA.querySelector('.from-input').value;
     const itemAToValue = itemA.querySelector('.to-input').value;
 

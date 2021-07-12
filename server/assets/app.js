@@ -14,14 +14,11 @@ const matchingGoalsContainer = document.querySelector(
 );
 
 if (refineGoalsContainer) {
-  const refineMailGoal = new RefineGoals(refineGoalsContainer);
-
-  refineMailGoal();
+  new RefineGoals(refineGoalsContainer);
 }
 
 if (matchingGoalsContainer) {
-  const matching = new MatchingBetweenGoals(matchingGoalsContainer);
-  matching();
+  new MatchingBetweenGoals(matchingGoalsContainer);
 }
 
 document

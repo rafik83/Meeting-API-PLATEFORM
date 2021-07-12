@@ -34,6 +34,11 @@
         "lint:fix": "eslint './assets/**/*.{js,yml}' --fix",
         "prelint": "npm run format"
     },
+    "browserslist": [
+        "last 2 versions",
+        "ie 8",
+        "ie 9"
+    ],
     "dependencies": {
         "@symfony/stimulus-bridge": "^2.0.0",
         "alpinejs": "^2.8.2",
