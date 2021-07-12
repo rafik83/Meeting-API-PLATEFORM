@@ -49,15 +49,16 @@ class CardListTest extends TestCase
             'Hello Title',
             [CardType::get(CardType::MEMBER)],
             Sorting::get(Sorting::ALPHABETICAL),
-            [$tagA->reveal(), $tagB->reveal(), $tagC->reveal()]
         );
+        new CardList\Tag($cardList, $tagA->reveal());
+        new CardList\Tag($cardList, $tagB->reveal());
+        new CardList\Tag($cardList, $tagC->reveal());
 
         $cardListEmptyTags = new CardList(
             $community,
             'Hello Title',
             [CardType::get(CardType::MEMBER)],
             Sorting::get(Sorting::ALPHABETICAL),
-            []
         );
 
         self::assertTrue($cardListEmptyTags->match(null));
@@ -66,5 +67,95 @@ class CardListTest extends TestCase
         self::assertFalse($cardList->match($memberEmpty->reveal()));
         self::assertFalse($cardList->match($memberUnknowTag->reveal()));
         self::assertTrue($cardList->match($member->reveal()));
+    }
+
+    public function testGetPositionForMemberWithout(): void
+    {
+        $community = $this->prophesize(Community::class);
+        $community->getCardLists()->willReturn(new ArrayCollection());
+        $tag = $this->prophesize(Tag::class);
+
+        $cardList = new CardList(
+            $community->reveal(),
+            'title',
+            [CardType::get(CardType::MEMBER)],
+            Sorting::get(Sorting::ALPHABETICAL),
+            1
+        );
+
+        new CardList\Tag($cardList, $tag->reveal(), 2);
+
+        self::assertEquals(1, $cardList->getPositionForMember(null));
+    }
+
+    public function testGetPositionForMemberWithMemberNoMainGoal(): void
+    {
+        $community = $this->prophesize(Community::class);
+        $community->getCardLists()->willReturn(new ArrayCollection());
+        $tag = $this->prophesize(Tag::class);
+        $member = $this->prophesize(Member::class);
+        $member->getMainGoals()->willReturn(new ArrayCollection());
+
+        $cardList = new CardList(
+            $community->reveal(),
+            'title',
+            [CardType::get(CardType::MEMBER)],
+            Sorting::get(Sorting::ALPHABETICAL),
+            1
+        );
+
+        new CardList\Tag($cardList, $tag->reveal(), 2);
+
+        self::assertEquals(1, $cardList->getPositionForMember($member->reveal()));
+    }
+
+    public function testGetPositionForMemberWithMemberOverridedPosition(): void
+    {
+        $community = $this->prophesize(Community::class);
+        $community->getCardLists()->willReturn(new ArrayCollection());
+        $tag = $this->prophesize(Tag::class);
+        $tag->getId()->willReturn(1);
+        $member = $this->prophesize(Member::class);
+        $goal = $this->prophesize(Goal::class);
+        $goal->getTag()->willReturn($tag->reveal());
+        $member->getMainGoals()->willReturn(new ArrayCollection([$goal->reveal()]));
+
+        $cardList = new CardList(
+            $community->reveal(),
+            'title',
+            [CardType::get(CardType::MEMBER)],
+            Sorting::get(Sorting::ALPHABETICAL),
+            1
+        );
+
+        new CardList\Tag($cardList, $tag->reveal(), 2);
+
+        self::assertEquals(2, $cardList->getPositionForMember($member->reveal()));
+    }
+
+    public function testGetPositionForMemberWithMemberDefaultPosition(): void
+    {
+        $community = $this->prophesize(Community::class);
+        $community->getCardLists()->willReturn(new ArrayCollection());
+        $tag1 = $this->prophesize(Tag::class);
+        $tag1->getId()->willReturn(1);
+        $tag2 = $this->prophesize(Tag::class);
+        $tag2->getId()->willReturn(2);
+        $member = $this->prophesize(Member::class);
+        $goal = $this->prophesize(Goal::class);
+        $goal->getTag()->willReturn($tag1->reveal());
+        $member->getMainGoals()->willReturn(new ArrayCollection([$goal->reveal()]));
+
+        $cardList = new CardList(
+            $community->reveal(),
+            'title',
+            [CardType::get(CardType::MEMBER)],
+            Sorting::get(Sorting::ALPHABETICAL),
+            1
+        );
+
+        new CardList\Tag($cardList, $tag2->reveal(), 2);
+
+        self::assertEquals(1, $cardList->getPositionForMember($member->reveal()));
     }
 }

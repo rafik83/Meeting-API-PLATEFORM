@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Proximum\Vimeet365\Admin\Application\Command\Community\CardList\CreateCommand;
 use Proximum\Vimeet365\Admin\Application\Command\Community\CardList\CreateCommandHandler;
+use Proximum\Vimeet365\Admin\Application\Command\Community\CardList\TagDto;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
@@ -60,11 +61,17 @@ class CreateCommandHandlerTest extends TestCase
         $tagA->getId()->willReturn(1);
         $tagB = $this->prophesize(Tag::class);
         $tagB->getId()->willReturn(2);
-        $tags = [$tagA->reveal(), $tagB->reveal()];
+        $tags = [
+            new TagDto($tagA->reveal(), null),
+            new TagDto($tagB->reveal(), null),
+        ];
 
         $cardListTitle = 'Dummy Title';
         $community = new Community('Dummy Community');
-        $cardList = new CardList($community, $cardListTitle, [], Sorting::get(Sorting::ALPHABETICAL), $tags);
+        $cardList = new CardList($community, $cardListTitle, [], Sorting::get(Sorting::ALPHABETICAL));
+        new CardList\Tag($cardList, $tagA->reveal());
+        new CardList\Tag($cardList, $tagB->reveal());
+
         $cardListRepository = $this->prophesize(CardListRepositoryInterface::class);
         $cardListRepository->add($cardList)->shouldBeCalledOnce();
 

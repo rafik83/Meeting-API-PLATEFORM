@@ -182,9 +182,14 @@ class Community
      */
     public function getPublishedCardLists(?Member $member = null): Collection
     {
-        return $this->getCardLists()
+        $cardLists = $this->getCardLists()
             ->filter(fn (CardList $cardList): bool => $cardList->isPublished())
-            ->filter(fn (CardList $cardList): bool => $cardList->match($member));
+            ->filter(fn (CardList $cardList): bool => $cardList->match($member))
+            ->getValues();
+
+        usort($cardLists, fn (CardList $a, CardList $b) => $a->getPositionForMember($member) <=> $b->getPositionForMember($member));
+
+        return new ArrayCollection($cardLists);
     }
 
     public function getSkillNomenclature(): ?Nomenclature

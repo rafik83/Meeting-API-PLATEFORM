@@ -6,10 +6,17 @@ namespace Proximum\Vimeet365\Api\Infrastructure\DataTransformer;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use Proximum\Vimeet365\Api\Application\View\CommunityCardListView;
+use Proximum\Vimeet365\Api\Infrastructure\Security\SymfonyUser;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
+use Symfony\Component\Security\Core\Security;
 
 class CardListViewDataTransformer implements DataTransformerInterface
 {
+    public function __construct(
+        private Security $security
+    ) {
+    }
+
     /**
      * {@inheritdoc}
      *
@@ -23,9 +30,13 @@ class CardListViewDataTransformer implements DataTransformerInterface
             );
         }
 
+        /** @var SymfonyUser|null $user */
+        $user = $this->security->getUser();
+        $member = $user?->getAccount()->getMemberFor($object->getCommunity());
+
         return new CommunityCardListView(
             (int) $object->getId(),
-            $object->getPosition(),
+            $object->getPositionForMember($member),
             $object->getTitle()
         );
     }

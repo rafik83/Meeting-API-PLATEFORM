@@ -3,6 +3,7 @@ twig:
     form_themes:
         - "admin/common/form_theme.html.twig"
         - "admin/common/form/main_goal.html.twig"
+        - "admin/common/form/card_list.html.twig"
 
 when@test:
     twig:

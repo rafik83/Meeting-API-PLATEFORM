@@ -53,7 +53,6 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
             cardTypes:
                 - <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType', 'community_event')>
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
-            tags: ["@tag_goals_buy", "@tag_goals_sell"]
         published: false
         position: 3
     community_1.card_list_7:
@@ -65,3 +64,13 @@ Proximum\Vimeet365\Core\Domain\Entity\Community\CardList:
             sorting: <enum('\Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting', 'date')>
         published: true
         position: 4
+
+Proximum\Vimeet365\Core\Domain\Entity\Community\CardList\Tag:
+    community_1.card_list_6.tag1:
+        __construct:
+            - "@community_1.card_list_6"
+            - "@tag_goals_buy"
+    community_1.card_list_6.tag2:
+        __construct:
+            - "@community_1.card_list_6"
+            - "@tag_goals_sell"

@@ -1,9 +1,9 @@
 import './styles/app.css';
 import './bootstrap';
 
-import RefineGoals from './components/RefineGoals';
 import MatchingBetweenGoals from './components/MatchingBetweenGoals';
 import WysiwigEditor from './components/WysiwigEditor';
+import Collection from './components/Collection';
 
 const refineGoalsContainer = document.querySelector(
   '#refine_goal_refinedGoals'
@@ -24,3 +24,8 @@ if (matchingGoalsContainer) {
 document
   .querySelectorAll('[data-quill]')
   .forEach((node) => new WysiwigEditor(node));
+const cardListTags = document.querySelector('#card_list_tags');
+
+if (cardListTags) {
+  new Collection(cardListTags);
+}

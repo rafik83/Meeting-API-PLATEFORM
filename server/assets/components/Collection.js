@@ -1,4 +1,4 @@
-export default class RefineGoals {
+export default class Collection {
   constructor(container) {
     this.container = container;
     this.containerBody = container.querySelector('tbody');
@@ -14,13 +14,15 @@ export default class RefineGoals {
         event.target.matches('button.remove-btn') ||
         event.target.closest('button.remove-btn')
       ) {
-        this.remove(event.target.closest('tr'));
+        Collection.remove(event.target.closest('tr'));
       }
     });
   }
 
   onAdd() {
     const content = this.itemPrototype.replaceAll(/__name__/g, this.lastIndex);
+
+    console.log(content);
 
     this.lastIndex += 1;
     this.containerBody.insertAdjacentHTML('beforeend', content);

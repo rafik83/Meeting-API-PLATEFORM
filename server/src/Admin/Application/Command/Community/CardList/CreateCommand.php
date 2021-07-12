@@ -7,7 +7,6 @@ namespace Proximum\Vimeet365\Admin\Application\Command\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
-use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateCommand
@@ -32,7 +31,7 @@ class CreateCommand
      */
     public array $cardTypes = [];
 
-    /** @var Tag[] */
+    /** @var TagDto[] */
     public array $tags = [];
 
     public bool $published = false;

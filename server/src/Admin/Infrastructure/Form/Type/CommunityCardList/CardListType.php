@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Admin\Infrastructure\Form\Type\CommunityCardList;
 
 use Elao\Enum\Bridge\Symfony\Form\Type\EnumType;
-use Proximum\Vimeet365\Admin\Infrastructure\Form\Type\Community\NomenclatureTagType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,10 +32,14 @@ class CardListType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('tags', NomenclatureTagType::class, [
-                'nomenclature' => $options['community']->getMainGoal()->getNomenclature(),
-                'multiple' => true,
+            ->add('tags', CollectionType::class, [
                 'label' => 'admin.card_list.form.tags.label',
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type' => CardListTagType::class,
+                'entry_options' => [
+                    'nomenclature' => $options['community']->getMainGoal()->getNomenclature(),
+                ],
                 'required' => false,
             ])
             ->add('published', CheckboxType::class, [

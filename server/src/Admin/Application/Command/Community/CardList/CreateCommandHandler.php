@@ -20,7 +20,20 @@ class CreateCommandHandler
             throw new RuntimeException('Sorting must not be null');
         }
 
-        $cardList = new CardList($command->getCommunity(), $command->title, $command->cardTypes, $command->sorting, $command->tags);
+        $cardList = new CardList(
+            $command->getCommunity(),
+            $command->title,
+            $command->cardTypes,
+            $command->sorting,
+            $command->position
+        );
+
+        foreach ($command->tags as $dto) {
+            if ($dto->tag === null) {
+                continue;
+            }
+            new CardList\Tag($cardList, $dto->tag, $dto->position);
+        }
 
         if ($command->published) {
             $cardList->publish();

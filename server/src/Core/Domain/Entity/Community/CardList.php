@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
-use Proximum\Vimeet365\Core\Domain\Entity\Tag;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList\Tag;
+use Proximum\Vimeet365\Core\Domain\Entity\Tag as CoreTag;
 
 /**
  * @ORM\Entity()
@@ -60,22 +61,26 @@ class CardList
     /**
      * @var Collection<int, Tag>
      *
-     * @ORM\ManyToMany(targetEntity=Tag::class, orphanRemoval=true)
-     * @ORM\JoinTable(name="community_card_list_tag")
+     * @ORM\OneToMany(targetEntity=Tag::class, orphanRemoval=true, mappedBy="cardList", cascade={"persist"})
      */
     private Collection $tags;
 
     /**
      * @param CardType[] $cardTypes
-     * @param Tag[]      $tags
      */
-    public function __construct(Community $community, string $title, array $cardTypes, Sorting $sorting, array $tags = [])
-    {
+    public function __construct(
+        Community $community,
+        string $title,
+        array $cardTypes,
+        Sorting $sorting,
+        int $position = 0
+    ) {
         $this->community = $community;
         $this->title = $title;
         $this->cardTypes = $cardTypes;
         $this->sorting = $sorting;
-        $this->tags = new ArrayCollection($tags);
+        $this->position = $position;
+        $this->tags = new ArrayCollection();
 
         $this->community->getCardLists()->add($this);
     }
@@ -134,6 +139,14 @@ class CardList
     }
 
     /**
+     * @param Collection<int, Tag> $tags
+     */
+    public function setTags(Collection $tags): void
+    {
+        $this->tags = $tags;
+    }
+
+    /**
      * @return Collection<int, Tag>
      */
     public function getTags(): Collection
@@ -143,15 +156,13 @@ class CardList
 
     /**
      * @var CardType[]
-     * @var Tag[]
      */
-    public function update(int $position, Sorting $sorting, array $cardTypes, string $title, array $tags = []): void
+    public function update(int $position, Sorting $sorting, array $cardTypes, string $title): void
     {
         $this->position = $position;
         $this->sorting = $sorting;
         $this->cardTypes = $cardTypes;
         $this->title = $title;
-        $this->tags = new ArrayCollection($tags);
     }
 
     public function match(?Member $member = null): bool
@@ -165,6 +176,35 @@ class CardList
             return false;
         }
 
-        return $this->tags->exists(fn (int $key, Tag $tag): bool => $tag->getId() === $mainGoal->getTag()->getId());
+        $cardListTag = $this->getCardListTag($mainGoal->getTag());
+
+        return $cardListTag !== null;
+    }
+
+    public function getPositionForMember(?Member $member): int
+    {
+        if ($member === null) {
+            return $this->getPosition();
+        }
+
+        /** @var Community\Member\Goal|false $mainGoal */
+        $mainGoal = $member->getMainGoals()->first();
+        if ($mainGoal === false) {
+            return $this->getPosition();
+        }
+
+        $cardListTag = $this->getCardListTag($mainGoal->getTag());
+
+        return $cardListTag?->getPosition() ?? $this->getPosition();
+    }
+
+    public function getCardListTag(CoreTag $tag): ?Tag
+    {
+        $found = $this->tags->filter(fn (Tag $cardListTag): bool => $cardListTag->getTag()->getId() === $tag->getId())->first();
+        if ($found === false) {
+            return null;
+        }
+
+        return $found;
     }
 }
