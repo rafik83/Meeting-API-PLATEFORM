@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\CompanyCardProvider;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\EventCardProvider;
+use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\MediaCardProvider;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\MemberCardProvider;
 use Proximum\Vimeet365\Core\Application\Card\Provider\SortedByName\MixedCardProvider;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
@@ -26,13 +27,15 @@ class MixedCardProviderTest extends TestCase
         $memberCardProvider = $this->prophesize(MemberCardProvider::class);
         $companyCardProvider = $this->prophesize(CompanyCardProvider::class);
         $eventCardProvider = $this->prophesize(EventCardProvider::class);
+        $mediaCardProvider = $this->prophesize(MediaCardProvider::class);
         $community = $this->prophesize(Community::class);
         $community->getCardLists()->willReturn(new ArrayCollection());
 
         $provider = new MixedCardProvider(
             $memberCardProvider->reveal(),
             $companyCardProvider->reveal(),
-            $eventCardProvider->reveal()
+            $eventCardProvider->reveal(),
+            $mediaCardProvider->reveal(),
         );
 
         $cardList = new CardList(
@@ -70,11 +73,13 @@ class MixedCardProviderTest extends TestCase
         $memberCardProvider = $this->prophesize(MemberCardProvider::class);
         $companyCardProvider = $this->prophesize(CompanyCardProvider::class);
         $eventCardProvider = $this->prophesize(EventCardProvider::class);
+        $mediaCardProvider = $this->prophesize(MediaCardProvider::class);
 
         $provider = new MixedCardProvider(
             $memberCardProvider->reveal(),
             $companyCardProvider->reveal(),
-            $eventCardProvider->reveal()
+            $eventCardProvider->reveal(),
+            $mediaCardProvider->reveal(),
         );
 
         self::assertEquals($expectedResult, $provider->supports($cardList));

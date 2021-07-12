@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Event;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Goal;
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Media;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 /**
@@ -91,6 +92,13 @@ class Community
      */
     private Collection $events;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="community")
+     *
+     * @var Collection<int, Media>
+     */
+    private Collection $medias;
+
     public function __construct(string $name, array $languages = ['en'], string $defaultLanguage = 'en')
     {
         $this->name = $name;
@@ -101,6 +109,7 @@ class Community
         $this->goals = new ArrayCollection();
         $this->cardLists = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getId(): int
@@ -248,5 +257,10 @@ class Community
     public function isCardListFeatureAvailable(): bool
     {
         return $this->getMainGoal() !== null;
+    }
+
+    public function isMediaFeatureAvailable(): bool
+    {
+        return $this->skillNomenclature !== null;
     }
 }

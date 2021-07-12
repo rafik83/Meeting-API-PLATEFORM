@@ -1,0 +1,64 @@
+{% extends "admin/base.html.twig" %}
+
+{% import "admin/common/macros.html.twig" as macros %}
+
+{% block body %}
+    <div class="container grid px-6 mx-auto">
+        {{ include('admin/common/return_button.html.twig', {
+            link: path('admin_community_edit', {id: community.id}),
+            label: 'admin.actions.back_to_community'|trans
+        }) }}
+
+        <div>
+            <div class="flex items-center justify-between w-full">
+                <h1 class="title">{{ 'admin.community_media.list.title'|trans }}</h1>
+                <a href="{{ path('admin_community_media_create', {communityId: community.id}) }}"  class="btn-medium">{{ 'admin.community_media.list.actions.create'|trans }}</a>
+            </div>
+
+            {% embed 'admin/common/filter.html.twig' %}
+                {% block filterForm %}
+                    {{ form_start(filtersForm) }}
+                        {{ form_row(filtersForm.published) }}
+                        <button class="btn-medium">{{ 'admin.actions.filter'|trans }}</button>
+                    {{ form_end(filtersForm) }}
+                {% endblock %}
+            {% endembed %}
+        </div>
+
+        {% embed 'admin/common/spreadsheet.html.twig' with { pagination: pagination } %}
+            {% import 'admin/common/macros.html.twig' as macros %}
+            {% block table_head %}
+                <tr class="table-row-head">
+                    <th class="px-4 py-3">{{'admin.community_media.list.table.id' | trans}}</th>
+                    <th class="px-4 py-3">{{'admin.community_media.list.table.name' | trans}}</th>
+                    <th class="px-4 py-3">{{'admin.community_media.list.table.type' | trans}}</th>
+                    <th class="px-4 py-3">{{'admin.community_media.list.table.published' | trans}}</th>
+                    <th></th>
+                </tr>
+            {% endblock %}
+
+            {% block table_data %}
+                {% for media in pagination %}
+                    <tr class="table-row-data">
+                        <td class="px-4 py-3">{{ media.id }}</td>
+                        <td class="px-4 py-3">{{ media.translation.name }}</td>
+                        <td class="px-4 py-3">{{ media.mediaType }}</td>
+                        <td class="px-4 py-3">{{ media.published ? 'admin.common.yes'|trans : 'admin.common.no'|trans }}</td>
+                        <td class="px-4 py-3 flex">
+                            <a class="btn-white" href="{{ path('admin_community_media_edit', {communityId: media.community.id, id : media.id }) }}" type="{{ 'admin.community_media.list.actions.edit'|trans }}">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                </svg>
+                            </a>
+                            <a class="btn-white" href="{{ path('admin_community_media_delete', {communityId: media.community.id, id : media.id }) }}" type="{{ 'admin.community_media.list.actions.edit'|trans }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+        {% endembed %}
+    </div>
+{% endblock %}

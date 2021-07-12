@@ -22,7 +22,7 @@ class CardTest extends ApiTestCase
             [
                 '@context' => '/api/contexts/CardList',
                 '@type' => 'hydra:Collection',
-                'hydra:totalItems' => 4,
+                'hydra:totalItems' => 5,
                 'hydra:member' => [
                     [
                         'position' => 0,
@@ -39,6 +39,10 @@ class CardTest extends ApiTestCase
                     [
                         'position' => 3,
                         'title' => 'Last published events',
+                    ],
+                    [
+                        'position' => 4,
+                        'title' => 'Last published medias',
                     ],
                 ],
             ]
@@ -140,6 +144,38 @@ class CardTest extends ApiTestCase
                             ['name' => 'Satellites'],
                             ['name' => 'Ground'],
                         ],
+                    ],
+                ],
+            ]
+        );
+    }
+
+    public function testGetCardsMedia(): void
+    {
+        $community = $this->getCommunity('Space industry');
+        $communityId = $community->getId();
+
+        $cardList = $community->getPublishedCardLists()->filter(
+            fn (CardList $cardList) => $cardList->getTitle() === 'Last published medias'
+        )->first();
+
+        self::$client->request('GET', sprintf('/api/communities/%d/lists/%d', $communityId, $cardList->getId()));
+
+        self::assertJsonContains(
+            [
+                '@context' => '/api/contexts/Card',
+                '@type' => 'hydra:Collection',
+                'hydra:totalItems' => 1,
+                'hydra:member' => [
+                    [
+                        '@type' => 'MediaCard',
+                        'video' => 'http://localhost/storage/test/mediaVideos/video.mp4',
+                        'name' => 'media name EN',
+                        'description' => 'media description EN',
+                        'mediaType' => 'press',
+                        'ctaLabel' => 'cta label',
+                        'ctaUrl' => 'http://cta/',
+                        'kind' => 'media',
                     ],
                 ],
             ]

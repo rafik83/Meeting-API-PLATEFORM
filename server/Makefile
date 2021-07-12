@@ -33,6 +33,7 @@ test-e2e: export APP_ENV=e2e
 test-e2e: ## launch e2e test
 	make restart
 	vendor/bin/behat
+	make stop
 test: test-unit test-func ## api tests
 
 install@integration: export APP_ENV=test

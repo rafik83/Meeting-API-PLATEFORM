@@ -21,15 +21,17 @@
 </style>
 
 <script>
+  import { v4 as uuidv4 } from 'uuid';
+  import { CARD_KIND } from '../constants';
+
+  import CompanyCard from './CompanyCard.svelte';
+  import EventCard from './EventCard.svelte';
+  import MediaCard from './MediaCard.svelte';
   import Slider from './Slider.svelte';
   import MemberCard from './MemberCard.svelte';
   import H2 from './H2.svelte';
   import IconArrowRight from '../ui-kit/icons/IconArrowRight/IconArrowRight.svelte';
   import IconArrowLeft from '../ui-kit/icons/IconArrowLeft/IconArrowLeft.svelte';
-  import { v4 as uuidv4 } from 'uuid';
-  import { CARD_KIND } from '../constants';
-  import CompanyCard from './CompanyCard.svelte';
-  import EventCard from './EventCard.svelte';
 
   export let id = 'slider-' + uuidv4();
   export let cards = [];
@@ -79,12 +81,14 @@
   >
     {#each cards as card}
       <div class="card-container">
-        {#if card.kind === CARD_KIND.member}
+        {#if card.kind === CARD_KIND.MEMBER}
           <MemberCard on:meet_member on:view_member_profile {...card} />
-        {:else if card.kind === CARD_KIND.company}
+        {:else if card.kind === CARD_KIND.COMPANY}
           <CompanyCard on:generate_new_leads {...card} />
-        {:else if card.kind === CARD_KIND.event}
-          <EventCard event={card} />
+        {:else if card.kind === CARD_KIND.EVENT}
+          <EventCard {...card} />
+        {:else if card.kind === CARD_KIND.MEDIA}
+          <MediaCard {...card} />
         {/if}
       </div>
     {/each}

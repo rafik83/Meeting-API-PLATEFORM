@@ -1,0 +1,33 @@
+{% extends "admin/base.html.twig" %}
+
+
+{% block body %}
+	<div class="container grid px-6 mx-auto">
+
+		{% include 'admin/common/return_button.html.twig' with { link:  path('admin_community_media_list', {communityId: community.id}) } %}
+
+		<h2 class="form-title">{{ 'admin.community_media.edit.title'|trans }}</h2>
+		<div class="mb-4">
+
+			{% if published is not null %}
+				{{ 'admin.common.status'|trans }}
+				:
+				{% if published|length %}
+					<span class="px-2 py-1 text-sm font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:text-white dark:bg-green-600">
+						{{ 'admin.common.published'|trans }}
+					</span>
+
+				{% else %}
+					<span class="px-2 py-1 text-sm font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-white dark:bg-red-600">
+						{{ 'admin.common.not_published'|trans }}
+					</span>
+				{% endif %}
+			{% endif %}
+
+		</div>
+
+		{% include 'admin/communityMedia/form.html.twig' %}
+
+	</div>
+
+{% endblock %}

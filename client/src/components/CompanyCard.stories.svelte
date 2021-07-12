@@ -37,5 +37,5 @@
   <CompanyCard on:generate_new_leads={handleGenerateNewLeads} {...args} />
 </Template>
 
-<Story name="Normal" args={{ ...defaultProps }} />
+<Story name="Basic" args={{ ...defaultProps }} />
 <Story name="Without Picture" args={{ ...defaultProps, picture: null }} />

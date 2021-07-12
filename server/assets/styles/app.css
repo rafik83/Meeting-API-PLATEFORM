@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600&display=swap');
 
+/* Tailwind Editor */
+
 @import 'tailwindcss/base';
 
 @import 'tailwindcss/components';
@@ -7,46 +9,64 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
-  .btn-basic {
-    @apply text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple;
-  }
-  .btn-medium {
-    @apply btn-basic mt-4 px-3 py-1 rounded-md;
-  }
+	.rounded-block {
+		@apply px-4 py-3 mt-5 w-full mb-8 bg-white dark:bg-gray-700  rounded-lg shadow-md;
+	}
 
-  .btn-medium-icon {
-    @apply btn-basic w-max px-4 py-2 rounded-lg;
-  }
+	.btn-basic {
+		@apply text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple;
+	}
+	.btn-medium {
+		@apply btn-basic mt-4 px-3 py-1 rounded-md;
+	}
 
-  .btn-white {
-    @apply flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray;
-  }
+	.btn-medium-icon {
+		@apply btn-basic w-max px-4 py-2 rounded-lg;
+	}
 
-  .title {
-    @apply my-6 flex items-center justify-between w-full text-2xl font-semibold text-gray-700 dark:text-gray-200;
-  }
+	.btn-white {
+		@apply flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray;
+	}
 
-  .part-title {
-    @apply mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300;
-  }
+	.title {
+		@apply my-6 flex items-center justify-between w-full text-2xl font-semibold text-gray-700 dark:text-gray-200;
+	}
 
-  .main-rounded-block {
-    @apply px-4 py-3 w-full mb-8 overflow-hidden rounded-lg shadow-md;
-  }
+	/* Form */
 
-  .table-row-head {
-    @apply text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800;
-  }
+	.form-title {
+		@apply mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300;
+	}
 
-  .table-row-data {
-    @apply text-gray-700 dark:text-gray-400;
-  }
+	.form-label {
+		@apply: block text-sm text-gray-700 dark:text-gray-400;
+	}
 
-  .form-label {
-    @apply: block text-sm text-gray-700 dark:text-gray-400;
-  }
+	.input-text {
+		@apply: block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border rounded py-2 px-3 border-gray-300 text-gray-500;
+	}
 
-  .input-text {
-    @apply: block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border rounded py-2 px-3 border-gray-300 text-gray-500;
-  }
+	/* Table */
+
+	.form__fieldset__legend {
+		@apply font-bold mb-2 w-full text-purple-600 border-b-2 pb-2 dark:border-gray-400 border-gray-200;
+	}
+
+	.table-row-head {
+		@apply text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800;
+	}
+
+	.table-row-data {
+		@apply text-gray-700 dark:text-gray-400;
+	}
+
+	/* Quill Editor Overrides */
+
+	/* purgecss ignore */
+	.ql-editor h4 {
+		@apply font-bold text-purple-600 text-lg p-0;
+	}
 }
+
+/* Quill Editor */
+@import '~quill/dist/quill.snow.css';

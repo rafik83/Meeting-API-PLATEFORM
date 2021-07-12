@@ -6,7 +6,7 @@
     {% include 'admin/common/return_button.html.twig' with { link: path('admin_nomenclature_list') } %}
 
     <h1 class="title">{{ 'admin.nomenclature.update'|trans }}</h1>
-    <div class="main-rounded-block">
+    <div class="rounded-block ">
         <div>
             <div>
                 {{ form_start(form) }}
@@ -20,7 +20,7 @@
             </div>
 
             <div class="mt-4">
-                <h3 class="part-title">{{ 'admin.nomenclature.update_values'|trans }}</h3>
+                <h3 class="form-title">{{ 'admin.nomenclature.update_values'|trans }}</h3>
                 {{ form_start(importForm) }}
                     {{ form_row(importForm.file, {
                         row_class: "relative text-gray-500 focus-within:text-purple-600",
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="main-rounded-block">
+    <div class="rounded-block ">
         <pre>
             <ol class="text-xs leading-3">
                 {% for rootNomenclatureTag in nomenclature.rootTags %}

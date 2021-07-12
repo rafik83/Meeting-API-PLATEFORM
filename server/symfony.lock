@@ -1,4 +1,7 @@
 {
+    "alchemy/binary-driver": {
+        "version": "v5.2.0"
+    },
     "api-platform/api-pack": {
         "version": "v1.3.0"
     },
@@ -153,6 +156,9 @@
             "config/packages/elao_enum.yaml"
         ]
     },
+    "evenement/evenement": {
+        "version": "v3.0.1"
+    },
     "fakerphp/faker": {
         "version": "v1.14.1"
     },
@@ -298,6 +304,9 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "neutron/temporary-filesystem": {
+        "version": "3.0"
+    },
     "nikic/php-parser": {
         "version": "v4.10.5"
     },
@@ -306,6 +315,9 @@
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.1"
+    },
+    "php-ffmpeg/php-ffmpeg": {
+        "version": "v0.18.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"

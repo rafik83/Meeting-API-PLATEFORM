@@ -11,6 +11,11 @@ admin:
         password: Mot de passe
         import: Importer
         export: Exporter
+        yes: Oui
+        no: Non
+        published: publié
+        not_published: non publié
+        status: statut
     dashboard:
         title: Dashboard
     actions:
@@ -91,7 +96,8 @@ admin:
                 success: L'événement a été créé
         edit:
             title: Modifier un événement
-            success: L'événement a été mis à jour
+            flash:
+                success: L'événement a été mis à jour
         delete:
             flash:
                 success: L'événement a bien été supprimé
@@ -118,3 +124,62 @@ admin:
                 label: Tags caractérisation
             published:
                 label: Publié ?
+    community_media:
+        unavailable:
+            title: Fonctionnalité non disponible
+            description: Pour utiliser cette fonctionnalité, vous devez renseigné la nomenclature Skill au niveau de votre communauté
+        list:
+            title: Médias
+            actions:
+                create: Créer
+                edit: Modifier
+                delete: Supprimer
+            table:
+                id: "#"
+                name: Nom
+                type: Type
+                published: Publié ?
+        create:
+            title: Créer un média
+            flash:
+                success: Le média a été créé
+        edit:
+            title: Modifier un média
+            flash:
+                success: Le média a été mis à jour
+        delete:
+            flash:
+                success: Le média a bien été supprimé
+        form:
+            translations:
+                label: Traductions
+                children:
+                    name:
+                        label: Nom
+                    description:
+                        label: Description
+                    cta_label:
+                        label: Libellé du bouton
+                    cta_url:
+                        label: Url du bouton
+            type:
+                label: Type
+            tags:
+                label: Tags
+                help: Utilisé pour généré un score de matching avec un membre
+            video:
+                label: Vidéo
+                help: au format mp4(h264), max 100Mo
+            published:
+                label: Publié ?
+            sections:
+                information: Informations
+                content: Contenu
+                button: Button
+                matching_information: Information sur le matching
+        filter:
+            published:
+                label: Publié ?
+                choices:
+                    draft: Non
+                    published: Oui

@@ -3,9 +3,17 @@
   import PreviewDecorator from './PreviewDecorator.svelte';
   import EventCard from './EventCard.svelte';
   import { buildFakeEventCard } from '../__fixtures__/FakeCards';
+
+  const defaultProps = {
+    ...buildFakeEventCard(),
+  };
 </script>
 
-<Meta title="Vimeet365/EventCard" component={EventCard} />
+<Meta
+  title="Vimeet365/EventCard"
+  parameters={defaultProps}
+  component={EventCard}
+/>
 
 <Template
   let:args
@@ -22,7 +30,7 @@
     },
   ]}
 >
-  <EventCard {...args} event={buildFakeEventCard()} locale="en" />
+  <EventCard {...args} />
 </Template>
 
-<Story name="Basic" />
+<Story name="Basic" args={{ ...defaultProps }} />

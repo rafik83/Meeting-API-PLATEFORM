@@ -44,3 +44,4 @@ framework:
         routing:
             'Proximum\Vimeet365\Core\Application\Event\Hubspot\AccountRegisteredEvent': events
             'Proximum\Vimeet365\Core\Application\Event\Hubspot\AccountCompanyLinkedEvent': events
+            'Proximum\Vimeet365\Admin\Application\Event\CommunityMedia\MediaVideoUploadedEvent': events

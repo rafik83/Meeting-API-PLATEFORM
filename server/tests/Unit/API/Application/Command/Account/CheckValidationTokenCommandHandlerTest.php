@@ -12,7 +12,7 @@ use Proximum\Vimeet365\Api\Application\Exception\InvalidTokenException;
 use Proximum\Vimeet365\Core\Domain\Entity\Account;
 use Proximum\Vimeet365\Core\Domain\Security\AccountValidationTokenStorageInterface;
 
-class CheckValidationTokenTest extends TestCase
+class CheckValidationTokenCommandHandlerTest extends TestCase
 {
     use ProphecyTrait;
 

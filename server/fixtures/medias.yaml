@@ -1,0 +1,100 @@
+Proximum\Vimeet365\Core\Domain\Entity\Community\Media:
+    community_1_media_1:
+        __construct:
+            community: "@community_1"
+            mediaType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\Media\MediaType', 'press')>
+            tags: ["@tag_goals_buy"]
+        video: "video.mp4"
+        published: true
+        processed: true
+        __calls:
+            - setTranslation:
+                  [
+                      "en",
+                      "media name EN",
+                      "media description EN",
+                      "cta label",
+                      "http://cta/",
+                  ]
+            - setTranslation:
+                  [
+                      "fr",
+                      "media name FR",
+                      "media description FR",
+                      "cta label",
+                      "http://cta/",
+                  ]
+    community_1_media_2: # not published
+        __construct:
+            community: "@community_1"
+            mediaType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\Media\MediaType', 'interview')>
+            tags: ["@tag_goals_sell"]
+        video: "video.mp4"
+        published: false
+        processed: true
+        __calls:
+            - setTranslation:
+                  [
+                      "en",
+                      "media 2name EN",
+                      "media description EN",
+                      "cta label",
+                      "http://cta/",
+                  ]
+            - setTranslation:
+                  [
+                      "fr",
+                      "media 2name FR",
+                      "media description FR",
+                      "cta label",
+                      "http://cta/",
+                  ]
+    community_1_media_3: # not processed
+        __construct:
+            community: "@community_1"
+            mediaType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\Media\MediaType', 'interview')>
+            tags: ["@tag_goals_sell"]
+        video: "video.mp4"
+        published: false
+        __calls:
+            - setTranslation:
+                  [
+                      "en",
+                      "media 3name EN",
+                      "media description EN",
+                      "cta label",
+                      "http://cta/",
+                  ]
+            - setTranslation:
+                  [
+                      "fr",
+                      "media 3name FR",
+                      "media description FR",
+                      "cta label",
+                      "http://cta/",
+                  ]
+    community_2_media_2: # other community
+        __construct:
+            community: "@community_2"
+            mediaType: <enum('Proximum\Vimeet365\Core\Domain\Entity\Community\Media\MediaType', 'replay')>
+            tags: ["@tag_goals_find_industrial_partners"]
+        video: "video.mp4"
+        published: true
+        processed: true
+        __calls:
+            - setTranslation:
+                  [
+                      "en",
+                      "media 3 name EN",
+                      "media description EN",
+                      "cta label",
+                      "http://cta/",
+                  ]
+            - setTranslation:
+                  [
+                      "fr",
+                      "media 3 name FR",
+                      "media description FR",
+                      "cta label",
+                      "http://cta/",
+                  ]

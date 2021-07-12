@@ -4,8 +4,8 @@
     <div class="container grid px-6 mx-auto">
         {% include 'admin/common/return_button.html.twig' with { link: path('admin_nomenclature_list') } %}
 
-        <h2 class="part-title">{{ 'admin.nomenclature.create'|trans }}</h2>
-        <div class="main-rounded-block">
+        <h2 class="form-title">{{ 'admin.nomenclature.create'|trans }}</h2>
+        <div class="rounded-block ">
             {{ form_start(form) }}
             {{ form_row(form.community) }}
             {{ form_row(form.reference) }}

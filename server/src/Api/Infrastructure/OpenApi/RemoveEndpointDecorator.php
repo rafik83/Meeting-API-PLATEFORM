@@ -17,6 +17,8 @@ class RemoveEndpointDecorator implements OpenApiFactoryInterface
         '/api/communityCardList/{id}',
         '/api/member_cards/{id}',
         '/api/company_cards/{id}',
+        '/api/media_cards/{id}',
+        '/api/event_cards/{id}',
         '/api/card',
         '/api/card/{id}',
         '/api/communityGoals',

@@ -1,0 +1,75 @@
+<div class="rounded-block ">
+	{{ form_start(form) }}
+	<fieldset class="">
+		<legend class="form__fieldset__legend">{{ 'admin.community_media.form.sections.information'|trans }}</legend>
+
+		<div class="w-2/5  mb-4">
+			{{ form_row(form.mediaType) }}
+		</div>
+
+		<div class="flex w-full justify-between">
+			{% for translation in form.translations %}
+				<div class="w-2/5 ">
+					{{ form_row(translation.language) }}
+					{{ form_row(translation.name) }}
+				</div>
+			{% endfor %}
+		</div>
+	</fieldset>
+
+	<fieldset class="my-4">
+		<legend class="form__fieldset__legend">{{ 'admin.community_media.form.sections.content'|trans }}</legend>
+
+		<div class="flex w-full justify-between">
+			{% for translation in form.translations %}
+
+				<div class="w-2/5 ">
+					{{ form_row(translation.description) }}
+				</div>
+			{% endfor %}
+		</div>
+
+		<div class="flex w-full mt-5 justify-between">
+			<div class="w-2/5 ">
+				{{ form_row(form.video) }}
+			</div>
+		</div>
+	</fieldset>
+
+	<fieldset class="my-4">
+		<legend class="form__fieldset__legend">{{ 'admin.community_media.form.sections.button'|trans }}</legend>
+
+		<div class="flex w-full justify-between">
+
+			{% for translation in form.translations %}
+				<div class="w-2/5  mb-4">
+					{{ form_row(translation.ctaLabel) }}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="flex w-full justify-between">
+
+			{% for translation in form.translations %}
+				<div class="w-2/5  mb-4">
+					{{ form_row(translation.ctaUrl) }}
+				</div>
+			{% endfor %}
+		</div>
+	</fieldset>
+
+	<fieldset class="my-4">
+		<legend class="form__fieldset__legend">{{ 'admin.community_media.form.sections.matching_information'|trans }}</legend>
+
+		<div class="flex w-full justify-between">
+			<div class="w-2/5 ">
+				{{ form_row(form.tags) }}
+			</div>
+		</div>
+	</fieldset>
+
+	<div class="flex w-2/5 justify-between">
+		{{ form_row(form.save) }}
+		{{ form_row(form.published) }}
+	</div>
+	{{ form_end(form) }}
+</div>

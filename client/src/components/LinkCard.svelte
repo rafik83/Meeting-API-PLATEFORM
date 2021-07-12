@@ -14,7 +14,7 @@
   }
 
   if (kind === 'action') {
-    style = 'text-gray-500 bg-gray-150';
+    style = 'text-gray-400 bg-gray-150 hover:text-gray-50 hover:bg-gray-400';
   }
 </script>
 
@@ -22,7 +22,7 @@
   {id}
   on:click|preventDefault
   {href}
-  class="w-auto cursor-pointer text-sm font-semibold rounded-xl h-12 px-4 {style}"
+  class="w-auto cursor-pointer text-sm font-semibold rounded-xl py-3 px-4 {style}"
 >
-  <slot>Button</slot>
+  <slot class={style}>Button</slot>
 </a>

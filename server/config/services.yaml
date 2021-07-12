@@ -64,6 +64,7 @@ services:
         public: true
         tags:
             - { name: "messenger.message_handler", bus: "messenger.bus.events" }
+
     admin_query_handlers:
         namespace: Proximum\Vimeet365\Admin\Application\Query\
         resource: "../src/Admin/Application/Query/**/*QueryHandler.php"
@@ -83,6 +84,13 @@ services:
                   name: "messenger.message_handler",
                   bus: "messenger.bus.commands",
               }
+
+    admin_event_handlers:
+        namespace: Proximum\Vimeet365\Admin\Application\Event\
+        resource: "../src/Admin/Application/Event/**/*EventHandler.php"
+        public: true
+        tags:
+            - { name: "messenger.message_handler", bus: "messenger.bus.events" }
 
     query_bus:
         class: Proximum\Vimeet365\Common\Messenger\SymfonyMessengerBus
@@ -163,3 +171,6 @@ services:
     Proximum\Vimeet365\Core\Application\Card\Provider\CardProvider:
         arguments:
             - !tagged_iterator app.card_provider
+
+    FFMpeg\FFProbe:
+        factory: ['FFMpeg\FFProbe', "create"]

@@ -92,6 +92,7 @@ export type TagTreeItem = {
 
 export type Video = {
   sources: Array<VideoSource>;
+  name?: string;
 };
 
 export type VideoSource = {
@@ -105,6 +106,19 @@ export type CompanyCard = {
   name: string;
   activity: string;
   id: number;
+};
+
+export type MediaType = 'press' | 'replay';
+
+export type MediaCard = {
+  id: number;
+  kind: string;
+  video: string;
+  ctaUrl: string;
+  ctaLabel: string;
+  mediaType: MediaType;
+  name: string;
+  description: string;
 };
 
 export type MemberCard = {
@@ -134,7 +148,7 @@ export type EventCard = {
   id: number;
 };
 
-export type Card = CompanyCard | MemberCard | EventCard;
+export type Card = CompanyCard | MemberCard | EventCard | MediaCard;
 
 export type CommunityList = {
   id: string;

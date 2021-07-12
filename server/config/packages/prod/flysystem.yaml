@@ -18,6 +18,12 @@ flysystem:
                 client: "gcloud_client_service"
                 bucket: "%env(resolve:GCS_PUBLIC_BUCKET)%"
                 prefix: "eventPictures/"
+        mediaVideos.storage:
+            adapter: "gcloud"
+            options:
+                client: "gcloud_client_service"
+                bucket: "%env(resolve:GCS_PUBLIC_BUCKET)%"
+                prefix: "mediaVideos/"
 
 services:
     gcloud_client_service:

@@ -51,7 +51,7 @@ class FormType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'attr' => ['accept' => 'image/jpeg,image/png'],
-                'required' => false,
+                'required' => $options['create'],
                 'label' => 'admin.community_event.form.picture.label',
                 'help' => 'admin.community_event.form.picture.help',
             ])

@@ -8,20 +8,20 @@
         }) }}
 
         <h1 class="title">{{'admin.community.main-goals'|trans }}</h1>
-        <div class="main-rounded-block">
+        <div class="rounded-block ">
             {{ form(form) }}
-        </div>
-        {% if refineGoalForm is not null %}
-            <h3 class="part-title">{{ 'admin.community.refine'|trans }}</h3>
-            <div class="main-rounded-block">
-                {{ form(refineGoalForm) }}
             </div>
-        {% endif %}
-        {% if matchingForm is not null %}
-            <h3 class="part-title">{{ 'admin.community.matching'|trans }}</h3>
-            <div class="main-rounded-block">
-                {{ form(matchingForm) }}
-            </div>
-        {% endif %}
-    </div>
-{% endblock %}
+            {% if refineGoalForm is not null %}
+                <h3 class="form-title">{{ 'admin.community.refine'|trans }}</h3>
+                <div class="rounded-block ">
+                    {{ form(refineGoalForm) }}
+                    </div>
+                {% endif %}
+                {% if matchingForm is not null %}
+                    <h3 class="form-title">{{ 'admin.community.matching'|trans }}</h3>
+                    <div class="rounded-block ">
+                        {{ form(matchingForm) }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endblock %}

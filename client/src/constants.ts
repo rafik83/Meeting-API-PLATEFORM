@@ -1,5 +1,8 @@
+import type { MediaType } from './domain';
+
 type RegistrationSteps = {
-  [key: string]: string;
+  // eslint-disable-next-line no-unused-vars
+  [key in 'SIGN_UP' | 'SIGN_IN']: string;
 };
 
 export const registrationSteps: RegistrationSteps = {
@@ -8,9 +11,8 @@ export const registrationSteps: RegistrationSteps = {
 };
 
 type Sizes = {
-  SMALL: string;
-  MEDIUM: string;
-  LARGE: string;
+  // eslint-disable-next-line no-unused-vars
+  [key in 'SMALL' | 'MEDIUM' | 'LARGE']: string;
 };
 
 export const sizes: Sizes = {
@@ -20,13 +22,23 @@ export const sizes: Sizes = {
 };
 
 type CardKind = {
-  member: string;
-  company: string;
-  event: string;
+  // eslint-disable-next-line no-unused-vars
+  [key in 'MEMBER' | 'COMPANY' | 'EVENT' | 'MEDIA']: string;
 };
 
 export const CARD_KIND: CardKind = {
-  member: 'member',
-  company: 'company',
-  event: 'community_event',
+  MEMBER: 'member',
+  COMPANY: 'company',
+  EVENT: 'community_event',
+  MEDIA: 'media',
+};
+
+type CardMediaTypes = {
+  // eslint-disable-next-line no-unused-vars
+  [key in 'PRESS' | 'REPLAY']: MediaType;
+};
+
+export const CARD_MEDIA_TYPE: CardMediaTypes = {
+  PRESS: 'press',
+  REPLAY: 'replay',
 };

@@ -15,6 +15,7 @@ RUN set -eux \
   libzip-dev  \
   libpq-dev \
   libxslt-dev \
+  ffmpeg \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

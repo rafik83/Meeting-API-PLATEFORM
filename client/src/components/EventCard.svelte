@@ -9,7 +9,14 @@
   import IconMore from '../ui-kit/icons/IconMore/IconMore.svelte';
   import PicturePlaceholder from './PicturePlaceholder.svelte';
 
-  export let event;
+  export let picture;
+  export let name;
+  export let eventType;
+  export let startDate;
+  export let endDate;
+  export let registerUrl;
+  export let findOutMoreUrl;
+  export let tags;
 
   let show = false;
 </script>
@@ -20,36 +27,34 @@
   class="w-96 bg-gray-50 shadow-full"
 >
   <div class="flex relative h-44 overflow-hidden">
-    {#if event.picture}
+    {#if picture}
       <img
         class="w-full object-cover overflow-hidden"
-        src={event.picture}
-        alt={`${event.name} image`}
+        src={picture}
+        alt={`${name} image`}
       />
     {:else}
-      <PicturePlaceholder textContent={event.name} />
+      <PicturePlaceholder textContent={name} />
     {/if}
     <span
       class="absolute top-0 left-0 bg-gray-50 text-community-400 text-xs px-2 pt-0.5 font-bold uppercase"
-      >{event.eventType}</span
+      >{eventType}</span
     >
   </div>
   <div class="bg-gray-100 h-0.5" />
 
   {#if show}
     <div class="flex justify-between px-4 py-2">
-      <LinkCard href={event.findOutMoreUrl} kind="action">
+      <LinkCard href={findOutMoreUrl} kind="action">
         <div class="flex items-center h-full">
-          <span class="pr-4 flex items-center">{$_('cards.find_out_more')}</span
-          >
-          <IconMore class="w-5 text-gray-400" />
+          <span class="pr-4">{$_('cards.find_out_more')}</span>
+          <IconMore />
         </div>
       </LinkCard>
-
-      <LinkCard href={event.registerUrl} kind="community">
+      <LinkCard href={registerUrl} kind="community">
         <div class="flex items-center h-full">
           <span class="pr-4">{$_('registration.register')}</span>
-          <IconArrowRight stroke="#fff" class="w-2" />
+          <IconArrowRight width="15px" heigth="15px" />
         </div>
       </LinkCard>
     </div>
@@ -60,15 +65,15 @@
         <IconCalendar fill="#fff" class="w-3" />
       </div>
       <span class="ml-2 uppercase text-community-300 font-bold text-lg"
-        >{@html formatEventCardDate(event.startDate, event.endDate)}</span
+        >{@html formatEventCardDate(startDate, endDate)}</span
       >
     </div>
   {:else}
     <div class="flex justify-end px-4 py-2">
-      <LinkCard href={event.registerUrl} kind="community">
+      <LinkCard href={registerUrl} kind="community">
         <div class="flex items-center h-full">
           <span class="pr-4">{$_('registration.register')}</span>
-          <IconArrowRight stroke="#fff" class="w-2" />
+          <IconArrowRight width="15px" heigth="15px" />
         </div>
       </LinkCard>
     </div>
@@ -76,7 +81,7 @@
 
   {#if show}
     <div class="flex flex-wrap px-4 pb-2" transition:slide>
-      {#each event.tags as tag}
+      {#each tags as tag}
         <Tag dark={false}>{tag.name}</Tag>
       {/each}
     </div>

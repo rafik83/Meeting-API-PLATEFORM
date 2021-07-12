@@ -5,7 +5,7 @@
         {% include 'admin/common/return_button.html.twig' with { link:  path('admin_card_list_list', {communityId: community.id}) } %}
 
         <h2 class="title">{{ 'admin.card_list.create_title'|trans }}</h2>
-        <div class="main-rounded-block">
+        <div class="rounded-block ">
         {{form_start(form)}}
             {{form_row(form.title, {row_class: 'mt-4'})}}
             {{form_row(form.sorting, {row_class: 'mt-4'})}}

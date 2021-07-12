@@ -14,6 +14,7 @@ class CardType extends ReadableEnum
     public const MEMBER = 'member';
     public const COMPANY = 'company';
     public const EVENT = 'community_event';
+    public const MEDIA = 'media';
 
     public static function readables(): array
     {
@@ -21,6 +22,7 @@ class CardType extends ReadableEnum
             self::MEMBER => 'Membre',
             self::COMPANY => 'Société',
             self::EVENT => 'Évènement',
+            self::MEDIA => 'Média',
         ];
     }
 }

@@ -11,6 +11,11 @@ admin:
         password: Password
         import: Import
         export: Export
+        yes: Yes
+        no: No
+        published: published
+        not_published: not published
+        status: status
     dashboard:
         title: Dashboard
     actions:
@@ -87,8 +92,15 @@ admin:
                 delete: Delete
         create:
             title: Create a new Event
+            flash:
+                success: The event has been created
         edit:
             title: Edit an Event
+            flash:
+                success: The event has been updated
+        delete:
+            flash:
+                success: The event has been removed
         form:
             name:
                 label: Name
@@ -112,3 +124,62 @@ admin:
                 label: Characterization Tags
             published:
                 label: Published ?
+    community_media:
+        unavailable:
+            title: Feature not available
+            description: To use this feature, you need to fill the Skill Nomenclature field in your community
+        list:
+            title: Medias
+            actions:
+                create: Create
+                edit: Edit
+                delete: Remove
+            table:
+                id: "#"
+                name: Name
+                type: Type
+                published: Published ?
+        create:
+            title: Create a media
+            flash:
+                success: The media has been created
+        edit:
+            title: Update a media
+            success: The media has been updated
+        delete:
+            flash:
+                success: The media has been removed
+        form:
+            translations:
+                label: Translations
+                children:
+                    name:
+                        label: Name
+                    description:
+                        label: Description
+                    cta_label:
+                        label: Button label
+                    cta_url:
+                        label: Button url
+            type:
+                label: Type
+            tags:
+                label: Tags
+                help: Use to match with the current member
+            video:
+                label: Video
+                help: format mp4(h264), max 100Mo
+            published:
+                label: Published ?
+            sections:
+                information: Information
+                content: Content
+                button: Button
+                matching_information: Matching information
+
+        filter:
+            published:
+                label: Published
+                choices:
+                    draft: No
+                    published: Yes

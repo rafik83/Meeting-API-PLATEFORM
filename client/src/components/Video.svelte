@@ -1,6 +1,7 @@
-<style>
+<style lang="postcss">
   video {
     max-height: 45rem;
+    @apply w-full h-full object-cover;
   }
 </style>
 
@@ -9,6 +10,7 @@
 
   export let sources = [];
   export let playOnHover = true;
+  export let controls = false;
 
   let video;
   const handleVideo = (videoElement) => {
@@ -45,20 +47,22 @@
   on:click={handleClick}
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
-  class="relative"
+  class="relative h-full w-full"
 >
-  <video width="100%" class="object-cover overflow-hidden" use:handleVideo>
+  <video {controls} use:handleVideo>
     {#each sources as { source, type }}
       <source src={source} {type} />
     {/each}
     <track kind="captions" />
   </video>
 
-  <div
-    class="absolute transform -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 w-24 h-24 cursor-pointer {isPlaying
-      ? 'hidden'
-      : 'block'}"
-  >
-    <IconPlay width="100%" />
-  </div>
+  {#if !controls}
+    <div
+      class="absolute transform -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 w-24 h-24 cursor-pointer {isPlaying
+        ? 'hidden'
+        : 'block'}"
+    >
+      <IconPlay width="100%" />
+    </div>
+  {/if}
 </div>

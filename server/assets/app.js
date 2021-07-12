@@ -3,6 +3,7 @@ import './bootstrap';
 
 import RefineGoals from './components/RefineGoals';
 import MatchingBetweenGoals from './components/MatchingBetweenGoals';
+import WysiwigEditor from './components/WysiwigEditor';
 
 const refineGoalsContainer = document.querySelector(
   '#refine_goal_refinedGoals'
@@ -22,3 +23,7 @@ if (matchingGoalsContainer) {
   const matching = new MatchingBetweenGoals(matchingGoalsContainer);
   matching();
 }
+
+document
+  .querySelectorAll('[data-quill]')
+  .forEach((node) => new WysiwigEditor(node));

@@ -19,11 +19,13 @@ class MixedCardProvider implements CardProviderInterface
         MemberCardProvider $memberCardProvider,
         CompanyCardProvider $companyCardProvider,
         EventCardProvider $eventCardProvider,
+        MediaCardProvider $mediaCardProvider,
     ) {
         $this->cardProviders = [
             CardType::MEMBER => $memberCardProvider,
             CardType::COMPANY => $companyCardProvider,
             CardType::EVENT => $eventCardProvider,
+            CardType::MEDIA => $mediaCardProvider,
         ];
     }
 

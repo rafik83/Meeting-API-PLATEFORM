@@ -1,12 +1,38 @@
 {% use 'tailwind_2_layout.html.twig' %}
 
 {%- block form_row -%}
-    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('mt-4 block text-sm')) }) -%}
-    {{- parent() -}}
+    {%- set widget_attr = {} -%}
+      {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('block text-sm')) }) -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        {%- if icon != null -%}
+            <div class="relative text-gray-500" >
+                    {{- form_widget(form, widget_attr) -}}
+    
+                <div class="absolute inset-y-0 right-0 flex items-center mr-3 pointer-events-none">
+	                    {%- if icon == "flag-fr" -%}
+                          {{"FR" | flagAsEmoji}}
+                        {%- endif -%}
+
+                        {%- if icon == "flag-en" -%}
+                          {{"GB" | flagAsEmoji}}
+                        {%- endif -%}
+                </div>
+            </div>
+
+          {%- else -%}
+                {{- form_widget(form, widget_attr) -}}
+          {% endif %}
+                {{- form_help(form) -}}
+    </div>
 {%- endblock form_row -%}
 
 {%- block widget_attributes -%}
-    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border-gray-200 border rounded py-2 px-3')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red appearance-none bg-white border-gray-200 border rounded py-2 px-3')) }) -%}
+    {%- set attr = attr|merge({ class: attr.class|default(widget_class|default('block w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray appearance-none bg-white border-gray-200 border rounded py-2 px-3')) ~ (disabled ? ' ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~ widget_errors_class|default('border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red appearance-none bg-white border-gray-200'))  ~ (icon != null ? " pr-10") }) -%}
     {{- parent() -}}
 {%- endblock widget_attributes -%}
 

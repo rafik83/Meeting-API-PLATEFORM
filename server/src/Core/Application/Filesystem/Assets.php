@@ -9,4 +9,5 @@ class Assets
     public const ACCOUNT_AVATAR = 'accountAvatar';
     public const COMPANY_LOGOS = 'companyLogos';
     public const EVENT_PICTURES = 'eventPictures';
+    public const MEDIA_VIDEOS = 'mediaVideos';
 }
