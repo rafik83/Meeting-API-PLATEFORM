@@ -24,11 +24,7 @@ class EventCardProvider implements CardProviderInterface
      */
     public function getCards(CardList $cardList): array
     {
-        $events = $this->communityEventRepository->getSortedByDate(
-            $cardList->getCommunity(),
-            $cardList->getConfig(CardType::get(CardType::EVENT)),
-            $cardList->getLimit()
-        );
+        $events = $this->communityEventRepository->getSortedByDate($cardList->getCommunity(), $cardList->getLimit());
 
         return array_map(static fn (Event $event): EventCard => new EventCard($event), $events);
     }

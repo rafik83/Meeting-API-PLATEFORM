@@ -4,7 +4,6 @@ elao_enum:
     doctrine:
         types:
             card_list_sorting: 'Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting'
-            card_list_card_type: 'Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType'
             card_list_card_types:
                 class: 'Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType'
                 type: csv_collection

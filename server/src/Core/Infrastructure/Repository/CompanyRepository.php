@@ -7,7 +7,6 @@ namespace Proximum\Vimeet365\Core\Infrastructure\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList\Config;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
 use Proximum\Vimeet365\Core\Domain\Repository\CompanyRepositoryInterface;
@@ -63,7 +62,7 @@ class CompanyRepository extends ServiceEntityRepository implements CompanyReposi
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function getSortedByName(Community $community, ?Config $config, int $limit): array
+    public function getSortedByName(Community $community, int $limit): array
     {
         $queryBuilder = $this->createQueryBuilder('company');
         $queryBuilder
@@ -79,7 +78,7 @@ class CompanyRepository extends ServiceEntityRepository implements CompanyReposi
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function getSortedByDate(Community $community, ?Config $config, int $limit): array
+    public function getSortedByDate(Community $community, int $limit): array
     {
         $queryBuilder = $this->createQueryBuilder('company');
         $queryBuilder

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Admin\Application\Command\Community\CardList;
 
-use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Proximum\Vimeet365\Core\Domain\Repository\CardListRepositoryInterface;
 use RuntimeException;
@@ -26,15 +25,8 @@ class CreateCommandHandler
             $command->title,
             $command->cardTypes,
             $command->sorting,
-            $command->position,
-            $command->limit
+            $command->position
         );
-
-        foreach ($command->configs as $type => $dto) {
-            if ($type === CardType::MEMBER && $dto instanceof MemberConfigDto) {
-                $cardList->addConfig(new CardList\MemberConfig($cardList, $dto->mainGoal));
-            }
-        }
 
         foreach ($command->tags as $dto) {
             if ($dto->tag === null) {

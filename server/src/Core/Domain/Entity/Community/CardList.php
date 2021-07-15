@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\Sorting;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList\Config;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList\Tag;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag as CoreTag;
 
@@ -55,11 +54,6 @@ class CardList
     public int $position = 0;
 
     /**
-     * @ORM\Column(type="smallint", options={"default"=20}, name="`limit`")
-     */
-    public int $limit = 20;
-
-    /**
      * @ORM\Column(type="boolean", options={"default"= false})
      */
     public bool $published = false;
@@ -72,13 +66,6 @@ class CardList
     private Collection $tags;
 
     /**
-     * @var Collection<int, Config>
-     *
-     * @ORM\OneToMany(targetEntity=Config::class, orphanRemoval=true, mappedBy="cardList", cascade={"persist"})
-     */
-    private Collection $configs;
-
-    /**
      * @param CardType[] $cardTypes
      */
     public function __construct(
@@ -86,17 +73,14 @@ class CardList
         string $title,
         array $cardTypes,
         Sorting $sorting,
-        int $position = 0,
-        int $limit = 20
+        int $position = 0
     ) {
         $this->community = $community;
         $this->title = $title;
         $this->cardTypes = $cardTypes;
         $this->sorting = $sorting;
         $this->position = $position;
-        $this->limit = $limit;
         $this->tags = new ArrayCollection();
-        $this->configs = new ArrayCollection();
 
         $this->community->getCardLists()->add($this);
     }
@@ -151,7 +135,7 @@ class CardList
 
     public function getLimit(): int
     {
-        return $this->limit;
+        return 10;
     }
 
     /**
@@ -173,13 +157,12 @@ class CardList
     /**
      * @var CardType[]
      */
-    public function update(int $position, Sorting $sorting, array $cardTypes, string $title, int $limit): void
+    public function update(int $position, Sorting $sorting, array $cardTypes, string $title): void
     {
         $this->position = $position;
         $this->sorting = $sorting;
         $this->cardTypes = $cardTypes;
         $this->title = $title;
-        $this->limit = $limit;
     }
 
     public function match(?Member $member = null): bool
@@ -223,33 +206,5 @@ class CardList
         }
 
         return $found;
-    }
-
-    public function getConfig(CardType $cardType): ?Config
-    {
-        $config = $this->configs->filter(fn (Config $config) => $config->getType()->equals($cardType))->first();
-
-        if ($config === false) {
-            return null;
-        }
-
-        return $config;
-    }
-
-    public function addConfig(Config $config): void
-    {
-        $this->removeConfig($config->getType());
-
-        $this->configs->add($config);
-    }
-
-    public function removeConfig(CardType $cardType): void
-    {
-        $existingConfig = $this->getConfig($cardType);
-        if ($existingConfig === null) {
-            return;
-        }
-
-        $this->configs->removeElement($existingConfig);
     }
 }

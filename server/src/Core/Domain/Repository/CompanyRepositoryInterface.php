@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Domain\Repository;
 
+use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Company;
 
-/**
- * @template-extends CardItemRepositoryInterface<Company>
- */
-interface CompanyRepositoryInterface extends CardItemRepositoryInterface
+interface CompanyRepositoryInterface
 {
     public function findOneById(int $id): ?Company;
 
@@ -30,4 +28,14 @@ interface CompanyRepositoryInterface extends CardItemRepositoryInterface
      * @return array<string, Company> indexed by hubspotId
      */
     public function findByHubspotIds(array $hubspotIds = []): array;
+
+    /**
+     * @return Company[]
+     */
+    public function getSortedByName(Community $community, int $limit): array;
+
+    /**
+     * @return Company[]
+     */
+    public function getSortedByDate(Community $community, int $limit): array;
 }

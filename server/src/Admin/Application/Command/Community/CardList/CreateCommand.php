@@ -25,12 +25,6 @@ class CreateCommand
     public int $position = 0;
 
     /**
-     * @Assert\NotNull
-     * @Assert\Range(min="1", max="100")
-     */
-    public int $limit = 20;
-
-    /**
      * @Assert\Count(min=1)
      *
      * @var CardType[]
@@ -41,13 +35,6 @@ class CreateCommand
     public array $tags = [];
 
     public bool $published = false;
-
-    /**
-     * @Assert\Valid
-     *
-     * @var array<string, MemberConfigDto|null>
-     */
-    public array $configs = [];
 
     public function __construct(private Community $community)
     {

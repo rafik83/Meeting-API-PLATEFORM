@@ -11,10 +11,9 @@ use Proximum\Vimeet365\Core\Domain\Entity\Account;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Member\Goal;
 use Proximum\Vimeet365\Core\Domain\Entity\Tag;
-use Proximum\Vimeet365\Core\Infrastructure\Repository\MemberRepository;
 
 /**
- * @ORM\Entity(repositoryClass=MemberRepository::class)
+ * @ORM\Entity
  * @ORM\Table(name="community_member")
  */
 class Member

@@ -27,7 +27,6 @@ class CardListType extends AbstractType
                 'enum_class' => Sorting::class,
             ])
             ->add('position', IntegerType::class)
-            ->add('limit', IntegerType::class)
             ->add('cardTypes', EnumType::class, [
                 'enum_class' => CardType::class,
                 'multiple' => true,
@@ -42,10 +41,6 @@ class CardListType extends AbstractType
                     'nomenclature' => $options['community']->getMainGoal()->getNomenclature(),
                 ],
                 'required' => false,
-            ])
-            ->add('configs', CardListConfigType::class, [
-                'required' => false,
-                'community' => $options['community'],
             ])
             ->add('published', CheckboxType::class, [
                 'required' => false,

@@ -12,7 +12,6 @@ use Proximum\Vimeet365\Common\Pagination\DoctrineORMPaginator;
 use Proximum\Vimeet365\Common\Pagination\Pagination;
 use Proximum\Vimeet365\Common\Pagination\PaginatorInterface;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList\Config;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Event;
 use Proximum\Vimeet365\Core\Domain\Repository\CommunityEventRepositoryInterface;
 
@@ -26,7 +25,7 @@ class CommunityEventRepository extends ServiceEntityRepository implements Commun
         parent::__construct($registry, Event::class);
     }
 
-    public function getSortedByName(Community $community, ?Config $config, int $limit): array
+    public function getSortedByName(Community $community, int $limit): array
     {
         $queryBuilder = $this->createQueryBuilder('event');
         $queryBuilder
@@ -40,7 +39,7 @@ class CommunityEventRepository extends ServiceEntityRepository implements Commun
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function getSortedByDate(Community $community, ?Config $config, int $limit): array
+    public function getSortedByDate(Community $community, int $limit): array
     {
         $queryBuilder = $this->createQueryBuilder('event');
         $queryBuilder

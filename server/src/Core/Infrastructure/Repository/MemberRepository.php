@@ -5,13 +5,9 @@ declare(strict_types=1);
 namespace Proximum\Vimeet365\Core\Infrastructure\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Proximum\Vimeet365\Core\Domain\Entity\Community;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList\Config;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
-use Proximum\Vimeet365\Core\Domain\Entity\Tag;
 use Proximum\Vimeet365\Core\Domain\Repository\MemberRepositoryInterface;
 
 /**
@@ -34,7 +30,7 @@ class MemberRepository extends ServiceEntityRepository implements MemberReposito
         return $this->find($id);
     }
 
-    public function getSortedByName(Community $community, ?Config $config, int $limit): array
+    public function getSortedByName(Community $community, int $limit): array
     {
         $queryBuilder = $this->createQueryBuilder('m');
         $queryBuilder
@@ -47,14 +43,10 @@ class MemberRepository extends ServiceEntityRepository implements MemberReposito
             ->setMaxResults($limit)
         ;
 
-        if ($config instanceof Community\CardList\MemberConfig) {
-            $this->filterByMainGoal($queryBuilder, $config->getMainGoal());
-        }
-
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function getSortedByDate(Community $community, ?Config $config, int $limit): array
+    public function getSortedByDate(Community $community, int $limit): array
     {
         $queryBuilder = $this->createQueryBuilder('m');
         $queryBuilder
@@ -66,24 +58,6 @@ class MemberRepository extends ServiceEntityRepository implements MemberReposito
             ->setMaxResults($limit)
         ;
 
-        if ($config instanceof Community\CardList\MemberConfig) {
-            $this->filterByMainGoal($queryBuilder, $config->getMainGoal());
-        }
-
         return $queryBuilder->getQuery()->getResult();
-    }
-
-    private function filterByMainGoal(QueryBuilder $queryBuilder, ?Tag $mainGoal): void
-    {
-        if ($mainGoal === null) {
-            return;
-        }
-
-        $queryBuilder
-            ->innerJoin('m.goals', 'goal', Join::WITH, 'goal.priority = 0')
-            ->innerJoin('goal.communityGoal', 'communityGoal', Join::WITH, 'communityGoal.parent IS NULL')
-            ->andWhere('goal.tag = :mainGoal')
-            ->setParameter('mainGoal', $mainGoal)
-        ;
     }
 }

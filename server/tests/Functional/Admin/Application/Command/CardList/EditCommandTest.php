@@ -8,8 +8,6 @@ use Doctrine\ORM\EntityManager;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Proximum\Vimeet365\Admin\Application\Command\Community\CardList\EditCommand;
 use Proximum\Vimeet365\Admin\Application\Command\Community\CardList\EditCommandHandler;
-use Proximum\Vimeet365\Admin\Application\Command\Community\CardList\MemberConfigDto;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\Card\CardType;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\CardList;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -48,27 +46,5 @@ class EditCommandTest extends KernelTestCase
         $this->entityManager->flush();
 
         self::assertCount(2, $cardList->getTags());
-    }
-
-    public function testCustomMemberConfig(): void
-    {
-        $cardListRepository = $this->entityManager->getRepository(CardList::class);
-        /** @var CardList $cardList */
-        $cardList = $cardListRepository->findOneBy(['title' => 'Last users registered']);
-
-        $communityMainGoal = $cardList->getCommunity()->getMainGoal();
-        $tag = $communityMainGoal->getNomenclature()->getTags()->first()->getTag();
-
-        self::assertNull($cardList->getConfig(CardType::get(CardType::MEMBER)));
-
-        $command = new EditCommand($cardList);
-        $command->configs[CardType::MEMBER] = new MemberConfigDto($cardList->getCommunity(), $tag);
-        $commandHandler = new EditCommandHandler();
-        $commandHandler($command);
-
-        $this->entityManager->flush();
-
-        self::assertNotNull($cardList->getConfig(CardType::get(CardType::MEMBER)));
-        self::assertEquals($tag->getId(), $cardList->getConfig(CardType::get(CardType::MEMBER))->getMainGoal()->getId());
     }
 }
