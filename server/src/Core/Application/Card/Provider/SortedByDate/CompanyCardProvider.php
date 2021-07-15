@@ -24,7 +24,11 @@ class CompanyCardProvider implements CardProviderInterface
      */
     public function getCards(CardList $cardList): array
     {
-        $companies = $this->companyRepository->getSortedByDate($cardList->getCommunity(), $cardList->getLimit());
+        $companies = $this->companyRepository->getSortedByDate(
+            $cardList->getCommunity(),
+            $cardList->getConfig(CardType::get(CardType::COMPANY)),
+            $cardList->getLimit()
+        );
 
         return array_map(static fn (Company $company): CompanyCard => new CompanyCard($company), $companies);
     }

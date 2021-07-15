@@ -14,7 +14,7 @@ const matchingGoalsContainer = document.querySelector(
 );
 
 if (refineGoalsContainer) {
-  new RefineGoals(refineGoalsContainer);
+  new Collection(refineGoalsContainer);
 }
 
 if (matchingGoalsContainer) {
@@ -24,8 +24,9 @@ if (matchingGoalsContainer) {
 document
   .querySelectorAll('[data-quill]')
   .forEach((node) => new WysiwigEditor(node));
-const cardListTags = document.querySelector('#card_list_tags');
 
+const cardListTags = document.querySelector('#card_list_tags');
 if (cardListTags) {
-  new Collection(cardListTags);
+  const cardListTagsCollection = new Collection(cardListTags);
+  cardListTagsCollection();
 }

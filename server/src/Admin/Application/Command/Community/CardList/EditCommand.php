@@ -20,7 +20,14 @@ class EditCommand
      * @Assert\NotNull
      */
     public Sorting $sorting;
+
     public int $position = 0;
+
+    /**
+     * @Assert\NotNull
+     * @Assert\Range(min="1", max="100")
+     */
+    public int $limit;
 
     /**
      * @Assert\Count(min=1)
@@ -34,10 +41,18 @@ class EditCommand
 
     public bool $published;
 
+    /**
+     * @Assert\Valid
+     *
+     * @var array<string, MemberConfigDto|null>
+     */
+    public array $configs;
+
     public function __construct(public CardList $cardList)
     {
         $this->sorting = $cardList->getSorting();
         $this->position = $cardList->getPosition();
+        $this->limit = $cardList->getLimit();
         $this->title = $cardList->getTitle();
         $this->cardTypes = $cardList->getCardTypes();
         $this->tags = $cardList->getTags()
@@ -45,5 +60,13 @@ class EditCommand
             ->getValues()
         ;
         $this->published = $cardList->isPublished();
+
+        $this->configs = array_combine(
+            CardType::values(),
+            array_map(
+                fn (CardType $cardType): MemberConfigDto | null => ConfigDto::create($this->cardList->getCommunity(), $this->cardList->getConfig($cardType)),
+                CardType::instances()
+            )
+        );
     }
 }

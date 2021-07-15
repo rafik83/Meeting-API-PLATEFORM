@@ -41,7 +41,7 @@ class CompanyRepositoryTest extends KernelTestCase
 
         /** @var CompanyRepository $companyRepository */
         $companyRepository = $this->entityManager->getRepository(Company::class);
-        $companies = $companyRepository->getSortedByDate($community, 2);
+        $companies = $companyRepository->getSortedByDate($community, null, 2);
 
         self::assertCount(1, $companies);
         self::assertEquals('Proximum', $companies[0]->getName());
@@ -54,7 +54,7 @@ class CompanyRepositoryTest extends KernelTestCase
 
         /** @var CompanyRepository $companyRepository */
         $companyRepository = $this->entityManager->getRepository(Company::class);
-        $companies = $companyRepository->getSortedByName($community, 2);
+        $companies = $companyRepository->getSortedByName($community, null, 2);
 
         self::assertCount(1, $companies);
         self::assertEquals('Proximum', $companies[0]->getName());

@@ -7,6 +7,9 @@ namespace Proximum\Vimeet365\Core\Domain\Entity\Community\Card;
 use Elao\Enum\AutoDiscoveredValuesTrait;
 use Elao\Enum\ReadableEnum;
 
+/**
+ * @method static string[] values()
+ */
 class CardType extends ReadableEnum
 {
     use AutoDiscoveredValuesTrait;

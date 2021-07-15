@@ -37,7 +37,7 @@ class EventCardProviderTest extends TestCase
         $event = $this->prophesize(Event::class);
 
         $repository
-            ->getSortedByName($community->reveal(), $cardList->getLimit())
+            ->getSortedByName($community->reveal(), null, $cardList->getLimit())
             ->willReturn([$event->reveal()])
         ;
 

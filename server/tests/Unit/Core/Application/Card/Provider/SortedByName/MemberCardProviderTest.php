@@ -37,7 +37,7 @@ class MemberCardProviderTest extends TestCase
         $member = $this->prophesize(Member::class);
 
         $repository
-            ->getSortedByName($community->reveal(), $cardList->getLimit())
+            ->getSortedByName($community->reveal(), null, $cardList->getLimit())
             ->willReturn([$member->reveal()])
         ;
 

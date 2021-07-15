@@ -21,7 +21,11 @@ class MemberCardProvider implements CardProviderInterface
 
     public function getCards(CardList $cardList): array
     {
-        $members = $this->memberRepository->getSortedByDate($cardList->getCommunity(), $cardList->getLimit());
+        $members = $this->memberRepository->getSortedByDate(
+            $cardList->getCommunity(),
+            $cardList->getConfig(CardType::get(CardType::MEMBER)),
+            $cardList->getLimit()
+        );
 
         return array_map(static fn (Member $member): MemberCard => new MemberCard($member), $members);
     }

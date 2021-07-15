@@ -6,21 +6,13 @@ namespace Proximum\Vimeet365\Core\Domain\Repository;
 
 use Proximum\Vimeet365\Common\Pagination\Pagination;
 use Proximum\Vimeet365\Common\Pagination\PaginatorInterface;
-use Proximum\Vimeet365\Core\Domain\Entity\Community;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Event;
 
-interface CommunityEventRepositoryInterface
+/**
+ * @template-extends CardItemRepositoryInterface<Event>
+ */
+interface CommunityEventRepositoryInterface extends CardItemRepositoryInterface
 {
-    /**
-     * @return Event[]
-     */
-    public function getSortedByName(Community $community, int $limit): array;
-
-    /**
-     * @return Event[]
-     */
-    public function getSortedByDate(Community $community, int $limit): array;
-
     public function add(Event $event, bool $flush = false): void;
 
     public function remove(Event $event): void;
