@@ -1,6 +1,6 @@
-import '../static/tailwind.css';
 import { addDecorator } from '@storybook/svelte';
 import I18nWrapper from './I18nWrapper.svelte';
+import './storybook.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
