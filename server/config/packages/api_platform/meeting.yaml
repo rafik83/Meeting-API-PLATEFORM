@@ -1,0 +1,8 @@
+Proximum\Vimeet365\Core\Domain\Entity\Meeting:
+  collectionOperations:
+    get: ~
+    post:
+      input: 'Proximum\Vimeet365\Api\Application\Command\Meeting\CreateMeetingCommand'
+      messenger: "input"
+  itemOperations:
+    get: ~
