@@ -1,15 +1,13 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
-use Proximum\Vimeet365\Core\Domain\Entity\Slot;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
+use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 /**
  * @ORM\Entity(repositoryClass=MeetingRepository::class)
@@ -30,7 +28,7 @@ class Meeting
      * @ORM\ManyToOne(targetEntity=Member::Class)
      * @ORM\JoinColumn(name="participant_from_id", referencedColumnName="id")
      */
-   private Member $participantFrom;
+    private Member $participantFrom;
 
     /**
      * @ORM\ManyToOne(targetEntity=Member::Class)
@@ -39,24 +37,26 @@ class Meeting
     private Member $participantTo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Slot::class, inversedBy="meeting")
+     * @ORM\OneToMany(targetEntity=Slot::class, mappedBy="meeting",cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @var Collection<int, Slot>
      */
-     private Collection $slot;
+    private Collection $slots;
 
-    public function __construct( Member $participantFrom, Member $participantTo, Collection $slot)
+    public function __construct(Member $participantFrom, Member $participantTo, string $message)
     {
         $this->participantFrom = $participantFrom;
         $this->participantTo = $participantTo;
-        $this->slot = new ArrayCollection();
-        $this->slot = $slot;
-
+        $this->slots = new ArrayCollection();
+        $this->message = $message;
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
     public function getMessage(): ?string
     {
         return $this->message;
@@ -87,32 +87,15 @@ class Meeting
     }
 
     /**
-     * @return Collection|Slot[]
+     * @return Collection<int, Slot>
      */
-    public function getSlot(): Slot
+    public function getSlots(): Collection
     {
-        return $this->slot;
-    }
-    public function addSlot(Slot $slot): self
-    {
-        if (!$this->slot->contains($slot)) {
-            $this->slot[] = $slot;
-            $slot->setMeeting($this);
-        }
-
-        return $this;
+        return $this->slots;
     }
 
-    public function removeSlot(Slot $slot): self
+    public function addSlot(\DateTimeImmutable $d1, \DateTimeImmutable $d2): void
     {
-        if ($this->slot->contains($slot)) {
-            $this->slot->removeElement($slot);
-            // set the owning side to null (unless already changed)
-            if ($slot->getMeeting() === $this) {
-                $slot->setMeeting(null);
-            }
-        }
+        $slot = new Slot($this, $d1, $d2);
     }
-
-
 }
