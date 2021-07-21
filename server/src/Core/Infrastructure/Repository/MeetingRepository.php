@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rafik
- * Date: 20/07/21
- * Time: 19:59
- */
 
 namespace Proximum\Vimeet365\Core\Infrastructure\Repository;
 
