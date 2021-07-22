@@ -33,4 +33,13 @@ class CreateMeetingCommand
      * @var SlotDto[]
      */
     public array $slots;
+
+    public function testDate(): void
+    {
+        foreach ($this->slots as $slot) {
+            if ($slot->startDate >= $slot->endDate) {
+                throw new \Proximum\Vimeet365\Api\Application\Exception\MeetingException('disability comparison ');
+            }
+        }
+    }
 }

@@ -94,8 +94,8 @@ class Meeting
         return $this->slots;
     }
 
-    public function addSlot(\DateTimeImmutable $d1, \DateTimeImmutable $d2): void
+    public function addSlot(\DateTimeImmutable $startDate, \DateTimeImmutable $endDate): void
     {
-        $slot = new Slot($this, $d1, $d2);
+        $slot = new Slot($this, $startDate, $endDate);
     }
 }
