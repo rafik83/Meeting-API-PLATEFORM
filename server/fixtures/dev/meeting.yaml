@@ -14,3 +14,10 @@ Proximum\Vimeet365\Core\Domain\Entity\Meeting:
             participantTo: "@member_3"
             participantFrom: "@member_1"
             message: "PATCH API Request"
+    meeting_4:
+        __construct:
+             participantTo: "@member_1"
+             participantFrom: "@member_3"
+             message: "DELETE API Request"
+            
+            
