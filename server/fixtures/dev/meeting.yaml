@@ -1,0 +1,16 @@
+Proximum\Vimeet365\Core\Domain\Entity\Meeting:
+    meeting_1:
+        __construct:
+            participantTo: "@member_1"
+            participantFrom: "@member_2"
+            message: "Get API Request"
+    meeting_2:
+        __construct:
+            participantTo: "@member_2"
+            participantFrom: "@member_3"
+            message: "POST API Request"
+    meeting_3:
+        __construct:
+            participantTo: "@member_3"
+            participantFrom: "@member_1"
+            message: "PATCH API Request"

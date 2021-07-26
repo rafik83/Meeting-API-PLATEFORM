@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Proximum\Vimeet365\Core\Domain\Entity\Community\Member;
 
 /**
- * @ORM\Entity(repositoryClass=MeetingRepository::class)
+ * @ORM\Entity
+ * @ORM\Table(name="community_meeting_slot")
  */
 class Meeting
 {
@@ -20,10 +21,12 @@ class Meeting
      * @ORM\Column(type="integer")
      */
     private ?int $id = null;
+
     /**
      * @ORM\Column(type="string", nullable= true)
      */
     private ?string $message;
+
     /**
      * @ORM\ManyToOne(targetEntity=Member::Class)
      * @ORM\JoinColumn(name="participant_from_id", referencedColumnName="id")
@@ -37,15 +40,18 @@ class Meeting
     private Member $participantTo;
 
     /**
-     * @ORM\OneToMany(targetEntity=Slot::class, mappedBy="meeting",cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Slot::class, mappedBy="meeting")
      * @ORM\JoinColumn(nullable=false)
      *
      * @var Collection<int, Slot>
      */
     private Collection $slots;
 
-    public function __construct(Member $participantFrom, Member $participantTo, string $message)
-    {
+    public function __construct(
+        Member $participantFrom,
+        Member $participantTo,
+        string $message
+    ) {
         $this->participantFrom = $participantFrom;
         $this->participantTo = $participantTo;
         $this->slots = new ArrayCollection();
@@ -67,23 +73,9 @@ class Meeting
         return $this->participantFrom;
     }
 
-    public function setParticipantFrom(Member $participantFrom): self
-    {
-        $this->participantFrom = $participantFrom;
-
-        return $this;
-    }
-
     public function getParticipantTo(): Member
     {
         return $this->participantTo;
-    }
-
-    public function setParticipantTo(Member $participantTo): self
-    {
-        $this->participantTo = $participantTo;
-
-        return $this;
     }
 
     /**

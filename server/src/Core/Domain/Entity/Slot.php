@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Proximum\Vimeet365\Core\Domain\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="slot")
+ * @ORM\Table(name="meeting_slot")
  */
 class Slot
 {
@@ -23,7 +23,7 @@ class Slot
     /**
      * @ORM\Column(type="datetime_immutable", nullable=false)
      */
-    private \DateTimeImmutable $starDate;
+    private \DateTimeImmutable $startDate;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=false)
@@ -31,15 +31,18 @@ class Slot
     private \DateTimeImmutable $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Meeting::class, inversedBy="slot")
+     * @ORM\ManyToOne(targetEntity=Meeting::class, inversedBy="slots")
      */
     private Meeting $meeting;
 
-    public function __construct(Meeting $meeting, \DateTimeImmutable $startDate, \DateTimeImmutable $endDate)
-    {
-        $this->starDate = $startDate; //new \DateTimeImmutable();
-        $this->endDate = $endDate; // new \DateTimeImmutable();
-        $this->meeting = $meeting; //new ArrayCollection();
+    public function __construct(
+        Meeting $meeting,
+        \DateTimeImmutable $startDate,
+        \DateTimeImmutable $endDate
+    ) {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->meeting = $meeting;
     }
 
     public function getId(): ?int
@@ -49,7 +52,7 @@ class Slot
 
     public function getstartDate(): \DateTimeImmutable
     {
-        return $this->starDate;
+        return $this->startDate;
     }
 
     public function getendDate(): \DateTimeImmutable
