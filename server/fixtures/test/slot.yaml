@@ -1,0 +1,7 @@
+Proximum\Vimeet365\Core\Domain\Entity\Slot:
+    slot_1:
+        __construct:
+            startDate: <immutableDateTimeBetween('now', 'next month')>
+            endDate: <immutableDateTimeBetween('next month', '+ 2 month')>
+            meeting: "@meeting_1"
+    

@@ -1,0 +1,9 @@
+Proximum\Vimeet365\Core\Domain\Entity\Meeting:
+    meeting_1:
+        __construct:
+            participantTo: "@member_1"
+            participantFrom: "@member_2"
+            message: "POST API Request"
+    
+            
+            
