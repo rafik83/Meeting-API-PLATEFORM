@@ -1,4 +1,4 @@
-# Vimeet 365
+# Meeting API PLATEFORM
 
 ## What's Inside ?
 
